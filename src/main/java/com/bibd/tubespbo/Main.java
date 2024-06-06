@@ -4,6 +4,8 @@
 
 package com.bibd.tubespbo;
 
+import com.bibd.tubespbo.data.model.EmployeeModel;
+
 /**
  *
  * @author asthiseta
@@ -14,9 +16,12 @@ public class Main {
         System.out.println("Hello World!");
         System.out.println("yanto ganteng");
         Di.init();
+    
+        // testing
+        EmployeeModel data = Di.loginDataSource.doLogin("rawr@gmail.com", "rawrbibd");
         
-        Di.dbConnection.openConnection();
-        Di.dbConnection.closeConnection();
+        System.out.println(data.getNama());
+     
     }
     
 }

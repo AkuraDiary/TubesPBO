@@ -25,34 +25,42 @@ public class LoginDataSource {
         try {
 
             db.openConnection();
-            String query = "SELECT idEmployee, nama, noHP, email, role, status, idWarehouse"
-                    + "FROM Employees WHERE email= ? AND password = ?";
-            PreparedStatement statement = db.connection.prepareStatement(query);
-
-            statement.setString(1, email);
-            statement.setString(2, password);
-
-            ResultSet rs = db.getData(statement);
-
-            // parsing
-            int idEmp = rs.getInt("idEmployee");
-            String nama = rs.getString("nama");
-            String noHp = rs.getString("noHp");
-            String emailEmp = rs.getString("email");
-            String role = rs.getString("role");
-            String status = rs.getString("status");
-
-            EmployeeModel data = new EmployeeModel(idEmp, nama, noHp, emailEmp, role, status);
+            String query = "SELECT idEmployee, nama, noHP, email, role, status, idWarehouse, password "
+                    + "FROM employees WHERE email= '"+ email +"' AND password = '" +password+"'";
             
-            int idWarehouse = rs.getInt("idWarehouse");
-            if(idWarehouse != 0){
-                data.setIdWarehouse(idWarehouse);
+          
+            ResultSet rs = db.getData(query);
+            
+            EmployeeModel data = null;
+            
+            if(rs == null){
+                return data;
             }
-             return data;
             
+            while (rs.next()) {
+                // parsing
+                int idEmp = rs.getInt("idEmployee");
+                String nama = rs.getString("nama");
+                String noHp = rs.getString("noHp");
+                String emailEmp = rs.getString("email");
+                String role = rs.getString("role");
+                String status = rs.getString("status");
+                int idWarehouse = rs.getInt("idWarehouse");
+
+                data = new EmployeeModel(idEmp, nama, noHp, emailEmp, role, status);
+
+                if (idWarehouse != 0) {
+                    data.setIdWarehouse(idWarehouse);
+                }
+
+            }
+            
+            return data;
+
         } catch (Exception e) {
             System.out.println(e.getLocalizedMessage());
             return null;
+            
         } finally {
 
             db.closeConnection();
