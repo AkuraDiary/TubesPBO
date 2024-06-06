@@ -23,7 +23,7 @@ public class DbConnection {
 
             connection = DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/LogisticManagementSys",
-                    "bebek", "bebekgoyeng"
+                    "bibd", "rawrbibd"
             );
             System.out.println("Connection to SQL has been established.");
 
