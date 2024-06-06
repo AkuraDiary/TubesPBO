@@ -6,6 +6,7 @@ package com.bibd.tubespbo.data;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
@@ -14,8 +15,8 @@ import java.sql.Statement;
  * @author asthiseta
  */
 public class DbConnection {
-    
-        Connection connection;
+
+    Connection connection;
 
     public void openConnection() {
         try {
@@ -44,6 +45,29 @@ public class DbConnection {
         return resultcount;
     }
 
+    public int executeStatement(PreparedStatement statement) {
+        int resultcount = 0;
+        Statement stmnt;
+        try {
+            resultcount = statement.executeUpdate(); //stmnt.executeUpdate(st);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        return resultcount;
+    }
+
+    public ResultSet getData(PreparedStatement statement) {
+        ResultSet rs = null;
+        try {
+            rs = statement.executeQuery();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        return rs;
+    }
+
     public ResultSet getData(String query) {
         Statement stmnt;
         ResultSet rs = null;
@@ -65,7 +89,5 @@ public class DbConnection {
             System.out.println(e.getMessage());
         }
     }
-    
-    
-    
+
 }
