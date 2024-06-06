@@ -5,6 +5,7 @@
 package com.bibd.tubespbo;
 
 import com.bibd.tubespbo.data.DbConnection;
+import com.bibd.tubespbo.data.source.LoginDataSource;
 
 /**
  *
@@ -13,9 +14,20 @@ import com.bibd.tubespbo.data.DbConnection;
 public class Di {
     public static DbConnection dbConnection;
     
+    // Data Sources
+    public static LoginDataSource loginDataSource;
+    
+    //Repository
+    
+    
+    //domain
+    
     public static void init(){
         System.out.println("Initializing DI");
+        
         dbConnection = new DbConnection();
+        
+        loginDataSource = new LoginDataSource(Di.dbConnection);
         
         System.out.println("DI Initialized");
         

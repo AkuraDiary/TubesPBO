@@ -16,7 +16,7 @@ import java.sql.Statement;
  */
 public class DbConnection {
 
-    Connection connection;
+    public Connection connection;
 
     public void openConnection() {
         try {
