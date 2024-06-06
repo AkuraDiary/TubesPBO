@@ -21,7 +21,7 @@ public class DbConnection {
         try {
 
             connection = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/perpus",
+                    "jdbc:mysql://localhost:3306/LogisticManagementSys",
                     "bebek", "bebekgoyeng"
             );
             System.out.println("Connection to SQL has been established.");

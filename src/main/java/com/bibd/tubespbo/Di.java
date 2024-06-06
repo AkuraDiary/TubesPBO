@@ -4,10 +4,20 @@
  */
 package com.bibd.tubespbo;
 
+import com.bibd.tubespbo.data.DbConnection;
+
 /**
  *
  * @author asthiseta
  */
 public class Di {
+    public static DbConnection dbConnection;
     
+    public static void init(){
+        System.out.println("Initializing DI");
+        dbConnection = new DbConnection();
+        
+        System.out.println("DI Initialized");
+        
+    }
 }
