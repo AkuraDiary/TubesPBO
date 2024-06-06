@@ -50,7 +50,7 @@ public class LoginView extends javax.swing.JFrame {
         setPreferredSize(new java.awt.Dimension(200, 400));
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel5.setPreferredSize(new java.awt.Dimension(500, 400));
+        jPanel5.setPreferredSize(new java.awt.Dimension(200, 200));
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
