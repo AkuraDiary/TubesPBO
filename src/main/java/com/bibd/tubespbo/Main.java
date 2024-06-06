@@ -8,9 +8,10 @@ package com.bibd.tubespbo;
  *
  * @author asthiseta
  */
-public class TubesPBO {
+public class Main {
 
     public static void main(String[] args) {
         System.out.println("Hello World!");
     }
+    
 }
