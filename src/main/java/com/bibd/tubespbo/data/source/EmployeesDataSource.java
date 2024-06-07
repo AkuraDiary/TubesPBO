@@ -112,7 +112,13 @@ public class EmployeesDataSource {
     
     
     //insert dan update belum 
-   
+    
+//    public EmployeeModel insertEmployee(String nama, String noHp, String email, String role, String status){
+//       
+//        try 
+//    
+//    }
+//   
         
     
 }

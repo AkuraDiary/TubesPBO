@@ -28,6 +28,7 @@ public class LoginDataSource {
             String query = "SELECT idEmployee, nama, noHP, email, role, status, idWarehouse, password "
                     + "FROM employees WHERE email= '"+ email +"' AND password = '" +password+"'";
             
+            
           
             ResultSet rs = db.getData(query);
             
