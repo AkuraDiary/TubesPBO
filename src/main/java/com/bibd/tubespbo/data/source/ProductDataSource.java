@@ -11,12 +11,16 @@ import com.bibd.tubespbo.data.DbConnection;
  * @author asthiseta
  */
 public class ProductDataSource {
-    
+
     DbConnection db;
 
     public ProductDataSource(DbConnection db) {
         this.db = db;
     }
+
     
-    
+    //TODO
+//    public ArrayList<ProductModel> getAllProduct() {
+//        
+//    }
 }
