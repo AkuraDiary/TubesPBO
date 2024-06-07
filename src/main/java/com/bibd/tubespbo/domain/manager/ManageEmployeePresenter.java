@@ -2,12 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.bibd.tubespbo.domain;
+package com.bibd.tubespbo.domain.manager;
 
 /**
  *
- * @author rafid
+ * @author asthiseta
  */
-public class sales {
+public class ManageEmployeePresenter {
     
 }
