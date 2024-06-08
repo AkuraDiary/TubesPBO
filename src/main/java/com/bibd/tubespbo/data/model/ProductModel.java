@@ -9,10 +9,18 @@ package com.bibd.tubespbo.data.model;
  * @author asthiseta
  */
 public class ProductModel {
-    int idProduct, categoryId, produsenId;
+    int idProduct, categoryId, produsenId, quantityInStock;
     long buyPrice, sellPrice;
     String productName, description;
 
+    public int getQuantityInStock() {
+        return quantityInStock;
+    }
+
+    public void setQuantityInStock(int quantityInStock) {
+        this.quantityInStock = quantityInStock;
+    }
+    
     public int getIdProduct() {
         return idProduct;
     }

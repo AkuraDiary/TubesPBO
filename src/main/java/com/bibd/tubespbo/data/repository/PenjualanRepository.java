@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 public class PenjualanRepository {
 
-    public ArrayList<PenjualanModel> getHistoryPenjualan() {
+    public ArrayList<PenjualanModel> getHistoryPenjualan(int idWareHouse) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     

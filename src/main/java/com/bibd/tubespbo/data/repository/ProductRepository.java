@@ -4,10 +4,20 @@
  */
 package com.bibd.tubespbo.data.repository;
 
+import com.bibd.tubespbo.data.model.ProductModel;
+import com.bibd.tubespbo.data.source.ProductDataSource;
+import java.util.ArrayList;
+
 /**
  *
  * @author asthiseta
  */
 public class ProductRepository {
+    ProductDataSource productDataSource ;
+    
+    public ArrayList<ProductModel> getAllProduct(){
+        return new ArrayList<>();
+    }
+    
     
 }
