@@ -4,10 +4,25 @@
  */
 package com.bibd.tubespbo.domain.supervisor;
 
+import com.bibd.tubespbo.data.repository.ProductRepository;
+
 /**
  *
  * @author asthiseta
  */
 public class ManageStockPresenter {
+    
+    ProductRepository productRepository;
+    ProductRepository productModel ;
+    
+    
+    
+    public ManageStockPresenter(ProductRepository productRepository){
+        this.productRepository = productRepository;
+    }
+    
+    public void updateStockProduct(){
+        
+    }
     
 }

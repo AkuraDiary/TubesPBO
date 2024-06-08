@@ -27,8 +27,9 @@ public class PenjualanPresenter {
     ArrayList<PenjualanModel> history = new ArrayList<>();
     ArrayList<ProductModel> allproduct = new ArrayList<>();
 
-    public PenjualanPresenter(PenjualanRepository penjualanRepository) {
+    public PenjualanPresenter(PenjualanRepository penjualanRepository, ProductRepository productRepository) {
         this.penjualanRepository = penjualanRepository;
+        this.productRepository = productRepository;
     }
 
     public void historyPenjualan(int idWarehouse) {
@@ -64,12 +65,21 @@ public class PenjualanPresenter {
     }
 
     public void editQuantity(int idproduk, int quantity) {
+        boolean cek = true;
+        int idx = 0 ;
         for (int i = 0; i < keranjang.size(); i++) {
             if (keranjang.get(i).getProduk().getIdProduct() == idproduk) {
                 int jumlahSekarang = keranjang.get(i).getQuantity();
                 int jumlahupdate = jumlahSekarang += quantity;
+                if(jumlahupdate==0){
+                cek = false ;
+                idx=i;
+                }
                 keranjang.get(i).setQuantity(jumlahupdate);
             }
+        }
+        if (cek = false){
+            keranjang.remove(idx);
         }
 
     }
