@@ -26,6 +26,7 @@ public class ApprovePembelianPresenter {
 
     public void resetSelected() {
         selectedPembelian = null;
+        statusUpdatePembelian= 0;
     }
 
     public void getListPembelian() {
