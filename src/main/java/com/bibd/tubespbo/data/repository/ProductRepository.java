@@ -13,23 +13,37 @@ import java.util.ArrayList;
  * @author asthiseta
  */
 public class ProductRepository {
-    ProductDataSource productDataSource ;
-    
-    public ArrayList<ProductModel> getAllProduct(){
+
+    ProductDataSource productDataSource;
+
+    public ArrayList<ProductModel> getAllProduct() {
         return new ArrayList<>();
     }
-    
-    public int updateProductStock(int idproduct, int jumlah, int idEmployee){
+
+    public int updateProductStock(int idproduct, int jumlah, int idEmployee) {
         try {
-            
-            
+
             return productDataSource.updateProductStock(idproduct, jumlah, idEmployee);
         } catch (Exception e) {
             System.out.println(e.getLocalizedMessage());
-            return -1; 
-        } 
+            return -1;
+        }
     }
 
-   
-    
+    public int addProduct(ProductModel pm) {
+        try {
+            return productDataSource.insertProduct(
+                    pm.getProductName(),
+                    pm.getQuantityInStock(),
+                    pm.getBuyPrice(),
+                    pm.getSellPrice(),
+                    pm.getCategoryId()
+//                    pm.getProdusenId()
+            );
+        } catch (Exception e) {
+            System.out.println(e.getLocalizedMessage());
+            return -1;
+        }
+    }
+
 }
