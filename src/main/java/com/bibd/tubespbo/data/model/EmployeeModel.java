@@ -12,7 +12,7 @@ public class EmployeeModel {
     
     private int id;
     private String nama, noHp, role, status, email;
-    private int idWarehouse;
+    private int idWarehouse=-1;
 
     public String getEmail() {
         return email;

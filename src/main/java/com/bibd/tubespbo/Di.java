@@ -41,7 +41,7 @@ public class Di {
         warehouseDataSource = new WarehouseDataSource(Di.dbConnection);
         
         // Repository
-        loginRepository = new LoginRepository(Di.loginDataSource);
+        loginRepository = new LoginRepository(Di.loginDataSource, Di.warehouseDataSource);
         
         // Domain presenter
         authPresenter = new AuthPresenter(Di.loginRepository);

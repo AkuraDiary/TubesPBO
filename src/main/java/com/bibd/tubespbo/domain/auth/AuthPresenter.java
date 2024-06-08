@@ -5,6 +5,7 @@
 package com.bibd.tubespbo.domain.auth;
 
 import com.bibd.tubespbo.data.model.EmployeeModel;
+import com.bibd.tubespbo.data.model.WarehouseModel;
 import com.bibd.tubespbo.data.repository.LoginRepository;
 
 /**
@@ -21,6 +22,7 @@ public class AuthPresenter {
     
     public EmployeeModel loggedInUser = loginRepository.getLoggedInUser();
     public String msg = loginRepository.getMsg();
+    public WarehouseModel empWarehouse = loginRepository.getEmployeeWarehouse();
     
     public void doLogout(){
         // TODO
@@ -34,5 +36,8 @@ public class AuthPresenter {
         // do it here
         
         loginRepository.doLogin(email, password);
+        if(loggedInUser != null && loggedInUser.getIdWarehouse() != -1){
+            loginRepository.getEmployeeDetailWarehouse(loggedInUser.getIdWarehouse());
+        }
     }
 }
