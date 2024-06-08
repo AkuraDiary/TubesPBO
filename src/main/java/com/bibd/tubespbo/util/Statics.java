@@ -18,7 +18,7 @@ public class Statics {
     public static String EMPLOYEE_ROLE_SALES = "sales";
     
     public static String ORDER_TYPE_PENJUALAN = "penjualan";
-    public static String ORDER_TYPE_Pembelian = "pembelian";
+    public static String ORDER_TYPE_PEMBELIAN = "pembelian";
     
     public static String SHIPMENT_STATUS_PENDING = "pending";
     public static String SHIPMENT_STATUS_SHIPPEd = "shipped";

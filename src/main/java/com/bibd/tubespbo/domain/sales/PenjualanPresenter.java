@@ -9,6 +9,7 @@ import com.bibd.tubespbo.data.model.PenjualanModel;
 import com.bibd.tubespbo.data.model.ProductModel;
 import com.bibd.tubespbo.data.repository.PenjualanRepository;
 import com.bibd.tubespbo.data.repository.ProductRepository;
+import com.bibd.tubespbo.util.Statics;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -79,7 +80,11 @@ public class PenjualanPresenter {
 
     public void checkOut(int employeeId, int customerId, String statusPayment) {
         LocalDateTime waktu = LocalDateTime.now();
-        String typeOrder = 
+        String typeOrder = Statics.ORDER_TYPE_PENJUALAN;
+        penjualanRepository.doCheckOut(
+                employeeId,customerId, statusPayment, waktu, typeOrder, keranjang
+        );
+        
         
     }
 
