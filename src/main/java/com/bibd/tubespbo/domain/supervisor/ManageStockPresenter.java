@@ -17,7 +17,6 @@ import java.util.ArrayList;
 public class ManageStockPresenter {
     
     ProductRepository productRepository;
-    ProductRepository productModel ;
     
     ArrayList<ProductModel> listProduct = new ArrayList<>();
     

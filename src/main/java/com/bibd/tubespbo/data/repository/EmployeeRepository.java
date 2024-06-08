@@ -26,8 +26,6 @@ public class EmployeeRepository {
     }
 
     public int updateDataEmployee(EmployeeModel em) {
-        // TODO
-
         try {
             return employeeDataSource.updateEmployee(
             em.getNama(),
