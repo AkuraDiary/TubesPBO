@@ -51,5 +51,12 @@ public class ManageCustomerPresenter {
     public void addNewCustomer(CustomerModel customer){
         statusAddNewCust = customerRepository.addNewCustomer(customer);
     }
+    
+    public void setSelectedCustomer(int idCustomer){
+        selectedDataCustomer = customerList.stream()
+                .filter(item -> item.getIdCustomer()==idCustomer)
+                .findFirst()
+                .orElse(null);
+    }
 
 }

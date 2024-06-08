@@ -50,4 +50,10 @@ public class ManageEmployeePresenter {
         statusAddNewEmployee = employeeRepository.addNewEmployee(em);
     }
     
+    public void setSelectedEmployee(int empId){
+            selectedDataEmployee = listEmployee.stream()
+                .filter(item -> item.getId()== empId)
+                .findFirst()
+                .orElse(null);
+    }
 }
