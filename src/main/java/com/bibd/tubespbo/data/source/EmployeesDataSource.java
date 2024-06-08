@@ -107,31 +107,32 @@ public class EmployeesDataSource {
 
     //insert dan update belum 
     //Rapid D.
-    public EmployeeModel insertEmployee(String nama, String noHp, String email, String role, String status) {
+    public int insertEmployee(String nama, String noHp, String email, String role, String status) {
 
         try {
             db.openConnection();
 
             String query = "INSERT INTO employees (nama, noHp, email, role, status,) VALUES"
-                    + "('" + namaemp + "', '" + noHpemp + "', '" + emailemp + "', '" + roleemp + "', '" + statusemp + "')";
+                    + "('" + nama + "', '" + noHp + "', '" + email + "', '" + role + "', '" + status + "')";
 //            String query = "INSERT INTO employee (nama, nohp, email, role, status) VALUES (?, ?, ?, ?, ?)";
 
-            executeStatement pr = db.executeStatement(query);
+//            executeStatement pr = db.executeStatement(query);
 //            PreparedStatement pr = db.connection.prepareStatement(query);
 
-            String namaemp = nama;
-            String noHpemp = noHp;
-            String emailemp = email;
-            String roleemp = role;
-            String statusemp = status;
+//            String namaemp = nama;
+//            String noHpemp = noHp;
+//            String emailemp = email;
+//            String roleemp = role;
+//            String statusemp = status;
 //            pr.setString(1, nama);
 //            pr.setString(2, noHp);
 //            pr.setString(3, email);
 //            pr.setString(4, role);
 //            pr.setString(5, status);
 
-            int result = db.executeStatement(pr);
-            return null;
+            int result = db.executeStatement(query);
+            return result;
+//            return null;
 
 //            // Jika eksekusi berhasil, kembalikan objek EmployeeModel
 //            if (result > 0) {
@@ -142,7 +143,7 @@ public class EmployeesDataSource {
 
         } catch (Exception e) {
             System.out.println(e.getLocalizedMessage());
-            return null;
+            return -1;
 
         } finally {
             db.closeConnection();
