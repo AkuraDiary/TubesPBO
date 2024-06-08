@@ -106,7 +106,7 @@ public class EmployeesDataSource {
     }
 
     //insert dan update belum 
-    //rapiddd
+    //Rapid D.
     public EmployeeModel insertEmployee(String nama, String noHp, String email, String role, String status) {
 
         try {
@@ -150,9 +150,27 @@ public class EmployeesDataSource {
 
     }
     
-    public EmployeeModel updateEmployee (String nama, String noHp, String email, String role, String status){
+    
+    
+    // Rapid D.
+    public EmployeeModel updateEmployee (String nama, String noHp, String email, 
+            String role, String status, int id){
         try{
             db.openConnection();
+            String query = "UPDATE employees SET nama = ?, noHp = ?, email = ?, role =?, status=?"
+                    +"WHERE idEmployee = ? ";
+            
+            PreparedStatement pr = db.connection.prepareStatement(query);
+            
+            pr.setString(1, nama);
+            pr.setString(2, noHp);
+            pr.setString(3, email);
+            pr.setString(4, role);
+            pr.setString(5, status);
+            
+            pr.setInt(6, id);
+            db.executeStatement(pr);
+            
         return null;
         }catch(Exception e){
         System.out.println(e.getLocalizedMessage());
