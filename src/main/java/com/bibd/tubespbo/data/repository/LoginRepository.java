@@ -24,9 +24,7 @@ public class LoginRepository {
     EmployeeModel loggedInUser = null;
     String msg = "";
     WarehouseModel employeeWarehouse;
-    CityModel employeeCity;
-    
-
+   
     public EmployeeModel getLoggedInUser() {
         return loggedInUser;
     }
