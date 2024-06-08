@@ -13,6 +13,15 @@ public class EmployeeModel {
     private int id;
     private String nama, noHp, role, status, email;
     private int idWarehouse=-1;
+    private String pass;
+
+    public String getPass() {
+        return pass;
+    }
+
+    public void setPass(String pass) {
+        this.pass = pass;
+    }
 
     public String getEmail() {
         return email;

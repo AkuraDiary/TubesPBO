@@ -107,18 +107,17 @@ public class EmployeesDataSource {
 
     //insert dan update belum 
     //Rapid D.
-    public int insertEmployee(String nama, String noHp, String email, String role, String status) {
+    public int insertEmployee(String nama, String noHp, String email, String role, String status, String pass) {
 
         try {
             db.openConnection();
 
-            String query = "INSERT INTO employees (nama, noHp, email, role, status,) VALUES"
-                    + "('" + nama + "', '" + noHp + "', '" + email + "', '" + role + "', '" + status + "')";
+            String query = "INSERT INTO employees (nama, noHp, email, role, status, password) VALUES"
+                    + "('" + nama + "', '" + noHp + "', '" + email + "', '" + role + "', '" + status + "', "+pass+" )";
 //            String query = "INSERT INTO employee (nama, nohp, email, role, status) VALUES (?, ?, ?, ?, ?)";
 
 //            executeStatement pr = db.executeStatement(query);
 //            PreparedStatement pr = db.connection.prepareStatement(query);
-
 //            String namaemp = nama;
 //            String noHpemp = noHp;
 //            String emailemp = email;
@@ -129,7 +128,6 @@ public class EmployeesDataSource {
 //            pr.setString(3, email);
 //            pr.setString(4, role);
 //            pr.setString(5, status);
-
             int result = db.executeStatement(query);
             return result;
 //            return null;
@@ -140,7 +138,6 @@ public class EmployeesDataSource {
 //            } else {
 //                return null;
 //            }
-
         } catch (Exception e) {
             System.out.println(e.getLocalizedMessage());
             return -1;
@@ -150,28 +147,26 @@ public class EmployeesDataSource {
         }
 
     }
-    
-    
-    
+
     // Rapid D.
-    public int updateEmployee (String nama, String noHp, String email, 
-            String role, String status, int id){
-        try{
+    public int updateEmployee(String nama, String noHp, String email,
+            String role, String status, int id) {
+        try {
             db.openConnection();
-            String query = "UPDATE employees SET nama ='"+nama+"',  noHp ='"+ noHp+"', email = '"+email+"', "
-                    +"role = '"+role+"',  status='"+status+"' "
-                    +"WHERE idEmployee = "+id;
-            
+            String query = "UPDATE employees SET nama ='" + nama + "',  noHp ='" + noHp + "', email = '" + email + "', "
+                    + "role = '" + role + "',  status='" + status + "' "
+                    + "WHERE idEmployee = " + id;
+
 //            PreparedStatement pr = db.connection.prepareStatement(query);
-            
-            
             return db.executeStatement(query);
-        }catch(Exception e){
-        System.out.println(e.getLocalizedMessage());
-        return -1 ;
-        }finally{
-        db.closeConnection();
+        } catch (Exception e) {
+            System.out.println(e.getLocalizedMessage());
+            return -1;
+        } finally {
+            db.closeConnection();
         }
     }
+    
+   
 
 }

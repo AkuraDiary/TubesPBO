@@ -25,6 +25,7 @@ public class ManageEmployeePresenter {
     public void getAllEmplyoees(){
         this.listEmployee = employeeRepository.getEmployeeAsManager();
     }
+    
     EmployeeModel selectedDataEmployee;
     
     int statusUpdateEmployee = 0; // 0 default state; -1 error ; -2 not selected 
@@ -39,6 +40,14 @@ public class ManageEmployeePresenter {
     public void resetSelectedDataEmployee(){
         statusUpdateEmployee = 0;
         selectedDataEmployee = null;
+    }
+    
+    int statusAddNewEmployee = 0;
+    public void resetAddEmployeeState(){
+        statusAddNewEmployee = 0;
+    }
+    public void addNewEmployee(EmployeeModel em){
+        statusAddNewEmployee = employeeRepository.addNewEmployee(em);
     }
     
 }

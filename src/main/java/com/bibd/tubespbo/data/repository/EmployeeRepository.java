@@ -14,7 +14,7 @@ import java.util.List;
  * @author asthiseta
  */
 public class EmployeeRepository {
-    
+
     EmployeesDataSource employeeDataSource;
 
     public ArrayList<EmployeeModel> getEmployeeAsManager() {
@@ -22,8 +22,39 @@ public class EmployeeRepository {
     }
 
     public int updateDataEmployee(EmployeeModel selectedDataEmployee) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        // TODO
+
+        try {
+            return employeeDataSource.updateEmployee(
+            selectedDataEmployee.getNama(),
+            selectedDataEmployee.getNoHp(), 
+            selectedDataEmployee.getEmail(), 
+            selectedDataEmployee.getRole(), 
+            selectedDataEmployee.getStatus(), 
+            selectedDataEmployee.getId()
+            );
+        } catch (Exception e) {
+            return -1;
+        }
+
     }
-    
-    
+
+    public int addNewEmployee(EmployeeModel em) {
+        try{
+            return employeeDataSource.insertEmployee(
+                    em.getNama(), 
+                    em.getNoHp(), 
+                    em.getEmail(), 
+                    em.getRole(), 
+                    em.getStatus(), 
+                    em.getPass()
+            );
+            
+        }catch (Exception e){
+
+            return -1;    
+        }
+        
+    }
+
 }
