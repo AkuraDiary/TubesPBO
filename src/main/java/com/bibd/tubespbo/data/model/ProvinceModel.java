@@ -17,6 +17,11 @@ public class ProvinceModel {
         this.province = province;
     }
 
+    public ProvinceModel() {
+    }
+    
+    
+
     public int getId() {
         return id;
     }

@@ -5,6 +5,8 @@
 package com.bibd.tubespbo.data.source;
 
 import com.bibd.tubespbo.data.DbConnection;
+import com.bibd.tubespbo.data.model.CityModel;
+import com.bibd.tubespbo.data.model.ProvinceModel;
 import com.bibd.tubespbo.data.model.WarehouseModel;
 
 /**
@@ -30,6 +32,15 @@ public class WarehouseDataSource {
     
     // get city by id
     
+    public CityModel getCityById(int cityId){
+        return new CityModel();
+        
+    }
+    
+    
     // get province by id
+    public ProvinceModel getProvinceById(int provinceId){
+        return new ProvinceModel();
+    }
     
 }
