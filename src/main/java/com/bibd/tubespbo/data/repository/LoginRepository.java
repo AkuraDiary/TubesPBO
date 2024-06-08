@@ -43,7 +43,6 @@ public class LoginRepository {
     }
     
     public void doLogout(){
-   
         loggedInUser = null;
         msg = "";
     }
