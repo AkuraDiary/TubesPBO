@@ -7,6 +7,7 @@ package com.bibd.tubespbo;
 import com.bibd.tubespbo.data.DbConnection;
 import com.bibd.tubespbo.data.repository.LoginRepository;
 import com.bibd.tubespbo.data.source.LoginDataSource;
+import com.bibd.tubespbo.data.source.WarehouseDataSource;
 import com.bibd.tubespbo.domain.auth.AuthPresenter;
 
 /**
@@ -20,6 +21,7 @@ public class Di {
     
     // Data Sources
     public static LoginDataSource loginDataSource;
+    public static WarehouseDataSource warehouseDataSource;
     
     //Repository
     public static LoginRepository loginRepository;
@@ -36,6 +38,7 @@ public class Di {
         
         // Data source
         loginDataSource = new LoginDataSource(Di.dbConnection);
+        warehouseDataSource = new WarehouseDataSource(Di.dbConnection);
         
         // Repository
         loginRepository = new LoginRepository(Di.loginDataSource);

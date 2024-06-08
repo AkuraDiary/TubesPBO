@@ -4,10 +4,32 @@
  */
 package com.bibd.tubespbo.data.source;
 
+import com.bibd.tubespbo.data.DbConnection;
+import com.bibd.tubespbo.data.model.WarehouseModel;
+
 /**
  *
  * @author asthiseta
  */
 public class WarehouseDataSource {
+    
+    DbConnection conn;
+
+    public WarehouseDataSource(DbConnection conn) {
+        this.conn = conn;
+    }
+    
+    
+    //TODO RAPID
+    
+    // get warehouse by id
+    public WarehouseModel getWarehouseById(int id){
+        // TODO
+        return new WarehouseModel();
+    }
+    
+    // get city by id
+    
+    // get province by id
     
 }
