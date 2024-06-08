@@ -10,4 +10,5 @@ package com.bibd.tubespbo.domain.supervisor;
  */
 public class PantauPenjualanPresenter {
     
+    
 }
