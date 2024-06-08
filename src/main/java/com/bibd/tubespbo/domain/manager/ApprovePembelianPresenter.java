@@ -4,10 +4,29 @@
  */
 package com.bibd.tubespbo.domain.manager;
 
+import com.bibd.tubespbo.data.model.PembelianModel;
+import java.util.ArrayList;
+
 /**
  *
  * @author asthiseta
  */
 public class ApprovePembelianPresenter {
+    
+    public ArrayList<PembelianModel> listPembelian = new ArrayList();
+    
+    public PembelianModel selectedPembelian;
+    
+    public void resetSelected(){
+        selectedPembelian = null;
+    }
+    
+    public void getListPembelian(){
+        
+    }
+    
+    public void updateStatusPembelian(){
+        
+    }
     
 }
