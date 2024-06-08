@@ -35,7 +35,7 @@ public class ManageCustomerPresenter {
             statusUpdateCustomer = -2;
             return;
         }
-        statusUpdateCustomer = customerRepository.updateDataEmployee(selectedDataCustomer);
+        statusUpdateCustomer = customerRepository.updateDataCustomer(selectedDataCustomer);
     }
 
     public void resetSelectedDataCustomer() {

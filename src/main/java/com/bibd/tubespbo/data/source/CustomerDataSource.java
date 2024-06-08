@@ -23,6 +23,14 @@ public class CustomerDataSource {
     public ArrayList<CustomerModel> getAllCustomer() {
         return new ArrayList<>();
     }
+
+    public int updateDataCustomer(int idCustomer, String nama, String noHp, String email, String alamat) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public int insertNewCustomer(String nama, String noHp, String email, String alamat) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
     
     
