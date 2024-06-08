@@ -23,4 +23,8 @@ public class ProductDataSource {
 //    public ArrayList<ProductModel> getAllProduct() {
 //        
 //    }
+
+    public int updateProductStock(int idproduct, int jumlah, int idEmployee) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
