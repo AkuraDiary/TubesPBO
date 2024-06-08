@@ -5,6 +5,7 @@
 package com.bibd.tubespbo.view.login;
 
 import static com.bibd.tubespbo.Di.authPresenter;
+import com.bibd.tubespbo.util.Statics;
 import static com.bibd.tubespbo.util.Validator.isValidEmail;
 import static javax.swing.JOptionPane.showMessageDialog;
 
@@ -197,35 +198,67 @@ public class LoginView extends javax.swing.JFrame {
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
-        
+
         String email = tfEmail.getText();
         String pass = String.valueOf(tfPassword.getPassword());
-        
-        if(email.isBlank()){
-            showMessageDialog(null, "Isi Email");
+
+        if (!formIsValid()) {
             return;
         }
-        
-        if(pass.isBlank()){
-            showMessageDialog(null, "Isi Password");
-            return;
-        }
-        
-        if(!isValidEmail(email)){
-            showMessageDialog(null, "Email Tidak Valid");
-            return;
-        }
-        
-        
+
         authPresenter.doLogin(email, pass);
-        if(authPresenter.loggedInUser == null){
+        if (authPresenter.loggedInUser() == null) {
             showMessageDialog(null, "Akun Tidak Ditemukan");
             return;
         }
+
+        String role = authPresenter.loggedInUser().getRole();
+        boolean isManager = role.equals(Statics.EMPLOYEE_ROLE_MANAGER);
+        boolean isSupervisor = role.equals(Statics.EMPLOYEE_ROLE_SUPERVISOR);
+        boolean isSales = role.equals(Statics.EMPLOYEE_ROLE_SALES);
         
+        System.out.println("Welcome " + authPresenter.loggedInUser().getNama());
         // check role here
-        
+        if (isManager) {
+            // to Manager Dashboard
+            this.dispose();
+        }
+
+        if (isSupervisor) {
+            // to Supervisor Dashboard
+            this.dispose();
+        }
+
+        if (isSales) {
+            // to Sales Dashboard
+            this.dispose();
+        }
+
     }//GEN-LAST:event_btnLoginActionPerformed
+
+    private boolean formIsValid() {
+        boolean isValid = false;
+        String email = tfEmail.getText();
+        String pass = String.valueOf(tfPassword.getPassword());
+
+        if (email.isBlank()) {
+            showMessageDialog(null, "Isi Email");
+            return isValid;
+        }
+
+        if (pass.isBlank()) {
+            showMessageDialog(null, "Isi Password");
+            return isValid;
+        }
+
+        if (!isValidEmail(email)) {
+            showMessageDialog(null, "Email Tidak Valid");
+            return isValid;
+        }
+
+        return !isValid;
+
+    }
 
     private void tfEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfEmailActionPerformed
         // TODO add your handling code here:

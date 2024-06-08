@@ -5,6 +5,7 @@
 package com.bibd.tubespbo;
 
 import com.bibd.tubespbo.data.model.EmployeeModel;
+import com.bibd.tubespbo.view.login.LoginView;
 
 /**
  *
@@ -18,9 +19,11 @@ public class Main {
         Di.init();
     
         // testing
-        EmployeeModel data = Di.loginDataSource.doLogin("rawr@gmail.com", "rawrbibd");
+//        EmployeeModel data = Di.loginDataSource.doLogin("rawr@gmail.com", "rawrbibd");
+//        
+//        System.out.println(data.getNama());
         
-        System.out.println(data.getNama());
+         new LoginView().setVisible(true);
      
     }
     

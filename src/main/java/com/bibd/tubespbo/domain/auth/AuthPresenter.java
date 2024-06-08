@@ -13,31 +13,39 @@ import com.bibd.tubespbo.data.repository.LoginRepository;
  * @author asthiseta
  */
 public class AuthPresenter {
+
     LoginRepository loginRepository;
 
     public AuthPresenter(LoginRepository loginRepository) {
         this.loginRepository = loginRepository;
     }
-    
-    
-    public EmployeeModel loggedInUser = loginRepository.getLoggedInUser();
-    public String msg = loginRepository.getMsg();
-    public WarehouseModel empWarehouse = loginRepository.getEmployeeWarehouse();
-    
-    public void doLogout(){
+
+    public EmployeeModel loggedInUser() {
+        return loginRepository.getLoggedInUser();
+    }
+
+    public String msg() {
+        return loginRepository.getMsg();
+    }
+
+    public WarehouseModel empWarehouse() {
+        return loginRepository.getEmployeeWarehouse();
+    }
+
+    public void doLogout() {
         // TODO
         loginRepository.doLogout();
     }
-    
-    public void doLogin(String email, String password){
+
+    public void doLogin(String email, String password) {
         // TODO
         // if you need to do processing
         // like ecrypt the password
         // do it here
-        
+
         loginRepository.doLogin(email, password);
-        if(loggedInUser != null && loggedInUser.getIdWarehouse() != -1){
-            loginRepository.getEmployeeDetailWarehouse(loggedInUser.getIdWarehouse());
+        if (loggedInUser() != null && loggedInUser().getIdWarehouse() != -1) {
+            loginRepository.getEmployeeDetailWarehouse(loggedInUser().getIdWarehouse());
         }
     }
 }
