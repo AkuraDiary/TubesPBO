@@ -154,28 +154,21 @@ public class EmployeesDataSource {
     
     
     // Rapid D.
-    public EmployeeModel updateEmployee (String nama, String noHp, String email, 
+    public int updateEmployee (String nama, String noHp, String email, 
             String role, String status, int id){
         try{
             db.openConnection();
-            String query = "UPDATE employees SET nama = ?, noHp = ?, email = ?, role =?, status=?"
-                    +"WHERE idEmployee = ? ";
+            String query = "UPDATE employees SET nama ='"+nama+"',  noHp ='"+ noHp+"', email = '"+email+"', "
+                    +"role = '"+role+"',  status='"+status+"' "
+                    +"WHERE idEmployee = "+id;
             
-            PreparedStatement pr = db.connection.prepareStatement(query);
+//            PreparedStatement pr = db.connection.prepareStatement(query);
             
-            pr.setString(1, nama);
-            pr.setString(2, noHp);
-            pr.setString(3, email);
-            pr.setString(4, role);
-            pr.setString(5, status);
             
-            pr.setInt(6, id);
-            db.executeStatement(pr);
-            
-        return null;
+            return db.executeStatement(query);
         }catch(Exception e){
         System.out.println(e.getLocalizedMessage());
-        return null ;
+        return -1 ;
         }finally{
         db.closeConnection();
         }

@@ -14,6 +14,8 @@ import java.util.ArrayList;
  *
  * @author asthiseta
  */
+
+//Rapid D.
 public class PenjualanPresenter {
     PenjualanRepository penjualanRepository ;
 
@@ -33,22 +35,35 @@ public class PenjualanPresenter {
         
         //cek duplikasi
         for (int  i = 0; i < keranjang.size();i++){
-            
             int currentItem =  keranjang.get(i).getProduk().getIdProduct();
             if(currentItem == produk.getIdProduct()){
-                
+                int sebelum = keranjang.get(i).getQuantity();
+                keranjang.get(i).setQuantity(quantity+sebelum);
+                return; //agar langsung keluar dari function
             }
-           
         }
         
+        KeranjangModel newItem = new KeranjangModel();
+        newItem.setProduk(produk);
+        newItem.setQuantity(quantity);
+        keranjang.add(newItem);
     }
     
-    public void keluarKeranjang(){
+    public void keluarItemKeranjang(int idproduk, int quantity){
+        //mencari barang yang ingin di keluarkan
+        for (int i = 0 ;i < keranjang.size();i++){
+            if(keranjang.get(i).getProduk().getIdProduct() == idproduk){
+                keranjang.remove(i);
+            }
+        }
+    }
+    
+    public void editQuantity (){
     
     }
 
     public void showProduk() {
-
+        
     }
 
     public void checkOut() {
