@@ -91,13 +91,17 @@ public class PenjualanPresenter {
         this.allproduct = productRepository.getAllProduct();
     }
 
+    int statusCheckout = 0; 
     public void checkOut(int employeeId, int customerId, String statusPayment) {
         LocalDateTime waktu = LocalDateTime.now();
         String typeOrder = Statics.ORDER_TYPE_PENJUALAN;
-        penjualanRepository.doCheckOut(
+        statusCheckout = penjualanRepository.doCheckOut(
                 employeeId, customerId, statusPayment, waktu, typeOrder, keranjang
         );
-
     }
 
+    public void resetCheckout(){
+        keranjang.clear();
+        statusCheckout=0;
+    }
 }

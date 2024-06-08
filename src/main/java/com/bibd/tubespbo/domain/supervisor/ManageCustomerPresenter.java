@@ -38,15 +38,12 @@ public class ManageCustomerPresenter {
         statusUpdateCustomer = customerRepository.updateDataCustomer(selectedDataCustomer);
     }
 
-    public void resetSelectedDataCustomer() {
+    public void resetManageCustomer() {
         statusUpdateCustomer = 0;
         selectedDataCustomer = null;
     }
     
     int statusAddNewCust = 0; // 0 default state; -1 error ;
-    public void resetAddNewCustomer(){
-        statusAddNewCust = 0;
-    }
     
     public void addNewCustomer(CustomerModel customer){
         statusAddNewCust = customerRepository.addNewCustomer(customer);
