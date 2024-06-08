@@ -8,12 +8,12 @@ package com.bibd.tubespbo.view.manager.panels;
  *
  * @author HP VICTUS
  */
-public class ManageEmployeePanel extends javax.swing.JPanel {
+public class menuManagerDashboard extends javax.swing.JPanel {
 
     /**
      * Creates new form ManageEmployeePanel
      */
-    public ManageEmployeePanel() {
+    public menuManagerDashboard() {
         initComponents();
     }
 
