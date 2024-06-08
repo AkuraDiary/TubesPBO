@@ -5,6 +5,7 @@
 package com.bibd.tubespbo.data.repository;
 
 import com.bibd.tubespbo.data.model.CustomerModel;
+import com.bibd.tubespbo.data.source.CustomerDataSource;
 import java.util.ArrayList;
 
 /**
@@ -13,16 +14,39 @@ import java.util.ArrayList;
  */
 public class CustomerRepository {
 
+    CustomerDataSource customerDataSource;
+
     public ArrayList<CustomerModel> getAllgetAllCustomers() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return customerDataSource.getAllCustomer();
     }
 
-    public int updateDataEmployee(CustomerModel selectedDataCustomer) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public int updateDataCustomer(CustomerModel cm) {
+        try {
+            return customerDataSource.updateDataCustomer(
+                    cm.getIdCustomer(),
+                    cm.getNama(),
+                    cm.getNoHp(),
+                    cm.getEmail(),
+                    cm.getAlamat()
+            );
+        } catch (Exception e) {
+            System.out.println("Customer Repo : " + e.getLocalizedMessage());
+            return -1;
+        }
     }
 
-    public int addNewCustomer(CustomerModel customer) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public int addNewCustomer(CustomerModel cm) {
+        try {
+            return customerDataSource.insertNewCustomer(
+                    cm.getNama(),
+                    cm.getNoHp(),
+                    cm.getEmail(),
+                    cm.getAlamat()
+            );
+        } catch (Exception e) {
+            System.out.println("Customer Repo : " + e.getLocalizedMessage());
+            return -1;
+        }
     }
-    
+
 }

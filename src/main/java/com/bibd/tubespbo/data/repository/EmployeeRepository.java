@@ -17,23 +17,28 @@ public class EmployeeRepository {
 
     EmployeesDataSource employeeDataSource;
 
+    public EmployeeRepository(EmployeesDataSource employeeDataSource) {
+        this.employeeDataSource = employeeDataSource;
+    }
+
     public ArrayList<EmployeeModel> getEmployeeAsManager() {
         return new ArrayList<>();
     }
 
-    public int updateDataEmployee(EmployeeModel selectedDataEmployee) {
+    public int updateDataEmployee(EmployeeModel em) {
         // TODO
 
         try {
             return employeeDataSource.updateEmployee(
-            selectedDataEmployee.getNama(),
-            selectedDataEmployee.getNoHp(), 
-            selectedDataEmployee.getEmail(), 
-            selectedDataEmployee.getRole(), 
-            selectedDataEmployee.getStatus(), 
-            selectedDataEmployee.getId()
+            em.getNama(),
+            em.getNoHp(), 
+            em.getEmail(), 
+            em.getRole(), 
+            em.getStatus(), 
+            em.getId()
             );
         } catch (Exception e) {
+            System.out.println("Employee Repo " + e.getLocalizedMessage());
             return -1;
         }
 
@@ -51,7 +56,7 @@ public class EmployeeRepository {
             );
             
         }catch (Exception e){
-
+            System.out.println("Employee Repo " + e.getLocalizedMessage());
             return -1;    
         }
         
