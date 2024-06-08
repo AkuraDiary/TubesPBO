@@ -4,7 +4,9 @@
  */
 package com.bibd.tubespbo.data.repository;
 
+import com.bibd.tubespbo.data.model.CityModel;
 import com.bibd.tubespbo.data.model.EmployeeModel;
+import com.bibd.tubespbo.data.model.WarehouseModel;
 import com.bibd.tubespbo.data.source.LoginDataSource;
 
 /**
@@ -21,6 +23,9 @@ public class LoginRepository {
     
     EmployeeModel loggedInUser = null;
     String msg = "";
+    WarehouseModel employeeWarehouse;
+    CityModel employeeCity;
+    
 
     public EmployeeModel getLoggedInUser() {
         return loggedInUser;
