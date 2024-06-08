@@ -43,7 +43,7 @@ public class ManageCustomerPresenter {
         selectedDataCustomer = null;
     }
     
-    int statusAddNewCust = 0;
+    int statusAddNewCust = 0; // 0 default state; -1 error ;
     public void resetAddNewCustomer(){
         statusAddNewCust = 0;
     }

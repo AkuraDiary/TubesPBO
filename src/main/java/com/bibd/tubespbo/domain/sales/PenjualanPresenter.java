@@ -55,7 +55,7 @@ public class PenjualanPresenter {
         keranjang.add(newItem);
     }
 
-    public void keluarItemKeranjang(int idproduk, int quantity) {
+    public void keluarItemKeranjang(int idproduk) {
         //mencari barang yang ingin di keluarkan
         for (int i = 0; i < keranjang.size(); i++) {
             if (keranjang.get(i).getProduk().getIdProduct() == idproduk) {
@@ -65,22 +65,25 @@ public class PenjualanPresenter {
     }
 
     public void editQuantity(int idproduk, int quantity) {
-        boolean cek = true;
-        int idx = 0 ;
+//        boolean cek = true;
+//        int idx = 0 ;
         for (int i = 0; i < keranjang.size(); i++) {
             if (keranjang.get(i).getProduk().getIdProduct() == idproduk) {
                 int jumlahSekarang = keranjang.get(i).getQuantity();
                 int jumlahupdate = jumlahSekarang += quantity;
-                if(jumlahupdate==0){
-                cek = false ;
-                idx=i;
+                if (jumlahupdate == 0) {
+                    keranjang.remove(i);
+//                cek = false ;
+//                idx=i;
+                } else {
+                    keranjang.get(i).setQuantity(jumlahupdate);
                 }
-                keranjang.get(i).setQuantity(jumlahupdate);
+
             }
         }
-        if (cek = false){
-            keranjang.remove(idx);
-        }
+//        if (cek = false){
+//            keranjang.remove(idx);
+//        }
 
     }
 
@@ -92,10 +95,9 @@ public class PenjualanPresenter {
         LocalDateTime waktu = LocalDateTime.now();
         String typeOrder = Statics.ORDER_TYPE_PENJUALAN;
         penjualanRepository.doCheckOut(
-                employeeId,customerId, statusPayment, waktu, typeOrder, keranjang
+                employeeId, customerId, statusPayment, waktu, typeOrder, keranjang
         );
-        
-        
+
     }
 
 }

@@ -8,7 +8,7 @@ package com.bibd.tubespbo.domain.supervisor;
  *
  * @author asthiseta
  */
-public class CreatePembelianPresenter {
+public class PembelianPresenter {
     
     
 }
