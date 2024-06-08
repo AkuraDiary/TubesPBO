@@ -30,8 +30,8 @@ public class PenjualanPresenter {
         this.penjualanRepository = penjualanRepository;
     }
 
-    public void historyPenjualan() {
-        history = penjualanRepository.getHistoryPenjualan();
+    public void historyPenjualan(int idWarehouse) {
+        history = penjualanRepository.getHistoryPenjualan(idWarehouse);
 
     }
 

@@ -23,6 +23,9 @@ public class Statics {
     public static String SHIPMENT_STATUS_PENDING = "pending";
     public static String SHIPMENT_STATUS_SHIPPEd = "shipped";
     
+    public static String ORDER_PAYMENT_STATUS_PAID = "paid";
+    public static String ORDER_PAYMENT_STATUS_UNPAID = "unpaid";
+    
     public static String PEMBELIAN_STATUS_PENDING = "pending";
     public static String PEMBELIAN_STATUS_REJECTED = "rejected";
     public static String PEMBELIAN_STATUS_RUNNING = "running";
