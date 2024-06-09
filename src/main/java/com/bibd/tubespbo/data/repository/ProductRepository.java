@@ -57,6 +57,23 @@ public class ProductRepository {
             return -1;
         }
     }
+    
+    public int editDataProduct(ProductModel pm){
+        try {
+            return productDataSource.updateDataProduct(
+                    pm.getIdProduct(),
+                    pm.getProductName(),
+                    pm.getQuantityInStock(),
+                    pm.getBuyPrice(),
+                    pm.getSellPrice(),
+                    pm.getCategoryId(),
+                    pm.getProdusenId()
+            );
+        } catch (Exception e) {
+            System.out.println(e.getLocalizedMessage());
+            return -1;
+        }
+    }
 
     public int addCategory(CategoryModel cm) {
         try {
@@ -72,12 +89,7 @@ public class ProductRepository {
 
     public ArrayList<CategoryModel> getAllCategory() {
         return productDataSource.getAllCategory();
-//        return new ArrayList<>();
     }
-    
-    
-    
-    
     
     
 
