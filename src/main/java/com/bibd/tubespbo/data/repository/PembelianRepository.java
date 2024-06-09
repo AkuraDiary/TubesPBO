@@ -14,20 +14,20 @@ import java.util.ArrayList;
  */
 public class PembelianRepository {
     
-    PembelianDataSource pembelianremotedatasource;
+    PembelianDataSource pembelianDataSource;
 
     public PembelianRepository(PembelianDataSource pembelianremotedatasource) {
-        this.pembelianremotedatasource = pembelianremotedatasource;
+        this.pembelianDataSource = pembelianremotedatasource;
     }
 
     // TODO
     public ArrayList<PembelianModel> getAllpembelian() {
-        return new ArrayList();
+        return pembelianDataSource.getAllPembelian();
     }
 
     public int updateStatusPembelian(int idPembelian, String status) {
         try{
-            return pembelianremotedatasource.updateStatusPembelian(idPembelian, status);
+            return pembelianDataSource.updateStatusPembelian(idPembelian, status);
         }catch(Exception e){
             System.out.println("Pembelian Repo " + e.getLocalizedMessage());
             return -1;

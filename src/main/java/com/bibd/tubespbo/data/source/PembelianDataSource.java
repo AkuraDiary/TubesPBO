@@ -5,6 +5,8 @@
 package com.bibd.tubespbo.data.source;
 
 import com.bibd.tubespbo.data.DbConnection;
+import com.bibd.tubespbo.data.model.PembelianModel;
+import java.util.ArrayList;
 
 /**
  *
@@ -21,6 +23,10 @@ public class PembelianDataSource {
     public int updateStatusPembelian(int idPembelian, String status) {
         // TODO
        return -1;
+    }
+
+    public ArrayList<PembelianModel> getAllPembelian() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
     
