@@ -37,7 +37,7 @@ public class ProductRepository {
         try {
             return productDataSource.updateProductStock(idproduct, jumlah, idEmployee);
         } catch (Exception e) {
-            System.out.println(e.getLocalizedMessage());
+            System.out.println("Product Repo " + e.getLocalizedMessage());
             return -1;
         }
    }
@@ -53,7 +53,7 @@ public class ProductRepository {
                     pm.getProdusenId()
             );
         } catch (Exception e) {
-            System.out.println(e.getLocalizedMessage());
+            System.out.println("Product Repo " + e.getLocalizedMessage());
             return -1;
         }
     }
@@ -70,7 +70,7 @@ public class ProductRepository {
                     pm.getProdusenId()
             );
         } catch (Exception e) {
-            System.out.println(e.getLocalizedMessage());
+            System.out.println("Product Repo " + e.getLocalizedMessage());
             return -1;
         }
     }
@@ -82,7 +82,7 @@ public class ProductRepository {
                     cm.getDescCategory()
             );
         } catch (Exception e) {
-            System.out.println(e.getLocalizedMessage());
+            System.out.println("Product Repo " + e.getLocalizedMessage());
             return -1;
         }
     }
