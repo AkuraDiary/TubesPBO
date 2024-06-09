@@ -403,8 +403,6 @@
             </Container>
           </SubComponents>
         </Container>
-<<<<<<< HEAD
-=======
         <Container class="com.bibd.tubespbo.view.manager.jPanelGradient" name="jPanelGradient1">
           <Properties>
             <Property name="colorEnd" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -433,7 +431,6 @@
             </DimensionLayout>
           </Layout>
         </Container>
->>>>>>> 2753ed52a94df30444360b3e583c20b1dc8a6520
       </SubComponents>
     </Container>
   </SubComponents>
