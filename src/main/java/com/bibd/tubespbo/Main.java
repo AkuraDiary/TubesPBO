@@ -65,18 +65,18 @@ public class Main {
 //            System.out.println("Qty " + item.getQuantity());
 //            System.out.println("");
 //        }
-        System.out.println(LocalDateTime.now());
+//        System.out.println(LocalDateTime.now());
         
-//        System.out.println("Hello World!");
-//        System.out.println("yanto ganteng");
-//        Di.init();
+        System.out.println("Hello World!");
+        System.out.println("yanto ganteng");
+        Di.init();
 //    
 //        // testing
 ////        EmployeeModel data = Di.loginDataSource.doLogin("rawr@gmail.com", "rawrbibd");
 ////        
 ////        System.out.println(data.getNama());
 //        
-//         new LoginView().setVisible(true);
+         new LoginView().setVisible(true);
      
     }
     

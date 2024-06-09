@@ -20,6 +20,10 @@ public class ProdusenModel {
         this.status = status;
     }
 
+    public ProdusenModel() {
+    }
+
+    
     public int getIdProdusen() {
         return idProdusen;
     }

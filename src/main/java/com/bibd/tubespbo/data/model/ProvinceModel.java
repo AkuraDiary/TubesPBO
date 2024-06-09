@@ -12,6 +12,14 @@ public class ProvinceModel {
     int id;
     String province;
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
     public ProvinceModel(int id, String province) {
         this.id = id;
         this.province = province;

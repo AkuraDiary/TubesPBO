@@ -33,6 +33,7 @@ public class Statics {
     public static String PEMBELIAN_STATUS_REJECTED = "rejected";
     public static String PEMBELIAN_STATUS_RUNNING = "running";
     public static String PEMBELIAN_STATUS_FINNISH = "finnish";
+    public static int GET_ALL_PEMBELIAN = 0;
     
     
 }

@@ -5,8 +5,10 @@
 package com.bibd.tubespbo.domain.supervisor;
 
 import com.bibd.tubespbo.data.model.KeranjangModel;
+import com.bibd.tubespbo.data.model.PembelianModel;
 import com.bibd.tubespbo.data.model.PenjualanModel;
 import com.bibd.tubespbo.data.model.ProductModel;
+import com.bibd.tubespbo.data.repository.PembelianRepository;
 import com.bibd.tubespbo.data.repository.PenjualanRepository;
 import com.bibd.tubespbo.data.repository.ProductRepository;
 import com.bibd.tubespbo.util.Statics;
@@ -19,21 +21,21 @@ import java.util.ArrayList;
  */
 public class PembelianPresenter {
     
-    PenjualanRepository penjualanRepository;
+    PembelianRepository pembelianRepository;
     ProductRepository productRepository;
 
     ArrayList<KeranjangModel> keranjang = new ArrayList<>();
     
-    ArrayList<PenjualanModel> history = new ArrayList<>();
+    ArrayList<PembelianModel> history = new ArrayList<>();
     ArrayList<ProductModel> allproduct = new ArrayList<>();
 
-    public PembelianPresenter(PenjualanRepository penjualanRepository, ProductRepository productRepository) {
-        this.penjualanRepository = penjualanRepository;
+    public PembelianPresenter(PembelianRepository pembelianRepository, ProductRepository productRepository) {
+        this.pembelianRepository = pembelianRepository;
         this.productRepository = productRepository;
     }
 
-    public void historyPenjualan(int idWarehouse) {
-        history = penjualanRepository.getHistoryPenjualan(idWarehouse);
+    public void getHistoryPembelian(int idWarehouse) {
+        history = pembelianRepository.getAllpembelian(idWarehouse);
 
     }
 
@@ -95,7 +97,7 @@ public class PembelianPresenter {
         String statusOrder = Statics.PEMBELIAN_STATUS_PENDING;
         String orderType = Statics.ORDER_TYPE_PEMBELIAN;
         
-        statusSubmitPembelian = penjualanRepository.submitPembelian(
+        statusSubmitPembelian = pembelianRepository.submitPembelian(
                 employeeId, orderType, waktu, statusOrder, keranjang
         );
 

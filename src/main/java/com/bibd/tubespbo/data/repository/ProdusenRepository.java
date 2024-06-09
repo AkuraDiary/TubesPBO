@@ -14,6 +14,12 @@ import java.util.ArrayList;
  */
 public class ProdusenRepository {
     ProdusenDataSource produsenDataSource;
+
+    public ProdusenRepository(ProdusenDataSource produsenDataSource) {
+        this.produsenDataSource = produsenDataSource;
+    }
+    
+    
     
     public ArrayList<ProdusenModel> getAllProdusen (){
      return produsenDataSource.getAllProdusen();
@@ -21,15 +27,43 @@ public class ProdusenRepository {
     }
 
     public int addProdusen(ProdusenModel pm) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    
+        try {
+            return produsenDataSource.insertProdusen(
+                    pm.getNama(),
+                    pm.getEmail(),
+                    pm.getContact(),
+                    pm.getAddres(),
+                    pm.getStatus()
+            );
+        } catch (Exception e) {
+            System.out.println(e.getLocalizedMessage());
+            return -1;
+        }
     }
+    
     public int updateDataProdusen(ProdusenModel pm){
-        // TODO
-        return -1;
+         try {
+            return produsenDataSource.updateDataProdusen(
+                    pm.getIdProdusen(),
+                    pm.getEmail(),
+                    pm.getNama(),
+                    pm.getContact(),
+                    pm.getAddres()
+            );
+        } catch (Exception e) {
+            System.out.println("Produsen Repo " + e.getLocalizedMessage());
+            return -1;
+        }
     }
     
     public int setStatusProdusen(int idProdusen, String status){
-        return -1;
+         try {
+            return produsenDataSource.updateStatusProdusen(idProdusen, status);
+        } catch (Exception e) {
+            System.out.println("Produsen Repo " + e.getLocalizedMessage());
+            return -1;
+        }
     }
     
 }

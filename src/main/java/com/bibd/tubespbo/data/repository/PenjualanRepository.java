@@ -6,6 +6,7 @@ package com.bibd.tubespbo.data.repository;
 
 import com.bibd.tubespbo.data.model.KeranjangModel;
 import com.bibd.tubespbo.data.model.PenjualanModel;
+import com.bibd.tubespbo.data.source.PenjualanDataSource;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -15,21 +16,34 @@ import java.util.ArrayList;
  */
 public class PenjualanRepository {
 
-    public ArrayList<PenjualanModel> getHistoryPenjualan(int idWareHouse) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    PenjualanDataSource penjualanDataSource;
+
+    public PenjualanRepository(PenjualanDataSource penjualanDataSource) {
+        this.penjualanDataSource = penjualanDataSource;
     }
-    
+
+    public ArrayList<PenjualanModel> getHistoryPenjualan(int idWareHouse) {
+
+        return penjualanDataSource.getHistoryPenjualan(idWareHouse);
+    }
+
     public int doCheckOut(int employeeId, int customerId, String statusPayment, LocalDateTime waktu, String typeOrder, ArrayList<KeranjangModel> keranjang) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try {
+            return penjualanDataSource.doCheckout(customerId, employeeId, keranjang, statusPayment, typeOrder, waktu, penjualanDataSource);
+        } catch (Exception e) {
+            System.out.println("Penjualan Repo " + e.getLocalizedMessage());
+            return -1;
+        }
+
     }
 
     public int updateStatusShipment(int idPenjualan, String statusShipment) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try {
+            return penjualanDataSource.updateStatusShipment(idPenjualan, statusShipment);
+        } catch (Exception e) {
+            System.out.println("Penjualan Repo " + e.getLocalizedMessage());
+            return -1;
+        }
     }
 
-    public int submitPembelian(int employeeId, String orderType, LocalDateTime waktu, String statusOrder, ArrayList<KeranjangModel> keranjang) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-    
-    
 }

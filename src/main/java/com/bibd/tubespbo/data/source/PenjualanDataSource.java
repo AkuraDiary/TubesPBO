@@ -5,6 +5,10 @@
 package com.bibd.tubespbo.data.source;
 
 import com.bibd.tubespbo.data.DbConnection;
+import com.bibd.tubespbo.data.model.KeranjangModel;
+import com.bibd.tubespbo.data.model.PenjualanModel;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 /**
  *
@@ -16,6 +20,18 @@ public class PenjualanDataSource {
 
     public PenjualanDataSource(DbConnection db) {
         this.db = db;
+    }
+
+    public ArrayList<PenjualanModel> getHistoryPenjualan(int idWareHouse) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public int doCheckout(int customerId, int employeeId, ArrayList<KeranjangModel> keranjang, String statusPayment, String typeOrder, LocalDateTime waktu, PenjualanDataSource penjualanDataSource) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public int updateStatusShipment(int idPenjualan, String statusShipment) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
 }

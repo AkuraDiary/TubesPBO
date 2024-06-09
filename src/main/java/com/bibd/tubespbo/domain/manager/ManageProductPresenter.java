@@ -43,7 +43,16 @@ public class ManageProductPresenter {
     int result = 0;
 
     public void updateStockProduct(int idProduct, int jumlah, int idEmployee) {
-        result = productRepository.updateProductStock(idProduct, jumlah, idEmployee);
+          int jumlahedit =0;
+        //mencari product 
+        for (int i = 0; i < listProduct.size(); i++) {
+            if (listProduct.get(i).getIdProduct() == idProduct) {
+             jumlahedit = listProduct.get(i).getQuantityInStock()+jumlah;
+            }
+
+        }
+
+        result = productRepository.updateProductStock(idProduct, jumlahedit, idEmployee);
     }
 
     public void resetResult() {
