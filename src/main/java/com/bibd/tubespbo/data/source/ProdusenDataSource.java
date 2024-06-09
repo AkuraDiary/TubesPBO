@@ -72,5 +72,13 @@ public class ProdusenDataSource {
         }
     }
 
+    public int updateStatusProdusen(int idProdusen, String status) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public int updateDataProdusen(int idProdusen, String email, String nama, String contact, String addres) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
 
 }

@@ -15,27 +15,35 @@ import java.util.ArrayList;
  * @author rafid
  */
 public class PenjualanRepository {
-    
+
     PenjualanDataSource penjualanDataSource;
 
     public PenjualanRepository(PenjualanDataSource penjualanDataSource) {
         this.penjualanDataSource = penjualanDataSource;
     }
-    
 
     public ArrayList<PenjualanModel> getHistoryPenjualan(int idWareHouse) {
-    
+
         return penjualanDataSource.getHistoryPenjualan(idWareHouse);
     }
-    
+
     public int doCheckOut(int employeeId, int customerId, String statusPayment, LocalDateTime waktu, String typeOrder, ArrayList<KeranjangModel> keranjang) {
-        return penjualanDataSource.doCheckout(customerId, employeeId, keranjang, statusPayment, typeOrder, waktu, penjualanDataSource);
+        try {
+            return penjualanDataSource.doCheckout(customerId, employeeId, keranjang, statusPayment, typeOrder, waktu, penjualanDataSource);
+        } catch (Exception e) {
+            System.out.println("Penjualan Repo " + e.getLocalizedMessage());
+            return -1;
+        }
+
     }
 
     public int updateStatusShipment(int idPenjualan, String statusShipment) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try {
+            return penjualanDataSource.updateStatusShipment(idPenjualan, statusShipment);
+        } catch (Exception e) {
+            System.out.println("Penjualan Repo " + e.getLocalizedMessage());
+            return -1;
+        }
     }
 
-
-    
 }

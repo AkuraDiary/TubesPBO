@@ -43,12 +43,27 @@ public class ProdusenRepository {
     }
     
     public int updateDataProdusen(ProdusenModel pm){
-        // TODO
-        return -1;
+         try {
+            return produsenDataSource.updateDataProdusen(
+                    pm.getIdProdusen(),
+                    pm.getEmail(),
+                    pm.getNama(),
+                    pm.getContact(),
+                    pm.getAddres()
+            );
+        } catch (Exception e) {
+            System.out.println("Produsen Repo " + e.getLocalizedMessage());
+            return -1;
+        }
     }
     
     public int setStatusProdusen(int idProdusen, String status){
-        return -1;
+         try {
+            return produsenDataSource.updateStatusProdusen(idProdusen, status);
+        } catch (Exception e) {
+            System.out.println("Produsen Repo " + e.getLocalizedMessage());
+            return -1;
+        }
     }
     
 }

@@ -5,7 +5,9 @@
 package com.bibd.tubespbo.data.source;
 
 import com.bibd.tubespbo.data.DbConnection;
+import com.bibd.tubespbo.data.model.KeranjangModel;
 import com.bibd.tubespbo.data.model.PembelianModel;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 /**
@@ -26,6 +28,10 @@ public class PembelianDataSource {
     }
 
     public ArrayList<PembelianModel> getAllPembelian(int idWarehouse) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public int submitPembelian(int employeeId, String orderType, LocalDateTime waktu, String statusOrder, ArrayList<KeranjangModel> keranjang) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     

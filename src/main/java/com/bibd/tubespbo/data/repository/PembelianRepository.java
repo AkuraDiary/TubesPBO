@@ -37,7 +37,12 @@ public class PembelianRepository {
     }
 
     public int submitPembelian(int employeeId, String orderType, LocalDateTime waktu, String statusOrder, ArrayList<KeranjangModel> keranjang) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+         try {
+            return pembelianDataSource.submitPembelian(employeeId, orderType, waktu, statusOrder, keranjang);
+        } catch (Exception e) {
+            System.out.println("Pembelian Repo " + e.getLocalizedMessage());
+            return -1;
+        }
     }
 
 }
