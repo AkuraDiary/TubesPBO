@@ -13,7 +13,7 @@ import java.util.Date;
  */
 public class PenjualanModel {
     private int idPenjualan;
-    private String customer;
+    private int customerId;
     private Date tanggal ;
     private ArrayList<KeranjangModel> keranjang = new ArrayList<>();
 
@@ -25,12 +25,12 @@ public class PenjualanModel {
         this.idPenjualan = idPenjualan;
     }
 
-    public String getCustomer() {
-        return customer;
+    public int getCustomerId() {
+        return customerId;
     }
 
-    public void setCustomer(String customer) {
-        this.customer = customer;
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
     }
 
     public Date getTanggal() {
