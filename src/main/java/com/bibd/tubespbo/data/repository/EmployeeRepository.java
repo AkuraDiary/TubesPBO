@@ -22,7 +22,8 @@ public class EmployeeRepository {
     }
 
     public ArrayList<EmployeeModel> getEmployeeAsManager() {
-        return new ArrayList<>();
+        
+        return employeeDataSource.getAllEmployee();
     }
 
     public int updateDataEmployee(EmployeeModel em) {
