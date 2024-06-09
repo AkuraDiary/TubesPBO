@@ -21,6 +21,10 @@ public class ProdusenDataSource {
         
         return new ArrayList<> ();
     }
+
+    public int insertProdusen(String nama, String email, String contact, String addres, String status) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
     
 }

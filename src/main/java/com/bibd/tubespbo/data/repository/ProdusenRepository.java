@@ -21,8 +21,21 @@ public class ProdusenRepository {
     }
 
     public int addProdusen(ProdusenModel pm) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    
+        try {
+            return produsenDataSource.insertProdusen(
+                    pm.getNama(),
+                    pm.getEmail(),
+                    pm.getContact(),
+                    pm.getAddres(),
+                    pm.getStatus()
+            );
+        } catch (Exception e) {
+            System.out.println(e.getLocalizedMessage());
+            return -1;
+        }
     }
+    
     public int updateDataProdusen(ProdusenModel pm){
         // TODO
         return -1;
