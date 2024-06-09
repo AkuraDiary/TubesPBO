@@ -4,10 +4,19 @@
  */
 package com.bibd.tubespbo.data.source;
 
+import com.bibd.tubespbo.data.DbConnection;
+
 /**
  *
  * @author asthiseta
  */
 public class PenjualanDataSource {
     
+    DbConnection db;
+
+    public PenjualanDataSource(DbConnection db) {
+        this.db = db;
+    }
+    
 }
+

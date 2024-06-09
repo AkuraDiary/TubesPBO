@@ -12,6 +12,18 @@ public class CustomerModel {
     private int idCustomer;
     private String nama, noHp, email, alamat;
 
+    public CustomerModel(int idCustomer, String nama, String noHp, String email, String alamat) {
+        this.idCustomer = idCustomer;
+        this.nama = nama;
+        this.noHp = noHp;
+        this.email = email;
+        this.alamat = alamat;
+    }
+
+    public CustomerModel() {
+    }
+
+    
     public int getIdCustomer() {
         return idCustomer;
     }

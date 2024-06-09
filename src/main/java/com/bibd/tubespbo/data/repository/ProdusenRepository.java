@@ -16,7 +16,7 @@ public class ProdusenRepository {
     ProdusenDataSource produsenDataSource;
     
     public ArrayList<ProdusenModel> getAllProdusen (){
-     return produsenDataSource.getAllProduct();
+     return produsenDataSource.getAllProdusen();
 //    return new ArrayList<>();
     }
 

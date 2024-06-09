@@ -14,10 +14,10 @@ import java.util.ArrayList;
  */
 public class PembelianDataSource {
     
-    DbConnection conn;
+    DbConnection db;
 
     public PembelianDataSource(DbConnection conn) {
-        this.conn = conn;
+        this.db = conn;
     }
 
     public int updateStatusPembelian(int idPembelian, String status) {
