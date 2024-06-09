@@ -6,6 +6,7 @@ package com.bibd.tubespbo.data.repository;
 
 import com.bibd.tubespbo.data.model.EmployeeModel;
 import com.bibd.tubespbo.data.source.EmployeesDataSource;
+import com.bibd.tubespbo.util.Statics;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +24,16 @@ public class EmployeeRepository {
 
     public ArrayList<EmployeeModel> getEmployeeAsManager() {
         
-        return employeeDataSource.getAllEmployee();
+        ArrayList<EmployeeModel> listAllEmployee = employeeDataSource.getAllEmployee();
+        ArrayList<EmployeeModel> filteredEmployee = new ArrayList<>();
+        
+        for(EmployeeModel em : listAllEmployee){
+            if(!em.getRole().equals(Statics.EMPLOYEE_ROLE_MANAGER)){
+                filteredEmployee.add(em);
+            }
+            
+        }
+        return filteredEmployee;
     }
 
     public int updateDataEmployee(EmployeeModel em) {
