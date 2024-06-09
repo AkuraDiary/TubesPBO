@@ -23,8 +23,8 @@ public class ProductRepository {
     ProdusenDataSource produsenDataSource;
 
     public ArrayList<ProductModel> getAllProduct() {
-        productDataSource.getAllProduct();
-        return new ArrayList<>();
+        return productDataSource.getAllProduct();
+//        return new ArrayList<>();
     }
 
     public int updateProductStock(int idproduct, int jumlah, int idEmployee) {
@@ -65,8 +65,8 @@ public class ProductRepository {
     }
 
     public ArrayList<CategoryModel> getAllCategory() {
-        productDataSource.getAllCategory();
-        return new ArrayList<>();
+        return productDataSource.getAllCategory();
+//        return new ArrayList<>();
     }
     
     

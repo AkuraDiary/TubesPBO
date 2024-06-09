@@ -5,6 +5,7 @@
 package com.bibd.tubespbo.data.source;
 
 import com.bibd.tubespbo.data.DbConnection;
+import com.bibd.tubespbo.data.model.CategoryModel;
 import com.bibd.tubespbo.data.model.ProductModel;
 import java.util.ArrayList;
 
@@ -42,7 +43,7 @@ public class ProductDataSource {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    public void getAllCategory() {
+    public ArrayList<CategoryModel> getAllCategory() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
