@@ -4,12 +4,18 @@
  */
 package com.bibd.tubespbo.data.model;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author asthiseta
  */
 public class PembelianModel {
-    int idPembelian;
+   private int idPembelian;
+   private int idSupervisor;
+   private String Status;
+   private ArrayList<OrderDetails> keranjang = new ArrayList<>();
+   
 
     public int getIdPembelian() {
         return idPembelian;
@@ -18,6 +24,31 @@ public class PembelianModel {
     public void setIdPembelian(int idPembelian) {
         this.idPembelian = idPembelian;
     }
+    
+    public int getIdSupervisor() {
+        return idSupervisor;
+    }
+    
+    public void setIdSupervisor(int idSupervisor) {
+        this.idSupervisor = idSupervisor;
+    }
+    
+    public String getStatus() {
+        return Status;
+    }
+    
+    public void setStatus(String Status) {
+        this.Status = Status;
+    }
+    
+    public ArrayList<OrderDetails> getkeranjang() {
+        return keranjang;
+    }
+    
+  public void setKeranjang(ArrayList<OrderDetails> keranjang) {
+        this.keranjang = keranjang;
+    }
+    
     
     
     
