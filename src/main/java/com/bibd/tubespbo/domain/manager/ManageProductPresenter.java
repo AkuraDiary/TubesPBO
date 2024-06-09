@@ -47,7 +47,7 @@ public class ManageProductPresenter {
         //mencari product 
         for (int i = 0; i < listProduct.size(); i++) {
             if (listProduct.get(i).getIdProduct() == idProduct) {
-             jumlahedit = listProduct.get(i).getQuantityInStock()-jumlah;
+             jumlahedit = listProduct.get(i).getQuantityInStock()+jumlah;
             }
 
         }
