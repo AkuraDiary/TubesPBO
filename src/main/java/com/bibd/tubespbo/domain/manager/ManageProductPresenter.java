@@ -4,6 +4,7 @@
  */
 package com.bibd.tubespbo.domain.manager;
 
+import com.bibd.tubespbo.data.model.CategoryModel;
 import com.bibd.tubespbo.data.model.ProductModel;
 import com.bibd.tubespbo.data.model.ProdusenModel;
 import com.bibd.tubespbo.data.repository.ProductRepository;
@@ -29,7 +30,7 @@ public class ManageProductPresenter {
 
     ArrayList<ProductModel> listProduct = new ArrayList<>();
     ArrayList<ProdusenModel> listProdusen = new ArrayList<>();
-//    ArrayList<CategoryModel> listCategory = new ArayList<>();
+    ArrayList<CategoryModel> listCategory = new ArrayList<>();
 
     public ManageProductPresenter(ProductRepository productRepository) {
         this.productRepository = productRepository;
@@ -55,11 +56,11 @@ public class ManageProductPresenter {
 
     public void showAllCategory() {
         //bingung objek arraylistnya apa
-
+        listCategory = productRepository.getAllCategory();
     }
 
-    public void addCategory() {
-        productRepository.addCategory();
+    public void addCategory(CategoryModel cm) {
+        productRepository.addCategory(cm);
 
     }
 

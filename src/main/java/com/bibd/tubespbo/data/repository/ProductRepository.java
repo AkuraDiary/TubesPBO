@@ -4,6 +4,7 @@
  */
 package com.bibd.tubespbo.data.repository;
 
+import com.bibd.tubespbo.data.model.CategoryModel;
 import com.bibd.tubespbo.data.model.ProductModel;
 import com.bibd.tubespbo.data.source.ProductDataSource;
 import com.bibd.tubespbo.data.source.ProdusenDataSource;
@@ -13,6 +14,8 @@ import java.util.ArrayList;
  *
  * @author asthiseta
  */
+
+
 //Rapid D.
 public class ProductRepository {
 
@@ -26,7 +29,6 @@ public class ProductRepository {
 
     public int updateProductStock(int idproduct, int jumlah, int idEmployee) {
         try {
-
             return productDataSource.updateProductStock(idproduct, jumlah, idEmployee);
         } catch (Exception e) {
             System.out.println(e.getLocalizedMessage());
@@ -50,9 +52,24 @@ public class ProductRepository {
         }
     }
 
-    public void addCategory() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public int addCategory(CategoryModel cm) {
+        try {
+            return productDataSource.insertCategory(
+                    cm.getNamaCategory(),
+                    cm.getDescCategory()
+            );
+        } catch (Exception e) {
+            System.out.println(e.getLocalizedMessage());
+            return -1;
+        }
     }
+
+    public ArrayList<CategoryModel> getAllCategory() {
+        productDataSource.getAllCategory();
+        return new ArrayList<>();
+    }
+    
+    
     
     
     
