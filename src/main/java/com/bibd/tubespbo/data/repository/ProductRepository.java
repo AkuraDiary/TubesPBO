@@ -24,7 +24,6 @@ public class ProductRepository {
 
     public ArrayList<ProductModel> getAllProduct() {
         return productDataSource.getAllProduct();
-//        return new ArrayList<>();
     }
 
     public int updateProductStock(int idproduct, int jumlah, int idEmployee) {
