@@ -38,7 +38,6 @@ public class ManagerDashboard extends javax.swing.JFrame {
         pnKanan = new javax.swing.JPanel();
         pnDasar = new javax.swing.JPanel();
         pnUtama = new javax.swing.JPanel();
-        jPanelGradient1 = new com.bibd.tubespbo.view.manager.jPanelGradient();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -179,22 +178,6 @@ public class ManagerDashboard extends javax.swing.JFrame {
 
         pnKanan.add(pnDasar, java.awt.BorderLayout.CENTER);
 
-        jPanelGradient1.setColorEnd(new java.awt.Color(0, 102, 153));
-        jPanelGradient1.setColorStart(new java.awt.Color(0, 255, 204));
-
-        javax.swing.GroupLayout jPanelGradient1Layout = new javax.swing.GroupLayout(jPanelGradient1);
-        jPanelGradient1.setLayout(jPanelGradient1Layout);
-        jPanelGradient1Layout.setHorizontalGroup(
-            jPanelGradient1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jPanelGradient1Layout.setVerticalGroup(
-            jPanelGradient1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 70, Short.MAX_VALUE)
-        );
-
-        pnKanan.add(jPanelGradient1, java.awt.BorderLayout.PAGE_START);
-
         getContentPane().add(pnKanan, java.awt.BorderLayout.CENTER);
 
         pack();
@@ -250,7 +233,6 @@ public class ManagerDashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
-    private com.bibd.tubespbo.view.manager.jPanelGradient jPanelGradient1;
     private javax.swing.JPanel pMain_Create;
     private javax.swing.JPanel pnBeforeimgCreate;
     private javax.swing.JPanel pnDasar;
