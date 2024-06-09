@@ -5,18 +5,54 @@
 package com.bibd.tubespbo.data.model;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
  * @author asthiseta
  */
 public class PembelianModel {
-   private int idPembelian;
+   private int idPembelian,idorder,Employeeid;
    private int idSupervisor;
    private String Status;
    private ArrayList<OrderDetails> keranjang = new ArrayList<>();
+   private Date tanggalOrder;
+   private String typeOrder;
    
 
+    public int getIdorder() {
+        return idorder;
+    }
+
+    public void setIdorder(int idorder) {
+        this.idorder = idorder;
+    }
+
+    public int getEmployeeid() {
+        return Employeeid;
+    }
+
+    public void setEmployeeid(int Employeeid) {
+        this.Employeeid = Employeeid;
+    }
+
+    public Date getTanggalOrder() {
+        return tanggalOrder;
+    }
+
+    public void setTanggalOrder(Date tanggalOrder) {
+        this.tanggalOrder = tanggalOrder;
+    }
+
+    public String getTypeOrder() {
+        return typeOrder;
+    }
+
+    public void setTypeOrder(String typeOrder) {
+        this.typeOrder = typeOrder;
+    }
+ 
+   
     public int getIdPembelian() {
         return idPembelian;
     }
