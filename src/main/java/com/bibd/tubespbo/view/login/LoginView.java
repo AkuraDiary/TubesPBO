@@ -68,8 +68,7 @@ public class LoginView extends javax.swing.JFrame {
         jPanel2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jPanel2.setPreferredSize(new java.awt.Dimension(500, 450));
 
-        jPanelGradient4.setColorEnd(new java.awt.Color(255, 0, 204));
-        jPanelGradient4.setColorStart(new java.awt.Color(102, 255, 204));
+        jPanelGradient4.setColorStart(new java.awt.Color(255, 255, 255));
 
         jLabel1.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         jLabel1.setText("WELCOME");
