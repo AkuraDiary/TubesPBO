@@ -25,7 +25,8 @@ public class PenjualanDataSource {
     public ArrayList<PenjualanModel> getHistoryPenjualan(int idWareHouse) {
         try {
             db.openConnection();
-            String query = ""
+//            String query = ""
+return null;
         } catch (Exception e) {
             System.out.println(e.getLocalizedMessage());
             return null ;

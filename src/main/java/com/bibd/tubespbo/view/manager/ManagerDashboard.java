@@ -49,12 +49,10 @@ public class ManagerDashboard extends javax.swing.JFrame {
         btnCRUDProducts = new javax.swing.JLabel();
         pnKanan = new javax.swing.JPanel();
         pnDasar = new javax.swing.JPanel();
-<<<<<<< HEAD
-        pnUtama = new javax.swing.JPanel();
-=======
+//        pnUtama = new javax.swing.JPanel();
         pn_Utama = new javax.swing.JPanel();
         jPanelGradient1 = new com.bibd.tubespbo.view.manager.jPanelGradient();
->>>>>>> 2753ed52a94df30444360b3e583c20b1dc8a6520
+
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -319,8 +317,6 @@ public class ManagerDashboard extends javax.swing.JFrame {
 
         pnKanan.add(pnDasar, java.awt.BorderLayout.CENTER);
 
-<<<<<<< HEAD
-=======
         jPanelGradient1.setColorEnd(new java.awt.Color(0, 102, 153));
         jPanelGradient1.setColorStart(new java.awt.Color(0, 255, 204));
 
@@ -337,7 +333,6 @@ public class ManagerDashboard extends javax.swing.JFrame {
 
         pnKanan.add(jPanelGradient1, java.awt.BorderLayout.PAGE_START);
 
->>>>>>> 2753ed52a94df30444360b3e583c20b1dc8a6520
         getContentPane().add(pnKanan, java.awt.BorderLayout.CENTER);
 
         pack();
@@ -466,12 +461,11 @@ public class ManagerDashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
-<<<<<<< HEAD
-=======
+
     private com.bibd.tubespbo.view.manager.jPanelGradient jPanelGradient1;
     private javax.swing.JPanel pMain_AprovePembelian;
     private javax.swing.JPanel pMain_CRUDProducts;
->>>>>>> 2753ed52a94df30444360b3e583c20b1dc8a6520
+
     private javax.swing.JPanel pMain_Create;
     private javax.swing.JPanel pnBeforeApprove;
     private javax.swing.JPanel pnBeforeCRUDProducts;
