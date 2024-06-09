@@ -8,9 +8,13 @@ package com.bibd.tubespbo.data.model;
  *
  * @author rafid
  */
-public class OrderDetails {
+public class OrderDetailsModel {
     private int idOrderDetails, unitPrice, jumlah, totalPrice, idProduct;
     private ProductModel productModel ;
+
+    public OrderDetailsModel(int id, double unitPrice, int quantity, double subTotalPrice, int idProduct, String productName, String description, double buyPrice, double sellPrice, int categoryId, int produsenId) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 
     public int getIdOrderDetails() {
         return idOrderDetails;

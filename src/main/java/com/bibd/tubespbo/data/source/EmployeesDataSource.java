@@ -29,11 +29,11 @@ public class EmployeesDataSource {
             String query = "SELECT idEmployee, nama, noHp, email, role, status, idWarehouse FROM employees";
             ResultSet rs = db.getData(query);
 
-            EmployeeModel data = null;
+            EmployeeModel data;// = null;
 
-            if (rs == null) {
-                return allEmployee;
-            }
+//            if (rs == null) {
+//                return allEmployee;
+//            }
 
             while (rs.next()) {
 
@@ -59,7 +59,7 @@ public class EmployeesDataSource {
             System.out.println(e.getLocalizedMessage());
             return null;
         } finally {
-
+            db.closeConnection();
         }
         return allEmployee;
     }
