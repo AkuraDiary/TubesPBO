@@ -30,7 +30,7 @@ public class PenjualanDataSource {
         ArrayList<OrderDetailsModel> odm = new ArrayList<>();
         try {
             db.openConnection();
-<<<<<<< HEAD
+
             String query = "SELECT od.id, od.unitPrice,od.quantity, od.subTotalPrice, od.idProduct,p.idProduct,p.productName,p.description,p.buyPrice\n"
                     + ",p.sellPrice, p.categoryId,p.produsenId\n"
                     + "FROM orderdetails od \n"
@@ -40,8 +40,8 @@ public class PenjualanDataSource {
             ResultSet rs = db.getData(query);
 
 //            OrderDetailsModel orderDetailModel ;
-            while (rs.next()) {
-                
+            while(rs.next()) {
+
                 int id = rs.getInt("id");
                 double unitPrice = rs.getDouble("unitPrice");
                 int quantity = rs.getInt("quantity");
@@ -55,21 +55,19 @@ public class PenjualanDataSource {
                 int produsenId = rs.getInt("produsenId");
 
 //            OrderDetailsModel orderDetailModel =;
-                odm.add(new OrderDetailsModel(id, unitPrice, quantity, subTotalPrice,
-                        idProduct, productName, description, buyPrice, sellPrice, categoryId, produsenId));
+                 OrderDetailsModel orderDetailModel = new OrderDetailsModel(id, unitPrice, quantity, subTotalPrice,
+                    idProduct, productName, description, buyPrice, sellPrice, categoryId, produsenId);
+            odm.add(orderDetailModel);
             }
-
-=======
 //            String query = ""
-return null;
->>>>>>> 4e0202a7a9ebb804a83ceff65714e44bbe4bb3a0
+            return odm;
         } catch (Exception e) {
             System.out.println(e.getLocalizedMessage());
             return null;
         } finally {
             db.closeConnection();
         }
-        return odm;
+//        return odm;
     }
 
     public ArrayList<PenjualanModel> getHistoryPenjualan(int idWareHouse) {
