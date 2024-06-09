@@ -16,6 +16,7 @@ import javax.swing.JFrame;
  */
 public class ManagerDashboard extends javax.swing.JFrame {
 
+    int xx,xy;
     /**
      * Creates new form ManagerDashboard
      */
@@ -53,6 +54,16 @@ public class ManagerDashboard extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
+        addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                formMouseDragged(evt);
+            }
+        });
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                formMousePressed(evt);
+            }
+        });
 
         pnKiri.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -327,7 +338,7 @@ public class ManagerDashboard extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void pMain_CreateMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pMain_CreateMouseEntered
-
+//tidak usah diisi
     }//GEN-LAST:event_pMain_CreateMouseEntered
 
     private void btnCreateMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCreateMouseExited
@@ -393,6 +404,17 @@ public class ManagerDashboard extends javax.swing.JFrame {
         pn_Utama.repaint();
         pn_Utama.revalidate();
     }//GEN-LAST:event_btnCRUDProductsMouseClicked
+
+    private void formMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMousePressed
+        xx = evt.getX();
+        xy = evt.getY();
+    }//GEN-LAST:event_formMousePressed
+
+    private void formMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseDragged
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
+        this.setLocation(x - xx, y - xy);
+    }//GEN-LAST:event_formMouseDragged
 
     
     /**
