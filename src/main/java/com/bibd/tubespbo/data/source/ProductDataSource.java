@@ -83,6 +83,39 @@ public class ProductDataSource {
     }
 
     public ArrayList<CategoryModel> getAllCategory() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try {
+            ArrayList<CategoryModel> dataResult = new ArrayList<>();
+            db.openConnection();
+            String query = "SELECT idCategory, category, description FROM category";
+
+            ResultSet rs = db.getData(query);
+
+            // TODO to edit 
+            while (rs.next()) {
+                // Parsing the data
+                int idCategory = rs.getInt("idCategory");
+                String category = rs.getString("category");
+                String description = rs.getString("description");
+
+                // Creating a CategoryModel object and using setters
+                CategoryModel categoryModel = new CategoryModel();
+                categoryModel.setIdCategory(idCategory);
+                categoryModel.setNamaCategory(category);
+                categoryModel.setDescCategory(description);
+
+                // Adding the category to the list
+                dataResult.add(categoryModel);
+            }
+
+            return dataResult;
+
+        } catch (Exception e) {
+            System.out.println(e.getLocalizedMessage());
+            return null;
+
+        } finally {
+
+            db.closeConnection();
+        }
     }
 }
