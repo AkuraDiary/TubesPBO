@@ -20,9 +20,16 @@ public class ProdusenRepository {
 //    return new ArrayList<>();
     }
 
-    public void addProdusen(ProdusenModel pm) {
+    public int addProdusen(ProdusenModel pm) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+    public int updateDataProdusen(ProdusenModel pm){
+        // TODO
+        return -1;
+    }
     
+    public int setStatusProdusen(int idProdusen, String status){
+        return -1;
+    }
     
 }
