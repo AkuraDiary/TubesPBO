@@ -4,6 +4,7 @@
  */
 package com.bibd.tubespbo.view.supervisor;
 import com.bibd.tubespbo.view.supervisor.supervisorpanels.MenuCreatePembelian;
+import com.bibd.tubespbo.view.supervisor.supervisorpanels.MenuCrudCustomer;
 import java.awt.Color;
 import javax.swing.JFrame;
 
@@ -143,6 +144,17 @@ public class SupervisorDashboard extends javax.swing.JFrame {
         btn_CrudCustomer.setBackground(new java.awt.Color(255, 255, 255));
         btn_CrudCustomer.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btn_CrudCustomer.setText("CRUD CUSTOMER");
+        btn_CrudCustomer.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_CrudCustomerMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btn_CrudCustomerMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btn_CrudCustomerMouseExited(evt);
+            }
+        });
 
         javax.swing.GroupLayout pn_main2Layout = new javax.swing.GroupLayout(pn_main2);
         pn_main2.setLayout(pn_main2Layout);
@@ -376,6 +388,26 @@ public class SupervisorDashboard extends javax.swing.JFrame {
         pnUtama.revalidate();
         
     }//GEN-LAST:event_btn_CreatePembelianMouseClicked
+
+    private void btn_CrudCustomerMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_CrudCustomerMouseEntered
+        pn_main2.setBackground(new Color(250, 250, 250));
+        pn_cc.setBackground(new Color(0, 102, 153));
+    }//GEN-LAST:event_btn_CrudCustomerMouseEntered
+
+    private void btn_CrudCustomerMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_CrudCustomerMouseExited
+        pn_main2.setBackground(new Color(255, 255, 255));
+        pn_cc.setBackground(new Color(255, 255, 255));
+    }//GEN-LAST:event_btn_CrudCustomerMouseExited
+
+    private void btn_CrudCustomerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_CrudCustomerMouseClicked
+        pn_main2.setBackground(new Color(240, 240, 240));
+        pn_cc.setBackground(new Color(0, 102, 153));
+        
+        pnUtama.removeAll();
+        pnUtama.add(new MenuCrudCustomer());
+        pnUtama.repaint();
+        pnUtama.revalidate();
+    }//GEN-LAST:event_btn_CrudCustomerMouseClicked
 
     /**
      * @param args the command line arguments

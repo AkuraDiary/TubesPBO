@@ -285,6 +285,11 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="CRUD CUSTOMER"/>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btn_CrudCustomerMouseClicked"/>
+                <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btn_CrudCustomerMouseEntered"/>
+                <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btn_CrudCustomerMouseExited"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
