@@ -22,7 +22,7 @@ public class PembelianRepository {
         this.pembelianDataSource = pembelianremotedatasource;
     }
 
-    // TODO
+   
     public ArrayList<PembelianModel> getAllpembelian(int idWarehouse) {
         return pembelianDataSource.getAllPembelian(idWarehouse);
     }

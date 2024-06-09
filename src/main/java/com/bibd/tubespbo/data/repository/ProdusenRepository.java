@@ -20,10 +20,8 @@ public class ProdusenRepository {
     }
     
     
-    
     public ArrayList<ProdusenModel> getAllProdusen (){
      return produsenDataSource.getAllProdusen();
-//    return new ArrayList<>();
     }
 
     public int addProdusen(ProdusenModel pm) {
