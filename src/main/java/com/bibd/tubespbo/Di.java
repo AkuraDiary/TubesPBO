@@ -11,6 +11,7 @@ import com.bibd.tubespbo.data.repository.LoginRepository;
 import com.bibd.tubespbo.data.repository.PembelianRepository;
 import com.bibd.tubespbo.data.repository.PenjualanRepository;
 import com.bibd.tubespbo.data.repository.ProductRepository;
+import com.bibd.tubespbo.data.repository.ProdusenRepository;
 import com.bibd.tubespbo.data.source.CustomerDataSource;
 import com.bibd.tubespbo.data.source.EmployeesDataSource;
 import com.bibd.tubespbo.data.source.LoginDataSource;
@@ -22,6 +23,7 @@ import com.bibd.tubespbo.data.source.WarehouseDataSource;
 import com.bibd.tubespbo.domain.auth.AuthPresenter;
 import com.bibd.tubespbo.domain.manager.ApprovePembelianPresenter;
 import com.bibd.tubespbo.domain.manager.ManageEmployeePresenter;
+import com.bibd.tubespbo.domain.manager.ManageProductPresenter;
 import com.bibd.tubespbo.domain.sales.PenjualanPresenter;
 import com.bibd.tubespbo.domain.supervisor.ManageCustomerPresenter;
 import com.bibd.tubespbo.domain.supervisor.ManageStockPresenter;
@@ -50,12 +52,13 @@ public class Di {
     
     
     //Repository
+    public static CustomerRepository customerRepository;
+    public static EmployeeRepository employeeRepository;
     public static LoginRepository loginRepository;
     public static PembelianRepository pembelianRepository;
-    public static EmployeeRepository employeeRepository;
-    public static CustomerRepository customerRepository;
-    public static ProductRepository productRepository;
     public static PenjualanRepository penjualanRepository;
+    public static ProductRepository productRepository;
+    public static ProdusenRepository produsenRepository;
     
     //Domain Presenters
     public static AuthPresenter authPresenter;
@@ -63,6 +66,7 @@ public class Di {
     //manager
     public static ApprovePembelianPresenter approvePembelianPresenter;
     public static ManageEmployeePresenter manageEmployeePresenter;
+    public static ManageProductPresenter manageProductPresenter;
     
     //supervisor
     public static ManageCustomerPresenter manageCustomerPresenter;
@@ -92,21 +96,24 @@ public class Di {
         
         // Repository
         loginRepository = new LoginRepository(Di.loginDataSource, Di.warehouseDataSource);
+        customerRepository = new CustomerRepository(Di.customerDataSource);
         pembelianRepository = new PembelianRepository(Di.pembelianDataSource);
         employeeRepository = new EmployeeRepository(Di.employeesDataSource);
-        productRepository = new ProductRepository();
+        productRepository = new ProductRepository(Di.productDataSource, Di.produsenDataSource);
         penjualanRepository = new PenjualanRepository();
+        produsenRepository = new ProdusenRepository(Di.produsenDataSource);
         
         // Domain presenter
         authPresenter = new AuthPresenter(Di.loginRepository);
         
         approvePembelianPresenter = new ApprovePembelianPresenter(Di.pembelianRepository);
         manageEmployeePresenter = new ManageEmployeePresenter(Di.employeeRepository);
+        manageProductPresenter = new ManageProductPresenter(Di.productRepository);
         
         manageCustomerPresenter = new ManageCustomerPresenter(customerRepository);
         manageStockPresenter = new ManageStockPresenter(Di.productRepository);
         pantauPenjualanPresenter = new PantauPenjualanPresenter(Di.penjualanRepository);
-        pembelianPresenter = new PembelianPresenter(Di.penjualanRepository, Di.productRepository);
+        pembelianPresenter = new PembelianPresenter(Di.pembelianRepository, Di.productRepository);
         
         penjualanPresenter = new PenjualanPresenter(Di.penjualanRepository, Di.productRepository);
         

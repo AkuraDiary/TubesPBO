@@ -25,7 +25,7 @@ public class PembelianDataSource {
        return -1;
     }
 
-    public ArrayList<PembelianModel> getAllPembelian() {
+    public ArrayList<PembelianModel> getAllPembelian(int idWarehouse) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     

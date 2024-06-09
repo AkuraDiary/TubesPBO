@@ -16,6 +16,11 @@ public class CustomerRepository {
 
     CustomerDataSource customerDataSource;
 
+    public CustomerRepository(CustomerDataSource customerDataSource) {
+        this.customerDataSource = customerDataSource;
+    }
+    
+
     public ArrayList<CustomerModel> getAllgetAllCustomers() {
         return customerDataSource.getAllCustomer();
     }
