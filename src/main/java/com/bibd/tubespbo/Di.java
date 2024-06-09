@@ -100,7 +100,7 @@ public class Di {
         pembelianRepository = new PembelianRepository(Di.pembelianDataSource);
         employeeRepository = new EmployeeRepository(Di.employeesDataSource);
         productRepository = new ProductRepository(Di.productDataSource, Di.produsenDataSource);
-        penjualanRepository = new PenjualanRepository();
+        penjualanRepository = new PenjualanRepository(Di.penjualanDataSource);
         produsenRepository = new ProdusenRepository(Di.produsenDataSource);
         
         // Domain presenter
