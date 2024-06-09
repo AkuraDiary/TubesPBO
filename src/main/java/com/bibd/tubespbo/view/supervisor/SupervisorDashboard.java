@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.bibd.tubespbo.view.Supervisor;
+package com.bibd.tubespbo.view.supervisor;
 import java.awt.Color;
 import javax.swing.JFrame;
 
