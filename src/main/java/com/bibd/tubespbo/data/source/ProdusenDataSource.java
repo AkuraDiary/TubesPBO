@@ -5,6 +5,7 @@
 package com.bibd.tubespbo.data.source;
 
 
+import com.bibd.tubespbo.data.DbConnection;
 import com.bibd.tubespbo.data.model.ProdusenModel;
 import java.util.ArrayList;
 
@@ -15,6 +16,11 @@ import java.util.ArrayList;
 public class ProdusenDataSource {
     
     
+    DbConnection db;
+
+    public ProdusenDataSource(DbConnection db) {
+        this.db = db;
+    }
     
     //TODO
     public ArrayList<ProdusenModel> getAllProdusen() {

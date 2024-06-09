@@ -15,6 +15,9 @@ import com.bibd.tubespbo.data.source.CustomerDataSource;
 import com.bibd.tubespbo.data.source.EmployeesDataSource;
 import com.bibd.tubespbo.data.source.LoginDataSource;
 import com.bibd.tubespbo.data.source.PembelianDataSource;
+import com.bibd.tubespbo.data.source.PenjualanDataSource;
+import com.bibd.tubespbo.data.source.ProductDataSource;
+import com.bibd.tubespbo.data.source.ProdusenDataSource;
 import com.bibd.tubespbo.data.source.WarehouseDataSource;
 import com.bibd.tubespbo.domain.auth.AuthPresenter;
 import com.bibd.tubespbo.domain.manager.ApprovePembelianPresenter;
@@ -41,6 +44,10 @@ public class Di {
     public static PembelianDataSource pembelianDataSource;
     public static EmployeesDataSource employeesDataSource;
     public static CustomerDataSource customerDataSource;
+    public static PenjualanDataSource penjualanDataSource;
+    public static ProductDataSource productDataSource;
+    public static ProdusenDataSource produsenDataSource;
+    
     
     //Repository
     public static LoginRepository loginRepository;
@@ -78,6 +85,10 @@ public class Di {
         warehouseDataSource = new WarehouseDataSource(Di.dbConnection);
         pembelianDataSource = new PembelianDataSource(Di.dbConnection);
         employeesDataSource = new EmployeesDataSource(Di.dbConnection);
+        customerDataSource = new CustomerDataSource(Di.dbConnection);
+        penjualanDataSource = new PenjualanDataSource(Di.dbConnection);
+        productDataSource = new ProductDataSource(Di.dbConnection);
+        produsenDataSource = new ProdusenDataSource(Di.dbConnection);
         
         // Repository
         loginRepository = new LoginRepository(Di.loginDataSource, Di.warehouseDataSource);
