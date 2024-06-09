@@ -4,8 +4,10 @@
  */
 package com.bibd.tubespbo.data.repository;
 
+import com.bibd.tubespbo.data.model.KeranjangModel;
 import com.bibd.tubespbo.data.model.PembelianModel;
 import com.bibd.tubespbo.data.source.PembelianDataSource;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 /**
@@ -13,7 +15,7 @@ import java.util.ArrayList;
  * @author asthiseta
  */
 public class PembelianRepository {
-    
+
     PembelianDataSource pembelianDataSource;
 
     public PembelianRepository(PembelianDataSource pembelianremotedatasource) {
@@ -21,17 +23,21 @@ public class PembelianRepository {
     }
 
     // TODO
-    public ArrayList<PembelianModel> getAllpembelian() {
-        return pembelianDataSource.getAllPembelian();
+    public ArrayList<PembelianModel> getAllpembelian(int idWarehouse) {
+        return pembelianDataSource.getAllPembelian(idWarehouse);
     }
 
     public int updateStatusPembelian(int idPembelian, String status) {
-        try{
+        try {
             return pembelianDataSource.updateStatusPembelian(idPembelian, status);
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println("Pembelian Repo " + e.getLocalizedMessage());
             return -1;
         }
     }
-    
+
+    public int submitPembelian(int employeeId, String orderType, LocalDateTime waktu, String statusOrder, ArrayList<KeranjangModel> keranjang) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
 }

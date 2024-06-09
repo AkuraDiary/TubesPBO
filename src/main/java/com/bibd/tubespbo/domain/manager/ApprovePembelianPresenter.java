@@ -6,6 +6,7 @@ package com.bibd.tubespbo.domain.manager;
 
 import com.bibd.tubespbo.data.model.PembelianModel;
 import com.bibd.tubespbo.data.repository.PembelianRepository;
+import com.bibd.tubespbo.util.Statics;
 import java.util.ArrayList;
 import static javax.swing.JOptionPane.showMessageDialog;
 
@@ -30,7 +31,7 @@ public class ApprovePembelianPresenter {
     }
 
     public void getListPembelian() {
-        listPembelian = pembelianRepository.getAllpembelian();
+        listPembelian = pembelianRepository.getAllpembelian(Statics.GET_ALL_PEMBELIAN);
     }
 
     int statusUpdatePembelian = 0; // 0 default state; -1 error ; -2 not selected 

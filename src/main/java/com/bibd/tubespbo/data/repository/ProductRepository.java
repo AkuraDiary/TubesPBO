@@ -22,6 +22,13 @@ public class ProductRepository {
     ProductDataSource productDataSource;
     ProdusenDataSource produsenDataSource;
 
+    public ProductRepository(ProductDataSource productDataSource, ProdusenDataSource produsenDataSource) {
+        this.productDataSource = productDataSource;
+        this.produsenDataSource = produsenDataSource;
+    }
+    
+    
+
     public ArrayList<ProductModel> getAllProduct() {
         return productDataSource.getAllProduct();
     }

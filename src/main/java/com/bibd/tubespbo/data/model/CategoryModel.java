@@ -17,6 +17,11 @@ public class CategoryModel {
         this.descCategory = descCategory;
     }
 
+    public CategoryModel() {
+    }
+    
+    
+
     public int getIdCategory() {
         return idCategory;
     }

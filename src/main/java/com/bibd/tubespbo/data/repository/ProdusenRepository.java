@@ -14,6 +14,12 @@ import java.util.ArrayList;
  */
 public class ProdusenRepository {
     ProdusenDataSource produsenDataSource;
+
+    public ProdusenRepository(ProdusenDataSource produsenDataSource) {
+        this.produsenDataSource = produsenDataSource;
+    }
+    
+    
     
     public ArrayList<ProdusenModel> getAllProdusen (){
      return produsenDataSource.getAllProdusen();
