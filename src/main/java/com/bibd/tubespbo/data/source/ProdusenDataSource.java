@@ -4,9 +4,9 @@
  */
 package com.bibd.tubespbo.data.source;
 
-
 import com.bibd.tubespbo.data.DbConnection;
 import com.bibd.tubespbo.data.model.ProdusenModel;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 
 /**
@@ -14,19 +14,55 @@ import java.util.ArrayList;
  * @author rafid
  */
 public class ProdusenDataSource {
-    
-    
+
     DbConnection db;
 
     public ProdusenDataSource(DbConnection db) {
         this.db = db;
     }
-    
-    //TODO
+
     public ArrayList<ProdusenModel> getAllProdusen() {
-        
-        return new ArrayList<> ();
+
+        try {
+            ArrayList<ProdusenModel> dataResult = new ArrayList<>();
+            db.openConnection();
+            String query = "SELECT idProdusen, email, name, contact, address, status FROM produsen";
+
+            ResultSet rs = db.getData(query);
+
+            while (rs.next()) {
+                // Parsing the data
+                int idProdusen = rs.getInt("idProdusen");
+                String email = rs.getString("email");
+                String name = rs.getString("name");
+                String contact = rs.getString("contact");
+                String address = rs.getString("address");
+                String status = rs.getString("status");
+
+                // Creating a ProdusenModel object and using setters
+                ProdusenModel produsen = new ProdusenModel();
+                produsen.setIdProdusen(idProdusen);
+                produsen.setEmail(email);
+                produsen.setNama(name);
+                produsen.setContact(contact);
+                produsen.setAddres(address);
+                produsen.setStatus(status);
+
+                // Adding the produsen to the list
+                dataResult.add(produsen);
+
+            }
+
+            return dataResult;
+
+        } catch (Exception e) {
+            System.out.println(e.getLocalizedMessage());
+            return null;
+
+        } finally {
+
+            db.closeConnection();
+        }
     }
-    
-    
+
 }
