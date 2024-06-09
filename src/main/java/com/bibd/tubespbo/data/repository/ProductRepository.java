@@ -26,14 +26,14 @@ public class ProductRepository {
         return productDataSource.getAllProduct();
     }
 
-//    public int updateProductStock(int idproduct, int jumlah, int idEmployee) {
-//        try {
-//            return productDataSource.updateProductStock(idproduct, jumlah, idEmployee);
-//        } catch (Exception e) {
-//            System.out.println(e.getLocalizedMessage());
-//            return -1;
+    public int updateProductStock(int idproduct, int jumlah, int idEmployee) {
+        try {
+            return productDataSource.updateProductStock(idproduct, jumlah, idEmployee);
+        } catch (Exception e) {
+            System.out.println(e.getLocalizedMessage());
+            return -1;
         }
-//    }
+   }
 
     public int addProduct(ProductModel pm) {
         try {

@@ -8,7 +8,7 @@ package com.bibd.tubespbo.data.model;
  *
  * @author asthiseta
  */
-public class ProductModel {
+ public class ProductModel {
     int idProduct, categoryId, produsenId, quantityInStock;
     long buyPrice, sellPrice;
     String productName, description;
