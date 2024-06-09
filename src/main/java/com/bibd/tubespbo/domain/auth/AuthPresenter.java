@@ -33,7 +33,6 @@ public class AuthPresenter {
     }
 
     public void doLogout() {
-        // TODO
         loginRepository.doLogout();
     }
 

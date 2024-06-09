@@ -4,10 +4,56 @@
  */
 package com.bibd.tubespbo.domain.supervisor;
 
+import com.bibd.tubespbo.data.model.CustomerModel;
+import com.bibd.tubespbo.data.repository.CustomerRepository;
+import java.util.ArrayList;
+
 /**
  *
  * @author asthiseta
  */
 public class ManageCustomerPresenter {
+
+    CustomerRepository customerRepository;
+
+    ArrayList<CustomerModel> customerList = new ArrayList<>();
+
+    public ManageCustomerPresenter(CustomerRepository customerRepository) {
+        this.customerRepository = customerRepository;
+    }
+
+    public void getAllCustomer() {
+        this.customerList = customerRepository.getAllgetAllCustomers();
+    }
+
+    CustomerModel selectedDataCustomer;
+
+    int statusUpdateCustomer = 0; // 0 default state; -1 error ; -2 not selected 
+
+    public void updateDataCustomer() {
+        if (selectedDataCustomer == null) {
+            statusUpdateCustomer = -2;
+            return;
+        }
+        statusUpdateCustomer = customerRepository.updateDataCustomer(selectedDataCustomer);
+    }
+
+    public void resetManageCustomer() {
+        statusUpdateCustomer = 0;
+        selectedDataCustomer = null;
+    }
     
+    int statusAddNewCust = 0; // 0 default state; -1 error ;
+    
+    public void addNewCustomer(CustomerModel customer){
+        statusAddNewCust = customerRepository.addNewCustomer(customer);
+    }
+    
+    public void setSelectedCustomer(int idCustomer){
+        selectedDataCustomer = customerList.stream()
+                .filter(item -> item.getIdCustomer()==idCustomer)
+                .findFirst()
+                .orElse(null);
+    }
+
 }

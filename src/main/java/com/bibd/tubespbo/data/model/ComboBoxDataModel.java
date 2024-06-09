@@ -9,7 +9,7 @@ package com.bibd.tubespbo.data.model;
  * @author asthiseta
  */
 public class ComboBoxDataModel {
-  int id;
+    int id;
     String text;
 
     public ComboBoxDataModel(int id, String text) {

@@ -9,9 +9,9 @@ package com.bibd.tubespbo.data.model;
  * @author asthiseta
  */
 public class CityModel {
-    int id, idProvince;
-    String city;
-    ProvinceModel provinceModel;
+    private int id, idProvince;
+    private String city;
+    private ProvinceModel provinceModel;
 
     public int getId() {
         return id;

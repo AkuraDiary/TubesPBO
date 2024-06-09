@@ -4,7 +4,11 @@
  */
 package com.bibd.tubespbo.view.manager;
 
+import com.bibd.tubespbo.view.manager.panels.MenuApprovePembelian;
+import com.bibd.tubespbo.view.manager.panels.MenuCrudEmployees;
+import com.bibd.tubespbo.view.manager.panels.MenuCrudProduct;
 import java.awt.Color;
+import javax.swing.JFrame;
 
 /**
  *
@@ -12,11 +16,13 @@ import java.awt.Color;
  */
 public class ManagerDashboard extends javax.swing.JFrame {
 
+    int xx,xy;
     /**
      * Creates new form ManagerDashboard
      */
     public ManagerDashboard() {
         initComponents();
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 
     /**
@@ -35,11 +41,33 @@ public class ManagerDashboard extends javax.swing.JFrame {
         pMain_Create = new javax.swing.JPanel();
         pnBeforeimgCreate = new javax.swing.JPanel();
         btnCreate = new javax.swing.JLabel();
+        pMain_AprovePembelian = new javax.swing.JPanel();
+        pnBeforeApprove = new javax.swing.JPanel();
+        btnAprove = new javax.swing.JLabel();
+        pMain_CRUDProducts = new javax.swing.JPanel();
+        pnBeforeCRUDProducts = new javax.swing.JPanel();
+        btnCRUDProducts = new javax.swing.JLabel();
         pnKanan = new javax.swing.JPanel();
         pnDasar = new javax.swing.JPanel();
+<<<<<<< HEAD
         pnUtama = new javax.swing.JPanel();
+=======
+        pn_Utama = new javax.swing.JPanel();
+        jPanelGradient1 = new com.bibd.tubespbo.view.manager.jPanelGradient();
+>>>>>>> 2753ed52a94df30444360b3e583c20b1dc8a6520
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
+        addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                formMouseDragged(evt);
+            }
+        });
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                formMousePressed(evt);
+            }
+        });
 
         pnKiri.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -68,7 +96,7 @@ public class ManagerDashboard extends javax.swing.JFrame {
         pnBeforeimgCreate.setLayout(pnBeforeimgCreateLayout);
         pnBeforeimgCreateLayout.setHorizontalGroup(
             pnBeforeimgCreateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 10, Short.MAX_VALUE)
+            .addGap(0, 5, Short.MAX_VALUE)
         );
         pnBeforeimgCreateLayout.setVerticalGroup(
             pnBeforeimgCreateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -77,8 +105,14 @@ public class ManagerDashboard extends javax.swing.JFrame {
 
         btnCreate.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         btnCreate.setForeground(new java.awt.Color(102, 102, 102));
-        btnCreate.setText("CRUD OPERATION");
+        btnCreate.setText("CRUD EMPLOYEES");
         btnCreate.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCreateMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnCreateMouseEntered(evt);
+            }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 btnCreateMouseExited(evt);
             }
@@ -92,19 +126,132 @@ public class ManagerDashboard extends javax.swing.JFrame {
                 .addGap(34, 34, 34)
                 .addComponent(pnBeforeimgCreate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnCreate, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
-                .addGap(45, 45, 45))
+                .addComponent(btnCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(22, Short.MAX_VALUE))
         );
         pMain_CreateLayout.setVerticalGroup(
             pMain_CreateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pMain_CreateLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pMain_CreateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pnBeforeimgCreate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(pMain_CreateLayout.createSequentialGroup()
-                        .addGap(8, 8, 8)
-                        .addComponent(btnCreate)))
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addGroup(pMain_CreateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pnBeforeimgCreate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        pMain_AprovePembelian.setBackground(new java.awt.Color(255, 255, 255));
+
+        pnBeforeApprove.setBackground(new java.awt.Color(255, 255, 255));
+        pnBeforeApprove.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+                pnBeforeApproveAncestorMoved(evt);
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
+
+        javax.swing.GroupLayout pnBeforeApproveLayout = new javax.swing.GroupLayout(pnBeforeApprove);
+        pnBeforeApprove.setLayout(pnBeforeApproveLayout);
+        pnBeforeApproveLayout.setHorizontalGroup(
+            pnBeforeApproveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 5, Short.MAX_VALUE)
+        );
+        pnBeforeApproveLayout.setVerticalGroup(
+            pnBeforeApproveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 35, Short.MAX_VALUE)
+        );
+
+        btnAprove.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        btnAprove.setForeground(new java.awt.Color(102, 102, 102));
+        btnAprove.setText("APPROVE PEMBELIAN");
+        btnAprove.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnAproveMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnAproveMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnAproveMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pMain_AprovePembelianLayout = new javax.swing.GroupLayout(pMain_AprovePembelian);
+        pMain_AprovePembelian.setLayout(pMain_AprovePembelianLayout);
+        pMain_AprovePembelianLayout.setHorizontalGroup(
+            pMain_AprovePembelianLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pMain_AprovePembelianLayout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(pnBeforeApprove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnAprove, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        pMain_AprovePembelianLayout.setVerticalGroup(
+            pMain_AprovePembelianLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pMain_AprovePembelianLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pMain_AprovePembelianLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pMain_AprovePembelianLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(pnBeforeApprove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnAprove, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+
+        pMain_CRUDProducts.setBackground(new java.awt.Color(255, 255, 255));
+
+        pnBeforeCRUDProducts.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout pnBeforeCRUDProductsLayout = new javax.swing.GroupLayout(pnBeforeCRUDProducts);
+        pnBeforeCRUDProducts.setLayout(pnBeforeCRUDProductsLayout);
+        pnBeforeCRUDProductsLayout.setHorizontalGroup(
+            pnBeforeCRUDProductsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 5, Short.MAX_VALUE)
+        );
+        pnBeforeCRUDProductsLayout.setVerticalGroup(
+            pnBeforeCRUDProductsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 35, Short.MAX_VALUE)
+        );
+
+        btnCRUDProducts.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        btnCRUDProducts.setForeground(new java.awt.Color(102, 102, 102));
+        btnCRUDProducts.setText("CRUD PRODUCTS");
+        btnCRUDProducts.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCRUDProductsMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnCRUDProductsMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnCRUDProductsMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pMain_CRUDProductsLayout = new javax.swing.GroupLayout(pMain_CRUDProducts);
+        pMain_CRUDProducts.setLayout(pMain_CRUDProductsLayout);
+        pMain_CRUDProductsLayout.setHorizontalGroup(
+            pMain_CRUDProductsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pMain_CRUDProductsLayout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addComponent(pnBeforeCRUDProducts, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnCRUDProducts, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(26, Short.MAX_VALUE))
+        );
+        pMain_CRUDProductsLayout.setVerticalGroup(
+            pMain_CRUDProductsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pMain_CRUDProductsLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pMain_CRUDProductsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pMain_CRUDProductsLayout.createSequentialGroup()
+                        .addComponent(pnBeforeCRUDProducts, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(btnCRUDProducts, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout pnKiriLayout = new javax.swing.GroupLayout(pnKiri);
@@ -114,16 +261,19 @@ public class ManagerDashboard extends javax.swing.JFrame {
             .addGroup(pnKiriLayout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addGroup(pnKiriLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pMain_Create, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(pnKiriLayout.createSequentialGroup()
-                        .addGroup(pnKiriLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(pnKiriLayout.createSequentialGroup()
-                                .addGap(54, 54, 54)
-                                .addComponent(jLabel1))
-                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel2)))
-                .addGap(20, 20, 20))
+                    .addComponent(pMain_CRUDProducts, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(pnKiriLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(pMain_Create, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(pnKiriLayout.createSequentialGroup()
+                            .addGroup(pnKiriLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(pnKiriLayout.createSequentialGroup()
+                                    .addGap(54, 54, 54)
+                                    .addComponent(jLabel1))
+                                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jLabel2))
+                        .addComponent(pMain_AprovePembelian, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap(104, Short.MAX_VALUE))
         );
         pnKiriLayout.setVerticalGroup(
             pnKiriLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -136,7 +286,11 @@ public class ManagerDashboard extends javax.swing.JFrame {
                 .addComponent(jLabel4)
                 .addGap(18, 18, 18)
                 .addComponent(pMain_Create, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(570, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pMain_AprovePembelian, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pMain_CRUDProducts, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(445, Short.MAX_VALUE))
         );
 
         getContentPane().add(pnKiri, java.awt.BorderLayout.LINE_START);
@@ -144,20 +298,10 @@ public class ManagerDashboard extends javax.swing.JFrame {
         pnKanan.setBackground(new java.awt.Color(255, 255, 255));
         pnKanan.setLayout(new java.awt.BorderLayout());
 
-        pnDasar.setBackground(new java.awt.Color(250, 250, 250));
+        pnDasar.setBackground(new java.awt.Color(255, 255, 255));
 
-        pnUtama.setBackground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout pnUtamaLayout = new javax.swing.GroupLayout(pnUtama);
-        pnUtama.setLayout(pnUtamaLayout);
-        pnUtamaLayout.setHorizontalGroup(
-            pnUtamaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1027, Short.MAX_VALUE)
-        );
-        pnUtamaLayout.setVerticalGroup(
-            pnUtamaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 653, Short.MAX_VALUE)
-        );
+        pn_Utama.setBackground(new java.awt.Color(255, 255, 255));
+        pn_Utama.setLayout(new java.awt.BorderLayout());
 
         javax.swing.GroupLayout pnDasarLayout = new javax.swing.GroupLayout(pnDasar);
         pnDasar.setLayout(pnDasarLayout);
@@ -165,27 +309,43 @@ public class ManagerDashboard extends javax.swing.JFrame {
             pnDasarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnDasarLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(pnUtama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pn_Utama, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(20, 20, 20))
         );
         pnDasarLayout.setVerticalGroup(
             pnDasarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnDasarLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(pnUtama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33))
+            .addComponent(pn_Utama, javax.swing.GroupLayout.DEFAULT_SIZE, 698, Short.MAX_VALUE)
         );
 
         pnKanan.add(pnDasar, java.awt.BorderLayout.CENTER);
 
+<<<<<<< HEAD
+=======
+        jPanelGradient1.setColorEnd(new java.awt.Color(0, 102, 153));
+        jPanelGradient1.setColorStart(new java.awt.Color(0, 255, 204));
+
+        javax.swing.GroupLayout jPanelGradient1Layout = new javax.swing.GroupLayout(jPanelGradient1);
+        jPanelGradient1.setLayout(jPanelGradient1Layout);
+        jPanelGradient1Layout.setHorizontalGroup(
+            jPanelGradient1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 969, Short.MAX_VALUE)
+        );
+        jPanelGradient1Layout.setVerticalGroup(
+            jPanelGradient1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 70, Short.MAX_VALUE)
+        );
+
+        pnKanan.add(jPanelGradient1, java.awt.BorderLayout.PAGE_START);
+
+>>>>>>> 2753ed52a94df30444360b3e583c20b1dc8a6520
         getContentPane().add(pnKanan, java.awt.BorderLayout.CENTER);
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void pMain_CreateMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pMain_CreateMouseEntered
-        pMain_Create.setBackground(new Color(250, 250, 250));
-        pnBeforeimgCreate.setBackground(new Color(0, 102, 153));
+//tidak usah diisi
     }//GEN-LAST:event_pMain_CreateMouseEntered
 
     private void btnCreateMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCreateMouseExited
@@ -193,6 +353,77 @@ public class ManagerDashboard extends javax.swing.JFrame {
         pnBeforeimgCreate.setBackground(new Color(255, 255, 255));
     }//GEN-LAST:event_btnCreateMouseExited
 
+    private void btnCreateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCreateMouseClicked
+        pMain_Create.setBackground(new Color(240, 240, 240));
+        pnBeforeimgCreate.setBackground(new Color(0, 102, 153));
+        
+        pn_Utama.removeAll();
+        pn_Utama.add(new MenuCrudEmployees());
+        pn_Utama.repaint();
+        pn_Utama.revalidate();
+    }//GEN-LAST:event_btnCreateMouseClicked
+
+    private void btnCreateMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCreateMouseEntered
+        pMain_Create.setBackground(new Color(250, 250, 250));
+        pnBeforeimgCreate.setBackground(new Color(0, 102, 153));
+    }//GEN-LAST:event_btnCreateMouseEntered
+
+    private void btnAproveMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAproveMouseEntered
+        pMain_AprovePembelian.setBackground(new Color(250, 250, 250));
+        pnBeforeApprove.setBackground(new Color(0, 102, 153));
+    }//GEN-LAST:event_btnAproveMouseEntered
+
+    private void btnAproveMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAproveMouseExited
+        pMain_AprovePembelian.setBackground(new Color(255, 255, 255));
+        pnBeforeApprove.setBackground(new Color(255, 255, 255));
+    }//GEN-LAST:event_btnAproveMouseExited
+
+    private void pnBeforeApproveAncestorMoved(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_pnBeforeApproveAncestorMoved
+        //gausah diisi bagian ini
+    }//GEN-LAST:event_pnBeforeApproveAncestorMoved
+
+    private void btnAproveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAproveMouseClicked
+        pMain_AprovePembelian.setBackground(new Color(240, 240, 240));
+        pnBeforeApprove.setBackground(new Color(0, 102, 153));
+        
+        pn_Utama.removeAll();
+        pn_Utama.add(new MenuApprovePembelian());
+        pn_Utama.repaint();
+        pn_Utama.revalidate();
+    }//GEN-LAST:event_btnAproveMouseClicked
+
+    private void btnCRUDProductsMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCRUDProductsMouseEntered
+        pMain_CRUDProducts.setBackground(new Color(250, 250, 250));
+        pnBeforeCRUDProducts.setBackground(new Color(0, 102, 153));
+    }//GEN-LAST:event_btnCRUDProductsMouseEntered
+
+    private void btnCRUDProductsMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCRUDProductsMouseExited
+        pMain_CRUDProducts.setBackground(new Color(255, 255, 255));
+        pnBeforeCRUDProducts.setBackground(new Color(255, 255, 255));
+    }//GEN-LAST:event_btnCRUDProductsMouseExited
+
+    private void btnCRUDProductsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCRUDProductsMouseClicked
+        pMain_CRUDProducts.setBackground(new Color(240, 240, 240));
+        pnBeforeCRUDProducts.setBackground(new Color(0, 102, 153));
+        
+        pn_Utama.removeAll();
+        pn_Utama.add(new MenuCrudProduct());
+        pn_Utama.repaint();
+        pn_Utama.revalidate();
+    }//GEN-LAST:event_btnCRUDProductsMouseClicked
+
+    private void formMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMousePressed
+        xx = evt.getX();
+        xy = evt.getY();
+    }//GEN-LAST:event_formMousePressed
+
+    private void formMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseDragged
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
+        this.setLocation(x - xx, y - xy);
+    }//GEN-LAST:event_formMouseDragged
+
+    
     /**
      * @param args the command line arguments
      */
@@ -229,15 +460,25 @@ public class ManagerDashboard extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel btnAprove;
+    private javax.swing.JLabel btnCRUDProducts;
     private javax.swing.JLabel btnCreate;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
+<<<<<<< HEAD
+=======
+    private com.bibd.tubespbo.view.manager.jPanelGradient jPanelGradient1;
+    private javax.swing.JPanel pMain_AprovePembelian;
+    private javax.swing.JPanel pMain_CRUDProducts;
+>>>>>>> 2753ed52a94df30444360b3e583c20b1dc8a6520
     private javax.swing.JPanel pMain_Create;
+    private javax.swing.JPanel pnBeforeApprove;
+    private javax.swing.JPanel pnBeforeCRUDProducts;
     private javax.swing.JPanel pnBeforeimgCreate;
     private javax.swing.JPanel pnDasar;
     private javax.swing.JPanel pnKanan;
     private javax.swing.JPanel pnKiri;
-    private javax.swing.JPanel pnUtama;
+    private javax.swing.JPanel pn_Utama;
     // End of variables declaration//GEN-END:variables
 }

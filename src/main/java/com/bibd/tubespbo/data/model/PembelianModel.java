@@ -9,5 +9,16 @@ package com.bibd.tubespbo.data.model;
  * @author asthiseta
  */
 public class PembelianModel {
+    int idPembelian;
+
+    public int getIdPembelian() {
+        return idPembelian;
+    }
+
+    public void setIdPembelian(int idPembelian) {
+        this.idPembelian = idPembelian;
+    }
+    
+    
     
 }
