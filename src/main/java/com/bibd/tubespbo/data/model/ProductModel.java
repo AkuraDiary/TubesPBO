@@ -13,6 +13,22 @@ public class ProductModel {
     long buyPrice, sellPrice;
     String productName, description;
 
+    public ProductModel(int idProduct, int categoryId, int produsenId, int quantityInStock, long buyPrice, long sellPrice, String productName, String description) {
+        this.idProduct = idProduct;
+        this.categoryId = categoryId;
+        this.produsenId = produsenId;
+        this.quantityInStock = quantityInStock;
+        this.buyPrice = buyPrice;
+        this.sellPrice = sellPrice;
+        this.productName = productName;
+        this.description = description;
+    }
+
+    public ProductModel() {
+    }
+    
+    
+
     public int getQuantityInStock() {
         return quantityInStock;
     }

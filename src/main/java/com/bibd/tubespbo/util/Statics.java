@@ -13,6 +13,9 @@ public class Statics {
     public static String EMPLOYEE_STATUS_AKTIF = "aktif";
     public static String EMPLOYEE_STATUS_NONAKTIF = "nonaktif";
     
+    public static String PRODUSEN_STATUS_ACTIVE = "active";
+    public static String PRODUSEN_STATUS_NONACTIVE = "nonactive";
+    
     public static String EMPLOYEE_ROLE_MANAGER = "manager";
     public static String EMPLOYEE_ROLE_SUPERVISOR = "supervisor";
     public static String EMPLOYEE_ROLE_SALES = "sales";
