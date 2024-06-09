@@ -18,6 +18,7 @@ import java.util.Date;
  *
  * @author asthiseta
  */
+//Rapid D.
 public class PenjualanDataSource {
 
     DbConnection db;
@@ -40,7 +41,7 @@ public class PenjualanDataSource {
             ResultSet rs = db.getData(query);
 
 //            OrderDetailsModel orderDetailModel ;
-            while(rs.next()) {
+            while (rs.next()) {
 
                 int id = rs.getInt("id");
                 double unitPrice = rs.getDouble("unitPrice");
@@ -55,9 +56,9 @@ public class PenjualanDataSource {
                 int produsenId = rs.getInt("produsenId");
 
 //            OrderDetailsModel orderDetailModel =;
-                 OrderDetailsModel orderDetailModel = new OrderDetailsModel(id, unitPrice, quantity, subTotalPrice,
-                    idProduct, productName, description, buyPrice, sellPrice, categoryId, produsenId);
-            odm.add(orderDetailModel);
+                OrderDetailsModel orderDetailModel = new OrderDetailsModel(id, unitPrice, quantity, subTotalPrice,
+                        idProduct, productName, description, buyPrice, sellPrice, categoryId, produsenId);
+                odm.add(orderDetailModel);
             }
 //            String query = ""
             return odm;
@@ -112,7 +113,23 @@ public class PenjualanDataSource {
     }
 
     public int doCheckout(int customerId, int employeeId, ArrayList<KeranjangModel> keranjang, String statusPayment, String typeOrder, LocalDateTime waktu, PenjualanDataSource penjualanDataSource) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+//          order,orderdetil,orderpenjualan, stok product
+
+        try {
+            db.openConnection();
+            String queryorder = "INSERT INTO orders (orderDate, orderType, employeeId) \n"
+                    + "VALUES ('"+waktu+"', '"+typeOrder+"', "+employeeId+")";
+            String queryorderdetil = "INSERT INTO orders (orderDate, orderType, employeeId) \n"
+                    + "VALUES ('"+waktu+"', '"+typeOrder+"', "+employeeId+")";
+            String queryorderpenjualan = "INSERT INTO orders (orderDate, orderType, employeeId) \n"
+                    + "VALUES ('"+waktu+"', '"+typeOrder+"', "+employeeId+")";
+        } catch (Exception e) {
+            System.out.println(e.getLocalizedMessage());
+            return null;
+        } finally {
+            db.closeConnection();
+        }
     }
 
     public int updateStatusShipment(int idPenjualan, String statusShipment) {
