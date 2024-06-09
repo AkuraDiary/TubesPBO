@@ -30,6 +30,7 @@ public class PenjualanDataSource {
         ArrayList<OrderDetailsModel> odm = new ArrayList<>();
         try {
             db.openConnection();
+<<<<<<< HEAD
             String query = "SELECT od.id, od.unitPrice,od.quantity, od.subTotalPrice, od.idProduct,p.idProduct,p.productName,p.description,p.buyPrice\n"
                     + ",p.sellPrice, p.categoryId,p.produsenId\n"
                     + "FROM orderdetails od \n"
@@ -58,6 +59,10 @@ public class PenjualanDataSource {
                         idProduct, productName, description, buyPrice, sellPrice, categoryId, produsenId));
             }
 
+=======
+//            String query = ""
+return null;
+>>>>>>> 4e0202a7a9ebb804a83ceff65714e44bbe4bb3a0
         } catch (Exception e) {
             System.out.println(e.getLocalizedMessage());
             return null;

@@ -49,8 +49,10 @@ public class ManagerDashboard extends javax.swing.JFrame {
         btnCRUDProducts = new javax.swing.JLabel();
         pnKanan = new javax.swing.JPanel();
         pnDasar = new javax.swing.JPanel();
+//        pnUtama = new javax.swing.JPanel();
         pn_Utama = new javax.swing.JPanel();
         jPanelGradient1 = new com.bibd.tubespbo.view.manager.jPanelGradient();
+
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -459,9 +461,11 @@ public class ManagerDashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
+
     private com.bibd.tubespbo.view.manager.jPanelGradient jPanelGradient1;
     private javax.swing.JPanel pMain_AprovePembelian;
     private javax.swing.JPanel pMain_CRUDProducts;
+
     private javax.swing.JPanel pMain_Create;
     private javax.swing.JPanel pnBeforeApprove;
     private javax.swing.JPanel pnBeforeCRUDProducts;
