@@ -12,10 +12,12 @@ import java.util.Date;
  * @author rafid
  */
 public class PenjualanModel {
-    private int idPenjualan;
-    private String customer;
-    private Date tanggal ;
-    private ArrayList<KeranjangModel> keranjang = new ArrayList<>();
+    private int idPenjualan,idorder;
+    private int customerId,employeeId;
+    private String shipmentStatus, statusPayment, orderType ;
+    private Date tanggalOrder,dateShipped ;
+    private ArrayList<OrderDetails> keranjang = new ArrayList<>();
+    
 
     public int getIdPenjualan() {
         return idPenjualan;
@@ -25,29 +27,81 @@ public class PenjualanModel {
         this.idPenjualan = idPenjualan;
     }
 
-    public String getCustomer() {
-        return customer;
+    public int getIdorder() {
+        return idorder;
     }
 
-    public void setCustomer(String customer) {
-        this.customer = customer;
+    public void setIdorder(int idorder) {
+        this.idorder = idorder;
     }
 
-    public Date getTanggal() {
-        return tanggal;
+    public int getCustomerId() {
+        return customerId;
     }
 
-    public void setTanggal(Date tanggal) {
-        this.tanggal = tanggal;
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
     }
 
-    public ArrayList<KeranjangModel> getKeranjang() {
+    public int getEmployeeId() {
+        return employeeId;
+    }
+
+    public void setEmployeeId(int employeeId) {
+        this.employeeId = employeeId;
+    }
+
+    public String getShipmentStatus() {
+        return shipmentStatus;
+    }
+
+    public void setShipmentStatus(String shipmentStatus) {
+        this.shipmentStatus = shipmentStatus;
+    }
+
+    public String getStatusPayment() {
+        return statusPayment;
+    }
+
+    public void setStatusPayment(String statusPayment) {
+        this.statusPayment = statusPayment;
+    }
+
+    public String getOrderType() {
+        return orderType;
+    }
+
+    public void setOrderType(String orderType) {
+        this.orderType = orderType;
+    }
+
+    public Date getTanggalOrder() {
+        return tanggalOrder;
+    }
+
+    public void setTanggalOrder(Date tanggalOrder) {
+        this.tanggalOrder = tanggalOrder;
+    }
+
+    public Date getDateShipped() {
+        return dateShipped;
+    }
+
+    public void setDateShipped(Date dateShipped) {
+        this.dateShipped = dateShipped;
+    }
+
+    public ArrayList<OrderDetails> getKeranjang() {
         return keranjang;
     }
 
-    public void setKeranjang(ArrayList<KeranjangModel> keranjang) {
+    public void setKeranjang(ArrayList<OrderDetails> keranjang) {
         this.keranjang = keranjang;
     }
+    
+    
+
+    
     
     
 }

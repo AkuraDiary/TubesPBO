@@ -23,7 +23,18 @@ public class PenjualanDataSource {
     }
 
     public ArrayList<PenjualanModel> getHistoryPenjualan(int idWareHouse) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try {
+            db.openConnection();
+            String query = ""
+        } catch (Exception e) {
+            System.out.println(e.getLocalizedMessage());
+            return null ;
+        } finally {
+            db.closeConnection();
+        }
+        
+        
+//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     public int doCheckout(int customerId, int employeeId, ArrayList<KeranjangModel> keranjang, String statusPayment, String typeOrder, LocalDateTime waktu, PenjualanDataSource penjualanDataSource) {
