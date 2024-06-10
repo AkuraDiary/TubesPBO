@@ -3,6 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.bibd.tubespbo.view.supervisor;
+import com.bibd.tubespbo.Di;
+import com.bibd.tubespbo.view.login.LoginView;
 import com.bibd.tubespbo.view.supervisor.supervisorpanels.MenuCreatePembelian;
 import com.bibd.tubespbo.view.supervisor.supervisorpanels.MenuCrudCustomer;
 import com.bibd.tubespbo.view.supervisor.supervisorpanels.MenuUpdateStok;
@@ -348,6 +350,11 @@ public class SupervisorDashboard extends javax.swing.JFrame {
 
         bLogout.setBackground(new java.awt.Color(153, 255, 255));
         bLogout.setText("Log-Out");
+        bLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bLogoutActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanelGradient1Layout = new javax.swing.GroupLayout(jPanelGradient1);
         jPanelGradient1.setLayout(jPanelGradient1Layout);
@@ -459,6 +466,14 @@ public class SupervisorDashboard extends javax.swing.JFrame {
         pnUtama.repaint();
         pnUtama.revalidate();
     }//GEN-LAST:event_btn_UpdateStokMouseClicked
+
+    private void bLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bLogoutActionPerformed
+        // TODO add your handling code here:
+        Di.authPresenter.doLogout();
+        LoginView lv = new LoginView();
+        lv.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_bLogoutActionPerformed
 
     /**
      * @param args the command line arguments

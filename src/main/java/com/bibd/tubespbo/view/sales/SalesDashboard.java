@@ -4,6 +4,9 @@
  */
 package com.bibd.tubespbo.view.sales;
 
+import com.bibd.tubespbo.Di;
+import com.bibd.tubespbo.view.login.LoginView;
+
 /**
  *
  * @author HP VICTUS
@@ -76,6 +79,11 @@ public class SalesDashboard extends javax.swing.JFrame {
 
         bLogout.setBackground(new java.awt.Color(153, 255, 255));
         bLogout.setText("Log-Out");
+        bLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bLogoutActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanelGradient1Layout = new javax.swing.GroupLayout(jPanelGradient1);
         jPanelGradient1.setLayout(jPanelGradient1Layout);
@@ -100,6 +108,14 @@ public class SalesDashboard extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void bLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bLogoutActionPerformed
+        // TODO add your handling code here:
+        Di.authPresenter.doLogout();
+        LoginView lv = new LoginView();
+        lv.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_bLogoutActionPerformed
 
     /**
      * @param args the command line arguments

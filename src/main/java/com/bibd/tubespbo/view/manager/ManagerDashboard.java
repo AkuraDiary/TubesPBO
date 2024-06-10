@@ -4,6 +4,8 @@
  */
 package com.bibd.tubespbo.view.manager;
 
+import com.bibd.tubespbo.Di;
+import com.bibd.tubespbo.view.login.LoginView;
 import com.bibd.tubespbo.view.manager.panels.MenuApprovePembelian;
 import com.bibd.tubespbo.view.manager.panels.MenuCrudEmployees;
 import com.bibd.tubespbo.view.manager.panels.MenuCrudProduct;
@@ -321,6 +323,11 @@ public class ManagerDashboard extends javax.swing.JFrame {
 
         bLogout.setBackground(new java.awt.Color(204, 255, 255));
         bLogout.setText("Log-out");
+        bLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bLogoutActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanelGradient1Layout = new javax.swing.GroupLayout(jPanelGradient1);
         jPanelGradient1.setLayout(jPanelGradient1Layout);
@@ -425,6 +432,14 @@ public class ManagerDashboard extends javax.swing.JFrame {
         int y = evt.getYOnScreen();
         this.setLocation(x - xx, y - xy);
     }//GEN-LAST:event_formMouseDragged
+
+    private void bLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bLogoutActionPerformed
+        // TODO add your handling code here:
+        Di.authPresenter.doLogout();
+        LoginView lv = new LoginView();
+        lv.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_bLogoutActionPerformed
 
     
     /**

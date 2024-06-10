@@ -70,18 +70,18 @@ public class Main {
 //        System.out.println(LocalDateTime.now());
         
         System.out.println("Hello World!");
-        Date dt = new Date();
-        System.out.println(dt);
-        System.out.println(Parser.parseDateToStringSQL(dt));
-        System.out.println(Formatter.formatDate(dt));
-//        Di.init();
+//        Date dt = new Date();
+//        System.out.println(dt);
+//        System.out.println(Parser.parseDateToStringSQL(dt));
+//        System.out.println(Formatter.formatDate(dt));
+        Di.init();
 //    
 //        // testing
 ////        EmployeeModel data = Di.loginDataSource.doLogin("rawr@gmail.com", "rawrbibd");
 ////        
 ////        System.out.println(data.getNama());
 //        
-//         new LoginView().setVisible(true);
+         new LoginView().setVisible(true);
      
     }
     
