@@ -7,6 +7,9 @@ package com.bibd.tubespbo.view.login;
 import static com.bibd.tubespbo.Di.authPresenter;
 import com.bibd.tubespbo.util.Statics;
 import static com.bibd.tubespbo.util.Validator.isValidEmail;
+import com.bibd.tubespbo.view.manager.ManagerDashboard;
+import com.bibd.tubespbo.view.sales.SalesDashboard;
+import com.bibd.tubespbo.view.supervisor.SupervisorDashboard;
 import javax.swing.JFrame;
 import static javax.swing.JOptionPane.showMessageDialog;
 
@@ -194,16 +197,22 @@ public class LoginView extends javax.swing.JFrame {
         // check role here
         if (isManager) {
             // to Manager Dashboard
+            ManagerDashboard md = new ManagerDashboard();
+            md.setVisible(true);
             this.dispose();
         }
 
         if (isSupervisor) {
             // to Supervisor Dashboard
+            SupervisorDashboard sd = new SupervisorDashboard();
+            sd.setVisible(true);
             this.dispose();
         }
 
         if (isSales) {
             // to Sales Dashboard
+            SalesDashboard sdd = new SalesDashboard();
+            sdd.setVisible(true);
             this.dispose();
         }
     }//GEN-LAST:event_btnLoginActionPerformed
