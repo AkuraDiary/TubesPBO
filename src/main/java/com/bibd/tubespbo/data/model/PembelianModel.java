@@ -12,7 +12,7 @@ import java.util.Date;
  * @author asthiseta
  */
 public class PembelianModel {
-   private int idPembelian,idorder,Employeeid;
+   private int idPembelian,idorder;
    private int idSupervisor;
    private String Status;
    private ArrayList<OrderDetails> keranjang = new ArrayList<>();
@@ -83,6 +83,10 @@ public class PembelianModel {
     
   public void setKeranjang(ArrayList<OrderDetails> keranjang) {
         this.keranjang = keranjang;
+    }
+
+    public void setOrderId(int aInt) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
     
