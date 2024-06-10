@@ -114,30 +114,9 @@ public class EmployeesDataSource {
 
             String query = "INSERT INTO employees (nama, noHp, email, role, status, password) VALUES"
                     + "('" + nama + "', '" + noHp + "', '" + email + "', '" + role + "', '" + status + "', "+pass+" )";
-//            String query = "INSERT INTO employee (nama, nohp, email, role, status) VALUES (?, ?, ?, ?, ?)";
-
-//            executeStatement pr = db.executeStatement(query);
-//            PreparedStatement pr = db.connection.prepareStatement(query);
-//            String namaemp = nama;
-//            String noHpemp = noHp;
-//            String emailemp = email;
-//            String roleemp = role;
-//            String statusemp = status;
-//            pr.setString(1, nama);
-//            pr.setString(2, noHp);
-//            pr.setString(3, email);
-//            pr.setString(4, role);
-//            pr.setString(5, status);
             int result = db.executeStatement(query);
             return result;
-//            return null;
 
-//            // Jika eksekusi berhasil, kembalikan objek EmployeeModel
-//            if (result > 0) {
-//                return new EmployeeModel(nama, noHp, email, role, status);
-//            } else {
-//                return null;
-//            }
         } catch (Exception e) {
             System.out.println(e.getLocalizedMessage());
             return -1;
@@ -156,8 +135,6 @@ public class EmployeesDataSource {
             String query = "UPDATE employees SET nama ='" + nama + "',  noHp ='" + noHp + "', email = '" + email + "', "
                     + "role = '" + role + "',  status='" + status + "' "
                     + "WHERE idEmployee = " + id;
-
-//            PreparedStatement pr = db.connection.prepareStatement(query);
             return db.executeStatement(query);
         } catch (Exception e) {
             System.out.println(e.getLocalizedMessage());
