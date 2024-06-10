@@ -130,25 +130,57 @@ public class PenjualanDataSource {
         while (rs.next()) {
             getIdOrder = rs.getInt("orderId");
         }
-        
-        long totaPrice = itemkeranjang.getProduk().getSellPrice()*itemkeranjang.getQuantity();
+
+        long totaPrice = itemkeranjang.getProduk().getSellPrice() * itemkeranjang.getQuantity();
 
         if (getIdOrder > 0) {
             String query = "INSERT INTO orderdetails \n"
                     + "(unitPrice, quantity, subTotalPrice, idProduct, orderId) \n"
-                    + "VALUES (" + itemkeranjang.getProduk().getBuyPrice() + ", " + itemkeranjang.getQuantity()+", "
-            + totaPrice+ ", " + itemkeranjang.getProduk().getIdProduct() + "," + getIdOrder + ")";
+                    + "VALUES (" + itemkeranjang.getProduk().getBuyPrice() + ", " + itemkeranjang.getQuantity() + ", \n"
+                    + totaPrice + ", " + itemkeranjang.getProduk().getIdProduct() + "," + getIdOrder + ")";
             return db.executeStatement(query);
         }
         return getIdOrder;
     }
-    
-//    private int queryOrderPenjualan(){
-//    
-//    }
+
+    private int queryOrderPenjualan(String shipmentStatus, LocalDateTime dateShipped, int customerId,
+            String statusPayment) {
+        try {
+            String querygetIdOrder = "SELECT o.orderId\n"
+                    + "FROM orders o\n"
+                    + "ORDER BY o.orderDate DESC\n"
+                    + "LIMIT 1 ";
+            ResultSet rs = db.getData(querygetIdOrder);
+
+            int getIdOrder = -1;
+            while (rs.next()) {
+                getIdOrder = rs.getInt("orderId");
+            }
+
+            if (getIdOrder > 0) {
+                String query = "INSERT INTO orderpenjualan\n"
+                        + "(shipmentStatus, dateShipped, orderId, customerId, statuspayment) \n"
+                        + "VALUES ('" + shipmentStatus + "', " + dateShipped + ", " + getIdOrder + ", " + customerId + ", " + statusPayment + ")";
+                return db.executeStatement(query);
+            }
+            return getIdOrder;
+
+        } catch (Exception e) {
+            System.out.println(e.getLocalizedMessage());
+            return -1;
+        }
+
+    }
+
+    private int queryStokProduct(int finishStock, LocalDateTime dateLastUpdate, int idProduct, int idWareHouse) {
+        String query = "UPDATE productstock ps\n"
+                + "SET ps.totalStock ="+finishStock+" , ps.lastUpdate ="+ dateLastUpdate+"\n"
+                + "WHERE ps.id ="+idProduct+" AND ps.idWarehouse = "+idWareHouse;
+        return db.executeStatement(query);
+    }
 
     public int doCheckout(int customerId, int employeeId, ArrayList<KeranjangModel> keranjang, String statusPayment,
-            String typeOrder, LocalDateTime waktu) {
+            String typeOrder, LocalDateTime waktu, String statusShip) {
 //        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
 //          order,orderdetil,orderpenjualan, stok product
 
@@ -161,11 +193,11 @@ public class PenjualanDataSource {
 //                    + "VALUES ('" + waktu + "', '" + typeOrder + "', " + employeeId + ")";
 
             queryOrder(waktu, typeOrder, employeeId);
-            for (KeranjangModel i : keranjang){
+            for (KeranjangModel i : keranjang) {
                 queryOrderDetails(i);
             }
-//            queryOrderPenjualan();
-            
+            queryOrderPenjualan(statusShip, waktu, customerId, statusPayment);
+
             return 1;
 //            queryOrderDetails(keranjang);
 
