@@ -29,7 +29,7 @@ public class PenjualanRepository {
 
     public int doCheckOut(int employeeId, int customerId, String statusPayment, LocalDateTime waktu, String typeOrder, ArrayList<KeranjangModel> keranjang) {
         try {
-            return penjualanDataSource.doCheckout(customerId, employeeId, keranjang, statusPayment, typeOrder, waktu, penjualanDataSource);
+            return penjualanDataSource.doCheckout(customerId, employeeId, keranjang, statusPayment, typeOrder, waktu);
         } catch (Exception e) {
             System.out.println("Penjualan Repo " + e.getLocalizedMessage());
             return -1;
