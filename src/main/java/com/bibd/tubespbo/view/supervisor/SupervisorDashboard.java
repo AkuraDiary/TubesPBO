@@ -46,7 +46,7 @@ public class SupervisorDashboard extends javax.swing.JFrame {
         btn_CrudCustomer = new javax.swing.JLabel();
         pn_main3 = new javax.swing.JPanel();
         pn_cpn = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
+        btn_CekPenjualan = new javax.swing.JLabel();
         pn_main4 = new javax.swing.JPanel();
         pn_ps = new javax.swing.JPanel();
         btn_UpdateStok = new javax.swing.JLabel();
@@ -202,8 +202,16 @@ public class SupervisorDashboard extends javax.swing.JFrame {
             .addGap(0, 35, Short.MAX_VALUE)
         );
 
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel7.setText("CEK PENJUALAN");
+        btn_CekPenjualan.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btn_CekPenjualan.setText("CEK PENJUALAN");
+        btn_CekPenjualan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btn_CekPenjualanMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btn_CekPenjualanMouseExited(evt);
+            }
+        });
 
         javax.swing.GroupLayout pn_main3Layout = new javax.swing.GroupLayout(pn_main3);
         pn_main3.setLayout(pn_main3Layout);
@@ -213,7 +221,7 @@ public class SupervisorDashboard extends javax.swing.JFrame {
                 .addGap(9, 9, 9)
                 .addComponent(pn_cpn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_CekPenjualan, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pn_main3Layout.setVerticalGroup(
@@ -223,7 +231,7 @@ public class SupervisorDashboard extends javax.swing.JFrame {
                     .addGroup(pn_main3Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(pn_cpn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btn_CekPenjualan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -267,26 +275,22 @@ public class SupervisorDashboard extends javax.swing.JFrame {
         pn_main4Layout.setHorizontalGroup(
             pn_main4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pn_main4Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
+                .addGap(4, 4, 4)
+                .addComponent(pn_ps, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_UpdateStok, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
                 .addGap(17, 17, 17))
-            .addGroup(pn_main4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(pn_main4Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(pn_ps, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(261, Short.MAX_VALUE)))
         );
         pn_main4Layout.setVerticalGroup(
             pn_main4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pn_main4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btn_UpdateStok, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
+                .addGroup(pn_main4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pn_main4Layout.createSequentialGroup()
+                        .addComponent(pn_ps, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(btn_UpdateStok, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE))
                 .addContainerGap())
-            .addGroup(pn_main4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(pn_main4Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(pn_ps, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(7, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout pnKiriLayout = new javax.swing.GroupLayout(pnKiri);
@@ -444,21 +448,22 @@ public class SupervisorDashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_CrudCustomerMouseClicked
 
     private void btn_UpdateStokMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_UpdateStokMouseEntered
-        pn_main3.setBackground(new Color(250, 250, 250));
+        pn_main4.setBackground(new Color(250, 250, 250));
         pn_ps.setBackground(new Color(0, 102, 153));
     }//GEN-LAST:event_btn_UpdateStokMouseEntered
 
     private void pn_main4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pn_main4MouseEntered
-        //gausah diisi
+//
+  
     }//GEN-LAST:event_pn_main4MouseEntered
 
     private void btn_UpdateStokMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_UpdateStokMouseExited
-        pn_main3.setBackground(new Color(255, 255, 255));
+        pn_main4.setBackground(new Color(255, 255, 255));
         pn_ps.setBackground(new Color(255, 255, 255));
     }//GEN-LAST:event_btn_UpdateStokMouseExited
 
     private void btn_UpdateStokMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_UpdateStokMouseClicked
-        pn_main3.setBackground(new Color(240, 240, 240));
+        pn_main4.setBackground(new Color(240, 240, 240));
         pn_ps.setBackground(new Color(0, 102, 153));
         
         pnUtama.removeAll();
@@ -474,6 +479,19 @@ public class SupervisorDashboard extends javax.swing.JFrame {
         lv.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_bLogoutActionPerformed
+
+    private void btn_CekPenjualanMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_CekPenjualanMouseEntered
+        // TODO add your handling code here:
+        pn_main3.setBackground(new Color(250, 250, 250));
+        pn_cpn.setBackground(new Color(0, 102, 153));
+    }//GEN-LAST:event_btn_CekPenjualanMouseEntered
+
+    private void btn_CekPenjualanMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_CekPenjualanMouseExited
+        // TODO add your handling code here:
+        pn_main3.setBackground(new Color(255, 255, 255));
+        pn_cpn.setBackground(new Color(255, 255, 255));
+        
+    }//GEN-LAST:event_btn_CekPenjualanMouseExited
 
     /**
      * @param args the command line arguments
@@ -512,13 +530,13 @@ public class SupervisorDashboard extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bLogout;
+    private javax.swing.JLabel btn_CekPenjualan;
     private javax.swing.JLabel btn_CreatePembelian;
     private javax.swing.JLabel btn_CrudCustomer;
     private javax.swing.JLabel btn_UpdateStok;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel7;
     private com.bibd.tubespbo.view.manager.jPanelGradient jPanelGradient1;
     private javax.swing.JPanel pnDasar;
     private javax.swing.JPanel pnKanan;
