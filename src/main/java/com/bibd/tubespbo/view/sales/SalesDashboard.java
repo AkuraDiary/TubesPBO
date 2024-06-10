@@ -35,6 +35,8 @@ public class SalesDashboard extends javax.swing.JFrame {
         pnKanan = new javax.swing.JPanel();
         jPanelGradient1 = new com.bibd.tubespbo.view.manager.jPanelGradient();
         bLogout = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -77,6 +79,9 @@ public class SalesDashboard extends javax.swing.JFrame {
         pnKanan.setBackground(new java.awt.Color(255, 255, 255));
         pnKanan.setLayout(new java.awt.BorderLayout());
 
+        jPanelGradient1.setColorEnd(new java.awt.Color(0, 204, 204));
+        jPanelGradient1.setColorStart(new java.awt.Color(204, 255, 204));
+
         bLogout.setBackground(new java.awt.Color(153, 255, 255));
         bLogout.setText("Log-Out");
         bLogout.addActionListener(new java.awt.event.ActionListener() {
@@ -103,6 +108,33 @@ public class SalesDashboard extends javax.swing.JFrame {
         );
 
         pnKanan.add(jPanelGradient1, java.awt.BorderLayout.PAGE_START);
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 994, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 698, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        pnKanan.add(jPanel1, java.awt.BorderLayout.CENTER);
 
         getContentPane().add(pnKanan, java.awt.BorderLayout.CENTER);
 
@@ -157,6 +189,8 @@ public class SalesDashboard extends javax.swing.JFrame {
     private javax.swing.JButton bLogout;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private com.bibd.tubespbo.view.manager.jPanelGradient jPanelGradient1;
     private javax.swing.JPanel pnKanan;
     private javax.swing.JPanel pnKiri;
