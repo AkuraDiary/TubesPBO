@@ -51,7 +51,8 @@ public class ProductRepository {
                     pm.getBuyPrice(),
                     pm.getSellPrice(),
                     pm.getCategoryId(),
-                    pm.getProdusenId()
+                    pm.getProdusenId(),
+                    pm.getDescription()
             );
         } catch (Exception e) {
             System.out.println("Product Repo " + e.getLocalizedMessage());
@@ -68,7 +69,8 @@ public class ProductRepository {
                     pm.getBuyPrice(),
                     pm.getSellPrice(),
                     pm.getCategoryId(),
-                    pm.getProdusenId()
+                    pm.getProdusenId(),
+                    pm.getDescription()
             );
         } catch (Exception e) {
             System.out.println("Product Repo " + e.getLocalizedMessage());

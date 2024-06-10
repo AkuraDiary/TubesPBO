@@ -103,25 +103,86 @@ public class ProductDataSource {
         }
     }
 
-    public int insertProductStock(int idproduct, int junlahBaru, int idEmployee, int idWarehouse) {
+    public int insertProductStock(int idproduct, int jumlahBaru, int idEmployee, int idWarehouse) {
 
-        return -1;
+        try {
+            db.openConnection();
+            // Assuming that we have a `lastUpdate` field that we need to set to the current date
+            java.sql.Date currentDate = new java.sql.Date(new java.util.Date().getTime());
+
+            String query = "INSERT INTO productstock (totalStock, lastUpdate, productId, idWarehouse) "
+                    + "VALUES (" + jumlahBaru + ", '" + currentDate + "', " + idproduct + ", " + idWarehouse + ")";
+
+            int result = db.executeStatement(query);
+            
+            return result;
+        } catch (Exception e) {
+            System.out.println(e.getLocalizedMessage());
+            return -1;
+
+        } finally {
+            db.closeConnection();
+        }
     }
 
-    public int insertProduct(String productName, int quantityInStock, long buyPrice, long sellPrice, int categoryId, int produsenId) {
-        return -1;
+    public int insertProduct(String productName, int quantityInStock, long buyPrice, long sellPrice, int categoryId, int produsenId, String description) {
+        try {
+            db.openConnection();
+
+            String query = "INSERT INTO product (productName, description, buyPrice, sellPrice, categoryId, produsenId) "
+                    + "VALUES ('" + productName + "', '" + description + "', " + buyPrice + ", " + sellPrice
+                    + ", " + categoryId + ", " + produsenId + ")";
+
+            int result = db.executeStatement(query);
+            return result;
+        } catch (Exception e) {
+            System.out.println(e.getLocalizedMessage());
+            return -1;
+
+        } finally {
+            db.closeConnection();
+        }
 
     }
 
     public int insertCategory(String namaCategory, String descCategory) {
 
-        return -1;
+        try {
+            db.openConnection();
+
+            String query = "INSERT INTO category (category, description) "
+                    + "VALUES ('" + namaCategory + "', '" + descCategory + "')";
+
+            int result = db.executeStatement(query);
+            return result;
+        } catch (Exception e) {
+            System.out.println(e.getLocalizedMessage());
+            return -1;
+
+        } finally {
+            db.closeConnection();
+        }
 
     }
 
     public int updateCategory(int idCategory, String namaCategory, String descCategory) {
 
-        return -1;
+        try {
+            db.openConnection();
+
+            String query = "UPDATE category SET category = '" + namaCategory + "', "
+                    + "description = '" + descCategory + "' "
+                    + "WHERE idCategory = " + idCategory;
+
+            int result = db.executeStatement(query);
+            return result;
+        } catch (Exception e) {
+            System.out.println(e.getLocalizedMessage());
+            return -1;
+
+        } finally {
+            db.closeConnection();
+        }
 
     }
 
@@ -162,18 +223,39 @@ public class ProductDataSource {
         }
     }
 
-    public int updateDataProduct(int idProduct, String productName, int quantityInStock, long buyPrice, long sellPrice, int categoryId, int produsenId) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public int updateDataProduct(int idProduct, String productName, int quantityInStock, long buyPrice, long sellPrice, int categoryId, int produsenId, String description) {
+
+        try {
+            db.openConnection();
+
+            String query = "UPDATE product SET "
+                    + "productName = '" + productName + "', "
+                    + "description = '" + description + "', "
+                    + "buyPrice = " + buyPrice + ", "
+                    + "sellPrice = " + sellPrice + ", "
+                    + "categoryId = " + categoryId + ", "
+                    + "produsenId = " + produsenId + " "
+                    + "WHERE idProduct = " + idProduct;
+
+            int result = db.executeStatement(query);
+            return result;
+        } catch (Exception e) {
+            System.out.println(e.getLocalizedMessage());
+            return -1;
+
+        } finally {
+            db.closeConnection();
+        }
+
     }
 
     public ArrayList<ProductStockModel> getAllStockProduct(int idProduct, int idWarehouse) {
-         try {
+        try {
             ArrayList<ProductStockModel> dataResult = new ArrayList<>();
             db.openConnection();
-            String query = "SELECT id, totalStock, lastUpdate, productId, idWarehouse FROM productstock " +
-                           "WHERE productId = " + idProduct + " AND idWarehouse = " + idWarehouse;
+            String query = "SELECT id, totalStock, lastUpdate, productId, idWarehouse FROM productstock "
+                    + "WHERE productId = " + idProduct + " AND idWarehouse = " + idWarehouse;
 
-            
             ResultSet rs = db.getData(query);
 
             while (rs.next()) {
