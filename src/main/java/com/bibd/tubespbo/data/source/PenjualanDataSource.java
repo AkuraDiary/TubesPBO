@@ -113,13 +113,13 @@ public class PenjualanDataSource {
 //        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    private void queryOrder(LocalDateTime orderDate, String orderType, int employeeid) {
+    private int queryOrder(LocalDateTime orderDate, String orderType, int employeeid) {
         String query = "INSERT INTO orders (orderDate, orderType, employeeId) "
                 + "VALUES ('" + orderDate + "', '" + orderType + "', " + employeeid + ")";
-        db.executeStatement(query);
+        return db.executeStatement(query);
     }
 
-    private void queryOrderDetails(int harga, int jumlah, int totalHarga, int idProduct) throws SQLException {
+    private int queryOrderDetails(KeranjangModel itemkeranjang) throws SQLException {
         String querygetIdOrder = "SELECT o.orderId\n"
                 + "FROM orders o\n"
                 + "ORDER BY o.orderDate DESC\n"
@@ -130,18 +130,25 @@ public class PenjualanDataSource {
         while (rs.next()) {
             getIdOrder = rs.getInt("orderId");
         }
+        
+        long totaPrice = itemkeranjang.getProduk().getSellPrice()*itemkeranjang.getQuantity();
 
-        if (getIdOrder != -1) {
+        if (getIdOrder > 0) {
             String query = "INSERT INTO orderdetails \n"
                     + "(unitPrice, quantity, subTotalPrice, idProduct, orderId) \n"
-                    + "VALUES ("+harga+", "+jumlah+", "+totalHarga+", "+idProduct+","+getIdOrder+")";
-            db.executeStatement(query);
+                    + "VALUES (" + itemkeranjang.getProduk().getBuyPrice() + ", " + itemkeranjang.getQuantity()+", "
+            + totaPrice+ ", " + itemkeranjang.getProduk().getIdProduct() + "," + getIdOrder + ")";
+            return db.executeStatement(query);
         }
-
+        return getIdOrder;
     }
+    
+//    private int queryOrderPenjualan(){
+//    
+//    }
 
     public int doCheckout(int customerId, int employeeId, ArrayList<KeranjangModel> keranjang, String statusPayment,
-            String typeOrder, LocalDateTime waktu, PenjualanDataSource penjualanDataSource) {
+            String typeOrder, LocalDateTime waktu) {
 //        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
 //          order,orderdetil,orderpenjualan, stok product
 
@@ -153,11 +160,18 @@ public class PenjualanDataSource {
 //            String queryorderpenjualan = "INSERT INTO orders (orderDate, orderType, employeeId) \n"
 //                    + "VALUES ('" + waktu + "', '" + typeOrder + "', " + employeeId + ")";
 
-            queryOrder();
-            queryOrderDetails();
+            queryOrder(waktu, typeOrder, employeeId);
+            for (KeranjangModel i : keranjang){
+                queryOrderDetails(i);
+            }
+//            queryOrderPenjualan();
+            
+            return 1;
+//            queryOrderDetails(keranjang);
+
         } catch (Exception e) {
             System.out.println(e.getLocalizedMessage());
-            return null;
+            return -1;
         } finally {
             db.closeConnection();
         }
