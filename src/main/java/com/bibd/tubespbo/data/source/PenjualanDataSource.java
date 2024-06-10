@@ -10,6 +10,7 @@ import com.bibd.tubespbo.data.model.OrderDetailsModel;
 import com.bibd.tubespbo.data.model.PenjualanModel;
 import com.mysql.cj.protocol.Resultset;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
@@ -118,15 +119,25 @@ public class PenjualanDataSource {
         db.executeStatement(query);
     }
 
-    private void queryOrderDetails() {
+    private void queryOrderDetails(int harga, int jumlah, int totalHarga, int idProduct) throws SQLException {
         String querygetIdOrder = "SELECT o.orderId\n"
                 + "FROM orders o\n"
                 + "ORDER BY o.orderDate DESC\n"
                 + "LIMIT 1 ";
         ResultSet rs = db.getData(querygetIdOrder);
-        
-        int getIdOrder = rs.getInt("orderId");
-        
+
+        int getIdOrder = -1;
+        while (rs.next()) {
+            getIdOrder = rs.getInt("orderId");
+        }
+
+        if (getIdOrder != -1) {
+            String query = "INSERT INTO orderdetails \n"
+                    + "(unitPrice, quantity, subTotalPrice, idProduct, orderId) \n"
+                    + "VALUES ("+harga+", "+jumlah+", "+totalHarga+", "+idProduct+","+getIdOrder+")";
+            db.executeStatement(query);
+        }
+
     }
 
     public int doCheckout(int customerId, int employeeId, ArrayList<KeranjangModel> keranjang, String statusPayment,
@@ -139,8 +150,11 @@ public class PenjualanDataSource {
 //            String queryorder = "INSERT INTO orders (orderDate, orderType, employeeId) \n"
 //                    + "VALUES ('"+waktu+"', '"+typeOrder+"', "+employeeId+")";
 //            String queryorderdetil = "")";
-            String queryorderpenjualan = "INSERT INTO orders (orderDate, orderType, employeeId) \n"
-                    + "VALUES ('" + waktu + "', '" + typeOrder + "', " + employeeId + ")";
+//            String queryorderpenjualan = "INSERT INTO orders (orderDate, orderType, employeeId) \n"
+//                    + "VALUES ('" + waktu + "', '" + typeOrder + "', " + employeeId + ")";
+
+            queryOrder();
+            queryOrderDetails();
         } catch (Exception e) {
             System.out.println(e.getLocalizedMessage());
             return null;
