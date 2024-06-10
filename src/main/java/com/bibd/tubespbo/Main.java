@@ -7,6 +7,8 @@ package com.bibd.tubespbo;
 import com.bibd.tubespbo.data.model.EmployeeModel;
 import com.bibd.tubespbo.data.model.KeranjangModel;
 import com.bibd.tubespbo.data.model.ProductModel;
+import com.bibd.tubespbo.util.Formatter;
+import com.bibd.tubespbo.util.Parser;
 import com.bibd.tubespbo.view.login.LoginView;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -68,15 +70,18 @@ public class Main {
 //        System.out.println(LocalDateTime.now());
         
         System.out.println("Hello World!");
-        System.out.println("yanto ganteng");
-        Di.init();
+        Date dt = new Date();
+        System.out.println(dt);
+        System.out.println(Parser.parseDateToStringSQL(dt));
+        System.out.println(Formatter.formatDate(dt));
+//        Di.init();
 //    
 //        // testing
 ////        EmployeeModel data = Di.loginDataSource.doLogin("rawr@gmail.com", "rawrbibd");
 ////        
 ////        System.out.println(data.getNama());
 //        
-         new LoginView().setVisible(true);
+//         new LoginView().setVisible(true);
      
     }
     

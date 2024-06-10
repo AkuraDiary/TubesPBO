@@ -16,7 +16,13 @@ public class PenjualanModel {
     private int customerId,employeeId;
     private String shipmentStatus, statusPayment, orderType ;
     private Date tanggalOrder,dateShipped ;
-    private ArrayList<OrderDetails> keranjang = new ArrayList<>();
+    private ArrayList<OrderDetailsModel> keranjang = new ArrayList<>();
+
+    public PenjualanModel(int idPenjualan1, String shipmentStatus1, Date dateShipped1, int orderId, int customerId1, String statusPayment1, Date orderDate, String orderType1, int employeeId1) {
+    }
+    
+    
+    
     
 
     public int getIdPenjualan() {
@@ -91,11 +97,11 @@ public class PenjualanModel {
         this.dateShipped = dateShipped;
     }
 
-    public ArrayList<OrderDetails> getKeranjang() {
+    public ArrayList<OrderDetailsModel> getKeranjang() {
         return keranjang;
     }
 
-    public void setKeranjang(ArrayList<OrderDetails> keranjang) {
+    public void setKeranjang(ArrayList<OrderDetailsModel> keranjang) {
         this.keranjang = keranjang;
     }
     

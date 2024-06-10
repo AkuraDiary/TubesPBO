@@ -21,12 +21,23 @@ public class ProdusenDataSource {
         this.db = db;
     }
 
-
     public int insertProdusen(String nama, String email, String contact, String addres, String status) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try {
+            db.openConnection();
+
+            String query = "INSERT INTO produsen (email, name, contact, address, status) VALUES"
+                    + "('" + email + "', '" + nama + "', '" + contact + "', '" + addres + "', '" + status + "' )";
+
+            int result = db.executeStatement(query);
+            return result;
+        } catch (Exception e) {
+            System.out.println(e.getLocalizedMessage());
+            return -1;
+
+        } finally {
+            db.closeConnection();
+        }
     }
-    
-    
 
     public ArrayList<ProdusenModel> getAllProdusen() {
 
@@ -73,12 +84,40 @@ public class ProdusenDataSource {
     }
 
     public int updateStatusProdusen(int idProdusen, String status) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+          try {
+
+            db.openConnection();
+            String query = "UPDATE customers SET status='" + status + "' WHERE idProdusen=" + idProdusen;
+
+            return db.executeStatement(query);
+
+        } catch (Exception e) {
+            System.out.println(e.getLocalizedMessage());
+            return -1;
+
+        } finally {
+
+            db.closeConnection();
+        }
     }
 
     public int updateDataProdusen(int idProdusen, String email, String nama, String contact, String addres) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+        try {
 
+            db.openConnection();
+            String query = "UPDATE customers SET name='" + nama + "', contact='" + contact + "', "
+                    + "email='" + email + "', address='" + addres + "' WHERE idProdusen=" + idProdusen;
+
+            return db.executeStatement(query);
+
+        } catch (Exception e) {
+            System.out.println(e.getLocalizedMessage());
+            return -1;
+
+        } finally {
+
+            db.closeConnection();
+        }
+    }
 
 }

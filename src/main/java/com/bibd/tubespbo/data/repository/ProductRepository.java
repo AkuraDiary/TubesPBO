@@ -6,6 +6,7 @@ package com.bibd.tubespbo.data.repository;
 
 import com.bibd.tubespbo.data.model.CategoryModel;
 import com.bibd.tubespbo.data.model.ProductModel;
+import com.bibd.tubespbo.data.model.ProductStockModel;
 import com.bibd.tubespbo.data.source.ProductDataSource;
 import com.bibd.tubespbo.data.source.ProdusenDataSource;
 import java.util.ArrayList;
@@ -33,9 +34,9 @@ public class ProductRepository {
         return productDataSource.getAllProduct();
     }
 
-    public int updateProductStock(int idproduct, int jumlah, int idEmployee) {
+    public int updateProductStock(int idStock, int idproduct, int jumlahBaru, int idEmployee, int idWarehouse, int perubahan) {
         try {
-            return productDataSource.updateProductStock(idproduct, jumlah, idEmployee);
+            return productDataSource.updateProductStock(idStock, idproduct, jumlahBaru, idEmployee, idWarehouse, perubahan);
         } catch (Exception e) {
             System.out.println("Product Repo " + e.getLocalizedMessage());
             return -1;
@@ -50,7 +51,8 @@ public class ProductRepository {
                     pm.getBuyPrice(),
                     pm.getSellPrice(),
                     pm.getCategoryId(),
-                    pm.getProdusenId()
+                    pm.getProdusenId(),
+                    pm.getDescription()
             );
         } catch (Exception e) {
             System.out.println("Product Repo " + e.getLocalizedMessage());
@@ -67,7 +69,8 @@ public class ProductRepository {
                     pm.getBuyPrice(),
                     pm.getSellPrice(),
                     pm.getCategoryId(),
-                    pm.getProdusenId()
+                    pm.getProdusenId(),
+                    pm.getDescription()
             );
         } catch (Exception e) {
             System.out.println("Product Repo " + e.getLocalizedMessage());
@@ -89,6 +92,10 @@ public class ProductRepository {
 
     public ArrayList<CategoryModel> getAllCategory() {
         return productDataSource.getAllCategory();
+    }
+
+    public ArrayList<ProductStockModel> getStockProduct(int idProduct, int idWarehouse) {
+        return productDataSource.getAllStockProduct(idProduct, idWarehouse);
     }
     
     

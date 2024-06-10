@@ -5,6 +5,7 @@
 package com.bibd.tubespbo.domain.supervisor;
 
 import com.bibd.tubespbo.data.model.ProductModel;
+import com.bibd.tubespbo.data.model.ProductStockModel;
 import com.bibd.tubespbo.data.repository.ProductRepository;
 import java.util.ArrayList;
 
@@ -12,31 +13,41 @@ import java.util.ArrayList;
  *
  * @author asthiseta
  */
-
 //Rapid D.
 public class ManageStockPresenter {
-    
+
     ProductRepository productRepository;
-    
+
     ArrayList<ProductModel> listProduct = new ArrayList<>();
-    
-    
-    
-    public ManageStockPresenter(ProductRepository productRepository){
+    ArrayList<ProductStockModel> listProductStock = new ArrayList<>();
+
+    public ManageStockPresenter(ProductRepository productRepository) {
         this.productRepository = productRepository;
     }
-    
-    public void showAll(){
+
+    public void showAllProduct() {
         this.listProduct = productRepository.getAllProduct();
     }
     
-     int result = 0;
-    public void updateStockProduct(int idProduct, int jumlah, int idEmployee){
-         result = productRepository.updateProductStock(idProduct,jumlah,idEmployee);
+    public void showStockProduct(int idProduct, int idWarehouse){
+        this.listProductStock = productRepository.getStockProduct(idProduct, idWarehouse);
     }
-    
-    public void resetResult(){
-        result = 0 ;
+
+    int result = 0;
+
+    public void updateStockProduct(int idStock, int idProduct, int jumlahPerubahan, int idEmployee, int idWarehouse) {
+        int jumlahBaru = 0;
+        for (int i = 0; i < listProduct.size(); i++) {
+            if (listProduct.get(i).getIdProduct() == idProduct) {
+                jumlahBaru = listProduct.get(i).getQuantityInStock() + jumlahPerubahan;
+            }
+
+        }
+        result = productRepository.updateProductStock(idStock, idProduct, jumlahBaru, idEmployee, idWarehouse, jumlahPerubahan);
     }
-    
+
+    public void resetResult() {
+        result = 0;
+    }
+
 }

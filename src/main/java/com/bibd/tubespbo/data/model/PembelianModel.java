@@ -15,7 +15,7 @@ public class PembelianModel {
    private int idPembelian,idorder;
    private int idSupervisor;
    private String Status;
-   private ArrayList<OrderDetails> keranjang = new ArrayList<>();
+   private ArrayList<OrderDetailsModel> keranjang = new ArrayList<>();
    private Date tanggalOrder;
    private String typeOrder;
    
@@ -77,11 +77,11 @@ public class PembelianModel {
         this.Status = Status;
     }
     
-    public ArrayList<OrderDetails> getkeranjang() {
+    public ArrayList<OrderDetailsModel> getkeranjang() {
         return keranjang;
     }
     
-  public void setKeranjang(ArrayList<OrderDetails> keranjang) {
+  public void setKeranjang(ArrayList<OrderDetailsModel> keranjang) {
         this.keranjang = keranjang;
     }
 

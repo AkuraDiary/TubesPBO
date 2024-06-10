@@ -7,8 +7,11 @@ package com.bibd.tubespbo.data.source;
 import com.bibd.tubespbo.data.DbConnection;
 import com.bibd.tubespbo.data.model.CategoryModel;
 import com.bibd.tubespbo.data.model.ProductModel;
+import com.bibd.tubespbo.data.model.ProductStockModel;
+import com.bibd.tubespbo.util.Parser;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
@@ -70,16 +73,117 @@ public class ProductDataSource {
         }
     }
 
-    public int updateProductStock(int idproduct, int jumlah, int idEmployee) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public int updateProductStock(int idProductStock, int idproduct, int jumlahBaru, int idEmployee, int idWarehouse, int perubahan) {
+        try {
+
+            db.openConnection();
+            Date now = new Date();
+            String dateLastUpdated = Parser.parseDateToStringSQL(now);
+            String query = "UPDATE productstock SET totalStock='" + jumlahBaru + "', lastUpdate='" + dateLastUpdated + "' "
+                    + "WHERE id=" + idProductStock;//productId="+ idproduct + " AND idWarehouse=" + idWarehouse + "";
+
+            int updateeProductStokResult = db.executeStatement(query);
+
+            if (updateeProductStokResult != 0) {
+
+                String queryInsertLog = "INSERT INTO logstockproduct (tanggal, idproductstock, idEmployee, perubahan) VALUES"
+                        + "('" + dateLastUpdated + "', " + idProductStock + ", '" + idEmployee + "', '" + perubahan + " )";
+                return db.executeStatement(queryInsertLog);
+            }
+
+            return updateeProductStokResult;
+
+        } catch (Exception e) {
+            System.out.println(e.getLocalizedMessage());
+            return -1;
+
+        } finally {
+
+            db.closeConnection();
+        }
     }
 
-    public int insertProduct(String productName, int quantityInStock, long buyPrice, long sellPrice, int categoryId, int produsenId) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public int insertProductStock(int idproduct, int jumlahBaru, int idEmployee, int idWarehouse) {
+
+        try {
+            db.openConnection();
+            // Assuming that we have a `lastUpdate` field that we need to set to the current date
+            java.sql.Date currentDate = new java.sql.Date(new java.util.Date().getTime());
+
+            String query = "INSERT INTO productstock (totalStock, lastUpdate, productId, idWarehouse) "
+                    + "VALUES (" + jumlahBaru + ", '" + currentDate + "', " + idproduct + ", " + idWarehouse + ")";
+
+            int result = db.executeStatement(query);
+            
+            return result;
+        } catch (Exception e) {
+            System.out.println(e.getLocalizedMessage());
+            return -1;
+
+        } finally {
+            db.closeConnection();
+        }
+    }
+
+    public int insertProduct(String productName, int quantityInStock, long buyPrice, long sellPrice, int categoryId, int produsenId, String description) {
+        try {
+            db.openConnection();
+
+            String query = "INSERT INTO product (productName, description, buyPrice, sellPrice, categoryId, produsenId) "
+                    + "VALUES ('" + productName + "', '" + description + "', " + buyPrice + ", " + sellPrice
+                    + ", " + categoryId + ", " + produsenId + ")";
+
+            int result = db.executeStatement(query);
+            return result;
+        } catch (Exception e) {
+            System.out.println(e.getLocalizedMessage());
+            return -1;
+
+        } finally {
+            db.closeConnection();
+        }
+
     }
 
     public int insertCategory(String namaCategory, String descCategory) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+
+        try {
+            db.openConnection();
+
+            String query = "INSERT INTO category (category, description) "
+                    + "VALUES ('" + namaCategory + "', '" + descCategory + "')";
+
+            int result = db.executeStatement(query);
+            return result;
+        } catch (Exception e) {
+            System.out.println(e.getLocalizedMessage());
+            return -1;
+
+        } finally {
+            db.closeConnection();
+        }
+
+    }
+
+    public int updateCategory(int idCategory, String namaCategory, String descCategory) {
+
+        try {
+            db.openConnection();
+
+            String query = "UPDATE category SET category = '" + namaCategory + "', "
+                    + "description = '" + descCategory + "' "
+                    + "WHERE idCategory = " + idCategory;
+
+            int result = db.executeStatement(query);
+            return result;
+        } catch (Exception e) {
+            System.out.println(e.getLocalizedMessage());
+            return -1;
+
+        } finally {
+            db.closeConnection();
+        }
+
     }
 
     public ArrayList<CategoryModel> getAllCategory() {
@@ -119,7 +223,61 @@ public class ProductDataSource {
         }
     }
 
-    public int updateDataProduct(int idProduct, String productName, int quantityInStock, long buyPrice, long sellPrice, int categoryId, int produsenId) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public int updateDataProduct(int idProduct, String productName, int quantityInStock, long buyPrice, long sellPrice, int categoryId, int produsenId, String description) {
+
+        try {
+            db.openConnection();
+
+            String query = "UPDATE product SET "
+                    + "productName = '" + productName + "', "
+                    + "description = '" + description + "', "
+                    + "buyPrice = " + buyPrice + ", "
+                    + "sellPrice = " + sellPrice + ", "
+                    + "categoryId = " + categoryId + ", "
+                    + "produsenId = " + produsenId + " "
+                    + "WHERE idProduct = " + idProduct;
+
+            int result = db.executeStatement(query);
+            return result;
+        } catch (Exception e) {
+            System.out.println(e.getLocalizedMessage());
+            return -1;
+
+        } finally {
+            db.closeConnection();
+        }
+
+    }
+
+    public ArrayList<ProductStockModel> getAllStockProduct(int idProduct, int idWarehouse) {
+        try {
+            ArrayList<ProductStockModel> dataResult = new ArrayList<>();
+            db.openConnection();
+            String query = "SELECT id, totalStock, lastUpdate, productId, idWarehouse FROM productstock "
+                    + "WHERE productId = " + idProduct + " AND idWarehouse = " + idWarehouse;
+
+            ResultSet rs = db.getData(query);
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                int totalStock = rs.getInt("totalStock");
+                Date lastUpdate = rs.getDate("lastUpdate");
+                int productId = rs.getInt("productId");
+                int idWarehouseResult = rs.getInt("idWarehouse");
+
+                ProductStockModel stock = new ProductStockModel(id, totalStock, lastUpdate, productId, idWarehouseResult);
+                dataResult.add(stock);
+            }
+
+            return dataResult;
+
+        } catch (Exception e) {
+            System.out.println(e.getLocalizedMessage());
+            return null;
+
+        } finally {
+
+            db.closeConnection();
+        }
     }
 }
