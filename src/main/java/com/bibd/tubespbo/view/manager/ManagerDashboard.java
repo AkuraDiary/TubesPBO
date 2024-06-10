@@ -49,10 +49,9 @@ public class ManagerDashboard extends javax.swing.JFrame {
         btnCRUDProducts = new javax.swing.JLabel();
         pnKanan = new javax.swing.JPanel();
         pnDasar = new javax.swing.JPanel();
-//        pnUtama = new javax.swing.JPanel();
         pn_Utama = new javax.swing.JPanel();
         jPanelGradient1 = new com.bibd.tubespbo.view.manager.jPanelGradient();
-
+        bLogout = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -320,15 +319,24 @@ public class ManagerDashboard extends javax.swing.JFrame {
         jPanelGradient1.setColorEnd(new java.awt.Color(0, 102, 153));
         jPanelGradient1.setColorStart(new java.awt.Color(0, 255, 204));
 
+        bLogout.setBackground(new java.awt.Color(204, 255, 255));
+        bLogout.setText("Log-out");
+
         javax.swing.GroupLayout jPanelGradient1Layout = new javax.swing.GroupLayout(jPanelGradient1);
         jPanelGradient1.setLayout(jPanelGradient1Layout);
         jPanelGradient1Layout.setHorizontalGroup(
             jPanelGradient1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 969, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelGradient1Layout.createSequentialGroup()
+                .addContainerGap(849, Short.MAX_VALUE)
+                .addComponent(bLogout)
+                .addGap(48, 48, 48))
         );
         jPanelGradient1Layout.setVerticalGroup(
             jPanelGradient1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 70, Short.MAX_VALUE)
+            .addGroup(jPanelGradient1Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(bLogout)
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         pnKanan.add(jPanelGradient1, java.awt.BorderLayout.PAGE_START);
@@ -455,17 +463,16 @@ public class ManagerDashboard extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bLogout;
     private javax.swing.JLabel btnAprove;
     private javax.swing.JLabel btnCRUDProducts;
     private javax.swing.JLabel btnCreate;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
-
     private com.bibd.tubespbo.view.manager.jPanelGradient jPanelGradient1;
     private javax.swing.JPanel pMain_AprovePembelian;
     private javax.swing.JPanel pMain_CRUDProducts;
-
     private javax.swing.JPanel pMain_Create;
     private javax.swing.JPanel pnBeforeApprove;
     private javax.swing.JPanel pnBeforeCRUDProducts;

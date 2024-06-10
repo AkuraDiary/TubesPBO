@@ -50,6 +50,7 @@ public class SupervisorDashboard extends javax.swing.JFrame {
         btn_UpdateStok = new javax.swing.JLabel();
         pnKanan = new javax.swing.JPanel();
         jPanelGradient1 = new com.bibd.tubespbo.view.manager.jPanelGradient();
+        bLogout = new javax.swing.JButton();
         pnDasar = new javax.swing.JPanel();
         pnUtama = new javax.swing.JPanel();
 
@@ -345,15 +346,24 @@ public class SupervisorDashboard extends javax.swing.JFrame {
         jPanelGradient1.setColorEnd(new java.awt.Color(0, 102, 153));
         jPanelGradient1.setColorStart(new java.awt.Color(0, 255, 204));
 
+        bLogout.setBackground(new java.awt.Color(153, 255, 255));
+        bLogout.setText("Log-Out");
+
         javax.swing.GroupLayout jPanelGradient1Layout = new javax.swing.GroupLayout(jPanelGradient1);
         jPanelGradient1.setLayout(jPanelGradient1Layout);
         jPanelGradient1Layout.setHorizontalGroup(
             jPanelGradient1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 969, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelGradient1Layout.createSequentialGroup()
+                .addContainerGap(842, Short.MAX_VALUE)
+                .addComponent(bLogout)
+                .addGap(53, 53, 53))
         );
         jPanelGradient1Layout.setVerticalGroup(
             jPanelGradient1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 70, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelGradient1Layout.createSequentialGroup()
+                .addContainerGap(27, Short.MAX_VALUE)
+                .addComponent(bLogout)
+                .addGap(20, 20, 20))
         );
 
         pnKanan.add(jPanelGradient1, java.awt.BorderLayout.PAGE_START);
@@ -486,6 +496,7 @@ public class SupervisorDashboard extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bLogout;
     private javax.swing.JLabel btn_CreatePembelian;
     private javax.swing.JLabel btn_CrudCustomer;
     private javax.swing.JLabel btn_UpdateStok;

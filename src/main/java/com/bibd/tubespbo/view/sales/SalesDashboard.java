@@ -6,12 +6,12 @@ package com.bibd.tubespbo.view.sales;
 
 /**
  *
- * @author asthiseta
+ * @author HP VICTUS
  */
 public class SalesDashboard extends javax.swing.JFrame {
 
     /**
-     * Creates new form SalesDashboard
+     * Creates new form SDashboard
      */
     public SalesDashboard() {
         initComponents();
@@ -26,7 +26,77 @@ public class SalesDashboard extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        pnKiri = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        pnKanan = new javax.swing.JPanel();
+        jPanelGradient1 = new com.bibd.tubespbo.view.manager.jPanelGradient();
+        bLogout = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        pnKiri.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel1.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel1.setText("SALES");
+
+        jLabel2.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel2.setText("Dashboard");
+
+        javax.swing.GroupLayout pnKiriLayout = new javax.swing.GroupLayout(pnKiri);
+        pnKiri.setLayout(pnKiriLayout);
+        pnKiriLayout.setHorizontalGroup(
+            pnKiriLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnKiriLayout.createSequentialGroup()
+                .addGap(59, 59, 59)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2)
+                .addContainerGap(81, Short.MAX_VALUE))
+        );
+        pnKiriLayout.setVerticalGroup(
+            pnKiriLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnKiriLayout.createSequentialGroup()
+                .addGroup(pnKiriLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnKiriLayout.createSequentialGroup()
+                        .addGap(45, 45, 45)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnKiriLayout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(jLabel1)))
+                .addContainerGap(701, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(pnKiri, java.awt.BorderLayout.LINE_START);
+
+        pnKanan.setBackground(new java.awt.Color(255, 255, 255));
+        pnKanan.setLayout(new java.awt.BorderLayout());
+
+        bLogout.setBackground(new java.awt.Color(153, 255, 255));
+        bLogout.setText("Log-Out");
+
+        javax.swing.GroupLayout jPanelGradient1Layout = new javax.swing.GroupLayout(jPanelGradient1);
+        jPanelGradient1.setLayout(jPanelGradient1Layout);
+        jPanelGradient1Layout.setHorizontalGroup(
+            jPanelGradient1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelGradient1Layout.createSequentialGroup()
+                .addContainerGap(905, Short.MAX_VALUE)
+                .addComponent(bLogout)
+                .addGap(64, 64, 64))
+        );
+        jPanelGradient1Layout.setVerticalGroup(
+            jPanelGradient1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelGradient1Layout.createSequentialGroup()
+                .addContainerGap(27, Short.MAX_VALUE)
+                .addComponent(bLogout)
+                .addGap(20, 20, 20))
+        );
+
+        pnKanan.add(jPanelGradient1, java.awt.BorderLayout.PAGE_START);
+
+        getContentPane().add(pnKanan, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -57,6 +127,7 @@ public class SalesDashboard extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(SalesDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -67,5 +138,11 @@ public class SalesDashboard extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bLogout;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private com.bibd.tubespbo.view.manager.jPanelGradient jPanelGradient1;
+    private javax.swing.JPanel pnKanan;
+    private javax.swing.JPanel pnKiri;
     // End of variables declaration//GEN-END:variables
 }
