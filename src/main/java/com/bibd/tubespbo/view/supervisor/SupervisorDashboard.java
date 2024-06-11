@@ -18,6 +18,7 @@ import javax.swing.JFrame;
  */
 public class SupervisorDashboard extends javax.swing.JFrame {
 
+    int xx,xy;
     /**
      * Creates new form SalesDashboard
      */
@@ -59,6 +60,16 @@ public class SupervisorDashboard extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
+        addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                formMouseDragged(evt);
+            }
+        });
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                formMousePressed(evt);
+            }
+        });
 
         pnKiri.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -507,6 +518,19 @@ public class SupervisorDashboard extends javax.swing.JFrame {
         pnUtama.repaint();
         pnUtama.revalidate();
     }//GEN-LAST:event_btn_CekPenjualanMouseClicked
+
+    private void formMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMousePressed
+        // TODO add your handling code here:
+        xx = evt.getX();
+        xy = evt.getY();
+    }//GEN-LAST:event_formMousePressed
+
+    private void formMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseDragged
+        // TODO add your handling code here:
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
+        this.setLocation(x - xx, y - xy);
+    }//GEN-LAST:event_formMouseDragged
 
     /**
      * @param args the command line arguments
