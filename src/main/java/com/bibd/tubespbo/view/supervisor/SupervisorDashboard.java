@@ -7,6 +7,7 @@ import com.bibd.tubespbo.Di;
 import com.bibd.tubespbo.view.login.LoginView;
 import com.bibd.tubespbo.view.supervisor.supervisorpanels.MenuCreatePembelian;
 import com.bibd.tubespbo.view.supervisor.supervisorpanels.MenuCrudCustomer;
+import com.bibd.tubespbo.view.supervisor.supervisorpanels.MenuPantauPenjualan;
 import com.bibd.tubespbo.view.supervisor.supervisorpanels.MenuUpdateStok;
 import java.awt.Color;
 import javax.swing.JFrame;
@@ -203,8 +204,11 @@ public class SupervisorDashboard extends javax.swing.JFrame {
         );
 
         btn_CekPenjualan.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btn_CekPenjualan.setText("CEK PENJUALAN");
+        btn_CekPenjualan.setText("PANTAU PENJUALAN");
         btn_CekPenjualan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_CekPenjualanMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btn_CekPenjualanMouseEntered(evt);
             }
@@ -492,6 +496,17 @@ public class SupervisorDashboard extends javax.swing.JFrame {
         pn_cpn.setBackground(new Color(255, 255, 255));
         
     }//GEN-LAST:event_btn_CekPenjualanMouseExited
+
+    private void btn_CekPenjualanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_CekPenjualanMouseClicked
+        // TODO add your handling code here:
+        pn_main3.setBackground(new Color(240, 240, 240));
+        pn_cpn.setBackground(new Color(0, 102, 153));
+        
+        pnUtama.removeAll();
+        pnUtama.add(new MenuPantauPenjualan());
+        pnUtama.repaint();
+        pnUtama.revalidate();
+    }//GEN-LAST:event_btn_CekPenjualanMouseClicked
 
     /**
      * @param args the command line arguments
