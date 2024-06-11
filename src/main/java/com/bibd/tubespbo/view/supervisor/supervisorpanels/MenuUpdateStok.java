@@ -4,6 +4,13 @@
  */
 package com.bibd.tubespbo.view.supervisor.supervisorpanels;
 
+import com.bibd.tubespbo.Di;
+import com.bibd.tubespbo.data.model.ProductModel;
+import com.bibd.tubespbo.data.model.ProductStockModel;
+
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
+
 /**
  *
  * @author HP VICTUS
@@ -13,8 +20,64 @@ public class MenuUpdateStok extends javax.swing.JPanel {
     /**
      * Creates new form MenuUpdateStok
      */
+
+    int idWarehouseEmployee;
+    int idEmployee;
+    private DefaultTableModel tblStockModel = new DefaultTableModel() {
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false; //super.isCellEditable(row, column);
+        }
+
+    };
+    private TableRowSorter<DefaultTableModel> tblStockSorter = new TableRowSorter<>(tblStockModel);
+
     public MenuUpdateStok() {
         initComponents();
+        idWarehouseEmployee = Di.authPresenter.loggedInUser().getIdWarehouse();
+        idEmployee = Di.authPresenter.loggedInUser().getId();
+        setupTableStock();;
+        populateTableStock();
+    }
+
+    private void setupTableStock() {
+        tblProductStock.setModel(tblStockModel);
+
+        tblStockModel.addColumn("Id");
+        tblStockModel.addColumn("Nama Produk");
+        tblStockModel.addColumn("Quantity");
+        tblStockModel.addColumn("Tanggal Update");
+
+        tblProductStock.setRowSorter(tblStockSorter);
+        tblProductStock.getTableHeader().setReorderingAllowed(false);
+
+        tblStockSorter.setSortable(0, false);
+        tblStockSorter.setSortable(1, false);
+        tblStockSorter.setSortable(2, false);
+        tblStockSorter.setSortable(3, false);
+    }
+
+    private void populateTableStock() {
+        Di.manageStockPresenter.showStockProduct(idWarehouseEmployee);
+
+        clearTable();
+
+        for (ProductStockModel pm : Di.manageStockPresenter.listProductStock) {
+            String[] row = {
+                String.valueOf(pm.getId()),
+                pm.getProductName(),
+                String.valueOf(pm.getTotalStock()),
+                pm.getLastUpdate().toString()
+            };
+            tblStockModel.addRow(row);
+        }
+        
+    }
+
+    private void clearTable() {
+        for (int i = tblStockModel.getRowCount() - 1; i >= 0; i--) {
+            tblStockModel.removeRow(i);
+        }
     }
 
     /**
@@ -37,7 +100,7 @@ public class MenuUpdateStok extends javax.swing.JPanel {
         bHapusStok = new javax.swing.JButton();
         bBersihkan = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
-        tViewData = new javax.swing.JTable();
+        tblProductStock = new javax.swing.JTable();
         tfPencarianUpdate = new javax.swing.JTextField();
         bCariUpdate = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
@@ -87,7 +150,7 @@ public class MenuUpdateStok extends javax.swing.JPanel {
             }
         });
 
-        tViewData.setModel(new javax.swing.table.DefaultTableModel(
+        tblProductStock.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -98,7 +161,12 @@ public class MenuUpdateStok extends javax.swing.JPanel {
                 "Tanggal", "IdUpdate", "NamaProduct", "Quantity"
             }
         ));
-        jScrollPane4.setViewportView(tViewData);
+        tblProductStock.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblProductStockMouseClicked(evt);
+            }
+        });
+        jScrollPane4.setViewportView(tblProductStock);
 
         bCariUpdate.setBackground(new java.awt.Color(153, 255, 255));
         bCariUpdate.setText("Cari");
@@ -237,6 +305,11 @@ public class MenuUpdateStok extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_bBersihkanActionPerformed
 
+    private void tblProductStockMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProductStockMouseClicked
+
+        // TODO Bebek
+    }//GEN-LAST:event_tblProductStockMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bBersihkan;
@@ -254,7 +327,7 @@ public class MenuUpdateStok extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTable tViewData;
+    private javax.swing.JTable tblProductStock;
     private javax.swing.JTextField tfGudang;
     private javax.swing.JTextField tfPencarianUpdate;
     private javax.swing.JTextField tfQuantity;

@@ -94,8 +94,8 @@ public class ProductRepository {
         return productDataSource.getAllCategory();
     }
 
-    public ArrayList<ProductStockModel> getStockProduct(int idProduct, int idWarehouse) {
-        return productDataSource.getAllStockProduct(idProduct, idWarehouse);
+    public ArrayList<ProductStockModel> getStockProduct(int idWarehouse) {
+        return productDataSource.getAllStockProduct( idWarehouse);
     }
     
     

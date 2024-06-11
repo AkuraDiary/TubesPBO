@@ -18,8 +18,8 @@ public class ManageStockPresenter {
 
     ProductRepository productRepository;
 
-    ArrayList<ProductModel> listProduct = new ArrayList<>();
-    ArrayList<ProductStockModel> listProductStock = new ArrayList<>();
+    public ArrayList<ProductModel> listProduct = new ArrayList<>();
+    public ArrayList<ProductStockModel> listProductStock = new ArrayList<>();
 
     public ManageStockPresenter(ProductRepository productRepository) {
         this.productRepository = productRepository;
@@ -29,8 +29,8 @@ public class ManageStockPresenter {
         this.listProduct = productRepository.getAllProduct();
     }
     
-    public void showStockProduct(int idProduct, int idWarehouse){
-        this.listProductStock = productRepository.getStockProduct(idProduct, idWarehouse);
+    public void showStockProduct( int idWarehouse){
+        this.listProductStock = productRepository.getStockProduct(idWarehouse);
     }
 
     int result = 0;
