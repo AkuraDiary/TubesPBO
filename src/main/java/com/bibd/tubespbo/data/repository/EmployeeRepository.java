@@ -5,7 +5,9 @@
 package com.bibd.tubespbo.data.repository;
 
 import com.bibd.tubespbo.data.model.EmployeeModel;
+import com.bibd.tubespbo.data.model.WarehouseModel;
 import com.bibd.tubespbo.data.source.EmployeesDataSource;
+import com.bibd.tubespbo.data.source.WarehouseDataSource;
 import com.bibd.tubespbo.util.Statics;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,9 +19,15 @@ import java.util.List;
 public class EmployeeRepository {
 
     EmployeesDataSource employeeDataSource;
+    WarehouseDataSource warehouseDataSource;
 
-    public EmployeeRepository(EmployeesDataSource employeeDataSource) {
+    public EmployeeRepository(EmployeesDataSource employeeDataSource, WarehouseDataSource warehouseDataSource) {
+        this.warehouseDataSource = warehouseDataSource;
         this.employeeDataSource = employeeDataSource;
+    }
+    
+    public ArrayList<WarehouseModel> getAllWarehouse(){
+        return warehouseDataSource.getAllWarehouse();
     }
 
     public ArrayList<EmployeeModel> getEmployeeAsManager() {

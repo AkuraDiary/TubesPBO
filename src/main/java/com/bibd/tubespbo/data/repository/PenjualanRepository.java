@@ -27,9 +27,10 @@ public class PenjualanRepository {
         return penjualanDataSource.getHistoryPenjualan(idWareHouse);
     }
 
-    public int doCheckOut(int employeeId, int customerId, String statusPayment, LocalDateTime waktu, String typeOrder, ArrayList<KeranjangModel> keranjang) {
+    public int doCheckOut(int employeeId, int customerId, String statusPayment, LocalDateTime waktu, String typeOrder, ArrayList<KeranjangModel> keranjang, String shipStatus,int idWarehouse) {
         try {
-            return penjualanDataSource.doCheckout(customerId, employeeId, keranjang, statusPayment, typeOrder, waktu);
+            return penjualanDataSource.doCheckout(customerId, employeeId, keranjang, statusPayment, typeOrder, waktu,shipStatus,idWarehouse);
+          
         } catch (Exception e) {
             System.out.println("Penjualan Repo " + e.getLocalizedMessage());
             return -1;
@@ -37,9 +38,9 @@ public class PenjualanRepository {
 
     }
 
-    public int updateStatusShipment(int idPenjualan, String statusShipment) {
+    public int updateStatusShipmentPayment(int idPenjualan, String statusShipment, String statusPayment) {
         try {
-            return penjualanDataSource.updateStatusShipment(idPenjualan, statusShipment);
+            return penjualanDataSource.updateStatusShipPay(idPenjualan, statusShipment, statusPayment);
         } catch (Exception e) {
             System.out.println("Penjualan Repo " + e.getLocalizedMessage());
             return -1;

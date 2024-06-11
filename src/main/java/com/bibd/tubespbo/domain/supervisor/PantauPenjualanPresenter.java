@@ -13,43 +13,42 @@ import java.util.ArrayList;
  * @author asthiseta
  */
 public class PantauPenjualanPresenter {
-    
+
     PenjualanRepository penjualanRepository;
 
     public PantauPenjualanPresenter(PenjualanRepository penjualanRepository) {
         this.penjualanRepository = penjualanRepository;
     }
-    
-    
-    
-    public ArrayList<PenjualanModel> listPenjualanWarehouse = new ArrayList<>(); 
-    
-    public void getAllPenjualanInWarehouse(int idWarehouse){    
+
+    public ArrayList<PenjualanModel> listPenjualanWarehouse = new ArrayList<>();
+
+    public void getAllPenjualanInWarehouse(int idWarehouse) {
         listPenjualanWarehouse = penjualanRepository.getHistoryPenjualan(idWarehouse);
     }
-    
+
     PenjualanModel selectedPenjualan;
-    
-    public void setSelectedPenjualan(int idPenjualan){
+
+    public void setSelectedPenjualan(int idPenjualan) {
         selectedPenjualan = listPenjualanWarehouse.stream()
-                .filter(item -> item.getIdPenjualan()== idPenjualan)
+                .filter(item -> item.getIdPenjualan() == idPenjualan)
                 .findFirst()
                 .orElse(null);
     }
-    
-    public void resetStatusUpdatePenjualan(){
+
+    public void resetStatusUpdatePenjualan() {
         selectedPenjualan = null;
         updateStatusPenjualanState = 0;
     }
-    
+
     int updateStatusPenjualanState = 0; // 0 default; -2 not selected; -1 error
-    public void updateStatusShipmentPenjualan(int idPenjualan, String statusShipment){
-       
+
+    public void updateStatusShipmentPenjualan(int idPenjualan, String statusShipment, String statusPayment) {
+
         if (selectedPenjualan == null) {
             updateStatusPenjualanState = -2;
             return;
         }
-        updateStatusPenjualanState = penjualanRepository.updateStatusShipment(idPenjualan, statusShipment);      
+        updateStatusPenjualanState = penjualanRepository.updateStatusShipmentPayment(idPenjualan, statusShipment, statusPayment);
     }
-    
+
 }

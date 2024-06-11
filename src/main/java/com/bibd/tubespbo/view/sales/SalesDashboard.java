@@ -32,6 +32,9 @@ public class SalesDashboard extends javax.swing.JFrame {
         pnKiri = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        pn1 = new javax.swing.JPanel();
+        pnCrudpenjualan = new javax.swing.JPanel();
+        btnCrudpenjualan = new javax.swing.JLabel();
         pnKanan = new javax.swing.JPanel();
         jPanelGradient1 = new com.bibd.tubespbo.view.manager.jPanelGradient();
         bLogout = new javax.swing.JButton();
@@ -50,16 +53,63 @@ public class SalesDashboard extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(102, 102, 102));
         jLabel2.setText("Dashboard");
 
+        pn1.setBackground(new java.awt.Color(255, 255, 255));
+
+        pnCrudpenjualan.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout pnCrudpenjualanLayout = new javax.swing.GroupLayout(pnCrudpenjualan);
+        pnCrudpenjualan.setLayout(pnCrudpenjualanLayout);
+        pnCrudpenjualanLayout.setHorizontalGroup(
+            pnCrudpenjualanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 10, Short.MAX_VALUE)
+        );
+        pnCrudpenjualanLayout.setVerticalGroup(
+            pnCrudpenjualanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 33, Short.MAX_VALUE)
+        );
+
+        btnCrudpenjualan.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnCrudpenjualan.setText("CRUD PENJUALAN");
+
+        javax.swing.GroupLayout pn1Layout = new javax.swing.GroupLayout(pn1);
+        pn1.setLayout(pn1Layout);
+        pn1Layout.setHorizontalGroup(
+            pn1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pn1Layout.createSequentialGroup()
+                .addGap(39, 39, 39)
+                .addComponent(btnCrudpenjualan, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
+                .addGap(22, 22, 22))
+            .addGroup(pn1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pn1Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(pnCrudpenjualan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(246, Short.MAX_VALUE)))
+        );
+        pn1Layout.setVerticalGroup(
+            pn1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(btnCrudpenjualan, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
+            .addGroup(pn1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pn1Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(pnCrudpenjualan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        );
+
         javax.swing.GroupLayout pnKiriLayout = new javax.swing.GroupLayout(pnKiri);
         pnKiri.setLayout(pnKiriLayout);
         pnKiriLayout.setHorizontalGroup(
             pnKiriLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnKiriLayout.createSequentialGroup()
-                .addGap(59, 59, 59)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
-                .addContainerGap(81, Short.MAX_VALUE))
+                .addGroup(pnKiriLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnKiriLayout.createSequentialGroup()
+                        .addGap(59, 59, 59)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel2))
+                    .addGroup(pnKiriLayout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(pn1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(49, Short.MAX_VALUE))
         );
         pnKiriLayout.setVerticalGroup(
             pnKiriLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -71,7 +121,9 @@ public class SalesDashboard extends javax.swing.JFrame {
                     .addGroup(pnKiriLayout.createSequentialGroup()
                         .addGap(19, 19, 19)
                         .addComponent(jLabel1)))
-                .addContainerGap(701, Short.MAX_VALUE))
+                .addGap(41, 41, 41)
+                .addComponent(pn1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(615, Short.MAX_VALUE))
         );
 
         getContentPane().add(pnKiri, java.awt.BorderLayout.LINE_START);
@@ -95,7 +147,7 @@ public class SalesDashboard extends javax.swing.JFrame {
         jPanelGradient1Layout.setHorizontalGroup(
             jPanelGradient1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelGradient1Layout.createSequentialGroup()
-                .addContainerGap(905, Short.MAX_VALUE)
+                .addContainerGap(893, Short.MAX_VALUE)
                 .addComponent(bLogout)
                 .addGap(64, 64, 64))
         );
@@ -187,11 +239,14 @@ public class SalesDashboard extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bLogout;
+    private javax.swing.JLabel btnCrudpenjualan;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private com.bibd.tubespbo.view.manager.jPanelGradient jPanelGradient1;
+    private javax.swing.JPanel pn1;
+    private javax.swing.JPanel pnCrudpenjualan;
     private javax.swing.JPanel pnKanan;
     private javax.swing.JPanel pnKiri;
     // End of variables declaration//GEN-END:variables
