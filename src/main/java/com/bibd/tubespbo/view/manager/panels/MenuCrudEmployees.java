@@ -10,6 +10,7 @@ import com.bibd.tubespbo.data.model.WarehouseModel;
 import com.bibd.tubespbo.util.Statics;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.stream.Collectors;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
@@ -63,7 +64,7 @@ public class MenuCrudEmployees extends javax.swing.JPanel {
         bSearchEmployees = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        tfIDEmployeesSearch = new javax.swing.JTextField();
+        tFSearchEmployee = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
         tfEntriesEmployeesData = new javax.swing.JTextField();
         bEntriesDataEmployee = new javax.swing.JButton();
@@ -175,14 +176,14 @@ public class MenuCrudEmployees extends javax.swing.JPanel {
         });
 
         jLabel10.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        jLabel10.setText("IDEmployees:");
+        jLabel10.setText(" Cari Employee");
 
         jLabel11.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel11.setText("IDEmployees        :");
 
-        tfIDEmployeesSearch.addActionListener(new java.awt.event.ActionListener() {
+        tFSearchEmployee.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfIDEmployeesSearchActionPerformed(evt);
+                tFSearchEmployeeActionPerformed(evt);
             }
         });
 
@@ -264,7 +265,7 @@ public class MenuCrudEmployees extends javax.swing.JPanel {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(tfIDEmployeesSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tFSearchEmployee, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(bSearchEmployees)
                         .addGap(18, 18, 18)
@@ -282,7 +283,7 @@ public class MenuCrudEmployees extends javax.swing.JPanel {
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(35, 35, 35)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(tfIDEmployeesSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tFSearchEmployee, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap()
@@ -375,11 +376,40 @@ public class MenuCrudEmployees extends javax.swing.JPanel {
 
 
     }
+    
+    private void resetField() {
+        
+    }
+    
+    private void clearTable(){
+        for (int i = tableEmployeeModel.getRowCount() - 1; i >= 0; i--) {
+            tableEmployeeModel.removeRow(i);
+        }
+    }
 
     private void populateTableEmployee() {
         Di.manageEmployeePresenter.getAllEmplyoees();
+          //Remove rows one by one from the end of the table
         
-        for (EmployeeModel emp : Di.manageEmployeePresenter.listEmployee) {
+        clearTable();
+        
+        String filterSearch = tFSearchEmployee.getText();
+        
+        ArrayList<EmployeeModel> data = new ArrayList<>();
+        
+        data.addAll(Di.manageEmployeePresenter.listEmployee);
+        
+        if(!filterSearch.isBlank()){
+                data = (ArrayList<EmployeeModel>) data.stream()
+                   .filter(emp -> emp.getNama().equalsIgnoreCase(filterSearch)
+//                                  emp.getStatus().toLowerCase().contains(filterSearch) || 
+//                                  emp.getRole().toLowerCase().contains(filterSearch))
+                           )
+                   .collect(Collectors.toList());
+            
+        }
+        
+        for (EmployeeModel emp : data) {
             String[] row = {
                 String.valueOf(emp.getId()), 
                 emp.getNama(), 
@@ -434,11 +464,12 @@ public class MenuCrudEmployees extends javax.swing.JPanel {
 
     private void bSearchEmployeesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSearchEmployeesActionPerformed
         // TODO add your handling code here:
+        populateTableEmployee();
     }//GEN-LAST:event_bSearchEmployeesActionPerformed
 
-    private void tfIDEmployeesSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfIDEmployeesSearchActionPerformed
+    private void tFSearchEmployeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tFSearchEmployeeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_tfIDEmployeesSearchActionPerformed
+    }//GEN-LAST:event_tFSearchEmployeeActionPerformed
 
     private void tfEntriesEmployeesDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfEntriesEmployeesDataActionPerformed
         // TODO add your handling code here:
@@ -467,11 +498,11 @@ public class MenuCrudEmployees extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField tFSearchEmployee;
     private javax.swing.JTable tViewdataemployees;
     private javax.swing.JTextField tfEmailEmployees;
     private javax.swing.JTextField tfEntriesEmployeesData;
     private javax.swing.JTextField tfIDEmployees;
-    private javax.swing.JTextField tfIDEmployeesSearch;
     private javax.swing.JTextField tfNamaEmployees;
     private javax.swing.JTextField tfNoHpEmployees;
     private javax.swing.JTextField tfPasswordEmployees;

@@ -200,7 +200,7 @@ public class PenjualanDataSource {
     public int doCheckout(int customerId, int employeeId, ArrayList<KeranjangModel> keranjang, String statusPayment,
             String typeOrder, LocalDateTime waktu, String statusShip, int idWarehouse) {
 //        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-          order,orderdetil,orderpenjualan, stok product
+//          order,orderdetil,orderpenjualan, stok product
 
         try {
             db.openConnection();
