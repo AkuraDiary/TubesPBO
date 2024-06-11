@@ -43,7 +43,6 @@ public class MenuCreatePembelian extends javax.swing.JPanel {
         jLabel11 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         bCariIDPembelian = new javax.swing.JButton();
-        bHapusIdPembelian = new javax.swing.JButton();
         bBersihkan = new javax.swing.JButton();
         cbStatus = new javax.swing.JComboBox<>();
         cbOrdertype = new javax.swing.JComboBox<>();
@@ -94,14 +93,6 @@ public class MenuCreatePembelian extends javax.swing.JPanel {
 
         bCariIDPembelian.setBackground(new java.awt.Color(153, 255, 255));
         bCariIDPembelian.setText("Cari");
-
-        bHapusIdPembelian.setBackground(new java.awt.Color(255, 255, 153));
-        bHapusIdPembelian.setText("Hapus");
-        bHapusIdPembelian.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bHapusIdPembelianActionPerformed(evt);
-            }
-        });
 
         bBersihkan.setText("Bersihkan");
 
@@ -176,8 +167,7 @@ public class MenuCreatePembelian extends javax.swing.JPanel {
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(bCariIDPembelian)
-                        .addGap(18, 18, 18)
-                        .addComponent(bHapusIdPembelian))
+                        .addGap(90, 90, 90))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 436, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 448, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -192,11 +182,12 @@ public class MenuCreatePembelian extends javax.swing.JPanel {
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(43, 43, 43)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(tfTanggalorder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(tfIdpembelian, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfTanggalorder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfIdpembelian, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(bSimpan))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -225,8 +216,7 @@ public class MenuCreatePembelian extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel11)
-                            .addComponent(bCariIDPembelian)
-                            .addComponent(bHapusIdPembelian))
+                            .addComponent(bCariIDPembelian))
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -234,15 +224,10 @@ public class MenuCreatePembelian extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void bHapusIdPembelianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bHapusIdPembelianActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_bHapusIdPembelianActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bBersihkan;
     private javax.swing.JButton bCariIDPembelian;
-    private javax.swing.JButton bHapusIdPembelian;
     private javax.swing.JButton bSimpan;
     private javax.swing.JComboBox<String> cbOrdertype;
     private javax.swing.JComboBox<String> cbStatus;
