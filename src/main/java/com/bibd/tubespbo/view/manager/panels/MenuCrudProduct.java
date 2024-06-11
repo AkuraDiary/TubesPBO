@@ -54,7 +54,7 @@ public class MenuCrudProduct extends javax.swing.JPanel {
         bEntriesDataProduct = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         bUpdate = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        bBersihkan = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -152,7 +152,7 @@ public class MenuCrudProduct extends javax.swing.JPanel {
             }
         });
 
-        jButton1.setText("jButton1");
+        bBersihkan.setText("Bersihkan");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -189,7 +189,7 @@ public class MenuCrudProduct extends javax.swing.JPanel {
                             .addComponent(bCreateProduct)
                             .addComponent(bUpdate))
                         .addGap(18, 18, 18)
-                        .addComponent(jButton1)
+                        .addComponent(bBersihkan)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -264,7 +264,7 @@ public class MenuCrudProduct extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1)
+                        .addComponent(bBersihkan)
                         .addGap(36, 36, 36)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
@@ -304,12 +304,12 @@ public class MenuCrudProduct extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bBersihkan;
     private javax.swing.JButton bCreateProduct;
     private javax.swing.JButton bDeleteProduct;
     private javax.swing.JButton bEntriesDataPembelian;
     private javax.swing.JButton bEntriesDataProduct;
     private javax.swing.JButton bUpdate;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
