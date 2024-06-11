@@ -26,7 +26,7 @@ public class EmployeesDataSource {
         ArrayList<EmployeeModel> allEmployee = new ArrayList<>();
         try {
             db.openConnection();
-            String query = "SELECT idEmployee, nama, noHp, email, role, status, idWarehouse FROM employees";
+            String query = "SELECT idEmployee, nama, noHp, email, role, status, idWarehouse, password FROM employees";
             ResultSet rs = db.getData(query);
 
             EmployeeModel data;// = null;
@@ -43,9 +43,11 @@ public class EmployeesDataSource {
                 String email = rs.getString("email");
                 String role = rs.getString("role");
                 String status = rs.getString("status");
+                String password = rs.getString("password");
                 int idWarehouse = rs.getInt("idWarehouse");
 
                 data = new EmployeeModel(idEmp, namaEmp, nohpEmp, email, role, status);
+                data.setPass(password);
 
                 if (idWarehouse != 0) {
                     data.setIdWarehouse(idWarehouse);

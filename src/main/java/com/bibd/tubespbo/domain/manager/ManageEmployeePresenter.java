@@ -49,7 +49,7 @@ public class ManageEmployeePresenter {
 
     public EmployeeModel selectedDataEmployee;
 
-    int statusUpdateEmployee = 0; // 0 default state; -1 error ; -2 not selected 
+    public int statusUpdateEmployee = 0; // 0 default state; -1 error ; -2 not selected 
 
     public void updateDataEmployee() {
         if (selectedDataEmployee == null) {
@@ -64,7 +64,7 @@ public class ManageEmployeePresenter {
         selectedDataEmployee = null;
     }
 
-    int statusAddNewEmployee = 0;
+    public int statusAddNewEmployee = 0;
 
     public void resetAddEmployeeState() {
         statusAddNewEmployee = 0;

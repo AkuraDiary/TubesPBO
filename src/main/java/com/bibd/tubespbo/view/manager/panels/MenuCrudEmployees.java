@@ -362,9 +362,10 @@ public class MenuCrudEmployees extends javax.swing.JPanel {
             Arrays.asList(Statics.EMPLOYEE_STATUS_AKTIF, Statics.EMPLOYEE_STATUS_NONAKTIF)
     );
 
-      ArrayList<String> employeeRoles = new ArrayList<>(
-            Arrays.asList(Statics.EMPLOYEE_ROLE_SUPERVISOR, Statics.EMPLOYEE_ROLE_SALES )
+    ArrayList<String> employeeRoles = new ArrayList<>(
+            Arrays.asList(Statics.EMPLOYEE_ROLE_SUPERVISOR, Statics.EMPLOYEE_ROLE_SALES)
     );
+
     private void setupStatusEmployee() {
         cbStatusEmploees.removeAllItems();
         for (String empStatus : employeeStatus) {
@@ -398,6 +399,13 @@ public class MenuCrudEmployees extends javax.swing.JPanel {
         // reset all field
         cbStatusEmploees.setSelectedIndex(0);
         cbWarehouse.setSelectedIndex(0);
+        cbEmpRole.setSelectedIndex(0);
+
+        tfIDEmployees.setText("");
+        tfNamaEmployees.setText("");
+        tfEmailEmployees.setText("");
+        tfNoHpEmployees.setText("");
+        tfPasswordEmployees.setText("");
 
         bNewEmployee.setEnabled(true);
         bUpdateDataEmployees.setEnabled(false);
@@ -436,9 +444,9 @@ public class MenuCrudEmployees extends javax.swing.JPanel {
             cbWarehouse.addItem(item);
         }
     }
-    
+
     private void setupRoles() {
-        
+
         cbEmpRole.removeAllItems();
         for (String item : employeeRoles) {
             cbEmpRole.addItem(item);
@@ -467,10 +475,41 @@ public class MenuCrudEmployees extends javax.swing.JPanel {
 
     private void bNewEmployeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bNewEmployeeActionPerformed
         // TODO add your handling code here:
+
+
     }//GEN-LAST:event_bNewEmployeeActionPerformed
 
     private void bUpdateDataEmployeesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bUpdateDataEmployeesActionPerformed
         // TODO add your handling code here:
+        EmployeeModel em = new EmployeeModel();
+
+//        tfIDEmployees.setText(String.valueOf(idEmployee));
+        String nama = tfNamaEmployees.getText();
+        String email = tfEmailEmployees.getText();
+        String noHp = tfNoHpEmployees.getText();
+        String pass = tfPasswordEmployees.getText();
+        String status = (String) cbStatusEmploees.getSelectedItem();
+        String role = (String) cbEmpRole.getSelectedItem();
+        int idWarehouse = ((WarehouseModel) cbWarehouse.getSelectedItem()).getIdWarehouse();
+
+        em.setNama(nama);
+        em.setEmail(email);
+        em.setNoHp(noHp);
+        em.setPass(pass);
+        em.setStatus(status);
+        em.setRole(role);
+        em.setIdWarehouse(idWarehouse);
+
+        Di.manageEmployeePresenter.addNewEmployee(em);
+
+        int result = Di.manageEmployeePresenter.statusAddNewEmployee;
+        if(result < 0){
+            System.out.println("Error ");
+            return;
+        }
+        Di.manageEmployeePresenter.resetAddEmployeeState();
+        resetField();
+        populateTableEmployee();
     }//GEN-LAST:event_bUpdateDataEmployeesActionPerformed
 
     private void bSearchEmployeesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSearchEmployeesActionPerformed
@@ -501,10 +540,11 @@ public class MenuCrudEmployees extends javax.swing.JPanel {
         tfNamaEmployees.setText(selectedEmp.getNama());
         tfEmailEmployees.setText(selectedEmp.getEmail());
         tfNoHpEmployees.setText(selectedEmp.getNoHp());
+        tfPasswordEmployees.setText(selectedEmp.getPass());
 
         String status = selectedEmp.getStatus();
         int idWarehouse = selectedEmp.getIdWarehouse();
-        
+
         cbStatusEmploees.setSelectedItem(status);
         cbEmpRole.setSelectedItem(selectedEmp.getRole());
 
@@ -514,7 +554,7 @@ public class MenuCrudEmployees extends javax.swing.JPanel {
                         .filter(p -> p.getIdWarehouse() == idWarehouse)
                         .findFirst().orElse(new WarehouseModel())
         );
-        
+
         cbWarehouse.setSelectedIndex(idxWarehouse);
 
         bNewEmployee.setEnabled(false);
