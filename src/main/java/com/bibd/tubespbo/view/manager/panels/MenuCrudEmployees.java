@@ -8,9 +8,11 @@ import com.bibd.tubespbo.Di;
 import com.bibd.tubespbo.data.model.EmployeeModel;
 import com.bibd.tubespbo.data.model.WarehouseModel;
 import com.bibd.tubespbo.util.Statics;
+import com.bibd.tubespbo.util.Validator;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.stream.Collectors;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
@@ -59,7 +61,7 @@ public class MenuCrudEmployees extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         tViewdataemployees = new javax.swing.JTable();
         bUpdateDataEmployees = new javax.swing.JButton();
-        bDeleteDataEmployees = new javax.swing.JButton();
+        btnClearSearch = new javax.swing.JButton();
         bNewEmployee = new javax.swing.JButton();
         bSearchEmployees = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
@@ -78,6 +80,8 @@ public class MenuCrudEmployees extends javax.swing.JPanel {
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setText("MANAGE EMPLOYEES");
+
+        tfIDEmployees.setEnabled(false);
 
         jLabel3.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel3.setText("Nama            :");
@@ -151,11 +155,11 @@ public class MenuCrudEmployees extends javax.swing.JPanel {
             }
         });
 
-        bDeleteDataEmployees.setBackground(new java.awt.Color(204, 204, 204));
-        bDeleteDataEmployees.setText("Delete");
-        bDeleteDataEmployees.addActionListener(new java.awt.event.ActionListener() {
+        btnClearSearch.setBackground(new java.awt.Color(204, 204, 204));
+        btnClearSearch.setText("Clear");
+        btnClearSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bDeleteDataEmployeesActionPerformed(evt);
+                btnClearSearchActionPerformed(evt);
             }
         });
 
@@ -276,7 +280,7 @@ public class MenuCrudEmployees extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addComponent(bSearchEmployees)
                         .addGap(18, 18, 18)
-                        .addComponent(bDeleteDataEmployees)
+                        .addComponent(btnClearSearch)
                         .addGap(123, 123, 123))))
         );
         layout.setVerticalGroup(
@@ -295,7 +299,7 @@ public class MenuCrudEmployees extends javax.swing.JPanel {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(bDeleteDataEmployees)
+                            .addComponent(btnClearSearch)
                             .addComponent(bSearchEmployees))))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -469,18 +473,45 @@ public class MenuCrudEmployees extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_tfPasswordEmployeesActionPerformed
 
-    private void bDeleteDataEmployeesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bDeleteDataEmployeesActionPerformed
+    private void btnClearSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearSearchActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_bDeleteDataEmployeesActionPerformed
+        tFSearchEmployee.setText("");
+        populateTableEmployee();
+    }//GEN-LAST:event_btnClearSearchActionPerformed
 
+    private boolean formIsValid() {
+        boolean valid = false;
+
+        if (!Validator.isValidEmail(tfEmailEmployees.getText())) {
+             JOptionPane.showMessageDialog(null, "Email Tidak Valid!");
+            return valid;
+        }
+
+        if (tfNamaEmployees.getText().isBlank()) {
+            JOptionPane.showMessageDialog(null, "Nama Tidak Boleh kosong !");
+            return valid;
+        }
+
+        if (tfEmailEmployees.getText().isBlank()) {
+            JOptionPane.showMessageDialog(null, "Email Tidak Boleh kosong !");
+            return valid;
+        }
+
+        if (tfNoHpEmployees.getText().isBlank()) {
+            JOptionPane.showMessageDialog(null, "No Hp Tidak Boleh kosong !");
+            return valid;
+        }
+
+        if (tfPasswordEmployees.getText().isBlank()) {
+            JOptionPane.showMessageDialog(null, "Password Tidak Boleh kosong !");
+            return valid;
+        }
+        
+        return !valid;
+
+    }
     private void bNewEmployeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bNewEmployeeActionPerformed
-        // TODO add your handling code here:
 
-
-    }//GEN-LAST:event_bNewEmployeeActionPerformed
-
-    private void bUpdateDataEmployeesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bUpdateDataEmployeesActionPerformed
-        // TODO add your handling code here:
         EmployeeModel em = new EmployeeModel();
 
 //        tfIDEmployees.setText(String.valueOf(idEmployee));
@@ -492,6 +523,9 @@ public class MenuCrudEmployees extends javax.swing.JPanel {
         String role = (String) cbEmpRole.getSelectedItem();
         int idWarehouse = ((WarehouseModel) cbWarehouse.getSelectedItem()).getIdWarehouse();
 
+        if(!formIsValid()){
+            return;
+        }
         em.setNama(nama);
         em.setEmail(email);
         em.setNoHp(noHp);
@@ -503,13 +537,55 @@ public class MenuCrudEmployees extends javax.swing.JPanel {
         Di.manageEmployeePresenter.addNewEmployee(em);
 
         int result = Di.manageEmployeePresenter.statusAddNewEmployee;
-        if(result < 0){
+        if (result < 0) {
             System.out.println("Error ");
             return;
         }
+        JOptionPane.showMessageDialog(null, "Data Berhasil Ditambahkan!");
         Di.manageEmployeePresenter.resetAddEmployeeState();
         resetField();
         populateTableEmployee();
+    }//GEN-LAST:event_bNewEmployeeActionPerformed
+
+    private void bUpdateDataEmployeesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bUpdateDataEmployeesActionPerformed
+        EmployeeModel em = Di.manageEmployeePresenter.selectedDataEmployee;
+
+        System.out.println("Before Update");
+        int idEmployee = Integer.parseInt(tfIDEmployees.getText());
+        String nama = tfNamaEmployees.getText();
+        String email = tfEmailEmployees.getText();
+        String noHp = tfNoHpEmployees.getText();
+        String pass = tfPasswordEmployees.getText();
+        String status = (String) cbStatusEmploees.getSelectedItem();
+        String role = (String) cbEmpRole.getSelectedItem();
+        int idWarehouse = ((WarehouseModel) cbWarehouse.getSelectedItem()).getIdWarehouse();
+
+        if(!formIsValid()){
+            return;
+        }
+        
+        em.setId(idEmployee);
+        em.setNama(nama);
+        em.setEmail(email);
+        em.setNoHp(noHp);
+        em.setPass(pass);
+        em.setStatus(status);
+        em.setRole(role);
+        em.setIdWarehouse(idWarehouse);
+        System.out.println("After");
+        System.out.println(Di.manageEmployeePresenter.selectedDataEmployee.getNama());
+        Di.manageEmployeePresenter.updateDataEmployee();
+
+        int result = Di.manageEmployeePresenter.statusUpdateEmployee;
+        if (result < 0) {
+            System.out.println("Error ");
+            return;
+        }
+        JOptionPane.showMessageDialog(null, "Data Berhasil Di Update !");
+        Di.manageEmployeePresenter.resetSelectedDataEmployee();
+        resetField();
+        populateTableEmployee();
+
     }//GEN-LAST:event_bUpdateDataEmployeesActionPerformed
 
     private void bSearchEmployeesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSearchEmployeesActionPerformed
@@ -568,11 +644,11 @@ public class MenuCrudEmployees extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton bDeleteDataEmployees;
     private javax.swing.JButton bEntriesDataEmployee;
     private javax.swing.JButton bNewEmployee;
     private javax.swing.JButton bSearchEmployees;
     private javax.swing.JButton bUpdateDataEmployees;
+    private javax.swing.JButton btnClearSearch;
     private javax.swing.JButton btnResetField;
     private javax.swing.JComboBox<String> cbEmpRole;
     private javax.swing.JComboBox<String> cbStatusEmploees;

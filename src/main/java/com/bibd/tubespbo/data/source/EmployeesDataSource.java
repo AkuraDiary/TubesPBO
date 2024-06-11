@@ -109,13 +109,13 @@ public class EmployeesDataSource {
 
     //insert dan update belum 
     //Rapid D.
-    public int insertEmployee(String nama, String noHp, String email, String role, String status, String pass) {
+    public int insertEmployee(String nama, String noHp, String email, String role, String status, String pass, int idWarehouse) {
 
         try {
             db.openConnection();
 
-            String query = "INSERT INTO employees (nama, noHp, email, role, status, password) VALUES"
-                    + "('" + nama + "', '" + noHp + "', '" + email + "', '" + role + "', '" + status + "', "+pass+" )";
+            String query = "INSERT INTO employees (nama, noHp, email, role, status, password, idWarehouse) VALUES"
+                    + "('" + nama + "', '" + noHp + "', '" + email + "', '" + role + "', '" + status + "', '"+pass+"', "+idWarehouse+ " )";
             int result = db.executeStatement(query);
             return result;
 
@@ -131,12 +131,12 @@ public class EmployeesDataSource {
 
     // Rapid D.
     public int updateEmployee(String nama, String noHp, String email,
-            String role, String status, int id) {
+            String role, String status, int idEmployee, int idWarehouse, String password) {
         try {
             db.openConnection();
             String query = "UPDATE employees SET nama ='" + nama + "',  noHp ='" + noHp + "', email = '" + email + "', "
-                    + "role = '" + role + "',  status='" + status + "' "
-                    + "WHERE idEmployee = " + id;
+                    + "role = '" + role + "',  status='" + status + "', idWarehouse=" + idWarehouse + ", password= '" + password +"' "
+                    + "WHERE idEmployee = " + idEmployee;
             return db.executeStatement(query);
         } catch (Exception e) {
             System.out.println(e.getLocalizedMessage());

@@ -98,7 +98,7 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="bSearchEmployees" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="bDeleteDataEmployees" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnClearSearch" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="123" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -124,7 +124,7 @@
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="bDeleteDataEmployees" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnClearSearch" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="bSearchEmployees" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -205,6 +205,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="tfIDEmployees">
+      <Properties>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
@@ -350,15 +353,15 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bUpdateDataEmployeesActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="bDeleteDataEmployees">
+    <Component class="javax.swing.JButton" name="btnClearSearch">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="cc" green="cc" red="cc" type="rgb"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Delete"/>
+        <Property name="text" type="java.lang.String" value="Clear"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bDeleteDataEmployeesActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnClearSearchActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="bNewEmployee">
