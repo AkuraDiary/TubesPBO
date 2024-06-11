@@ -22,11 +22,15 @@ public class PenjualanRepository {
         this.penjualanDataSource = penjualanDataSource;
     }
 
-    public ArrayList<PenjualanModel> getHistoryPenjualan(int idWareHouse) {
+    public ArrayList<PenjualanModel> getHistoryPenjualan(int idWareHouse, int idEmployee) {
 
-        return penjualanDataSource.getHistoryPenjualan(idWareHouse);
+        return penjualanDataSource.getHistoryPenjualan(idWareHouse, idEmployee);
     }
 
+    public ArrayList<PenjualanModel> getHistoryPenjualan(int idWareHouse) {
+
+        return penjualanDataSource.getHistoryPenjualanByWarehouse(idWareHouse);
+    }
     public int doCheckOut(int employeeId, int customerId, String statusPayment, LocalDateTime waktu, String typeOrder, ArrayList<KeranjangModel> keranjang, String shipStatus,int idWarehouse, int idPenjualan) {
         try {
             return penjualanDataSource.doCheckout(customerId, employeeId, keranjang, statusPayment, typeOrder, waktu,shipStatus,idWarehouse, idPenjualan);

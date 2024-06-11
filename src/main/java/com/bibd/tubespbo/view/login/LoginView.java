@@ -89,6 +89,15 @@ public class LoginView extends javax.swing.JFrame {
             }
         });
 
+        tfPassword.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                tfPasswordMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                tfPasswordMouseExited(evt);
+            }
+        });
+
         jLabel3.setText("Password");
 
         btnLogin.setBackground(new java.awt.Color(153, 255, 153));
@@ -234,6 +243,16 @@ public class LoginView extends javax.swing.JFrame {
         int y = evt.getYOnScreen();
         this.setLocation(x - xx, y - xy);
     }//GEN-LAST:event_formMouseDragged
+
+    private void tfPasswordMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tfPasswordMouseEntered
+        // preview password when mouse entered. and hide when mouse exited
+        tfPassword.setEchoChar((char) 0);
+
+    }//GEN-LAST:event_tfPasswordMouseEntered
+
+    private void tfPasswordMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tfPasswordMouseExited
+        tfPassword.setEchoChar('*');
+    }//GEN-LAST:event_tfPasswordMouseExited
 
     
     private boolean formIsValid() {

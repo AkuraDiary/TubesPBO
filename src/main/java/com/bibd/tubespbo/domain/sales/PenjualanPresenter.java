@@ -23,17 +23,17 @@ public class PenjualanPresenter {
     PenjualanRepository penjualanRepository;
     ProductRepository productRepository;
 
-    ArrayList<KeranjangModel> keranjang = new ArrayList<>();
-    ArrayList<PenjualanModel> history = new ArrayList<>();
-    ArrayList<ProductModel> allproduct = new ArrayList<>();
+    public ArrayList<KeranjangModel> keranjang = new ArrayList<>();
+    public ArrayList<PenjualanModel> history = new ArrayList<>();
+    public ArrayList<ProductModel> allproduct = new ArrayList<>();
 
     public PenjualanPresenter(PenjualanRepository penjualanRepository, ProductRepository productRepository) {
         this.penjualanRepository = penjualanRepository;
         this.productRepository = productRepository;
     }
 
-    public void historyPenjualan(int idWarehouse) {
-        history = penjualanRepository.getHistoryPenjualan(idWarehouse);
+    public void historyPenjualan(int idWarehouse, int idEmployee) {
+        history = penjualanRepository.getHistoryPenjualan(idWarehouse, idEmployee);
 
     }
 
@@ -52,16 +52,54 @@ public class PenjualanPresenter {
         KeranjangModel newItem = new KeranjangModel();
         newItem.setProduk(produk);
         newItem.setQuantity(quantity);
+
+        // find product in allproduct
+        // minus stock product by quantity
+        for (ProductModel productModel : allproduct) {
+            if (productModel.getIdProduct() == produk.getIdProduct()) {
+                int stock = productModel.getQuantityInStock();
+                productModel.setQuantityInStock(stock - quantity);
+            }
+        }
         keranjang.add(newItem);
     }
 
-    public void keluarItemKeranjang(int idproduk) {
+    public void keluarItemKeranjang(int idproduk, int qty) {
         //mencari barang yang ingin di keluarkan
+        // get product in keranjang
+        // if quantity in keranjang == qty in all product
+        // or quantity = qty in keranjang
+        // remove product in keranjang
+        // else minus quantity in keranjang
+
         for (int i = 0; i < keranjang.size(); i++) {
             if (keranjang.get(i).getProduk().getIdProduct() == idproduk) {
-                keranjang.remove(i);
+                if (keranjang.get(i).getQuantity() == qty) {
+                    keranjang.remove(i);
+                } else {
+                    int jumlahSekarang = keranjang.get(i).getQuantity();
+                    int jumlahupdate = jumlahSekarang -= qty;
+                    keranjang.get(i).setQuantity(jumlahupdate);
+                }
             }
         }
+
+//        for (int i = 0; i < keranjang.size(); i++) {
+//            if (keranjang.get(i).getProduk().getIdProduct() == idproduk) {
+//
+//                // if quantity in keranjang == qty in all product
+//                keranjang.remove(i);
+//                // find product in allproduct
+//                // plus stock product by quantity
+//                for (ProductModel productModel : allproduct) {
+//                    if (productModel.getIdProduct() == idproduk) {
+//                        int stock = productModel.getQuantityInStock();
+//                        productModel.setQuantityInStock(stock + keranjang.get(i).getQuantity());
+//                    }
+//                }
+//
+//            }
+//        }
     }
 
     public void editQuantity(int idproduk, int quantity) {

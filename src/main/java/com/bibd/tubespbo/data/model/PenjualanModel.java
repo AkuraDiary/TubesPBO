@@ -8,22 +8,28 @@ import java.util.ArrayList;
 import java.util.Date;
 
 /**
- *
  * @author rafid
  */
 public class PenjualanModel {
-    private int idPenjualan,idorder;
-    private int customerId,employeeId;
-    private String shipmentStatus, statusPayment, orderType ;
-    private Date tanggalOrder,dateShipped ;
+    private int idPenjualan, idorder;
+    private int customerId, employeeId;
+    private String shipmentStatus, statusPayment, orderType;
+    private Date tanggalOrder, dateShipped;
     private ArrayList<OrderDetailsModel> keranjang = new ArrayList<>();
+    private String customerName;
 
     public PenjualanModel(int idPenjualan1, String shipmentStatus1, Date dateShipped1, int orderId, int customerId1, String statusPayment1, Date orderDate, String orderType1, int employeeId1) {
+        this.idPenjualan = idPenjualan1;
+        this.shipmentStatus = shipmentStatus1;
+        this.dateShipped = dateShipped1;
+        this.idorder = orderId;
+        this.customerId = customerId1;
+        this.statusPayment = statusPayment1;
+        this.tanggalOrder = orderDate;
+        this.orderType = orderType1;
+        this.employeeId = employeeId1;
     }
-    
-    
-    
-    
+
 
     public int getIdPenjualan() {
         return idPenjualan;
@@ -104,10 +110,13 @@ public class PenjualanModel {
     public void setKeranjang(ArrayList<OrderDetailsModel> keranjang) {
         this.keranjang = keranjang;
     }
-    
-    
 
-    
-    
-    
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
 }
