@@ -33,8 +33,9 @@ public class ManageProductPresenter {
     public ArrayList<ProdusenModel> listProdusen = new ArrayList<>();
     public ArrayList<CategoryModel> listCategory = new ArrayList<>();
 
-    public ManageProductPresenter(ProductRepository productRepository) {
+    public ManageProductPresenter(ProductRepository productRepository, ProdusenRepository produsenRepository) {
         this.productRepository = productRepository;
+        this.produsenRepository = produsenRepository;
     }
 
     public void showAllProduct(String filterSearch) {

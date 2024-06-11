@@ -67,7 +67,7 @@ public class MenuCrudProduct extends javax.swing.JPanel {
         taProductDesc = new javax.swing.JTextArea();
         jLabel10 = new javax.swing.JLabel();
         tfidProductsearch = new javax.swing.JTextField();
-        bEntriesDataPembelian = new javax.swing.JButton();
+        btnSearchProduct = new javax.swing.JButton();
         btnClearSearch = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         bUpdate = new javax.swing.JButton();
@@ -149,8 +149,13 @@ public class MenuCrudProduct extends javax.swing.JPanel {
             }
         });
 
-        bEntriesDataPembelian.setBackground(new java.awt.Color(153, 255, 255));
-        bEntriesDataPembelian.setText("Search");
+        btnSearchProduct.setBackground(new java.awt.Color(153, 255, 255));
+        btnSearchProduct.setText("Search");
+        btnSearchProduct.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchProductActionPerformed(evt);
+            }
+        });
 
         btnClearSearch.setBackground(new java.awt.Color(255, 255, 153));
         btnClearSearch.setText("Clear");
@@ -213,7 +218,7 @@ public class MenuCrudProduct extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(tfidProductsearch, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(bEntriesDataPembelian)
+                        .addComponent(btnSearchProduct)
                         .addGap(18, 18, 18)
                         .addComponent(btnClearSearch))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 558, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -288,7 +293,7 @@ public class MenuCrudProduct extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
                     .addComponent(tfidProductsearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bEntriesDataPembelian)
+                    .addComponent(btnSearchProduct)
                     .addComponent(btnClearSearch))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -363,6 +368,11 @@ public class MenuCrudProduct extends javax.swing.JPanel {
 
     }//GEN-LAST:event_tViewdataproductMouseClicked
 
+    private void btnSearchProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchProductActionPerformed
+        // TODO add your handling code here:
+        populateTableProduct();
+    }//GEN-LAST:event_btnSearchProductActionPerformed
+
     private void resetField() {
 
         tfHargabeli.setText("");
@@ -424,7 +434,7 @@ public class MenuCrudProduct extends javax.swing.JPanel {
         tViewdataproduct.setRowSorter(tableProductSorter);
         tViewdataproduct.getTableHeader().setReorderingAllowed(false);
         tableProductModel.setColumnIdentifiers(new String[]{
-            "idProduct", "Nama", "Kategori", "Stok", "HargaJual", "HargaBeli", "lastUpdate", "Deskripsi"
+            "idProduct", "Nama", "Kategori", "Stok", "HargaJual", "HargaBeli", "lastUpdate", "Warehouse"
         });
         tableProductSorter.setSortable(0, false);
         tableProductSorter.setSortable(1, false);
@@ -444,12 +454,12 @@ public class MenuCrudProduct extends javax.swing.JPanel {
             String[] row = {
                 String.valueOf(product.getIdProduct()),
                 product.getProductName(),
-                "",
+                product.getCategoryName(),
                 String.valueOf(product.getQuantityInStock()),
                 String.valueOf(product.getSellPrice()),
                 String.valueOf(product.getBuyPrice()),
-                "",
-                product.getDescription()
+                product.getLastUpdate().toString(),
+                product.getWarehouseName()
             };
             tableProductModel.addRow(row);
         }
@@ -472,9 +482,9 @@ public class MenuCrudProduct extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bBersihkan;
     private javax.swing.JButton bCreateProduct;
-    private javax.swing.JButton bEntriesDataPembelian;
     private javax.swing.JButton bUpdate;
     private javax.swing.JButton btnClearSearch;
+    private javax.swing.JButton btnSearchProduct;
     private javax.swing.JComboBox<CategoryModel> cbCategory;
     private javax.swing.JComboBox<ProdusenModel> cbProdusen;
     private javax.swing.JLabel jLabel1;
