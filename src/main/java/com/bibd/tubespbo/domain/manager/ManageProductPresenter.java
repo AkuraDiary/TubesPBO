@@ -42,7 +42,7 @@ public class ManageProductPresenter {
         listProduct = productRepository.getAllProduct();
         if(!filterSearch.isBlank()){
             this.listProduct = (ArrayList<ProductModel>) this.listProduct.stream()
-                    .filter(emp -> emp.getProductName().contains(filterSearch)
+                    .filter(emp -> emp.getProductName().toLowerCase().contains(filterSearch)
                     )
                     .collect(Collectors.toList());
         }

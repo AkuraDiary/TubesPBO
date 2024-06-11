@@ -4,6 +4,16 @@
  */
 package com.bibd.tubespbo.view.supervisor.supervisorpanels;
 
+import com.bibd.tubespbo.Di;
+import com.bibd.tubespbo.data.model.CustomerModel;
+import com.bibd.tubespbo.data.model.EmployeeModel;
+import com.bibd.tubespbo.data.model.WarehouseModel;
+import com.bibd.tubespbo.util.Validator;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
+
 /**
  *
  * @author HP VICTUS
@@ -15,6 +25,42 @@ public class MenuCrudCustomer extends javax.swing.JPanel {
      */
     public MenuCrudCustomer() {
         initComponents();
+        setupTableCustomer();
+        populateTableCustomer();
+    }
+
+    private void populateTableCustomer() {
+        Di.manageCustomerPresenter.getAllCustomer(tfIdCustomerSearch.getText());
+
+        clearTable();
+
+        for (CustomerModel custModel : Di.manageCustomerPresenter.customerList) {
+            String[] row = {
+                String.valueOf(custModel.getIdCustomer()),
+                custModel.getNama(),
+                custModel.getNoHp(),
+                custModel.getAlamat(),
+                custModel.getEmail()
+            };
+            tableCustomerModel.addRow(row);
+        }
+    }
+
+    private void setupTableCustomer() {
+        tblCustomer.setModel(tableCustomerModel);
+        tableCustomerModel.addColumn("IdCustomer");
+        tableCustomerModel.addColumn("Nama");
+        tableCustomerModel.addColumn("NoHp");
+        tableCustomerModel.addColumn("Alamat");
+        tableCustomerModel.addColumn("Email");
+        tblCustomer.getTableHeader().setReorderingAllowed(false);
+        tblCustomer.setRowSorter(tableCustomerSorter);
+
+        tableCustomerSorter.setSortable(0, false);
+        tableCustomerSorter.setSortable(1, false);
+        tableCustomerSorter.setSortable(2, false);
+        tableCustomerSorter.setSortable(3, false);
+
     }
 
     /**
@@ -38,13 +84,13 @@ public class MenuCrudCustomer extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         tfEmailCustomer = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblCustomer = new javax.swing.JTable();
         jLabel7 = new javax.swing.JLabel();
         tfIdCustomerSearch = new javax.swing.JTextField();
         bCariIdCustomer = new javax.swing.JButton();
         bTambahDataCustomer = new javax.swing.JButton();
         bHapusDataCustomer = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnUpdateCust = new javax.swing.JButton();
         jLabel15 = new javax.swing.JLabel();
         bBersihkan = new javax.swing.JButton();
 
@@ -56,6 +102,7 @@ public class MenuCrudCustomer extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel2.setText("IdCustomer:");
 
+        tfIdCustomer.setEnabled(false);
         tfIdCustomer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfIdCustomerActionPerformed(evt);
@@ -74,7 +121,7 @@ public class MenuCrudCustomer extends javax.swing.JPanel {
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel6.setText("Email:");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblCustomer.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -85,10 +132,15 @@ public class MenuCrudCustomer extends javax.swing.JPanel {
                 "IdCustomer", "Nama", "NoHp", "Alamat", "Email"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        tblCustomer.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblCustomerMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblCustomer);
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel7.setText("IdCustomer");
+        jLabel7.setText("Cari Customer");
 
         bCariIdCustomer.setBackground(new java.awt.Color(153, 255, 255));
         bCariIdCustomer.setText("Cari");
@@ -108,14 +160,29 @@ public class MenuCrudCustomer extends javax.swing.JPanel {
 
         bHapusDataCustomer.setBackground(new java.awt.Color(255, 255, 153));
         bHapusDataCustomer.setText("Hapus");
+        bHapusDataCustomer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bHapusDataCustomerActionPerformed(evt);
+            }
+        });
 
-        jButton1.setBackground(new java.awt.Color(153, 255, 255));
-        jButton1.setText("Update");
+        btnUpdateCust.setBackground(new java.awt.Color(153, 255, 255));
+        btnUpdateCust.setText("Update");
+        btnUpdateCust.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateCustActionPerformed(evt);
+            }
+        });
 
         jLabel15.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel15.setText("MENU  >  CRUD CUSTOMER");
 
         bBersihkan.setText("Bersihkan");
+        bBersihkan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bBersihkanActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -144,7 +211,7 @@ public class MenuCrudCustomer extends javax.swing.JPanel {
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(bTambahDataCustomer)
                                         .addGap(39, 39, 39)
-                                        .addComponent(jButton1)))
+                                        .addComponent(btnUpdateCust)))
                                 .addGap(78, 78, 78))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addContainerGap()
@@ -152,21 +219,22 @@ public class MenuCrudCustomer extends javax.swing.JPanel {
                                 .addGap(131, 131, 131)))
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 526, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(81, 81, 81)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(423, 423, 423)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 481, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(153, 153, 153))
+                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel7)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(tfIdCustomerSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(bCariIdCustomer))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(81, 81, 81)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 481, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 18, 18)
+                                .addComponent(tfIdCustomerSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel15)
-                            .addComponent(bHapusDataCustomer))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(bCariIdCustomer)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(bHapusDataCustomer)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -212,32 +280,172 @@ public class MenuCrudCustomer extends javax.swing.JPanel {
                         .addGap(32, 32, 32)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(bTambahDataCustomer)
-                            .addComponent(jButton1))
+                            .addComponent(btnUpdateCust))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(bBersihkan)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private DefaultTableModel tableCustomerModel = new DefaultTableModel() {
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false; //super.isCellEditable(row, column);
+        }
+
+    };
+    private TableRowSorter<DefaultTableModel> tableCustomerSorter = new TableRowSorter<>(tableCustomerModel);
+
     private void bTambahDataCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bTambahDataCustomerActionPerformed
-        // TODO add your handling code here:
+        CustomerModel cm = new CustomerModel();
+
+        String nama = tfNamaCustomer.getText();
+        String email = tfEmailCustomer.getText();
+        String noHp = tfNoHpCustomer.getText();
+        String alamst = tfAlamatCustomer.getText();
+
+
+        if(!formIsValid()){
+            return;
+        }
+
+
+        cm.setNama(nama);
+        cm.setEmail(email);
+        cm.setNoHp(noHp);
+        cm.setAlamat(alamst);
+
+        Di.manageCustomerPresenter.addNewCustomer(cm);
+
+        int result = Di.manageCustomerPresenter.statusAddNewCust;
+        if (result < 0) {
+            System.out.println("Error ");
+            return;
+        }
+        JOptionPane.showMessageDialog(null, "Data Berhasil Ditambahkan !");
+        Di.manageCustomerPresenter.resetManageCustomer();
+        resetFields();
+        populateTableCustomer();  
     }//GEN-LAST:event_bTambahDataCustomerActionPerformed
 
     private void bCariIdCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCariIdCustomerActionPerformed
-        // TODO add your handling code here:
+
+        populateTableCustomer();        // TODO add your handling code here:
     }//GEN-LAST:event_bCariIdCustomerActionPerformed
 
     private void tfIdCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfIdCustomerActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfIdCustomerActionPerformed
 
+    private void bHapusDataCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bHapusDataCustomerActionPerformed
+
+        tfIdCustomerSearch.setText("");        // TODO add your handling code here:
+        populateTableCustomer();
+    }//GEN-LAST:event_bHapusDataCustomerActionPerformed
+
+    private void tblCustomerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCustomerMouseClicked
+
+        int row = tblCustomer.getSelectedRow();
+
+        int idCustomer = Integer.parseInt(tableCustomerModel.getValueAt(row, 0).toString());
+
+        Di.manageCustomerPresenter.setSelectedCustomer(
+                idCustomer
+        );
+        CustomerModel selectedCustomer = Di.manageCustomerPresenter.selectedDataCustomer;
+
+        tfIdCustomer.setText(String.valueOf(idCustomer));
+        tfNamaCustomer.setText(selectedCustomer.getNama());
+        tfEmailCustomer.setText(selectedCustomer.getEmail());
+        tfNoHpCustomer.setText(selectedCustomer.getNoHp());
+        tfAlamatCustomer.setText(selectedCustomer.getAlamat());
+        
+        bTambahDataCustomer.setEnabled(false);
+        btnUpdateCust.setEnabled(true);
+
+    }//GEN-LAST:event_tblCustomerMouseClicked
+
+    private void btnUpdateCustActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateCustActionPerformed
+        CustomerModel cm = Di.manageCustomerPresenter.selectedDataCustomer;
+
+        String nama = tfNamaCustomer.getText();
+        String email = tfEmailCustomer.getText();
+        String noHp = tfNoHpCustomer.getText();
+        String alamst = tfAlamatCustomer.getText();
+
+        if (!formIsValid()) {
+            return;
+        }
+
+        cm.setNama(nama);
+        cm.setEmail(email);
+        cm.setNoHp(noHp);
+        cm.setAlamat(alamst);
+
+        Di.manageCustomerPresenter.updateDataCustomer();
+
+        int result = Di.manageCustomerPresenter.statusUpdateCustomer;
+        if (result < 0) {
+            System.out.println("Error ");
+            return;
+        }
+        JOptionPane.showMessageDialog(null, "Data Berhasil Di Update !");
+//        Di.manageEmployeePresenter.resetSelectedDataEmployee();
+//        resetField();
+        populateTableCustomer();            // TODO add your handling code here:
+    }//GEN-LAST:event_btnUpdateCustActionPerformed
+
+    private void bBersihkanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBersihkanActionPerformed
+        resetFields();
+    }//GEN-LAST:event_bBersihkanActionPerformed
+
+    private boolean formIsValid() {
+        boolean valid = false;
+        if (!Validator.isValidEmail(tfEmailCustomer.getText())) {
+            JOptionPane.showMessageDialog(null, "Email Tidak Valid!");
+            return valid;
+        }
+        if (tfNamaCustomer.getText().isBlank()) {
+            JOptionPane.showMessageDialog(null, "Nama Tidak Boleh kosong !");
+            return valid;
+        }
+
+        if (tfNoHpCustomer.getText().isBlank()) {
+            JOptionPane.showMessageDialog(null, "No HP Tidak Boleh kosong !");
+            return valid;
+        }
+
+        if (tfAlamatCustomer.getText().isBlank()) {
+            JOptionPane.showMessageDialog(null, "Alamat Tidak Boleh kosong !");
+            return valid;
+        }
+        return !valid;
+    }
+
+    public void clearTable() {
+        for (int i = tableCustomerModel.getRowCount() - 1; i >= 0; i--) {
+            tableCustomerModel.removeRow(i);
+        }
+
+    }
+
+    private void resetFields() {
+        Di.manageCustomerPresenter.resetManageCustomer();
+        tfIdCustomer.setText("");
+        tfNamaCustomer.setText("");
+        tfNoHpCustomer.setText("");
+        tfAlamatCustomer.setText("");
+        tfEmailCustomer.setText("");
+        bTambahDataCustomer.setEnabled(true);
+        btnUpdateCust.setEnabled(false);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bBersihkan;
     private javax.swing.JButton bCariIdCustomer;
     private javax.swing.JButton bHapusDataCustomer;
     private javax.swing.JButton bTambahDataCustomer;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnUpdateCust;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
@@ -247,7 +455,7 @@ public class MenuCrudCustomer extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tblCustomer;
     private javax.swing.JTextField tfAlamatCustomer;
     private javax.swing.JTextField tfEmailCustomer;
     private javax.swing.JTextField tfIdCustomer;

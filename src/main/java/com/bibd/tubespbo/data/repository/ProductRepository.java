@@ -34,9 +34,9 @@ public class ProductRepository {
         return productDataSource.getAllProduct();
     }
 
-    public int updateProductStock(int idStock, int idproduct, int jumlahBaru, int idEmployee, int idWarehouse, int perubahan) {
+    public int updateProductStock(int idStock, int jumlahBaru, int idEmployee, int perubahan) {
         try {
-            return productDataSource.updateProductStock(idStock, idproduct, jumlahBaru, idEmployee, idWarehouse, perubahan);
+            return productDataSource.updateProductStock(idStock, jumlahBaru, idEmployee, perubahan);
         } catch (Exception e) {
             System.out.println("Product Repo " + e.getLocalizedMessage());
             return -1;
@@ -94,8 +94,8 @@ public class ProductRepository {
         return productDataSource.getAllCategory();
     }
 
-    public ArrayList<ProductStockModel> getStockProduct(int idProduct, int idWarehouse) {
-        return productDataSource.getAllStockProduct(idProduct, idWarehouse);
+    public ArrayList<ProductStockModel> getStockProduct(int idWarehouse) {
+        return productDataSource.getAllStockProduct( idWarehouse);
     }
     
     

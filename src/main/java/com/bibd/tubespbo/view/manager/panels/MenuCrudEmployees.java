@@ -153,7 +153,7 @@ public class MenuCrudEmployees extends javax.swing.JPanel {
         });
 
         btnClearSearch.setBackground(new java.awt.Color(255, 255, 153));
-        btnClearSearch.setText("Clear");
+        btnClearSearch.setText("Delete");
         btnClearSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnClearSearchActionPerformed(evt);
@@ -573,7 +573,7 @@ public class MenuCrudEmployees extends javax.swing.JPanel {
     }//GEN-LAST:event_tFSearchEmployeeActionPerformed
 
     private void tViewdataemployeesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tViewdataemployeesMouseClicked
-        // TODO add your handling code here:
+       
         int row = tViewdataemployees.getSelectedRow();
 
         int idEmployee = Integer.parseInt(tableEmployeeModel.getValueAt(row, 0).toString());

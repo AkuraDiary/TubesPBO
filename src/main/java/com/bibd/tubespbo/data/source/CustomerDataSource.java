@@ -26,7 +26,7 @@ public class CustomerDataSource {
         try {
             ArrayList<CustomerModel> dataResult = new ArrayList<>();
             db.openConnection();
-            String query = "SELECT idCustomer, nama, noHp, email, alamat FROM cutomers";
+            String query = "SELECT idCustomer, nama, noHp, email, alamat FROM customers";
 
             ResultSet rs = db.getData(query);
 
@@ -82,7 +82,7 @@ public class CustomerDataSource {
             db.openConnection();
 
             String query = "INSERT INTO customers (nama, noHp, email, alamat) VALUES"
-                    + "('" + nama + "', '" + noHp + "', '" + email + "', '" + alamat + " )";
+                    + "('" + nama + "', '" + noHp + "', '" + email + "', '" + alamat + "' )";
 
             int result = db.executeStatement(query);
             return result;

@@ -17,6 +17,16 @@ public class ProductStockModel {
     private int productId;
     private int idWarehouse;
 
+    private String productName;
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
     // Default constructor
     public ProductStockModel() {
     }
