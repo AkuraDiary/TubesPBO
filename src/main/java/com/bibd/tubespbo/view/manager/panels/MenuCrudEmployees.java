@@ -582,8 +582,8 @@ public class MenuCrudEmployees extends javax.swing.JPanel {
             return;
         }
         JOptionPane.showMessageDialog(null, "Data Berhasil Di Update !");
-        Di.manageEmployeePresenter.resetSelectedDataEmployee();
-        resetField();
+//        Di.manageEmployeePresenter.resetSelectedDataEmployee();
+//        resetField();
         populateTableEmployee();
 
     }//GEN-LAST:event_bUpdateDataEmployeesActionPerformed
