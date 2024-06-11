@@ -116,6 +116,8 @@ public class MenuCrudProduct extends javax.swing.JPanel {
         jLabel5.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel5.setText("Stok: ");
 
+        tfStok.setEnabled(false);
+
         jLabel6.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel6.setText("Harga Jual: ");
 
@@ -324,7 +326,7 @@ public class MenuCrudProduct extends javax.swing.JPanel {
         long hargaJual = Integer.parseInt(tfHargajual.getText());
 //        int intProduct = Integer.parseInt(tfIdProduct.getText());
         String namaProduct = tfNama.getText();
-        int stock = Integer.parseInt(tfStok.getText());
+        int stock = 0;//Integer.parseInt(tfStok.getText());
         String productDesc = taProductDesc.getText();
         int idCategory =((CategoryModel) cbCategory.getSelectedItem()).getIdCategory();
         int idProdusen = ((ProdusenModel) cbProdusen.getSelectedItem()).getIdProdusen();
@@ -343,7 +345,7 @@ public class MenuCrudProduct extends javax.swing.JPanel {
         Di.manageProductPresenter.addNewProduct(pm);
 
         int result = Di.manageProductPresenter.stateAddProduct;
-        if (result <= 0) {
+        if (result < 0) {
             System.out.println("Error ");
             return;
         }
@@ -381,8 +383,8 @@ public class MenuCrudProduct extends javax.swing.JPanel {
 
         Di.manageProductPresenter.updateDataProduct();
 
-        int result = Di.manageProductPresenter.stateAddProduct;
-        if (result <= 0) {
+        int result = Di.manageProductPresenter.resultUpdateProduct;
+        if (result < 0) {
             System.out.println("Error ");
             return;
         }
@@ -486,12 +488,12 @@ public class MenuCrudProduct extends javax.swing.JPanel {
             return valid;
         }
 
-        try {
-            Integer.parseInt(tfStok.getText());
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Stok Harus Angka!");
-            return valid;
-        }
+//        try {
+//            Integer.parseInt(tfStok.getText());
+//        } catch (NumberFormatException e) {
+//            JOptionPane.showMessageDialog(null, "Stok Harus Angka!");
+//            return valid;
+//        }
 
         try {
             Integer.parseInt(tfHargajual.getText());
@@ -531,6 +533,10 @@ public class MenuCrudProduct extends javax.swing.JPanel {
         clearTable();
 
         for (ProductModel product : Di.manageProductPresenter.listProduct) {
+            String dateString = "";
+            if(!(product.getLastUpdate() == null)){
+                dateString = product.getLastUpdate().toString();
+            }
             String[] row = {
                 String.valueOf(product.getIdProduct()),
                 product.getProductName(),
@@ -538,7 +544,7 @@ public class MenuCrudProduct extends javax.swing.JPanel {
                 String.valueOf(product.getQuantityInStock()),
                 String.valueOf(product.getSellPrice()),
                 String.valueOf(product.getBuyPrice()),
-                product.getLastUpdate().toString(),
+                dateString,
                 product.getWarehouseName()
             };
             tableProductModel.addRow(row);

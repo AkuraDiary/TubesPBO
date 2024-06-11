@@ -37,8 +37,8 @@ public class ProductDataSource {
                     + "FROM product p\n"
                     + "JOIN category c on p.categoryId = c.idCategory\n"
                     + "JOIN produsen prod on prod.idProdusen = p.produsenId\n"
-                    + "JOIN productstock ps on ps.productId = p.idProduct\n"
-                    + "JOIN warehouse w on ps.idWarehouse = w.id\n";
+                    + "LEFT JOIN productstock ps on ps.productId = p.idProduct\n"
+                    + "LEFT JOIN warehouse w on ps.idWarehouse = w.id\n";
 
             ResultSet rs = db.getData(query);
 
