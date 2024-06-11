@@ -142,7 +142,7 @@ public class WarehouseDataSource {
          try {
             CityModel dataResult = new CityModel();;
             db.openConnection();
-            String query = "SELECT id, city, idProvince FROM ciry WHERE id=" + cityId;
+            String query = "SELECT id, city, idProvince FROM city WHERE id=" + cityId;
 
             ResultSet rs = db.getData(query);
 

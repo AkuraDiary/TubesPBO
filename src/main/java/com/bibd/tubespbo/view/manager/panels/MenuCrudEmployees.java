@@ -5,8 +5,13 @@
 package com.bibd.tubespbo.view.manager.panels;
 
 import com.bibd.tubespbo.Di;
+import com.bibd.tubespbo.data.model.EmployeeModel;
 import com.bibd.tubespbo.data.model.WarehouseModel;
 import com.bibd.tubespbo.util.Statics;
+import java.util.ArrayList;
+import java.util.Arrays;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -19,9 +24,12 @@ public class MenuCrudEmployees extends javax.swing.JPanel {
      */
     public MenuCrudEmployees() {
         initComponents();
-        
+
         setupStatusEmployee();
         setupWarehouse();
+        setupTableEMployee();
+        
+        populateTableEmployee();
     }
 
     /**
@@ -334,24 +342,65 @@ public class MenuCrudEmployees extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    
-    private void setupStatusEmployee(){
+    private DefaultTableModel tableEmployeeModel = new DefaultTableModel() {
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false; //super.isCellEditable(row, column);
+        }
+
+    };
+    private TableRowSorter<DefaultTableModel> tableEmployeeSorter = new TableRowSorter<>(tableEmployeeModel);
+
+    ArrayList<String> employeeStatus = new ArrayList<>(
+            Arrays.asList(Statics.EMPLOYEE_STATUS_AKTIF, Statics.EMPLOYEE_STATUS_NONAKTIF)
+    );
+
+    private void setupStatusEmployee() {
         cbStatusEmploees.removeAllItems();
-        cbStatusEmploees.addItem(Statics.EMPLOYEE_STATUS_AKTIF);
-        cbStatusEmploees.addItem(Statics.EMPLOYEE_STATUS_NONAKTIF);
+        for (String empStatus : employeeStatus) {
+            cbStatusEmploees.addItem(empStatus);
+        }
     }
-    
-    private void setupTableEMployee(){
+
+    private void setupTableEMployee() {
+
+        tViewdataemployees.setModel(tableEmployeeModel);
+        tViewdataemployees.setRowSorter(tableEmployeeSorter);
+        tViewdataemployees.getTableHeader().setReorderingAllowed(false);
+        
+        tableEmployeeModel.addColumn("IdEmployee");
+        tableEmployeeModel.addColumn("Nama");
+        tableEmployeeModel.addColumn("Status");
+        tableEmployeeModel.addColumn("Role");
+        tableEmployeeModel.addColumn("idWarehouse");
+
+
+    }
+
+    private void populateTableEmployee() {
+        Di.manageEmployeePresenter.getAllEmplyoees();
+        
+        for (EmployeeModel emp : Di.manageEmployeePresenter.listEmployee) {
+            String[] row = {
+                String.valueOf(emp.getId()), 
+                emp.getNama(), 
+                emp.getStatus(), 
+                emp.getRole(), 
+                String.valueOf(emp.getIdWarehouse())
+            };
+            tableEmployeeModel.addRow(row);
+        }
         
     }
-    private void setupWarehouse(){
+
+    private void setupWarehouse() {
         Di.manageEmployeePresenter.getDataWarehouse();
         cbWarehouse.removeAllItems();
-        for (WarehouseModel item :Di.manageEmployeePresenter.listWarehouse){
+        for (WarehouseModel item : Di.manageEmployeePresenter.listWarehouse) {
             cbWarehouse.addItem(item);
         }
     }
-    
+
     private void tfNamaEmployeesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfNamaEmployeesActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfNamaEmployeesActionPerformed
