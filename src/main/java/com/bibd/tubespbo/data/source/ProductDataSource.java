@@ -95,13 +95,15 @@ public class ProductDataSource {
         }
     }
 
-    public int updateProductStock(int idProductStock, int idproduct, int jumlahBaru, int idEmployee, int idWarehouse, int perubahan) {
+    public int updateProductStock(int idProductStock, int jumlahBaru, int idEmployee, int perubahan) {
         try {
 
             db.openConnection();
             Date now = new Date();
             String dateLastUpdated = Parser.parseDateToStringSQL(now);
-            String query = "UPDATE productstock SET totalStock='" + jumlahBaru + "', lastUpdate='" + dateLastUpdated + "' "
+            System.out.println("dateLastUpdated: " + dateLastUpdated);
+            System.out.println("jumlahBaru: " + jumlahBaru);
+            String query = "UPDATE productstock SET totalStock=" + jumlahBaru + ", lastUpdate='" + dateLastUpdated + "' "
                     + "WHERE id=" + idProductStock;//productId="+ idproduct + " AND idWarehouse=" + idWarehouse + "";
 
             int updateeProductStokResult = db.executeStatement(query);
@@ -109,7 +111,7 @@ public class ProductDataSource {
             if (updateeProductStokResult != 0) {
 
                 String queryInsertLog = "INSERT INTO logstockproduct (tanggal, idproductstock, idEmployee, perubahan) VALUES"
-                        + "('" + dateLastUpdated + "', " + idProductStock + ", '" + idEmployee + "', '" + perubahan + " )";
+                        + "('" + dateLastUpdated + "', " + idProductStock + ", " + idEmployee + ", " + perubahan + " )";
                 return db.executeStatement(queryInsertLog);
             }
 
