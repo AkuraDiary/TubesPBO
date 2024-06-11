@@ -38,9 +38,9 @@ public class PenjualanRepository {
 
     }
 
-    public int updateStatusShipment(int idPenjualan, String statusShipment) {
+    public int updateStatusShipmentPayment(int idPenjualan, String statusShipment, String statusPayment) {
         try {
-            return penjualanDataSource.updateStatusShipment(idPenjualan, statusShipment);
+            return penjualanDataSource.updateStatusShipPay(idPenjualan, statusShipment, statusPayment);
         } catch (Exception e) {
             System.out.println("Penjualan Repo " + e.getLocalizedMessage());
             return -1;
