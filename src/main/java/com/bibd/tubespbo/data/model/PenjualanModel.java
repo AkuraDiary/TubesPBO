@@ -12,11 +12,29 @@ import java.util.Date;
  */
 public class PenjualanModel {
     private int idPenjualan, idorder;
-    private int customerId, employeeId;
+    private int customerId, employeeId, totalBiaya;
+
+    public int getTotalBiaya() {
+        return totalBiaya;
+    }
+
+    public void setTotalBiaya(int totalBiaya) {
+        this.totalBiaya = totalBiaya;
+    }
+
+    public String getEmployeeName() {
+        return employeeName;
+    }
+
+    public void setEmployeeName(String employeeName) {
+        this.employeeName = employeeName;
+    }
     private String shipmentStatus, statusPayment, orderType;
     private Date tanggalOrder, dateShipped;
     private ArrayList<OrderDetailsModel> keranjang = new ArrayList<>();
-    private String customerName;
+    private String customerName, employeeName;
+    
+    
 
     public PenjualanModel(int idPenjualan1, String shipmentStatus1, Date dateShipped1, int orderId, int customerId1, String statusPayment1, Date orderDate, String orderType1, int employeeId1) {
         this.idPenjualan = idPenjualan1;

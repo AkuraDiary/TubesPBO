@@ -72,17 +72,87 @@ public class PenjualanDataSource {
 //        return odm;
     }
 
-    public ArrayList<PenjualanModel> getHistoryPenjualan(int idWareHouse, int idEmployee) {
+    public ArrayList<PenjualanModel> getHistoryPenjualanSales(int idWareHouse, int idEmployee) {
         ArrayList<PenjualanModel> pm = new ArrayList<>();
         try {
             db.openConnection();
-            String query = "SELECT op.idPenjualan, op.shipmentStatus, op.dateShipped, op.orderId, op.customerId, op.statuspayment, o.orderId, o.orderDate, o.orderType, o.employeeId, c.nama, c.idCustomer\n" +
-                    "FROM orderpenjualan op \n" +
-                    "JOIN orders o on o.orderId=op.orderId\n" +
-                    "JOIN employees e on e.idEmployee=o.employeeId \n" +
-                    "JOIN warehouse w on e.idWarehouse = w.id\n" +
-                    "JOIN customers c on c.idCustomer = op.customerId\n" +
-                    "WHERE w.id = "+ idWareHouse +" AND o.employeeId = "+idEmployee;
+            String query = "SELECT op.idPenjualan, op.shipmentStatus, op.dateShipped, op.orderId, op.customerId, op.statuspayment, o.orderId, o.orderDate, o.orderType, o.employeeId, c.nama, c.idCustomer\n"
+                    + "FROM orderpenjualan op \n"
+                    + "JOIN orders o on o.orderId=op.orderId\n"
+                    + "JOIN employees e on e.idEmployee=o.employeeId \n"
+                    + "JOIN warehouse w on e.idWarehouse = w.id\n"
+                    + "JOIN customers c on c.idCustomer = op.customerId\n"
+                    + "WHERE w.id = " + idWareHouse + " AND o.employeeId = " + idEmployee;
+
+            ResultSet rs = db.getData(query);
+
+            PenjualanModel penjualanModel;
+
+            while (rs.next()) {
+
+                int idPenjualan = rs.getInt("idPenjualan");
+                String shipmentStatus = rs.getString("shipmentStatus");
+                Date dateShipped = rs.getDate("dateShipped");
+                int orderId = rs.getInt("orderId");
+                int customerId = rs.getInt("customerId");
+                String statusPayment = rs.getString("statuspayment");
+                Date orderDate = rs.getDate("orderDate");
+                String orderType = rs.getString("orderType");
+                int employeeId = rs.getInt("employeeId");
+
+                String customerName = rs.getString("nama");
+
+                penjualanModel = new PenjualanModel(idPenjualan, shipmentStatus, dateShipped, orderId,
+                        customerId, statusPayment, orderDate, orderType, employeeId);
+
+                penjualanModel.setCustomerName(customerName);
+
+                pm.add(penjualanModel);
+            }
+
+            return pm;
+        } catch (Exception e) {
+            System.out.println(e.getLocalizedMessage());
+            return null;
+        } finally {
+            db.closeConnection();
+        }
+//        return pm;
+//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public ArrayList<PenjualanModel> getHistoryPenjualanByWarehouse(int idWareHouse) {
+        ArrayList<PenjualanModel> pm = new ArrayList<>();
+        try {
+            db.openConnection();
+            String query = "SELECT  op.idPenjualan, \n"
+                    + "    op.shipmentStatus, \n"
+                    + "    op.dateShipped, \n"
+                    + "    op.orderId, \n"
+                    + "    op.customerId, \n"
+                    + "    op.statuspayment, \n"
+                    + "    o.orderDate, \n"
+                    + "    o.orderType, \n"
+                    + "    o.employeeId, \n"
+                    + "    c.nama AS \"nama_cust\", \n"
+                    + "    c.idCustomer, \n"
+                    + "    e.nama AS \"nama_emp\", \n"
+                    + "    wh.id AS \"warehouse_id\",\n"
+                    + "    SUM(od.unitPrice * od.quantity) AS \"totalbiaya\"\n"
+                    + "FROM \n"
+                    + "    orderpenjualan op\n"
+                    + "LEFT JOIN \n"
+                    + "    orders o ON o.orderId = op.orderId\n"
+                    + "LEFT JOIN \n"
+                    + "    employees e ON e.idEmployee = o.employeeId\n"
+                    + "LEFT JOIN \n"
+                    + "    customers c ON c.idCustomer = op.customerId\n"
+                    + "LEFT JOIN \n"
+                    + "    orderdetails od ON od.orderId = o.orderId\n"
+                    + "LEFT JOIN \n"
+                    + "    warehouse wh ON e.idWarehouse = wh.id\n"
+                    + "GROUP BY op.orderId\n"
+                    + "HAVING wh.id = "+idWareHouse;
 
             System.out.println(query);
             ResultSet rs = db.getData(query);
@@ -101,62 +171,20 @@ public class PenjualanDataSource {
                 String orderType = rs.getString("orderType");
                 int employeeId = rs.getInt("employeeId");
 
-                String customerName = rs.getString("nama");
+                String customerName = rs.getString("nama_cust");
+                String employeeName = rs.getString("nama_emp");
+                int totalbiaya = rs.getInt("totalbiaya");
 
                 penjualanModel = new PenjualanModel(idPenjualan, shipmentStatus, dateShipped, orderId,
                         customerId, statusPayment, orderDate, orderType, employeeId);
-
                 penjualanModel.setCustomerName(customerName);
+                penjualanModel.setEmployeeName(employeeName);
+                penjualanModel.setTotalBiaya(totalbiaya);
 
                 pm.add(penjualanModel);
             }
 
-                    return pm;
-        } catch (Exception e) {
-            System.out.println(e.getLocalizedMessage());
-            return null;
-        } finally {
-            db.closeConnection();
-        }
-//        return pm;
-//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    public ArrayList<PenjualanModel> getHistoryPenjualanByWarehouse(int idWareHouse) {
-        ArrayList<PenjualanModel> pm = new ArrayList<>();
-        try {
-            db.openConnection();
-            String query = "SELECT op.idPenjualan, op.shipmentStatus, op.dateShipped, op.orderId, op.customerId, op.statuspayment, o.orderId, o.orderDate, o.orderType, o.employeeId, c.nama, c.idCustomer\n" +
-                    "FROM orderpenjualan op \n" +
-                    "JOIN orders o on o.orderId=op.orderId\n" +
-                    "JOIN employees e on e.idEmployee=o.employeeId \n" +
-                    "JOIN warehouse w on e.idWarehouse = w.id\n" +
-                    "JOIN customers c on c.idCustomer = op.customerId\n" +
-                    "WHERE w.id = "+ idWareHouse;
-            ResultSet rs = db.getData(query);
-
-            PenjualanModel penjualanModel;
-
-            while (rs.next()) {
-
-                int idPenjualan = rs.getInt("idPenjualan");
-                String shipmentStatus = rs.getString("shipmentStatus");
-                Date dateShipped = rs.getDate("dateShipped");
-                int orderId = rs.getInt("orderId");
-                int customerId = rs.getInt("customerId");
-                String statusPayment = rs.getString("statuspayment");
-                Date orderDate = rs.getDate("orderDate");
-                String orderType = rs.getString("orderType");
-                int employeeId = rs.getInt("employeeId");
-
-                String customerName = rs.getString("nama");
-                penjualanModel = new PenjualanModel(idPenjualan, shipmentStatus, dateShipped, orderId,
-                        customerId, statusPayment, orderDate, orderType, employeeId);
-                penjualanModel.setCustomerName(customerName);
-                pm.add(penjualanModel);
-            }
-
-                    return pm;
+            return pm;
         } catch (Exception e) {
             System.out.println(e.getLocalizedMessage());
             return null;
@@ -190,8 +218,6 @@ public class PenjualanDataSource {
         if (getIdOrder > 0) {
             String query = "INSERT INTO orderdetails \n"
                     + "(unitPrice, quantity, subTotalPrice, idProduct, orderId) \n"
-                    
-                    
                     + "VALUES (" + itemkeranjang.getProduk().getBuyPrice() + ", " + itemkeranjang.getQuantity() + ", \n"
                     + totaPrice + ", " + itemkeranjang.getProduk().getIdProduct() + "," + getIdOrder + ")";
             return db.executeStatement(query);
@@ -261,11 +287,11 @@ public class PenjualanDataSource {
 //           
 
             queryOrder(waktu, typeOrder, employeeId);
-            
+
             for (KeranjangModel i : keranjang) {
                 queryOrderDetails(i);
             }
-            
+
             queryOrderPenjualan(statusShip, waktu, customerId, statusPayment);
 
             for (KeranjangModel i : keranjang) {
@@ -289,10 +315,10 @@ public class PenjualanDataSource {
         try {
             db.openConnection();
             String queryGetpenjualan = "";
-            
+
             String queryupdateShip = "UPDATE orderpenjualan op \n"
-                    + "SET op.shipmentStatus = '"+ statusShipment +"', op.statuspayment='"+ statusPayment+"'\n"
-                    + "WHERE op.idPenjualan = "+idPenjualan;
+                    + "SET op.shipmentStatus = '" + statusShipment + "', op.statuspayment='" + statusPayment + "'\n"
+                    + "WHERE op.idPenjualan = " + idPenjualan;
 
             return db.executeStatement(queryupdateShip);
         } catch (Exception e) {

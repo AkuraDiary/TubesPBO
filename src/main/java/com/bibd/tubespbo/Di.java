@@ -37,28 +37,28 @@ import com.bibd.tubespbo.domain.supervisor.PembelianPresenter;
 public class Di {
     
     // DB
-    public static DbConnection dbConnection;
+     static DbConnection dbConnection;
     
     // Data Sources
     
-    public static LoginDataSource loginDataSource;
-    public static WarehouseDataSource warehouseDataSource;
-    public static PembelianDataSource pembelianDataSource;
-    public static EmployeesDataSource employeesDataSource;
-    public static CustomerDataSource customerDataSource;
-    public static PenjualanDataSource penjualanDataSource;
-    public static ProductDataSource productDataSource;
-    public static ProdusenDataSource produsenDataSource;
+     static LoginDataSource loginDataSource;
+     static WarehouseDataSource warehouseDataSource;
+     static PembelianDataSource pembelianDataSource;
+     static EmployeesDataSource employeesDataSource;
+     static CustomerDataSource customerDataSource;
+     static PenjualanDataSource penjualanDataSource;
+     static ProductDataSource productDataSource;
+     static ProdusenDataSource produsenDataSource;
     
     
     //Repository
-    public static CustomerRepository customerRepository;
-    public static EmployeeRepository employeeRepository;
-    public static LoginRepository loginRepository;
-    public static PembelianRepository pembelianRepository;
-    public static PenjualanRepository penjualanRepository;
-    public static ProductRepository productRepository;
-    public static ProdusenRepository produsenRepository;
+     static CustomerRepository customerRepository;
+     static EmployeeRepository employeeRepository;
+     static LoginRepository loginRepository;
+     static PembelianRepository pembelianRepository;
+     static PenjualanRepository penjualanRepository;
+     static ProductRepository productRepository;
+     static ProdusenRepository produsenRepository;
     
     //Domain Presenters
     public static AuthPresenter authPresenter;

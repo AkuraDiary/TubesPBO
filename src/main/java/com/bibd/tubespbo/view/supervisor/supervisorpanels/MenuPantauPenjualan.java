@@ -4,18 +4,92 @@
  */
 package com.bibd.tubespbo.view.supervisor.supervisorpanels;
 
+import com.bibd.tubespbo.Di;
+import com.bibd.tubespbo.data.model.PenjualanModel;
+import com.bibd.tubespbo.data.model.PenjualanModel;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
+
 /**
  * @author HP VICTUS
  */
+//Rapid D.
 public class MenuPantauPenjualan extends javax.swing.JPanel {
 
     /**
      * Creates new form MenuPantauPenjualan
      */
+    int idWarehouseEmp;
+
     public MenuPantauPenjualan() {
+        idWarehouseEmp = Di.authPresenter.loggedInUser().getIdWarehouse();
         initComponents();
+        setupTabelPenjualan();
+        setupTabelDetilPenjualan();
+        loadTabel();
+    }
+    private DefaultTableModel tablePenjualanModel = new DefaultTableModel() {
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false; //super.isCellEditable(row, column);
+        }
+
+    };
+    private DefaultTableModel tableDetilPenjualanModel = new DefaultTableModel() {
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false; //super.isCellEditable(row, column);
+        }
+
+    };
+    private TableRowSorter<DefaultTableModel> tablePenjualanSorter = new TableRowSorter<>(tablePenjualanModel);
+    private TableRowSorter<DefaultTableModel> tableDetilPenjualanSorter = new TableRowSorter<>(tableDetilPenjualanModel);
+
+    private void setupTabelPenjualan() {
+        tPantaupenjualan.setModel(tablePenjualanModel);
+        tPantaupenjualan.setRowSorter(tablePenjualanSorter);
+        tPantaupenjualan.getTableHeader().setReorderingAllowed(false);
+        tablePenjualanModel.setColumnIdentifiers(new String[]{
+            "Id Transaksi", "Nama Customer", "Nama Sales", "Total Harga", "Status"
+        });
+        for (int i = 0; i < 4; i++) {
+            tablePenjualanSorter.setSortable(i, false);
+        }
     }
 
+    private void setupTabelDetilPenjualan() {
+        tIdnamacustomer.setModel(tableDetilPenjualanModel);
+        tIdnamacustomer.setRowSorter(tableDetilPenjualanSorter);
+        tIdnamacustomer.getTableHeader().setReorderingAllowed(false);
+        tableDetilPenjualanModel.setColumnIdentifiers(new String[]{
+            "Nama Produk", "Harga Satuan", "Jumlah"
+        });
+        for (int i = 0; i < 2; i++) {
+            tablePenjualanSorter.setSortable(i, false);
+        }
+    }
+
+//    private void populateTablePenjualan() {
+//        String filterSearch = tfidProductsearch.getText();
+//        Di.manageProductPresenter.showAllProduct(filterSearch);
+//        //Remove rows one by one from the end of the table
+//
+//        clearTable();
+//
+//        for (ProductModel product : Di.manageProductPresenter.listProduct) {
+//            String[] row = {
+//                String.valueOf(product.getIdProduct()),
+//                product.getProductName(),
+//                product.getCategoryName(),
+//                String.valueOf(product.getQuantityInStock()),
+//                String.valueOf(product.getSellPrice()),
+//                String.valueOf(product.getBuyPrice()),
+//                product.getLastUpdate().toString(),
+//                product.getWarehouseName()
+//            };
+//            tableProductModel.addRow(row);
+//        }
+//    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -46,15 +120,15 @@ public class MenuPantauPenjualan extends javax.swing.JPanel {
         jLabel8.setText("MENU  >  PANTAU PENJUALAN");
 
         tPantaupenjualan.setModel(new javax.swing.table.DefaultTableModel(
-                new Object[][]{
-                        {null, null, null, null, null, null, null, null},
-                        {null, null, null, null, null, null, null, null},
-                        {null, null, null, null, null, null, null, null},
-                        {null, null, null, null, null, null, null, null}
-                },
-                new String[]{
-                        "IdTransaksi", "NamaCustomer", "NamaSales", "NamaProduk", "Kategori", "Kuantitas", "TotalHarga", "Status"
-                }
+            new Object [][] {
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "IdTransaksi", "NamaCustomer", "NamaSales", "NamaProduk", "Kategori", "Kuantitas", "TotalHarga", "Status"
+            }
         ));
         jScrollPane1.setViewportView(tPantaupenjualan);
 
@@ -73,15 +147,15 @@ public class MenuPantauPenjualan extends javax.swing.JPanel {
         });
 
         tIdnamacustomer.setModel(new javax.swing.table.DefaultTableModel(
-                new Object[][]{
-                        {null, null, null},
-                        {null, null, null},
-                        {null, null, null},
-                        {null, null, null}
-                },
-                new String[]{
-                        "NamaProduk", "Harga", "quantity"
-                }
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "NamaProduk", "Harga", "quantity"
+            }
         ));
         jScrollPane2.setViewportView(tIdnamacustomer);
 
@@ -93,74 +167,98 @@ public class MenuPantauPenjualan extends javax.swing.JPanel {
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addGap(85, 85, 85)
-                                                .addComponent(jLabel1)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 220, Short.MAX_VALUE)
-                                                .addComponent(jLabel8))
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addGap(45, 45, 45)
-                                                .addComponent(jLabel2)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(tfCaripantaupenjualan, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(bCaripantaupenjualan)
-                                                .addGap(0, 0, Short.MAX_VALUE)))
-                                .addGap(179, 179, 179))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jScrollPane1)
-                                .addGap(21, 21, 21))
-                        .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addGap(459, 459, 459)
-                                                .addComponent(tfSearchdatacustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(jButton1))
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addGap(257, 257, 257)
-                                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(85, 85, 85)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 220, Short.MAX_VALUE)
+                        .addComponent(jLabel8))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(45, 45, 45)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(tfCaripantaupenjualan, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(bCaripantaupenjualan)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addGap(179, 179, 179))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1)
+                .addGap(21, 21, 21))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(459, 459, 459)
+                        .addComponent(tfSearchdatacustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(257, 257, 257)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addGap(42, 42, 42)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jLabel8)
-                                        .addComponent(jLabel1))
-                                .addGap(51, 51, 51)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(tfCaripantaupenjualan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(bCaripantaupenjualan)
-                                        .addComponent(jLabel2))
-                                .addGap(18, 18, 18)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(tfSearchdatacustomer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jButton1))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
-                                .addContainerGap())
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(42, 42, 42)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel1))
+                .addGap(51, 51, 51)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tfCaripantaupenjualan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bCaripantaupenjualan)
+                    .addComponent(jLabel2))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tfSearchdatacustomer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void loadTabel() {
+        String filterSearch = tfCaripantaupenjualan.getText();
+        Di.pantauPenjualanPresenter.getAllPenjualanInWarehouse(idWarehouseEmp, filterSearch);
+        //Remove rows one by one from the end of the table
+
+        clearTable();
+
+        for (PenjualanModel pm : Di.pantauPenjualanPresenter.listPenjualanWarehouse) {
+            String[] row = {
+                String.valueOf(pm.getIdPenjualan()),
+                pm.getCustomerName(),
+                pm.getEmployeeName(),
+                String.valueOf(pm.getTotalBiaya()),
+                pm.getShipmentStatus()
+
+            };
+            tablePenjualanModel.addRow(row);
+        }
+    }
     private void bCaripantaupenjualanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCaripantaupenjualanActionPerformed
-        // TODO add your handling code here:
+        loadTabel();
     }//GEN-LAST:event_bCaripantaupenjualanActionPerformed
 
+    private void clearTable() {
+        for (int i = tPantaupenjualan.getRowCount() - 1; i >= 0; i--) {
+            tablePenjualanModel.removeRow(i);
+        }
+    }
     private void tfCaripantaupenjualanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfCaripantaupenjualanActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfCaripantaupenjualanActionPerformed
 
     private void resetFileds() {
-//        tfCaripantaupenjualan.setText("");
-//        .setText("");
+        tfCaripantaupenjualan.setText("");
+        tfSearchdatacustomer.setText("");
 
     }
 

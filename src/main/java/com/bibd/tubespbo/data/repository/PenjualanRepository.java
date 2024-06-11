@@ -24,7 +24,7 @@ public class PenjualanRepository {
 
     public ArrayList<PenjualanModel> getHistoryPenjualan(int idWareHouse, int idEmployee) {
 
-        return penjualanDataSource.getHistoryPenjualan(idWareHouse, idEmployee);
+        return penjualanDataSource.getHistoryPenjualanSales(idWareHouse, idEmployee);
     }
 
     public ArrayList<PenjualanModel> getHistoryPenjualan(int idWareHouse) {
