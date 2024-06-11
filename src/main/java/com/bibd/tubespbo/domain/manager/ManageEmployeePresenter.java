@@ -8,6 +8,7 @@ import com.bibd.tubespbo.data.model.EmployeeModel;
 import com.bibd.tubespbo.data.model.WarehouseModel;
 import com.bibd.tubespbo.data.repository.EmployeeRepository;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -24,8 +25,20 @@ public class ManageEmployeePresenter {
 
     public ArrayList<EmployeeModel> listEmployee = new ArrayList<>();
 
-    public void getAllEmplyoees() {
+
+    public void getAllEmplyoees(String filterSearch) {
         this.listEmployee = employeeRepository.getEmployeeAsManager();
+        
+        
+        if(!filterSearch.isBlank()){
+                this.listEmployee = (ArrayList<EmployeeModel>) this.listEmployee.stream()
+                   .filter(emp -> emp.getNama().contains(filterSearch)
+//                                  emp.getStatus().toLowerCase().contains(filterSearch) || 
+//                                  emp.getRole().toLowerCase().contains(filterSearch))
+                           )
+                   .collect(Collectors.toList());
+        }
+        
     }
     
     public ArrayList<WarehouseModel> listWarehouse = new ArrayList<>();
@@ -34,9 +47,9 @@ public class ManageEmployeePresenter {
     }
     
 
-    EmployeeModel selectedDataEmployee;
+    public EmployeeModel selectedDataEmployee;
 
-    int statusUpdateEmployee = 0; // 0 default state; -1 error ; -2 not selected 
+    public int statusUpdateEmployee = 0; // 0 default state; -1 error ; -2 not selected 
 
     public void updateDataEmployee() {
         if (selectedDataEmployee == null) {
@@ -51,7 +64,7 @@ public class ManageEmployeePresenter {
         selectedDataEmployee = null;
     }
 
-    int statusAddNewEmployee = 0;
+    public int statusAddNewEmployee = 0;
 
     public void resetAddEmployeeState() {
         statusAddNewEmployee = 0;

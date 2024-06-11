@@ -136,6 +136,8 @@ public class PenjualanDataSource {
         if (getIdOrder > 0) {
             String query = "INSERT INTO orderdetails \n"
                     + "(unitPrice, quantity, subTotalPrice, idProduct, orderId) \n"
+                    
+                    
                     + "VALUES (" + itemkeranjang.getProduk().getBuyPrice() + ", " + itemkeranjang.getQuantity() + ", \n"
                     + totaPrice + ", " + itemkeranjang.getProduk().getIdProduct() + "," + getIdOrder + ")";
             return db.executeStatement(query);
@@ -202,16 +204,14 @@ public class PenjualanDataSource {
 
         try {
             db.openConnection();
-//            String queryorder = "INSERT INTO orders (orderDate, orderType, employeeId) \n"
-//                    + "VALUES ('"+waktu+"', '"+typeOrder+"', "+employeeId+")";
-//            String queryorderdetil = "")";
-//            String queryorderpenjualan = "INSERT INTO orders (orderDate, orderType, employeeId) \n"
-//                    + "VALUES ('" + waktu + "', '" + typeOrder + "', " + employeeId + ")";
+//           
 
             queryOrder(waktu, typeOrder, employeeId);
+            
             for (KeranjangModel i : keranjang) {
                 queryOrderDetails(i);
             }
+            
             queryOrderPenjualan(statusShip, waktu, customerId, statusPayment);
 
             for (KeranjangModel i : keranjang) {
