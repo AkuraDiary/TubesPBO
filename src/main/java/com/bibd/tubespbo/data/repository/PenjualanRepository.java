@@ -27,9 +27,9 @@ public class PenjualanRepository {
         return penjualanDataSource.getHistoryPenjualan(idWareHouse);
     }
 
-    public int doCheckOut(int employeeId, int customerId, String statusPayment, LocalDateTime waktu, String typeOrder, ArrayList<KeranjangModel> keranjang, String shipStatus,int idWarehouse) {
+    public int doCheckOut(int employeeId, int customerId, String statusPayment, LocalDateTime waktu, String typeOrder, ArrayList<KeranjangModel> keranjang, String shipStatus,int idWarehouse, int idPenjualan) {
         try {
-            return penjualanDataSource.doCheckout(customerId, employeeId, keranjang, statusPayment, typeOrder, waktu,shipStatus,idWarehouse);
+            return penjualanDataSource.doCheckout(customerId, employeeId, keranjang, statusPayment, typeOrder, waktu,shipStatus,idWarehouse, idPenjualan);
           
         } catch (Exception e) {
             System.out.println("Penjualan Repo " + e.getLocalizedMessage());

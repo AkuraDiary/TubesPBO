@@ -31,7 +31,14 @@ public class ProductDataSource {
         try {
             ArrayList<ProductModel> dataResult = new ArrayList<>();
             db.openConnection();
-            String query = "SELECT productId, productName, description, buyPrice, sellPrice, categoryId, produsenId FROM product";
+            String query = "SELECT p.idProduct, p.productName, p.description, \n"
+                    + "p.buyPrice, p.sellPrice, p.categoryId, p.produsenId,\n"
+                    + " c.category, prod.name, ps.totalStock, ps.lastUpdate, w.address\n"
+                    + "FROM product p\n"
+                    + "JOIN category c on p.categoryId = c.idCategory\n"
+                    + "JOIN produsen prod on prod.idProdusen = p.produsenId\n"
+                    + "JOIN productstock ps on ps.productId = p.idProduct\n"
+                    + "JOIN warehouse w on ps.idWarehouse = w.id\n";
 
             ResultSet rs = db.getData(query);
 
@@ -46,6 +53,12 @@ public class ProductDataSource {
                 int sellPrice = rs.getInt("sellPrice");
                 int categoryId = rs.getInt("categoryId");
                 int produsenId = rs.getInt("produsenId");
+                
+                String categoryName = rs.getString("category");
+                String produsenName = rs.getString("name");
+                int totalstok = rs.getInt("totalStock");
+                Date lastUpdateProduct = rs.getDate("lastUpdate");
+                String warehouseAlamat = rs.getString("address");
 
                 // Creating a ProductModel object
                 ProductModel product = new ProductModel();
@@ -56,6 +69,15 @@ public class ProductDataSource {
                 product.setSellPrice((long) sellPrice);
                 product.setCategoryId(categoryId);
                 product.setProdusenId(produsenId);
+                
+                //new
+                product.setCategoryName(categoryName);
+                product.setProdusenName(produsenName);
+                product.setQuantityInStock(totalstok);
+                product.setLastUpdate(lastUpdateProduct);
+                product.setWarehouseName(warehouseAlamat);
+                
+                
 
                 // Adding the product to the list
                 dataResult.add(product);
@@ -114,7 +136,7 @@ public class ProductDataSource {
                     + "VALUES (" + jumlahBaru + ", '" + currentDate + "', " + idproduct + ", " + idWarehouse + ")";
 
             int result = db.executeStatement(query);
-            
+
             return result;
         } catch (Exception e) {
             System.out.println(e.getLocalizedMessage());
@@ -223,7 +245,9 @@ public class ProductDataSource {
         }
     }
 
-    public int updateDataProduct(int idProduct, String productName, int quantityInStock, long buyPrice, long sellPrice, int categoryId, int produsenId, String description) {
+    public int updateDataProduct(int idProduct, String productName,
+//                                 int quantityInStock,
+                                 long buyPrice, long sellPrice, int categoryId, int produsenId, String description) {
 
         try {
             db.openConnection();

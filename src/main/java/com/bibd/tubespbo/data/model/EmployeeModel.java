@@ -40,6 +40,9 @@ public class EmployeeModel {
     }
     
 
+    public EmployeeModel(){
+        
+    }
     public EmployeeModel(int id, String nama, String noHp, String email, String role, String status) {
         this.id = id;
         this.nama = nama;

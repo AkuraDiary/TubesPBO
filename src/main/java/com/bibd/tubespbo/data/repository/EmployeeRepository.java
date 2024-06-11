@@ -52,7 +52,9 @@ public class EmployeeRepository {
             em.getEmail(), 
             em.getRole(), 
             em.getStatus(), 
-            em.getId()
+            em.getId(),
+            em.getIdWarehouse(),
+            em.getPass()
             );
         } catch (Exception e) {
             System.out.println("Employee Repo " + e.getLocalizedMessage());
@@ -69,7 +71,9 @@ public class EmployeeRepository {
                     em.getEmail(), 
                     em.getRole(), 
                     em.getStatus(), 
-                    em.getPass()
+                    em.getPass(),
+                    em.getIdWarehouse()
+                   
             );
             
         }catch (Exception e){

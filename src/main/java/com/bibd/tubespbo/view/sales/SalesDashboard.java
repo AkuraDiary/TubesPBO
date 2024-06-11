@@ -6,6 +6,9 @@ package com.bibd.tubespbo.view.sales;
 
 import com.bibd.tubespbo.Di;
 import com.bibd.tubespbo.view.login.LoginView;
+import com.bibd.tubespbo.view.sales.salespanel.MenuCrudPenjualan;
+import java.awt.Color;
+import javax.swing.JFrame;
 
 /**
  *
@@ -13,11 +16,13 @@ import com.bibd.tubespbo.view.login.LoginView;
  */
 public class SalesDashboard extends javax.swing.JFrame {
 
+    int xx,xy;
     /**
      * Creates new form SDashboard
      */
     public SalesDashboard() {
         initComponents();
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 
     /**
@@ -39,9 +44,10 @@ public class SalesDashboard extends javax.swing.JFrame {
         jPanelGradient1 = new com.bibd.tubespbo.view.manager.jPanelGradient();
         bLogout = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
+        pn_Utama = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         pnKiri.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -70,6 +76,17 @@ public class SalesDashboard extends javax.swing.JFrame {
 
         btnCrudpenjualan.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnCrudpenjualan.setText("CRUD PENJUALAN");
+        btnCrudpenjualan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCrudpenjualanMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnCrudpenjualanMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnCrudpenjualanMouseExited(evt);
+            }
+        });
 
         javax.swing.GroupLayout pn1Layout = new javax.swing.GroupLayout(pn1);
         pn1.setLayout(pn1Layout);
@@ -161,16 +178,7 @@ public class SalesDashboard extends javax.swing.JFrame {
 
         pnKanan.add(jPanelGradient1, java.awt.BorderLayout.PAGE_START);
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 994, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 698, Short.MAX_VALUE)
-        );
+        pn_Utama.setLayout(new java.awt.BorderLayout());
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -178,12 +186,12 @@ public class SalesDashboard extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pn_Utama, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(20, 20, 20))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pn_Utama, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pnKanan.add(jPanel1, java.awt.BorderLayout.CENTER);
@@ -191,6 +199,7 @@ public class SalesDashboard extends javax.swing.JFrame {
         getContentPane().add(pnKanan, java.awt.BorderLayout.CENTER);
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void bLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bLogoutActionPerformed
@@ -200,6 +209,29 @@ public class SalesDashboard extends javax.swing.JFrame {
         lv.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_bLogoutActionPerformed
+
+    private void btnCrudpenjualanMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCrudpenjualanMouseEntered
+        // TODO add your handling code here:
+        pn1.setBackground(new Color(250, 250, 250));
+        pnCrudpenjualan.setBackground(new Color(0, 102, 153));
+    }//GEN-LAST:event_btnCrudpenjualanMouseEntered
+
+    private void btnCrudpenjualanMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCrudpenjualanMouseExited
+        // TODO add your handling code here:
+        pn1.setBackground(new Color(255, 255, 255));
+        pnCrudpenjualan.setBackground(new Color(255, 255, 255));
+    }//GEN-LAST:event_btnCrudpenjualanMouseExited
+
+    private void btnCrudpenjualanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCrudpenjualanMouseClicked
+        // TODO add your handling code here:
+        pn1.setBackground(new Color(240, 240, 240));
+        pnCrudpenjualan.setBackground(new Color(0, 102, 153));
+        
+        pn_Utama.removeAll();
+        pn_Utama.add(new MenuCrudPenjualan());
+        pn_Utama.repaint();
+        pn_Utama.revalidate();
+    }//GEN-LAST:event_btnCrudpenjualanMouseClicked
 
     /**
      * @param args the command line arguments
@@ -243,11 +275,11 @@ public class SalesDashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private com.bibd.tubespbo.view.manager.jPanelGradient jPanelGradient1;
     private javax.swing.JPanel pn1;
     private javax.swing.JPanel pnCrudpenjualan;
     private javax.swing.JPanel pnKanan;
     private javax.swing.JPanel pnKiri;
+    private javax.swing.JPanel pn_Utama;
     // End of variables declaration//GEN-END:variables
 }

@@ -8,9 +8,11 @@ import com.bibd.tubespbo.Di;
 import com.bibd.tubespbo.data.model.EmployeeModel;
 import com.bibd.tubespbo.data.model.WarehouseModel;
 import com.bibd.tubespbo.util.Statics;
+import com.bibd.tubespbo.util.Validator;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.stream.Collectors;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
@@ -29,7 +31,8 @@ public class MenuCrudEmployees extends javax.swing.JPanel {
         setupStatusEmployee();
         setupWarehouse();
         setupTableEMployee();
-        
+        setupRoles();
+
         populateTableEmployee();
     }
 
@@ -50,7 +53,6 @@ public class MenuCrudEmployees extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         tfNamaEmployees = new javax.swing.JTextField();
-        tfRoleEmployees = new javax.swing.JTextField();
         tfNoHpEmployees = new javax.swing.JTextField();
         tfEmailEmployees = new javax.swing.JTextField();
         tfPasswordEmployees = new javax.swing.JTextField();
@@ -59,24 +61,24 @@ public class MenuCrudEmployees extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         tViewdataemployees = new javax.swing.JTable();
         bUpdateDataEmployees = new javax.swing.JButton();
-        bDeleteDataEmployees = new javax.swing.JButton();
-        bNew = new javax.swing.JButton();
+        btnClearSearch = new javax.swing.JButton();
+        bNewEmployee = new javax.swing.JButton();
         bSearchEmployees = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         tFSearchEmployee = new javax.swing.JTextField();
-        jLabel13 = new javax.swing.JLabel();
-        tfEntriesEmployeesData = new javax.swing.JTextField();
-        bEntriesDataEmployee = new javax.swing.JButton();
         cbStatusEmploees = new javax.swing.JComboBox<>();
         cbWarehouse = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
+        btnResetField = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        cbEmpRole = new javax.swing.JComboBox<>();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setText("MANAGE EMPLOYEES");
+
+        tfIDEmployees.setEnabled(false);
 
         jLabel3.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel3.setText("Nama            :");
@@ -96,12 +98,6 @@ public class MenuCrudEmployees extends javax.swing.JPanel {
         tfNamaEmployees.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfNamaEmployeesActionPerformed(evt);
-            }
-        });
-
-        tfRoleEmployees.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfRoleEmployeesActionPerformed(evt);
             }
         });
 
@@ -141,9 +137,14 @@ public class MenuCrudEmployees extends javax.swing.JPanel {
                 "IDEmployees", "Nama", "Status", "Role", "IDWarehouse"
             }
         ));
+        tViewdataemployees.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tViewdataemployeesMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tViewdataemployees);
 
-        bUpdateDataEmployees.setBackground(new java.awt.Color(204, 204, 204));
+        bUpdateDataEmployees.setBackground(new java.awt.Color(153, 255, 255));
         bUpdateDataEmployees.setText("Update");
         bUpdateDataEmployees.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -151,23 +152,23 @@ public class MenuCrudEmployees extends javax.swing.JPanel {
             }
         });
 
-        bDeleteDataEmployees.setBackground(new java.awt.Color(204, 204, 204));
-        bDeleteDataEmployees.setText("Delete");
-        bDeleteDataEmployees.addActionListener(new java.awt.event.ActionListener() {
+        btnClearSearch.setBackground(new java.awt.Color(255, 255, 153));
+        btnClearSearch.setText("Clear");
+        btnClearSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bDeleteDataEmployeesActionPerformed(evt);
+                btnClearSearchActionPerformed(evt);
             }
         });
 
-        bNew.setBackground(new java.awt.Color(204, 204, 204));
-        bNew.setText("Add");
-        bNew.addActionListener(new java.awt.event.ActionListener() {
+        bNewEmployee.setBackground(new java.awt.Color(153, 255, 153));
+        bNewEmployee.setText("Add");
+        bNewEmployee.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bNewActionPerformed(evt);
+                bNewEmployeeActionPerformed(evt);
             }
         });
 
-        bSearchEmployees.setBackground(new java.awt.Color(204, 204, 204));
+        bSearchEmployees.setBackground(new java.awt.Color(153, 255, 255));
         bSearchEmployees.setText("Search");
         bSearchEmployees.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -187,19 +188,12 @@ public class MenuCrudEmployees extends javax.swing.JPanel {
             }
         });
 
-        jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel13.setText("Show");
-
-        tfEntriesEmployeesData.addActionListener(new java.awt.event.ActionListener() {
+        btnResetField.setText("Clear");
+        btnResetField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfEntriesEmployeesDataActionPerformed(evt);
+                btnResetFieldActionPerformed(evt);
             }
         });
-
-        bEntriesDataEmployee.setBackground(new java.awt.Color(204, 204, 204));
-        bEntriesDataEmployee.setText("Entries");
-
-        jButton1.setText("Clear");
 
         jLabel2.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel2.setText("MENU > CRUD OPERATION");
@@ -218,42 +212,39 @@ public class MenuCrudEmployees extends javax.swing.JPanel {
                         .addGap(15, 15, 15))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel11)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel11)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel7))
+                                .addGap(18, 18, 18))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addGap(16, 16, 16)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfNoHpEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(tfNamaEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfEmailEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfRoleEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cbStatusEmploees, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cbWarehouse, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfIDEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(tfIDEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(cbEmpRole, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(cbWarehouse, javax.swing.GroupLayout.Alignment.LEADING, 0, 231, Short.MAX_VALUE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(tfEmailEmployees, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(tfNoHpEmployees, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(bNew)
+                        .addComponent(bNewEmployee)
                         .addGap(41, 41, 41)
                         .addComponent(bUpdateDataEmployees)
                         .addGap(25, 25, 25))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(btnResetField)
                         .addGap(81, 81, 81)))
                 .addGap(0, 6, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel13)
-                        .addGap(18, 18, 18)
-                        .addComponent(tfEntriesEmployeesData, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(bEntriesDataEmployee, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(56, 56, 56))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 496, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(37, 37, 37))))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 496, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(37, 37, 37))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -269,7 +260,7 @@ public class MenuCrudEmployees extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addComponent(bSearchEmployees)
                         .addGap(18, 18, 18)
-                        .addComponent(bDeleteDataEmployees)
+                        .addComponent(btnClearSearch)
                         .addGap(123, 123, 123))))
         );
         layout.setVerticalGroup(
@@ -288,17 +279,12 @@ public class MenuCrudEmployees extends javax.swing.JPanel {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(bDeleteDataEmployees)
+                            .addComponent(btnClearSearch)
                             .addComponent(bSearchEmployees))))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel13)
-                            .addComponent(tfEntriesEmployeesData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(bEntriesDataEmployee)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(57, 57, 57)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -318,8 +304,8 @@ public class MenuCrudEmployees extends javax.swing.JPanel {
                             .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(8, 8, 8)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(tfRoleEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbEmpRole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(cbStatusEmploees, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -335,10 +321,10 @@ public class MenuCrudEmployees extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(bUpdateDataEmployees)
-                            .addComponent(bNew))
+                            .addComponent(bNewEmployee))
                         .addGap(18, 18, 18)
-                        .addComponent(jButton1)))
-                .addContainerGap(88, Short.MAX_VALUE))
+                        .addComponent(btnResetField)))
+                .addContainerGap(123, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -355,6 +341,10 @@ public class MenuCrudEmployees extends javax.swing.JPanel {
             Arrays.asList(Statics.EMPLOYEE_STATUS_AKTIF, Statics.EMPLOYEE_STATUS_NONAKTIF)
     );
 
+    ArrayList<String> employeeRoles = new ArrayList<>(
+            Arrays.asList(Statics.EMPLOYEE_ROLE_SUPERVISOR, Statics.EMPLOYEE_ROLE_SALES)
+    );
+
     private void setupStatusEmployee() {
         cbStatusEmploees.removeAllItems();
         for (String empStatus : employeeStatus) {
@@ -365,61 +355,65 @@ public class MenuCrudEmployees extends javax.swing.JPanel {
     private void setupTableEMployee() {
 
         tViewdataemployees.setModel(tableEmployeeModel);
+
         tViewdataemployees.setRowSorter(tableEmployeeSorter);
         tViewdataemployees.getTableHeader().setReorderingAllowed(false);
-        
+
         tableEmployeeModel.addColumn("IdEmployee");
         tableEmployeeModel.addColumn("Nama");
         tableEmployeeModel.addColumn("Status");
         tableEmployeeModel.addColumn("Role");
         tableEmployeeModel.addColumn("idWarehouse");
 
+        tableEmployeeSorter.setSortable(0, false);
+        tableEmployeeSorter.setSortable(1, false);
+        tableEmployeeSorter.setSortable(2, false);
+        tableEmployeeSorter.setSortable(3, false);
 
     }
-    
+
     private void resetField() {
-        
+        Di.manageEmployeePresenter.resetAddEmployeeState();
+        Di.manageEmployeePresenter.resetSelectedDataEmployee();
+        // reset all field
+        cbStatusEmploees.setSelectedIndex(0);
+        cbWarehouse.setSelectedIndex(0);
+        cbEmpRole.setSelectedIndex(0);
+
+        tfIDEmployees.setText("");
+        tfNamaEmployees.setText("");
+        tfEmailEmployees.setText("");
+        tfNoHpEmployees.setText("");
+        tfPasswordEmployees.setText("");
+
+        bNewEmployee.setEnabled(true);
+        bUpdateDataEmployees.setEnabled(false);
     }
-    
-    private void clearTable(){
+
+    private void clearTable() {
         for (int i = tableEmployeeModel.getRowCount() - 1; i >= 0; i--) {
             tableEmployeeModel.removeRow(i);
         }
     }
 
     private void populateTableEmployee() {
-        Di.manageEmployeePresenter.getAllEmplyoees();
-          //Remove rows one by one from the end of the table
-        
-        clearTable();
-        
         String filterSearch = tFSearchEmployee.getText();
-        
-        ArrayList<EmployeeModel> data = new ArrayList<>();
-        
-        data.addAll(Di.manageEmployeePresenter.listEmployee);
-        
-        if(!filterSearch.isBlank()){
-                data = (ArrayList<EmployeeModel>) data.stream()
-                   .filter(emp -> emp.getNama().equalsIgnoreCase(filterSearch)
-//                                  emp.getStatus().toLowerCase().contains(filterSearch) || 
-//                                  emp.getRole().toLowerCase().contains(filterSearch))
-                           )
-                   .collect(Collectors.toList());
-            
-        }
-        
-        for (EmployeeModel emp : data) {
+        Di.manageEmployeePresenter.getAllEmplyoees(filterSearch);
+        //Remove rows one by one from the end of the table
+
+        clearTable();
+
+        for (EmployeeModel emp : Di.manageEmployeePresenter.listEmployee) {
             String[] row = {
-                String.valueOf(emp.getId()), 
-                emp.getNama(), 
-                emp.getStatus(), 
-                emp.getRole(), 
+                String.valueOf(emp.getId()),
+                emp.getNama(),
+                emp.getStatus(),
+                emp.getRole(),
                 String.valueOf(emp.getIdWarehouse())
             };
             tableEmployeeModel.addRow(row);
         }
-        
+
     }
 
     private void setupWarehouse() {
@@ -430,13 +424,17 @@ public class MenuCrudEmployees extends javax.swing.JPanel {
         }
     }
 
+    private void setupRoles() {
+
+        cbEmpRole.removeAllItems();
+        for (String item : employeeRoles) {
+            cbEmpRole.addItem(item);
+        }
+    }
+
     private void tfNamaEmployeesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfNamaEmployeesActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfNamaEmployeesActionPerformed
-
-    private void tfRoleEmployeesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfRoleEmployeesActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfRoleEmployeesActionPerformed
 
     private void tfNoHpEmployeesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfNoHpEmployeesActionPerformed
         // TODO add your handling code here:
@@ -450,16 +448,119 @@ public class MenuCrudEmployees extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_tfPasswordEmployeesActionPerformed
 
-    private void bDeleteDataEmployeesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bDeleteDataEmployeesActionPerformed
+    private void btnClearSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearSearchActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_bDeleteDataEmployeesActionPerformed
+        tFSearchEmployee.setText("");
+        populateTableEmployee();
+    }//GEN-LAST:event_btnClearSearchActionPerformed
 
-    private void bNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bNewActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_bNewActionPerformed
+    private boolean formIsValid() {
+        boolean valid = false;
+
+        if (!Validator.isValidEmail(tfEmailEmployees.getText())) {
+             JOptionPane.showMessageDialog(null, "Email Tidak Valid!");
+            return valid;
+        }
+
+        if (tfNamaEmployees.getText().isBlank()) {
+            JOptionPane.showMessageDialog(null, "Nama Tidak Boleh kosong !");
+            return valid;
+        }
+
+        if (tfEmailEmployees.getText().isBlank()) {
+            JOptionPane.showMessageDialog(null, "Email Tidak Boleh kosong !");
+            return valid;
+        }
+
+        if (tfNoHpEmployees.getText().isBlank()) {
+            JOptionPane.showMessageDialog(null, "No Hp Tidak Boleh kosong !");
+            return valid;
+        }
+
+        if (tfPasswordEmployees.getText().isBlank()) {
+            JOptionPane.showMessageDialog(null, "Password Tidak Boleh kosong !");
+            return valid;
+        }
+        
+        return !valid;
+
+    }
+    private void bNewEmployeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bNewEmployeeActionPerformed
+
+        EmployeeModel em = new EmployeeModel();
+
+//        tfIDEmployees.setText(String.valueOf(idEmployee));
+        String nama = tfNamaEmployees.getText();
+        String email = tfEmailEmployees.getText();
+        String noHp = tfNoHpEmployees.getText();
+        String pass = tfPasswordEmployees.getText();
+        String status = (String) cbStatusEmploees.getSelectedItem();
+        String role = (String) cbEmpRole.getSelectedItem();
+        int idWarehouse = ((WarehouseModel) cbWarehouse.getSelectedItem()).getIdWarehouse();
+
+        if(!formIsValid()){
+            return;
+        }
+        em.setNama(nama);
+        em.setEmail(email);
+        em.setNoHp(noHp);
+        em.setPass(pass);
+        em.setStatus(status);
+        em.setRole(role);
+        em.setIdWarehouse(idWarehouse);
+
+        Di.manageEmployeePresenter.addNewEmployee(em);
+
+        int result = Di.manageEmployeePresenter.statusAddNewEmployee;
+        if (result < 0) {
+            System.out.println("Error ");
+            return;
+        }
+        JOptionPane.showMessageDialog(null, "Data Berhasil Ditambahkan!");
+        Di.manageEmployeePresenter.resetAddEmployeeState();
+        resetField();
+        populateTableEmployee();
+    }//GEN-LAST:event_bNewEmployeeActionPerformed
 
     private void bUpdateDataEmployeesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bUpdateDataEmployeesActionPerformed
-        // TODO add your handling code here:
+        EmployeeModel em = Di.manageEmployeePresenter.selectedDataEmployee;
+
+        System.out.println("Before Update");
+        int idEmployee = Integer.parseInt(tfIDEmployees.getText());
+        String nama = tfNamaEmployees.getText();
+        String email = tfEmailEmployees.getText();
+        String noHp = tfNoHpEmployees.getText();
+        String pass = tfPasswordEmployees.getText();
+        String status = (String) cbStatusEmploees.getSelectedItem();
+        String role = (String) cbEmpRole.getSelectedItem();
+        int idWarehouse = ((WarehouseModel) cbWarehouse.getSelectedItem()).getIdWarehouse();
+
+        if(!formIsValid()){
+            return;
+        }
+        
+        em.setId(idEmployee);
+        em.setNama(nama);
+        em.setEmail(email);
+        em.setNoHp(noHp);
+        em.setPass(pass);
+        em.setStatus(status);
+        em.setRole(role);
+        em.setIdWarehouse(idWarehouse);
+        System.out.println("After");
+        System.out.println(Di.manageEmployeePresenter.selectedDataEmployee.getNama());
+        Di.manageEmployeePresenter.updateDataEmployee();
+
+        int result = Di.manageEmployeePresenter.statusUpdateEmployee;
+        if (result < 0) {
+            System.out.println("Error ");
+            return;
+        }
+        JOptionPane.showMessageDialog(null, "Data Berhasil Di Update !");
+//        Di.manageEmployeePresenter.resetSelectedDataEmployee();
+//        resetField();
+        populateTableEmployee();
+
     }//GEN-LAST:event_bUpdateDataEmployeesActionPerformed
 
     private void bSearchEmployeesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSearchEmployeesActionPerformed
@@ -471,24 +572,60 @@ public class MenuCrudEmployees extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_tFSearchEmployeeActionPerformed
 
-    private void tfEntriesEmployeesDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfEntriesEmployeesDataActionPerformed
+    private void tViewdataemployeesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tViewdataemployeesMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_tfEntriesEmployeesDataActionPerformed
+        int row = tViewdataemployees.getSelectedRow();
+
+        int idEmployee = Integer.parseInt(tableEmployeeModel.getValueAt(row, 0).toString());
+
+        Di.manageEmployeePresenter.setSelectedEmployee(
+                idEmployee
+        );
+        EmployeeModel selectedEmp = Di.manageEmployeePresenter.selectedDataEmployee;
+
+        tfIDEmployees.setText(String.valueOf(idEmployee));
+        tfNamaEmployees.setText(selectedEmp.getNama());
+        tfEmailEmployees.setText(selectedEmp.getEmail());
+        tfNoHpEmployees.setText(selectedEmp.getNoHp());
+        tfPasswordEmployees.setText(selectedEmp.getPass());
+
+        String status = selectedEmp.getStatus();
+        int idWarehouse = selectedEmp.getIdWarehouse();
+
+        cbStatusEmploees.setSelectedItem(status);
+        cbEmpRole.setSelectedItem(selectedEmp.getRole());
+
+        int idxWarehouse = Di.manageEmployeePresenter.listWarehouse.indexOf(
+                Di.manageEmployeePresenter.listWarehouse
+                        .stream()
+                        .filter(p -> p.getIdWarehouse() == idWarehouse)
+                        .findFirst().orElse(new WarehouseModel())
+        );
+
+        cbWarehouse.setSelectedIndex(idxWarehouse);
+
+        bNewEmployee.setEnabled(false);
+        bUpdateDataEmployees.setEnabled(true);
+    }//GEN-LAST:event_tViewdataemployeesMouseClicked
+
+    private void btnResetFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetFieldActionPerformed
+        // TODO add your handling code here:
+        resetField();
+    }//GEN-LAST:event_btnResetFieldActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton bDeleteDataEmployees;
-    private javax.swing.JButton bEntriesDataEmployee;
-    private javax.swing.JButton bNew;
+    private javax.swing.JButton bNewEmployee;
     private javax.swing.JButton bSearchEmployees;
     private javax.swing.JButton bUpdateDataEmployees;
+    private javax.swing.JButton btnClearSearch;
+    private javax.swing.JButton btnResetField;
+    private javax.swing.JComboBox<String> cbEmpRole;
     private javax.swing.JComboBox<String> cbStatusEmploees;
     private javax.swing.JComboBox<WarehouseModel> cbWarehouse;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -501,11 +638,9 @@ public class MenuCrudEmployees extends javax.swing.JPanel {
     private javax.swing.JTextField tFSearchEmployee;
     private javax.swing.JTable tViewdataemployees;
     private javax.swing.JTextField tfEmailEmployees;
-    private javax.swing.JTextField tfEntriesEmployeesData;
     private javax.swing.JTextField tfIDEmployees;
     private javax.swing.JTextField tfNamaEmployees;
     private javax.swing.JTextField tfNoHpEmployees;
     private javax.swing.JTextField tfPasswordEmployees;
-    private javax.swing.JTextField tfRoleEmployees;
     // End of variables declaration//GEN-END:variables
 }
