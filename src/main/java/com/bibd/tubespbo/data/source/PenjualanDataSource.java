@@ -196,7 +196,7 @@ public class PenjualanDataSource {
     }
 
     public int doCheckout(int customerId, int employeeId, ArrayList<KeranjangModel> keranjang, String statusPayment,
-            String typeOrder, LocalDateTime waktu, String statusShip, int idWarehouse) {
+            String typeOrder, LocalDateTime waktu, String statusShip, int idWarehouse, int idPenjualan) {
 //        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
 //          order,orderdetil,orderpenjualan, stok product
 
@@ -238,11 +238,8 @@ public class PenjualanDataSource {
             
             String queryupdateShip = "UPDATE orderpenjualan op \n"
                     + "SET op.shipmentStatus = '"+ statusShipment +"', op.statuspayment='"+ statusPayment+"'\n"
-<<<<<<< HEAD
-                    + "WHERE op.idPenjualan = "+idOrderPenjualan;
-=======
                     + "WHERE op.idPenjualan = "+idPenjualan;
->>>>>>> 52e2b40332a578be5e298c713e5c626dedf77862
+
             return db.executeStatement(queryupdateShip);
         } catch (Exception e) {
             System.out.println(e.getLocalizedMessage());
