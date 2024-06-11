@@ -54,9 +54,6 @@ public class MenuCreatePembelian extends javax.swing.JPanel {
         jTextField1 = new javax.swing.JTextField();
         bCariIDPembelian = new javax.swing.JButton();
         bHapusIdPembelian = new javax.swing.JButton();
-        jLabel12 = new javax.swing.JLabel();
-        ShowDataPembelian = new javax.swing.JTextField();
-        bEntriesDataPembelian = new javax.swing.JButton();
         bBersihkan = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -148,17 +145,6 @@ public class MenuCreatePembelian extends javax.swing.JPanel {
             }
         });
 
-        jLabel12.setText("Show");
-
-        ShowDataPembelian.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ShowDataPembelianActionPerformed(evt);
-            }
-        });
-
-        bEntriesDataPembelian.setBackground(new java.awt.Color(153, 255, 255));
-        bEntriesDataPembelian.setText("Entries");
-
         bBersihkan.setText("Bersihkan");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -223,7 +209,6 @@ public class MenuCreatePembelian extends javax.swing.JPanel {
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel11)
@@ -233,15 +218,8 @@ public class MenuCreatePembelian extends javax.swing.JPanel {
                                 .addComponent(bCariIDPembelian)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(bHapusIdPembelian))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(280, 280, 280)
-                                .addComponent(jLabel12)
-                                .addGap(18, 18, 18)
-                                .addComponent(ShowDataPembelian, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(bEntriesDataPembelian))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 527, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(27, 27, Short.MAX_VALUE))))
+                        .addGap(45, 45, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -301,12 +279,7 @@ public class MenuCreatePembelian extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(bEntriesDataPembelian, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(ShowDataPembelian, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel12))
-                        .addGap(92, 92, 92))))
+                        .addGap(132, 132, 132))))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -318,24 +291,17 @@ public class MenuCreatePembelian extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_bHapusIdPembelianActionPerformed
 
-    private void ShowDataPembelianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ShowDataPembelianActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ShowDataPembelianActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField ShowDataPembelian;
     private javax.swing.JButton bBersihkan;
     private javax.swing.JButton bCariIDPembelian;
     private javax.swing.JButton bCariKodeBarang;
-    private javax.swing.JButton bEntriesDataPembelian;
     private javax.swing.JButton bHapusIdPembelian;
     private javax.swing.JButton b_Batal;
     private javax.swing.JButton b_Simpan;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

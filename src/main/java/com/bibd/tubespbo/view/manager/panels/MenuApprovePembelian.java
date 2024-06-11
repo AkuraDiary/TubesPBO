@@ -142,7 +142,7 @@ public class MenuApprovePembelian extends javax.swing.JPanel {
                                         .addComponent(cbEditStatusPembelian, 0, 119, Short.MAX_VALUE)
                                         .addComponent(cbApprove, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(bSimpan))
-                                    .addComponent(tfTanggalPembelian, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(tfTanggalPembelian, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(137, 137, 137)
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
