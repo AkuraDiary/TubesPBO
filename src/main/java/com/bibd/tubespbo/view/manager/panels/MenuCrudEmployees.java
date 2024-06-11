@@ -153,7 +153,7 @@ public class MenuCrudEmployees extends javax.swing.JPanel {
         });
 
         btnClearSearch.setBackground(new java.awt.Color(255, 255, 153));
-        btnClearSearch.setText("Clear");
+        btnClearSearch.setText("Delete");
         btnClearSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnClearSearchActionPerformed(evt);
