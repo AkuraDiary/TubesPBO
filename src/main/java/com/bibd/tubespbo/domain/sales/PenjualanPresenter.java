@@ -92,11 +92,11 @@ public class PenjualanPresenter {
     }
 
     int statusCheckout = 0; 
-    public void checkOut(int employeeId, int customerId, String statusPayment) {
+    public void checkOut(int employeeId, int customerId, String statusPayment, String statusShipment, int idWarehouse) {
         LocalDateTime waktu = LocalDateTime.now();
         String typeOrder = Statics.ORDER_TYPE_PENJUALAN;
         statusCheckout = penjualanRepository.doCheckOut(
-                employeeId, customerId, statusPayment, waktu, typeOrder, keranjang
+                employeeId, customerId, statusPayment, waktu, typeOrder, keranjang, statusShipment, idWarehouse
         );
     }
 
