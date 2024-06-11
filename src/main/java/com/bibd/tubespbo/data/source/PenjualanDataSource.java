@@ -239,7 +239,7 @@ public class PenjualanDataSource {
             String queryupdateShip = "UPDATE orderpenjualan op \n"
                     + "SET op.shipmentStatus = '"+ statusShipment +"', op.statuspayment='"+ statusPayment+"'\n"
                     + "WHERE op.idPenjualan = "+idOrderPenjualan;
-            db.executeStatement(queryupdateShip);
+            return db.executeStatement(queryupdateShip);
         } catch (Exception e) {
             System.out.println(e.getLocalizedMessage());
             return -1;
