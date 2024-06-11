@@ -4,14 +4,57 @@
  */
 package com.bibd.tubespbo.data.model;
 
+import java.time.LocalDateTime;
+import java.util.Date;
+
 /**
  *
  * @author asthiseta
  */
- public class ProductModel {
+public class ProductModel {
+
     int idProduct, categoryId, produsenId, quantityInStock;
     long buyPrice, sellPrice;
     String productName, description;
+
+    //new
+    Date lastUpdate;
+    String categoryName, produsenName, warehouseName;
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
+
+    public String getWarehouseName() {
+        return warehouseName;
+    }
+
+    public void setWarehouseName(String warehouseName) {
+        this.warehouseName = warehouseName;
+    }
+
+    public String getProdusenName() {
+        return produsenName;
+    }
+
+    public void setProdusenName(String produsenName) {
+        this.produsenName = produsenName;
+    }
+    
+
+    
+
+    public Date getLastUpdate() {
+        return lastUpdate;
+    }
+
+    public void setLastUpdate(Date lastUpdate) {
+        this.lastUpdate = lastUpdate;
+    }
 
     public ProductModel(int idProduct, int categoryId, int produsenId, int quantityInStock, long buyPrice, long sellPrice, String productName, String description) {
         this.idProduct = idProduct;
@@ -26,8 +69,6 @@ package com.bibd.tubespbo.data.model;
 
     public ProductModel() {
     }
-    
-    
 
     public int getQuantityInStock() {
         return quantityInStock;
@@ -36,7 +77,7 @@ package com.bibd.tubespbo.data.model;
     public void setQuantityInStock(int quantityInStock) {
         this.quantityInStock = quantityInStock;
     }
-    
+
     public int getIdProduct() {
         return idProduct;
     }
@@ -92,6 +133,5 @@ package com.bibd.tubespbo.data.model;
     public void setDescription(String description) {
         this.description = description;
     }
-    
-    
+
 }

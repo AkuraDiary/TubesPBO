@@ -42,13 +42,21 @@ public class PantauPenjualanPresenter {
 
     int updateStatusPenjualanState = 0; // 0 default; -2 not selected; -1 error
 
+    
+
+
     public void updateStatusShipmentPenjualan(int idPenjualan, String statusShipment, String statusPayment) {
+
 
         if (selectedPenjualan == null) {
             updateStatusPenjualanState = -2;
             return;
         }
-        updateStatusPenjualanState = penjualanRepository.updateStatusShipmentPayment(idPenjualan, statusShipment, statusPayment);
-    }
 
+        updateStatusPenjualanState = penjualanRepository.updateStatusShipmentPayment(idPenjualan, statusShipment, statusPayment);      
+
+        updateStatusPenjualanState = penjualanRepository.updateStatusShipmentPayment(idPenjualan, statusShipment, statusPayment);
+
+    }
 }
+

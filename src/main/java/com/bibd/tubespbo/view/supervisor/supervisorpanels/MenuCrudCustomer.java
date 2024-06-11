@@ -42,9 +42,6 @@ public class MenuCrudCustomer extends javax.swing.JPanel {
         jLabel7 = new javax.swing.JLabel();
         tfIdCustomerSearch = new javax.swing.JTextField();
         bCariIdCustomer = new javax.swing.JButton();
-        jLabel8 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        bEntriesDataCustomer = new javax.swing.JButton();
         bTambahDataCustomer = new javax.swing.JButton();
         bHapusDataCustomer = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
@@ -101,17 +98,6 @@ public class MenuCrudCustomer extends javax.swing.JPanel {
             }
         });
 
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel8.setText("Show");
-
-        bEntriesDataCustomer.setBackground(new java.awt.Color(204, 204, 255));
-        bEntriesDataCustomer.setText("Entries");
-        bEntriesDataCustomer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bEntriesDataCustomerActionPerformed(evt);
-            }
-        });
-
         bTambahDataCustomer.setBackground(new java.awt.Color(153, 255, 153));
         bTambahDataCustomer.setText("Tambah");
         bTambahDataCustomer.addActionListener(new java.awt.event.ActionListener() {
@@ -165,13 +151,6 @@ public class MenuCrudCustomer extends javax.swing.JPanel {
                                 .addComponent(bBersihkan)
                                 .addGap(131, 131, 131)))
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 526, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(738, Short.MAX_VALUE)
-                        .addComponent(jLabel8)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(bEntriesDataCustomer))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -208,12 +187,7 @@ public class MenuCrudCustomer extends javax.swing.JPanel {
                             .addComponent(bHapusDataCustomer))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 429, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(bEntriesDataCustomer)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel8))
-                        .addGap(117, 117, 117))
+                        .addGap(146, 146, 146))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(70, 70, 70)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -257,15 +231,10 @@ public class MenuCrudCustomer extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_tfIdCustomerActionPerformed
 
-    private void bEntriesDataCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bEntriesDataCustomerActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_bEntriesDataCustomerActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bBersihkan;
     private javax.swing.JButton bCariIdCustomer;
-    private javax.swing.JButton bEntriesDataCustomer;
     private javax.swing.JButton bHapusDataCustomer;
     private javax.swing.JButton bTambahDataCustomer;
     private javax.swing.JButton jButton1;
@@ -277,10 +246,8 @@ public class MenuCrudCustomer extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField tfAlamatCustomer;
     private javax.swing.JTextField tfEmailCustomer;
     private javax.swing.JTextField tfIdCustomer;

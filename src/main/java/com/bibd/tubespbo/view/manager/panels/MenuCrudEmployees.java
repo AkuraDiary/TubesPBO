@@ -67,9 +67,6 @@ public class MenuCrudEmployees extends javax.swing.JPanel {
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         tFSearchEmployee = new javax.swing.JTextField();
-        jLabel13 = new javax.swing.JLabel();
-        tfEntriesEmployeesData = new javax.swing.JTextField();
-        bEntriesDataEmployee = new javax.swing.JButton();
         cbStatusEmploees = new javax.swing.JComboBox<>();
         cbWarehouse = new javax.swing.JComboBox<>();
         btnResetField = new javax.swing.JButton();
@@ -147,7 +144,7 @@ public class MenuCrudEmployees extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tViewdataemployees);
 
-        bUpdateDataEmployees.setBackground(new java.awt.Color(204, 204, 204));
+        bUpdateDataEmployees.setBackground(new java.awt.Color(153, 255, 255));
         bUpdateDataEmployees.setText("Update");
         bUpdateDataEmployees.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -155,7 +152,7 @@ public class MenuCrudEmployees extends javax.swing.JPanel {
             }
         });
 
-        btnClearSearch.setBackground(new java.awt.Color(204, 204, 204));
+        btnClearSearch.setBackground(new java.awt.Color(255, 255, 153));
         btnClearSearch.setText("Clear");
         btnClearSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -163,7 +160,7 @@ public class MenuCrudEmployees extends javax.swing.JPanel {
             }
         });
 
-        bNewEmployee.setBackground(new java.awt.Color(204, 204, 204));
+        bNewEmployee.setBackground(new java.awt.Color(153, 255, 153));
         bNewEmployee.setText("Add");
         bNewEmployee.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -171,7 +168,7 @@ public class MenuCrudEmployees extends javax.swing.JPanel {
             }
         });
 
-        bSearchEmployees.setBackground(new java.awt.Color(204, 204, 204));
+        bSearchEmployees.setBackground(new java.awt.Color(153, 255, 255));
         bSearchEmployees.setText("Search");
         bSearchEmployees.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -190,18 +187,6 @@ public class MenuCrudEmployees extends javax.swing.JPanel {
                 tFSearchEmployeeActionPerformed(evt);
             }
         });
-
-        jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel13.setText("Show");
-
-        tfEntriesEmployeesData.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfEntriesEmployeesDataActionPerformed(evt);
-            }
-        });
-
-        bEntriesDataEmployee.setBackground(new java.awt.Color(204, 204, 204));
-        bEntriesDataEmployee.setText("Entries");
 
         btnResetField.setText("Clear");
         btnResetField.addActionListener(new java.awt.event.ActionListener() {
@@ -227,14 +212,18 @@ public class MenuCrudEmployees extends javax.swing.JPanel {
                         .addGap(15, 15, 15))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel11)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel11)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel7))
+                                .addGap(18, 18, 18))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addGap(16, 16, 16)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(tfNamaEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cbStatusEmploees, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -254,17 +243,8 @@ public class MenuCrudEmployees extends javax.swing.JPanel {
                         .addComponent(btnResetField)
                         .addGap(81, 81, 81)))
                 .addGap(0, 6, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel13)
-                        .addGap(18, 18, 18)
-                        .addComponent(tfEntriesEmployeesData, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(bEntriesDataEmployee, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(56, 56, 56))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 496, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(37, 37, 37))))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 496, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(37, 37, 37))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -304,12 +284,7 @@ public class MenuCrudEmployees extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel13)
-                            .addComponent(tfEntriesEmployeesData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(bEntriesDataEmployee)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(57, 57, 57)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -349,7 +324,7 @@ public class MenuCrudEmployees extends javax.swing.JPanel {
                             .addComponent(bNewEmployee))
                         .addGap(18, 18, 18)
                         .addComponent(btnResetField)))
-                .addContainerGap(88, Short.MAX_VALUE))
+                .addContainerGap(123, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -597,10 +572,6 @@ public class MenuCrudEmployees extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_tFSearchEmployeeActionPerformed
 
-    private void tfEntriesEmployeesDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfEntriesEmployeesDataActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfEntriesEmployeesDataActionPerformed
-
     private void tViewdataemployeesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tViewdataemployeesMouseClicked
         // TODO add your handling code here:
         int row = tViewdataemployees.getSelectedRow();
@@ -644,7 +615,6 @@ public class MenuCrudEmployees extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton bEntriesDataEmployee;
     private javax.swing.JButton bNewEmployee;
     private javax.swing.JButton bSearchEmployees;
     private javax.swing.JButton bUpdateDataEmployees;
@@ -656,7 +626,6 @@ public class MenuCrudEmployees extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -669,7 +638,6 @@ public class MenuCrudEmployees extends javax.swing.JPanel {
     private javax.swing.JTextField tFSearchEmployee;
     private javax.swing.JTable tViewdataemployees;
     private javax.swing.JTextField tfEmailEmployees;
-    private javax.swing.JTextField tfEntriesEmployeesData;
     private javax.swing.JTextField tfIDEmployees;
     private javax.swing.JTextField tfNamaEmployees;
     private javax.swing.JTextField tfNoHpEmployees;
