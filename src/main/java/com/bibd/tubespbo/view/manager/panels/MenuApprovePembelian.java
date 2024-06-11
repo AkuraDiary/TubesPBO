@@ -64,8 +64,10 @@ public class MenuApprovePembelian extends javax.swing.JPanel {
     private void resetField() {
         Di.approvePembelianPresenter.resetSelected();
         // reset all field
-        tfSearchPembelian.setText("");
         tfTanggalPembelian.setText("");
+        tfTotalBiaya.setText("");
+        tfIdPembelian.setText("");
+        tfWarehousePembelian.setText("");
         cbActionPembelian.setSelectedIndex(0);
 
     }
@@ -79,9 +81,6 @@ public class MenuApprovePembelian extends javax.swing.JPanel {
     private void populateTablePembelian() {
         clearTable();
         Di.approvePembelianPresenter.getListPembelian(tfSearchPembelian.getText());
-
-
-        clearTable();
 
         for (PembelianModel pembelian : Di.approvePembelianPresenter.listPembelian) {
             String[] row = {
