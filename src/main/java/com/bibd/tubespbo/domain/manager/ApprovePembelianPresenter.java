@@ -4,14 +4,17 @@
  */
 package com.bibd.tubespbo.domain.manager;
 
+import com.bibd.tubespbo.data.model.EmployeeModel;
 import com.bibd.tubespbo.data.model.PembelianModel;
 import com.bibd.tubespbo.data.repository.PembelianRepository;
 import com.bibd.tubespbo.util.Statics;
+
 import java.util.ArrayList;
+import java.util.stream.Collectors;
+
 import static javax.swing.JOptionPane.showMessageDialog;
 
 /**
- *
  * @author asthiseta
  */
 public class ApprovePembelianPresenter {
@@ -27,14 +30,24 @@ public class ApprovePembelianPresenter {
 
     public void resetSelected() {
         selectedPembelian = null;
-        statusUpdatePembelian= 0;
+        statusUpdatePembelian = 0;
     }
 
-    public void getListPembelian() {
+    public void getListPembelian(String filterSearch) {
         listPembelian = pembelianRepository.getAllpembelian(Statics.GET_ALL_PEMBELIAN);
+
+        if (!filterSearch.isBlank()) {
+            this.listPembelian = (ArrayList<PembelianModel>) this.listPembelian.stream()
+                    .filter(emp -> String.valueOf(emp.getIdPembelian()).contains(filterSearch)||
+                                  emp.getStatus().toLowerCase().contains(filterSearch)||
+                                  emp.getTanggalOrder().toString().toLowerCase().contains(filterSearch)
+                    )
+                    .collect(Collectors.toList());
+
+        }
     }
 
-    int statusUpdatePembelian = 0; // 0 default state; -1 error ; -2 not selected 
+    public int statusUpdatePembelian = 0; // 0 default state; -1 error ; -2 not selected
 
     public void updateStatusPembelian(String status) {
         if (selectedPembelian == null) {
@@ -43,7 +56,7 @@ public class ApprovePembelianPresenter {
         }
 
         statusUpdatePembelian = pembelianRepository.updateStatusPembelian(
-                selectedPembelian.getIdPembelian(), 
+                selectedPembelian.getIdPembelian(),
                 status
         );
     }

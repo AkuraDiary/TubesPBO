@@ -18,7 +18,10 @@ public class PembelianModel {
    private ArrayList<OrderDetailsModel> keranjang = new ArrayList<>();
    private Date tanggalOrder;
    private String typeOrder;
-   
+    private long totalBiaya;
+    private String warehouse;
+    private int warehouseId;
+
 
     public int getIdorder() {
         return idorder;
@@ -80,8 +83,29 @@ public class PembelianModel {
     public void setOrderId(int aInt) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    
-    
-    
-    
+
+
+    public void setTotalBiaya(long totalBiaya) {
+        this.totalBiaya = totalBiaya;
+    }
+
+    public long getTotalBiaya() {
+        return totalBiaya;
+    }
+
+    public void setWarehouse(String warehouse) {
+        this.warehouse = warehouse;
+    }
+
+    public String getWarehouse() {
+        return warehouse;
+    }
+
+    public void setWarehouseId(int warehouseId) {
+        this.warehouseId = warehouseId;
+    }
+
+    public int getWarehouseId() {
+        return warehouseId;
+    }
 }

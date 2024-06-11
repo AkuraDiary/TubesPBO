@@ -4,8 +4,18 @@
  */
 package com.bibd.tubespbo.view.manager.panels;
 
+import com.bibd.tubespbo.Di;
+import com.bibd.tubespbo.data.model.PembelianModel;
+import com.bibd.tubespbo.data.model.ProductModel;
+import com.bibd.tubespbo.util.Formatter;
+import com.bibd.tubespbo.util.Statics;
+
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
+import java.util.ArrayList;
+import java.util.Arrays;
+
 /**
- *
  * @author HP VICTUS
  */
 public class MenuApprovePembelian extends javax.swing.JPanel {
@@ -13,9 +23,92 @@ public class MenuApprovePembelian extends javax.swing.JPanel {
     /**
      * Creates new form MenuApprovePembelian
      */
+
+    private DefaultTableModel tablePembelianModel = new DefaultTableModel() {
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false; //super.isCellEditable(row, column);
+        }
+
+    };
+    private TableRowSorter<DefaultTableModel> tablemPembelianSorter = new TableRowSorter<>(tablePembelianModel);
+
+    ArrayList<String> statusPembelian = new ArrayList<>(
+            Arrays.asList(
+                    Statics.PEMBELIAN_STATUS_RUNNING,
+                    Statics.PEMBELIAN_STATUS_REJECTED,
+                    Statics.PEMBELIAN_STATUS_FINNISH,
+                    Statics.PEMBELIAN_STATUS_PENDING
+            )
+    );
+
     public MenuApprovePembelian() {
         initComponents();
+
+        setupCbActionPembelian();
+        setupTablePembelian();
+        populateTablePembelian();
     }
+
+    private void setupCbActionPembelian() {
+        cbActionPembelian.removeAllItems();
+        for (String status : statusPembelian) {
+            cbActionPembelian.addItem(status);
+        }
+    }
+
+    private void resetField() {
+        Di.approvePembelianPresenter.resetSelected();
+        // reset all field
+        tfIdPembelian.setText("");
+        tfEntriesDataPembelian.setText("");
+        tfTanggalPembelian.setText("");
+
+    }
+
+    private void clearTable() {
+        for (int i = tablePembelianModel.getRowCount() - 1; i >= 0; i--) {
+            tablePembelianModel.removeRow(i);
+        }
+    }
+
+    private void populateTablePembelian() {
+        clearTable();
+        Di.approvePembelianPresenter.getListPembelian(tfIdPembelian.getText());
+
+
+        clearTable();
+
+        for (PembelianModel pembelian : Di.approvePembelianPresenter.listPembelian) {
+            String[] row = {
+                    String.valueOf(pembelian.getIdPembelian()),
+                    pembelian.getWarehouse(),
+                    pembelian.getTanggalOrder().toString(),
+                    Formatter.formatRupiah(pembelian.getTotalBiaya()),
+                    pembelian.getStatus()
+            };
+            tablePembelianModel.addRow(row);
+        }
+    }
+
+    private void setupTablePembelian() {
+        tDataPembelian.setModel(tablePembelianModel);
+        tDataPembelian.setRowSorter(tablemPembelianSorter);
+        tablePembelianModel.addColumn("idPembelian");
+        tablePembelianModel.addColumn("Warehouse");
+        tablePembelianModel.addColumn("TanggalPembelian");
+        tablePembelianModel.addColumn("TotalBiaya");
+        tablePembelianModel.addColumn("Status");
+
+        tDataPembelian.getTableHeader().setReorderingAllowed(false);
+        tablemPembelianSorter.setSortable(0, false);
+        tablemPembelianSorter.setSortable(1, false);
+        tablemPembelianSorter.setSortable(2, false);
+        tablemPembelianSorter.setSortable(3, false);
+        tablemPembelianSorter.setSortable(4, false);
+    }
+
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -33,16 +126,16 @@ public class MenuApprovePembelian extends javax.swing.JPanel {
         bCariIdPembelian = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        cbEditStatusPembelian = new javax.swing.JComboBox<>();
         tfIdPembelian = new javax.swing.JTextField();
         tfEntriesDataPembelian = new javax.swing.JTextField();
         bEntriesDataPembelian = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        cbApprove = new javax.swing.JComboBox<>();
+        cbActionPembelian = new javax.swing.JComboBox<>();
         bSimpan = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         tfTanggalPembelian = new javax.swing.JTextField();
+        tfTotalBiaya = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -76,16 +169,10 @@ public class MenuApprovePembelian extends javax.swing.JPanel {
         bCariIdPembelian.setText("Cari");
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel4.setText("idPembelian:");
+        jLabel4.setText("Cari Pembelian");
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel5.setText("Edit Status:");
-
-        cbEditStatusPembelian.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbEditStatusPembelianActionPerformed(evt);
-            }
-        });
+        jLabel5.setText("Total Biaya");
 
         tfEntriesDataPembelian.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -100,13 +187,17 @@ public class MenuApprovePembelian extends javax.swing.JPanel {
         jLabel7.setText("MENU > APPROVE PEMBELIAN");
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel8.setText("Approve:");
+        jLabel8.setText("Aksi");
 
         bSimpan.setBackground(new java.awt.Color(153, 255, 153));
         bSimpan.setText("Simpan");
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel6.setText("TanggalPembelian:");
+
+        tfTanggalPembelian.setEnabled(false);
+
+        tfTotalBiaya.setEnabled(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -137,12 +228,11 @@ public class MenuApprovePembelian extends javax.swing.JPanel {
                                     .addComponent(jLabel5)
                                     .addComponent(jLabel6))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(cbEditStatusPembelian, 0, 119, Short.MAX_VALUE)
-                                        .addComponent(cbApprove, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(bSimpan))
-                                    .addComponent(tfTanggalPembelian, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(cbActionPembelian, 0, 119, Short.MAX_VALUE)
+                                    .addComponent(bSimpan)
+                                    .addComponent(tfTanggalPembelian)
+                                    .addComponent(tfTotalBiaya))
                                 .addGap(137, 137, 137)
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -179,11 +269,11 @@ public class MenuApprovePembelian extends javax.swing.JPanel {
                             .addComponent(tfTanggalPembelian, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(8, 8, 8)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cbEditStatusPembelian, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5))
+                            .addComponent(jLabel5)
+                            .addComponent(tfTotalBiaya, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cbApprove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbActionPembelian, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8))
                 .addGap(18, 18, 18)
                 .addComponent(bSimpan)
@@ -195,17 +285,12 @@ public class MenuApprovePembelian extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_tfEntriesDataPembelianActionPerformed
 
-    private void cbEditStatusPembelianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbEditStatusPembelianActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbEditStatusPembelianActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bCariIdPembelian;
     private javax.swing.JButton bEntriesDataPembelian;
     private javax.swing.JButton bSimpan;
-    private javax.swing.JComboBox<String> cbApprove;
-    private javax.swing.JComboBox<String> cbEditStatusPembelian;
+    private javax.swing.JComboBox<String> cbActionPembelian;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -218,5 +303,6 @@ public class MenuApprovePembelian extends javax.swing.JPanel {
     private javax.swing.JTextField tfEntriesDataPembelian;
     private javax.swing.JTextField tfIdPembelian;
     private javax.swing.JTextField tfTanggalPembelian;
+    private javax.swing.JTextField tfTotalBiaya;
     // End of variables declaration//GEN-END:variables
 }

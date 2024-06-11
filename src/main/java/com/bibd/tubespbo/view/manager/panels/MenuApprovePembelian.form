@@ -50,13 +50,11 @@
                                   <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="cbEditStatusPembelian" pref="119" max="32767" attributes="0"/>
-                                      <Component id="cbApprove" max="32767" attributes="0"/>
-                                      <Component id="bSimpan" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Component id="tfTanggalPembelian" min="-2" pref="56" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="cbActionPembelian" pref="119" max="32767" attributes="0"/>
+                                  <Component id="bSimpan" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="tfTanggalPembelian" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="tfTotalBiaya" alignment="0" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="137" max="-2" attributes="0"/>
                               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
@@ -105,14 +103,14 @@
                       </Group>
                       <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="cbEditStatusPembelian" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="tfTotalBiaya" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="cbApprove" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="cbActionPembelian" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -206,7 +204,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="14" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="idPembelian:"/>
+        <Property name="text" type="java.lang.String" value="Cari Pembelian"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel5">
@@ -214,21 +212,8 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="14" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Edit Status:"/>
+        <Property name="text" type="java.lang.String" value="Total Biaya"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JComboBox" name="cbEditStatusPembelian">
-      <Properties>
-        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="0"/>
-        </Property>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbEditStatusPembelianActionPerformed"/>
-      </Events>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-      </AuxValues>
     </Component>
     <Component class="javax.swing.JTextField" name="tfIdPembelian">
     </Component>
@@ -258,10 +243,10 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="14" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Approve:"/>
+        <Property name="text" type="java.lang.String" value="Aksi"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JComboBox" name="cbApprove">
+    <Component class="javax.swing.JComboBox" name="cbActionPembelian">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="0"/>
@@ -288,6 +273,14 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="tfTanggalPembelian">
+      <Properties>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="tfTotalBiaya">
+      <Properties>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>
