@@ -49,7 +49,6 @@ public class MenuCreatePembelian extends javax.swing.JPanel {
         jTable1 = new javax.swing.JTable();
         b_Simpan = new javax.swing.JButton();
         b_Batal = new javax.swing.JButton();
-        jPanelGradient1 = new com.bibd.tubespbo.view.manager.jPanelGradient();
         tf_CreateTanggalPembelian = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
@@ -129,32 +128,18 @@ public class MenuCreatePembelian extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        b_Simpan.setBackground(new java.awt.Color(153, 255, 255));
+        b_Simpan.setBackground(new java.awt.Color(153, 255, 153));
         b_Simpan.setText("Simpan");
 
-        b_Batal.setBackground(new java.awt.Color(153, 255, 255));
+        b_Batal.setBackground(new java.awt.Color(255, 102, 102));
         b_Batal.setText("Batal");
-
-        jPanelGradient1.setColorEnd(new java.awt.Color(0, 204, 204));
-        jPanelGradient1.setColorStart(new java.awt.Color(204, 255, 204));
-
-        javax.swing.GroupLayout jPanelGradient1Layout = new javax.swing.GroupLayout(jPanelGradient1);
-        jPanelGradient1.setLayout(jPanelGradient1Layout);
-        jPanelGradient1Layout.setHorizontalGroup(
-            jPanelGradient1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 18, Short.MAX_VALUE)
-        );
-        jPanelGradient1Layout.setVerticalGroup(
-            jPanelGradient1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
 
         jLabel11.setText("IdPembelian:");
 
         bCariIDPembelian.setBackground(new java.awt.Color(153, 255, 255));
         bCariIDPembelian.setText("Cari");
 
-        bHapusIdPembelian.setBackground(new java.awt.Color(153, 255, 255));
+        bHapusIdPembelian.setBackground(new java.awt.Color(255, 255, 153));
         bHapusIdPembelian.setText("Hapus");
         bHapusIdPembelian.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -180,8 +165,7 @@ public class MenuCreatePembelian extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanelGradient1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(73, 73, 73)
+                        .addGap(91, 91, 91)
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(49, 49, 49)
@@ -314,7 +298,6 @@ public class MenuCreatePembelian extends javax.swing.JPanel {
                             .addComponent(ShowDataPembelian, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel12))
                         .addGap(92, 92, 92))))
-            .addComponent(jPanelGradient1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -352,7 +335,6 @@ public class MenuCreatePembelian extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private com.bibd.tubespbo.view.manager.jPanelGradient jPanelGradient1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
