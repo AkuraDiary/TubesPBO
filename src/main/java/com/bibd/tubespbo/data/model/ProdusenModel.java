@@ -20,6 +20,13 @@ public class ProdusenModel {
         this.status = status;
     }
 
+    @Override
+    public String toString() {
+        return nama;
+    }
+    
+    
+
     public ProdusenModel() {
     }
 

@@ -19,8 +19,11 @@ public class CategoryModel {
 
     public CategoryModel() {
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return namaCategory;
+    }
 
     public int getIdCategory() {
         return idCategory;

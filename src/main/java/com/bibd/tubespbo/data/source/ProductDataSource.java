@@ -223,7 +223,9 @@ public class ProductDataSource {
         }
     }
 
-    public int updateDataProduct(int idProduct, String productName, int quantityInStock, long buyPrice, long sellPrice, int categoryId, int produsenId, String description) {
+    public int updateDataProduct(int idProduct, String productName,
+//                                 int quantityInStock,
+                                 long buyPrice, long sellPrice, int categoryId, int produsenId, String description) {
 
         try {
             db.openConnection();
