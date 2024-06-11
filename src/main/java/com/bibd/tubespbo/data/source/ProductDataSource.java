@@ -37,16 +37,16 @@ public class ProductDataSource {
                     + "FROM product p\n"
                     + "JOIN category c on p.categoryId = c.idCategory\n"
                     + "JOIN produsen prod on prod.idProdusen = p.produsenId\n"
-                    + "JOIN productstock ps on ps.productId = p.idProduct\n"
-                    + "JOIN warehouse w on ps.idWarehouse = w.id\n";
+                    + "LEFT JOIN productstock ps on ps.productId = p.idProduct\n"
+                    + "LEFT JOIN warehouse w on ps.idWarehouse = w.id\n";
 
             ResultSet rs = db.getData(query);
 
             // TODO to edit 
             while (rs.next()) {
                 // Parsing the data
-
-                int productId = rs.getInt("productId");
+                
+                int productId = rs.getInt("idProduct");
                 String productName = rs.getString("productName");
                 String description = rs.getString("description");
                 int buyPrice = rs.getInt("buyPrice");

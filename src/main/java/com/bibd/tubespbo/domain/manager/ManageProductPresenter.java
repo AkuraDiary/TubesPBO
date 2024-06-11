@@ -33,15 +33,16 @@ public class ManageProductPresenter {
     public ArrayList<ProdusenModel> listProdusen = new ArrayList<>();
     public ArrayList<CategoryModel> listCategory = new ArrayList<>();
 
-    public ManageProductPresenter(ProductRepository productRepository) {
+    public ManageProductPresenter(ProductRepository productRepository, ProdusenRepository produsenRepository) {
         this.productRepository = productRepository;
+        this.produsenRepository = produsenRepository;
     }
 
     public void showAllProduct(String filterSearch) {
         listProduct = productRepository.getAllProduct();
         if(!filterSearch.isBlank()){
             this.listProduct = (ArrayList<ProductModel>) this.listProduct.stream()
-                    .filter(emp -> emp.getProductName().contains(filterSearch)
+                    .filter(emp -> emp.getProductName().toLowerCase().contains(filterSearch)
                     )
                     .collect(Collectors.toList());
         }
