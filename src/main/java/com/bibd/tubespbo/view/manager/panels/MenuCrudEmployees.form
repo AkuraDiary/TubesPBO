@@ -42,23 +42,27 @@
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="tfNoHpEmployees" min="-2" pref="183" max="-2" attributes="0"/>
                           <Component id="tfNamaEmployees" min="-2" pref="246" max="-2" attributes="0"/>
-                          <Component id="tfEmailEmployees" alignment="0" min="-2" pref="65" max="-2" attributes="0"/>
-                          <Component id="tfRoleEmployees" alignment="0" min="-2" pref="185" max="-2" attributes="0"/>
                           <Component id="cbStatusEmploees" alignment="0" min="-2" pref="115" max="-2" attributes="0"/>
-                          <Component id="cbWarehouse" alignment="0" min="-2" pref="231" max="-2" attributes="0"/>
                           <Component id="tfIDEmployees" alignment="0" min="-2" pref="112" max="-2" attributes="0"/>
+                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="cbEmpRole" alignment="0" max="32767" attributes="0"/>
+                              <Component id="cbWarehouse" alignment="0" pref="231" max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="tfEmailEmployees" alignment="0" max="32767" attributes="0"/>
+                              <Component id="tfNoHpEmployees" alignment="0" pref="183" max="32767" attributes="0"/>
+                          </Group>
                       </Group>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
-                      <Component id="bNew" min="-2" max="-2" attributes="0"/>
+                      <Component id="bNewEmployee" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
                       <Component id="bUpdateDataEmployees" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
-                      <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnResetField" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="81" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -159,8 +163,8 @@
                       </Group>
                       <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="tfRoleEmployees" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel6" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+                          <Component id="cbEmpRole" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -180,10 +184,10 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="bUpdateDataEmployees" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="bNew" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="bNewEmployee" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnResetField" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace pref="88" max="32767" attributes="0"/>
@@ -245,11 +249,6 @@
     <Component class="javax.swing.JTextField" name="tfNamaEmployees">
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tfNamaEmployeesActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JTextField" name="tfRoleEmployees">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tfRoleEmployeesActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="tfNoHpEmployees">
@@ -334,6 +333,9 @@
               <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tViewdataemployeesMouseClicked"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -359,7 +361,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bDeleteDataEmployeesActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="bNew">
+    <Component class="javax.swing.JButton" name="bNewEmployee">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="cc" green="cc" red="cc" type="rgb"/>
@@ -367,7 +369,7 @@
         <Property name="text" type="java.lang.String" value="Add"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bNewActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bNewEmployeeActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="bSearchEmployees">
@@ -443,10 +445,13 @@
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;WarehouseModel&gt;"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="btnResetField">
       <Properties>
         <Property name="text" type="java.lang.String" value="Clear"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnResetFieldActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
@@ -455,6 +460,16 @@
         </Property>
         <Property name="text" type="java.lang.String" value="MENU &gt; CRUD OPERATION"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="cbEmpRole">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="0"/>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
     </Component>
   </SubComponents>
 </Form>
