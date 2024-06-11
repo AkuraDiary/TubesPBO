@@ -65,7 +65,7 @@ public class ProductRepository {
             return productDataSource.updateDataProduct(
                     pm.getIdProduct(),
                     pm.getProductName(),
-                    pm.getQuantityInStock(),
+//                    pm.getQuantityInStock(),
                     pm.getBuyPrice(),
                     pm.getSellPrice(),
                     pm.getCategoryId(),

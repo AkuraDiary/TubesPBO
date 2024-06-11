@@ -108,7 +108,7 @@ public class Di {
         
         approvePembelianPresenter = new ApprovePembelianPresenter(Di.pembelianRepository);
         manageEmployeePresenter = new ManageEmployeePresenter(Di.employeeRepository);
-        manageProductPresenter = new ManageProductPresenter(Di.productRepository);
+        manageProductPresenter = new ManageProductPresenter(Di.productRepository, Di.produsenRepository);
         
         manageCustomerPresenter = new ManageCustomerPresenter(customerRepository);
         manageStockPresenter = new ManageStockPresenter(Di.productRepository);

@@ -10,6 +10,7 @@ import com.bibd.tubespbo.data.model.ProdusenModel;
 import com.bibd.tubespbo.data.repository.ProductRepository;
 import com.bibd.tubespbo.data.repository.ProdusenRepository;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -28,19 +29,26 @@ public class ManageProductPresenter {
     ProductRepository productRepository;
     ProdusenRepository produsenRepository;
 
-    ArrayList<ProductModel> listProduct = new ArrayList<>();
-    ArrayList<ProdusenModel> listProdusen = new ArrayList<>();
-    ArrayList<CategoryModel> listCategory = new ArrayList<>();
+    public ArrayList<ProductModel> listProduct = new ArrayList<>();
+    public ArrayList<ProdusenModel> listProdusen = new ArrayList<>();
+    public ArrayList<CategoryModel> listCategory = new ArrayList<>();
 
-    public ManageProductPresenter(ProductRepository productRepository) {
+    public ManageProductPresenter(ProductRepository productRepository, ProdusenRepository produsenRepository) {
         this.productRepository = productRepository;
+        this.produsenRepository = produsenRepository;
     }
 
-    public void showAllProduct() {
+    public void showAllProduct(String filterSearch) {
         listProduct = productRepository.getAllProduct();
+        if(!filterSearch.isBlank()){
+            this.listProduct = (ArrayList<ProductModel>) this.listProduct.stream()
+                    .filter(emp -> emp.getProductName().contains(filterSearch)
+                    )
+                    .collect(Collectors.toList());
+        }
     }
 
-    int result = 0;
+    public int resultUpdateProduct = 0;
 
 //    public void updateStockProduct(int idProduct, int jumlah, int idEmployee) {
 //          int jumlahedit =0;
@@ -56,7 +64,13 @@ public class ManageProductPresenter {
 //    }
 
     public void resetResult() {
-        result = 0;
+        resultUpdateProduct = 0;
+        stateAddProduct=0;
+    }
+
+    public ProductModel selectedProduct;
+    public void resetSelectedProduct(){
+        selectedProduct= null;
     }
 
     public void showAllProdusen() {
@@ -78,7 +92,18 @@ public class ManageProductPresenter {
 
     }
 
+    public void setSelectedProduct(int productId) {
+        selectedProduct = listProduct.stream()
+                .filter(item -> item.getIdProduct() == productId)
+                .findFirst()
+                .orElse(null);
+    }
+    public int stateAddProduct = 0;
     public void addNewProduct(ProductModel pm) {
-        productRepository.addProduct(pm);
+     stateAddProduct =  productRepository.addProduct(pm);
+    }
+
+    public void updateDataProduct(){
+        productRepository.editDataProduct(selectedProduct);
     }
 }

@@ -45,14 +45,16 @@ public class ProductDataSource {
             // TODO to edit 
             while (rs.next()) {
                 // Parsing the data
-
-                int productId = rs.getInt("productId");
+                
+                int productId = rs.getInt("idProduct");
                 String productName = rs.getString("productName");
                 String description = rs.getString("description");
                 int buyPrice = rs.getInt("buyPrice");
                 int sellPrice = rs.getInt("sellPrice");
                 int categoryId = rs.getInt("categoryId");
                 int produsenId = rs.getInt("produsenId");
+                
+                System.out.println("Nama Product : "+productName);
                 
                 String categoryName = rs.getString("category");
                 String produsenName = rs.getString("name");
@@ -245,7 +247,9 @@ public class ProductDataSource {
         }
     }
 
-    public int updateDataProduct(int idProduct, String productName, int quantityInStock, long buyPrice, long sellPrice, int categoryId, int produsenId, String description) {
+    public int updateDataProduct(int idProduct, String productName,
+//                                 int quantityInStock,
+                                 long buyPrice, long sellPrice, int categoryId, int produsenId, String description) {
 
         try {
             db.openConnection();
