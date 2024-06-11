@@ -79,7 +79,6 @@ public class MenuCrudCustomer extends javax.swing.JPanel {
         tfNamaCustomer = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         tfNoHpCustomer = new javax.swing.JTextField();
-        tfAlamatCustomer = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         tfEmailCustomer = new javax.swing.JTextField();
@@ -93,6 +92,8 @@ public class MenuCrudCustomer extends javax.swing.JPanel {
         btnUpdateCust = new javax.swing.JButton();
         jLabel15 = new javax.swing.JLabel();
         bBersihkan = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        taAlamatcustomer = new javax.swing.JTextArea();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -184,6 +185,10 @@ public class MenuCrudCustomer extends javax.swing.JPanel {
             }
         });
 
+        taAlamatcustomer.setColumns(20);
+        taAlamatcustomer.setRows(5);
+        jScrollPane2.setViewportView(taAlamatcustomer);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -198,44 +203,48 @@ public class MenuCrudCustomer extends javax.swing.JPanel {
                                     .addComponent(jLabel2)
                                     .addComponent(jLabel3)
                                     .addComponent(jLabel4)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel6))
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel5))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(tfIdCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(tfAlamatCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(tfEmailCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(tfNamaCustomer, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(tfNoHpCustomer, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE))
-                                    .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                         .addComponent(bTambahDataCustomer)
-                                        .addGap(39, 39, 39)
-                                        .addComponent(btnUpdateCust)))
-                                .addGap(78, 78, 78))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(btnUpdateCust)
+                                        .addGap(73, 73, 73))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(tfIdCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                .addComponent(tfEmailCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                    .addComponent(tfNamaCustomer, javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(tfNoHpCustomer, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)))
+                                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(28, 28, 28))))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addContainerGap()
+                                .addGap(164, 164, 164)
                                 .addComponent(bBersihkan)
-                                .addGap(131, 131, 131)))
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 526, Short.MAX_VALUE))
+                                .addGap(133, 133, 133)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 546, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(81, 81, 81)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 481, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(153, 153, 153))
-                            .addGroup(layout.createSequentialGroup()
+                                .addGap(432, 432, 432)
                                 .addComponent(jLabel7)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(tfIdCustomerSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                                .addComponent(tfIdCustomerSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 549, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(119, 119, 119)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel15)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(bCariIdCustomer)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(bHapusDataCustomer)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 33, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -269,19 +278,19 @@ public class MenuCrudCustomer extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
                             .addComponent(tfNoHpCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(tfEmailCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(tfAlamatCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
-                            .addComponent(tfEmailCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(32, 32, 32)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5))
+                        .addGap(27, 27, 27)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(bTambahDataCustomer)
-                            .addComponent(btnUpdateCust))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(btnUpdateCust)
+                            .addComponent(bTambahDataCustomer))
+                        .addGap(18, 18, 18)
                         .addComponent(bBersihkan)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
@@ -302,7 +311,7 @@ public class MenuCrudCustomer extends javax.swing.JPanel {
         String nama = tfNamaCustomer.getText();
         String email = tfEmailCustomer.getText();
         String noHp = tfNoHpCustomer.getText();
-        String alamst = tfAlamatCustomer.getText();
+        String alamst = taAlamatcustomer.getText();
 
 
         if(!formIsValid()){
@@ -358,7 +367,7 @@ public class MenuCrudCustomer extends javax.swing.JPanel {
         tfNamaCustomer.setText(selectedCustomer.getNama());
         tfEmailCustomer.setText(selectedCustomer.getEmail());
         tfNoHpCustomer.setText(selectedCustomer.getNoHp());
-        tfAlamatCustomer.setText(selectedCustomer.getAlamat());
+        taAlamatcustomer.setText(selectedCustomer.getAlamat());
         
         bTambahDataCustomer.setEnabled(false);
         btnUpdateCust.setEnabled(true);
@@ -371,7 +380,7 @@ public class MenuCrudCustomer extends javax.swing.JPanel {
         String nama = tfNamaCustomer.getText();
         String email = tfEmailCustomer.getText();
         String noHp = tfNoHpCustomer.getText();
-        String alamst = tfAlamatCustomer.getText();
+        String alamst = taAlamatcustomer.getText();
 
         if (!formIsValid()) {
             return;
@@ -415,7 +424,7 @@ public class MenuCrudCustomer extends javax.swing.JPanel {
             return valid;
         }
 
-        if (tfAlamatCustomer.getText().isBlank()) {
+        if (taAlamatcustomer.getText().isBlank()) {
             JOptionPane.showMessageDialog(null, "Alamat Tidak Boleh kosong !");
             return valid;
         }
@@ -434,7 +443,7 @@ public class MenuCrudCustomer extends javax.swing.JPanel {
         tfIdCustomer.setText("");
         tfNamaCustomer.setText("");
         tfNoHpCustomer.setText("");
-        tfAlamatCustomer.setText("");
+        taAlamatcustomer.setText("");
         tfEmailCustomer.setText("");
         bTambahDataCustomer.setEnabled(true);
         btnUpdateCust.setEnabled(false);
@@ -455,8 +464,9 @@ public class MenuCrudCustomer extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextArea taAlamatcustomer;
     private javax.swing.JTable tblCustomer;
-    private javax.swing.JTextField tfAlamatCustomer;
     private javax.swing.JTextField tfEmailCustomer;
     private javax.swing.JTextField tfIdCustomer;
     private javax.swing.JTextField tfIdCustomerSearch;
