@@ -56,7 +56,7 @@
                                       <Component id="cbApprove" max="32767" attributes="0"/>
                                       <Component id="bSimpan" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <Component id="tfTanggalPembelian" min="-2" max="-2" attributes="0"/>
+                                  <Component id="tfTanggalPembelian" min="-2" pref="56" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="137" max="-2" attributes="0"/>
                               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>

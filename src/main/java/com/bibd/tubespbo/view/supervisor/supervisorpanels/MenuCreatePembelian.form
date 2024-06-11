@@ -94,7 +94,6 @@
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
@@ -105,17 +104,9 @@
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="bHapusIdPembelian" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="280" max="-2" attributes="0"/>
-                              <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="ShowDataPembelian" min="-2" pref="58" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="bEntriesDataPembelian" min="-2" max="-2" attributes="0"/>
-                          </Group>
                           <Component id="jScrollPane1" alignment="0" min="-2" pref="527" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="68" pref="27" max="32767" attributes="0"/>
+                      <EmptySpace min="68" pref="45" max="32767" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -191,13 +182,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jScrollPane1" max="32767" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="bEntriesDataPembelian" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
-                          <Component id="ShowDataPembelian" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="92" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="132" max="-2" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -435,24 +420,6 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bHapusIdPembelianActionPerformed"/>
       </Events>
-    </Component>
-    <Component class="javax.swing.JLabel" name="jLabel12">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Show"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="ShowDataPembelian">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ShowDataPembelianActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="bEntriesDataPembelian">
-      <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="ff" green="ff" red="99" type="rgb"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Entries"/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="bBersihkan">
       <Properties>
