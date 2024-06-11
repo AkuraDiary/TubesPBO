@@ -4,6 +4,10 @@
  */
 package com.bibd.tubespbo.view.manager.panels;
 
+import com.bibd.tubespbo.Di;
+import com.bibd.tubespbo.data.model.WarehouseModel;
+import com.bibd.tubespbo.util.Statics;
+
 /**
  *
  * @author HP VICTUS
@@ -15,6 +19,9 @@ public class MenuCrudEmployees extends javax.swing.JPanel {
      */
     public MenuCrudEmployees() {
         initComponents();
+        
+        setupStatusEmployee();
+        setupWarehouse();
     }
 
     /**
@@ -40,7 +47,6 @@ public class MenuCrudEmployees extends javax.swing.JPanel {
         tfPasswordEmployees = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        tfIDWarehouse = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tViewdataemployees = new javax.swing.JTable();
         jPanelGradient1 = new com.bibd.tubespbo.view.manager.jPanelGradient();
@@ -66,6 +72,7 @@ public class MenuCrudEmployees extends javax.swing.JPanel {
         tfIDWarehouseUpdate = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
+        cbWarehouse = new javax.swing.JComboBox<>();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -118,16 +125,10 @@ public class MenuCrudEmployees extends javax.swing.JPanel {
         });
 
         jLabel8.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        jLabel8.setText("IDWarehouse           :");
+        jLabel8.setText("Warehouse");
 
         jLabel9.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel9.setText("Password          :");
-
-        tfIDWarehouse.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfIDWarehouseActionPerformed(evt);
-            }
-        });
 
         tViewdataemployees.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -305,10 +306,6 @@ public class MenuCrudEmployees extends javax.swing.JPanel {
                                         .addGap(18, 18, 18)
                                         .addComponent(tfNoHpEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel8)
-                                        .addGap(17, 17, 17)
-                                        .addComponent(tfIDWarehouse, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
                                         .addGap(38, 38, 38)
                                         .addComponent(jLabel7)
                                         .addGap(18, 18, 18)
@@ -318,13 +315,6 @@ public class MenuCrudEmployees extends javax.swing.JPanel {
                                         .addComponent(jLabel11)
                                         .addGap(18, 18, 18)
                                         .addComponent(tfIDEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(28, 28, 28)
-                                        .addComponent(jLabel9)
-                                        .addGap(17, 17, 17)
-                                        .addComponent(tfPasswordEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(bNew))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(27, 27, 27)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -353,7 +343,20 @@ public class MenuCrudEmployees extends javax.swing.JPanel {
                                             .addComponent(jLabel6)
                                             .addGap(17, 17, 17)
                                             .addComponent(tfRoleEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(137, 137, 137)))))
+                                            .addGap(137, 137, 137)))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(cbWarehouse, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                                .addGap(28, 28, 28)
+                                                .addComponent(jLabel9)
+                                                .addGap(17, 17, 17)
+                                                .addComponent(tfPasswordEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(bNew))))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(116, 116, 116)
                                 .addComponent(jLabel17)))
@@ -429,12 +432,10 @@ public class MenuCrudEmployees extends javax.swing.JPanel {
                             .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cbStatusEmploees, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(12, 12, 12)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(4, 4, 4)
-                                .addComponent(tfIDWarehouse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(6, 6, 6)
+                            .addComponent(cbWarehouse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(8, 8, 8)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
@@ -466,6 +467,24 @@ public class MenuCrudEmployees extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    private void setupStatusEmployee(){
+        cbStatusEmploees.removeAllItems();
+        cbStatusEmploees.addItem(Statics.EMPLOYEE_STATUS_AKTIF);
+        cbStatusEmploees.addItem(Statics.EMPLOYEE_STATUS_NONAKTIF);
+    }
+    
+    private void setupTableEMployee(){
+        
+    }
+    private void setupWarehouse(){
+        Di.manageEmployeePresenter.getDataWarehouse();
+        cbWarehouse.removeAllItems();
+        for (WarehouseModel item :Di.manageEmployeePresenter.listWarehouse){
+            cbWarehouse.addItem(item);
+        }
+    }
+    
     private void tfNamaEmployeesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfNamaEmployeesActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfNamaEmployeesActionPerformed
@@ -485,10 +504,6 @@ public class MenuCrudEmployees extends javax.swing.JPanel {
     private void tfPasswordEmployeesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfPasswordEmployeesActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfPasswordEmployeesActionPerformed
-
-    private void tfIDWarehouseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfIDWarehouseActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfIDWarehouseActionPerformed
 
     private void bDeleteDataEmployeesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bDeleteDataEmployeesActionPerformed
         // TODO add your handling code here:
@@ -535,6 +550,7 @@ public class MenuCrudEmployees extends javax.swing.JPanel {
     private javax.swing.JButton bUpdateDataEmployees;
     private javax.swing.JComboBox<String> cbStatusEmploees;
     private javax.swing.JComboBox<String> cbStatusUpdateEmployees;
+    private javax.swing.JComboBox<WarehouseModel> cbWarehouse;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -561,7 +577,6 @@ public class MenuCrudEmployees extends javax.swing.JPanel {
     private javax.swing.JTextField tfIDEmployees;
     private javax.swing.JTextField tfIDEmployeesSearch;
     private javax.swing.JTextField tfIDEmployeesUpdate;
-    private javax.swing.JTextField tfIDWarehouse;
     private javax.swing.JTextField tfIDWarehouseUpdate;
     private javax.swing.JTextField tfNamaEmployees;
     private javax.swing.JTextField tfNoHpEmployees;

@@ -98,7 +98,7 @@ public class Di {
         loginRepository = new LoginRepository(Di.loginDataSource, Di.warehouseDataSource);
         customerRepository = new CustomerRepository(Di.customerDataSource);
         pembelianRepository = new PembelianRepository(Di.pembelianDataSource);
-        employeeRepository = new EmployeeRepository(Di.employeesDataSource);
+        employeeRepository = new EmployeeRepository(Di.employeesDataSource, Di.warehouseDataSource);
         productRepository = new ProductRepository(Di.productDataSource, Di.produsenDataSource);
         penjualanRepository = new PenjualanRepository(Di.penjualanDataSource);
         produsenRepository = new ProdusenRepository(Di.produsenDataSource);

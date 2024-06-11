@@ -13,6 +13,12 @@ public class WarehouseModel {
     String address, postalCode;
     CityModel city;
 
+    @Override
+    public String toString() {
+     return address;
+    }
+
+    
     public CityModel getCity() {
         return city;
     }

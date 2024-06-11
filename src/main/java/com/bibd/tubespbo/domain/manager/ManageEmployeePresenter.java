@@ -5,6 +5,7 @@
 package com.bibd.tubespbo.domain.manager;
 
 import com.bibd.tubespbo.data.model.EmployeeModel;
+import com.bibd.tubespbo.data.model.WarehouseModel;
 import com.bibd.tubespbo.data.repository.EmployeeRepository;
 import java.util.ArrayList;
 
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 public class ManageEmployeePresenter {
 
     EmployeeRepository employeeRepository;
+    
 
     public ManageEmployeePresenter(EmployeeRepository employeeRepository) {
         this.employeeRepository = employeeRepository;
@@ -25,6 +27,12 @@ public class ManageEmployeePresenter {
     public void getAllEmplyoees() {
         this.listEmployee = employeeRepository.getEmployeeAsManager();
     }
+    
+    public ArrayList<WarehouseModel> listWarehouse = new ArrayList<>();
+    public void getDataWarehouse(){
+        listWarehouse = employeeRepository.getAllWarehouse();
+    }
+    
 
     EmployeeModel selectedDataEmployee;
 
