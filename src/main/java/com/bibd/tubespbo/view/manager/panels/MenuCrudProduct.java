@@ -49,9 +49,6 @@ public class MenuCrudProduct extends javax.swing.JPanel {
         tfidProductsearch = new javax.swing.JTextField();
         bEntriesDataPembelian = new javax.swing.JButton();
         bDeleteProduct = new javax.swing.JButton();
-        jLabel11 = new javax.swing.JLabel();
-        tfEntriesProductData = new javax.swing.JTextField();
-        bEntriesDataProduct = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         bUpdate = new javax.swing.JButton();
         bBersihkan = new javax.swing.JButton();
@@ -128,18 +125,6 @@ public class MenuCrudProduct extends javax.swing.JPanel {
         bDeleteProduct.setBackground(new java.awt.Color(255, 255, 153));
         bDeleteProduct.setText("Delete");
 
-        jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel11.setText("Show");
-
-        tfEntriesProductData.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfEntriesProductDataActionPerformed(evt);
-            }
-        });
-
-        bEntriesDataProduct.setBackground(new java.awt.Color(204, 204, 255));
-        bEntriesDataProduct.setText("Entries");
-
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel1.setText("MENU > CRUD Product");
@@ -206,19 +191,10 @@ public class MenuCrudProduct extends javax.swing.JPanel {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(139, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel11)
-                        .addGap(18, 18, 18)
-                        .addComponent(tfEntriesProductData, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(bEntriesDataProduct)
-                        .addGap(211, 211, 211))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(47, 47, 47)
-                        .addComponent(jLabel1)
-                        .addGap(215, 215, 215))))
+                .addComponent(jLabel2)
+                .addGap(47, 47, 47)
+                .addComponent(jLabel1)
+                .addGap(215, 215, 215))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -273,12 +249,7 @@ public class MenuCrudProduct extends javax.swing.JPanel {
                     .addComponent(bDeleteProduct))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bEntriesDataProduct)
-                    .addComponent(tfEntriesProductData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel11))
-                .addGap(26, 26, 26))
+                .addGap(61, 61, 61))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -294,10 +265,6 @@ public class MenuCrudProduct extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_bCreateProductActionPerformed
 
-    private void tfEntriesProductDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfEntriesProductDataActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfEntriesProductDataActionPerformed
-
     private void bUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bUpdateActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_bUpdateActionPerformed
@@ -308,11 +275,9 @@ public class MenuCrudProduct extends javax.swing.JPanel {
     private javax.swing.JButton bCreateProduct;
     private javax.swing.JButton bDeleteProduct;
     private javax.swing.JButton bEntriesDataPembelian;
-    private javax.swing.JButton bEntriesDataProduct;
     private javax.swing.JButton bUpdate;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -325,7 +290,6 @@ public class MenuCrudProduct extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTable tViewdataproduct;
-    private javax.swing.JTextField tfEntriesProductData;
     private javax.swing.JTextField tfHargabeli;
     private javax.swing.JTextField tfHargajual;
     private javax.swing.JTextField tfIdProduct;
