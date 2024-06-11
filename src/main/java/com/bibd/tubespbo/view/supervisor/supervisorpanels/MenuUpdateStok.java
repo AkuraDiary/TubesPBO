@@ -5,7 +5,6 @@
 package com.bibd.tubespbo.view.supervisor.supervisorpanels;
 
 import com.bibd.tubespbo.Di;
-import com.bibd.tubespbo.data.model.CustomerModel;
 import com.bibd.tubespbo.data.model.ProductModel;
 import com.bibd.tubespbo.data.model.ProductStockModel;
 
@@ -41,6 +40,15 @@ public class MenuUpdateStok extends javax.swing.JPanel {
         idEmployee = Di.authPresenter.loggedInUser().getId();
         setupTableStock();;
         populateTableStock();
+        populateCbProduct();
+    }
+
+    private void populateCbProduct() {
+        Di.manageStockPresenter.showAllProduct();
+        cbProduk.removeAllItems();
+        for (ProductModel pm : Di.manageStockPresenter.listProduct) {
+            cbProduk.addItem(pm);
+        }
     }
 
     private void setupTableStock() {
@@ -95,6 +103,7 @@ public class MenuUpdateStok extends javax.swing.JPanel {
         tfQuantity.setEnabled(true);
 
         Di.manageStockPresenter.resetResult();
+
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -213,6 +222,11 @@ public class MenuUpdateStok extends javax.swing.JPanel {
 
         bTambahStok.setBackground(new java.awt.Color(153, 255, 153));
         bTambahStok.setText("TambahStok");
+        bTambahStok.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bTambahStokActionPerformed(evt);
+            }
+        });
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel10.setText("Quantity:");
@@ -370,13 +384,33 @@ public class MenuUpdateStok extends javax.swing.JPanel {
             int quantity = Integer.parseInt(tfQuantityStok.getText());
             int idStock = Integer.parseInt(tblStockModel.getValueAt(tblProductStock.getSelectedRow(), 0).toString());
             int idProduct = Di.manageStockPresenter.selectedDataStock.getProductId();
-            Di.manageStockPresenter.updateStockProduct(idStock, idProduct, quantity, idEmployee, idWarehouseEmployee);
+            Di.manageStockPresenter.updateStockProduct(idStock, quantity, idEmployee);
             populateTableStock();
             resetFields();
         }catch (NumberFormatException e){
             showMessageDialog(null, "Quantity harus berupa angka");
         }
     }//GEN-LAST:event_bUbahStokActionPerformed
+
+    private void bTambahStokActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bTambahStokActionPerformed
+        int idProduct = cbProduk.getItemAt(cbProduk.getSelectedIndex()).getIdProduct();
+        try {
+            int quantity = Integer.parseInt(tfQuantity.getText());
+            Di.manageStockPresenter.createNewStockProduct(idProduct, quantity, idEmployee, idWarehouseEmployee);
+
+        }catch (NumberFormatException e){
+            showMessageDialog(null, "Quantity harus berupa angka");
+        }
+
+        if(Di.manageStockPresenter.stateAddstock > 0){
+            populateTableStock();
+            resetFields();
+            populateCbProduct();
+        }
+
+        
+        
+    }//GEN-LAST:event_bTambahStokActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -385,7 +419,7 @@ public class MenuUpdateStok extends javax.swing.JPanel {
     private javax.swing.JButton bHapusStok;
     private javax.swing.JButton bTambahStok;
     private javax.swing.JButton bUbahStok;
-    private javax.swing.JComboBox<String> cbProduk;
+    private javax.swing.JComboBox<ProductModel> cbProduk;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;

@@ -97,7 +97,15 @@ public class ProductRepository {
     public ArrayList<ProductStockModel> getStockProduct(int idWarehouse) {
         return productDataSource.getAllStockProduct( idWarehouse);
     }
-    
-    
 
+
+    public int addNewStockProduct(int idProduct, int quantity, int idEmployee, int idWarehouse) {
+        try{
+            return productDataSource.insertProductStock(idProduct, quantity, idEmployee, idWarehouse);
+        }catch (Exception e){
+            System.out.println("Product Repo " + e.getLocalizedMessage());
+            return -1;
+        }
+
+    }
 }

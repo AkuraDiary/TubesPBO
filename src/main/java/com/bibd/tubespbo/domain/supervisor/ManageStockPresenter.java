@@ -16,6 +16,7 @@ import java.util.ArrayList;
 //Rapid D.
 public class ManageStockPresenter {
 
+    public int stateAddstock=0;
     ProductRepository productRepository;
 
     public ArrayList<ProductModel> listProduct = new ArrayList<>();
@@ -27,6 +28,13 @@ public class ManageStockPresenter {
 
     public void showAllProduct() {
         this.listProduct = productRepository.getAllProduct();
+
+        if(!this.listProductStock.isEmpty()){
+            // filter the already shown product
+            this.listProduct = (ArrayList<ProductModel>) this.listProduct.stream()
+                    .filter(emp -> this.listProductStock.stream().noneMatch(stock -> stock.getProductId() == emp.getIdProduct()))
+                    .collect(java.util.stream.Collectors.toList());
+        }
     }
     
     public void showStockProduct( int idWarehouse, String filterSearch){
@@ -43,7 +51,7 @@ public class ManageStockPresenter {
 
     int result = 0;
 
-    public void updateStockProduct(int idStock, int idProduct, int jumlahBaru, int idEmployee, int idWarehouse) {
+    public void updateStockProduct(int idStock, int jumlahBaru, int idEmployee) {
         int jumlahPerubahan = 0;
         for (ProductStockModel productStockModel : listProductStock) {
             if (productStockModel.getId() == idStock) {
@@ -65,5 +73,9 @@ public class ManageStockPresenter {
                 selectedDataStock = listProductStock.get(i);
             }
         }
+    }
+
+    public void createNewStockProduct(int idProduct, int quantity, int idEmployee, int idWarehouse) {
+        stateAddstock = productRepository.addNewStockProduct(idProduct, quantity, idEmployee, idWarehouse);
     }
 }
