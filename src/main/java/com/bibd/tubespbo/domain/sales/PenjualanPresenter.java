@@ -92,12 +92,20 @@ public class PenjualanPresenter {
     }
 
     int statusCheckout = 0; 
+<<<<<<< HEAD
     public void checkOut(int customerId, int employeeId, ArrayList<KeranjangModel> keranjang, String statusPayment,
              String statusShip, int idWarehouse, int idPenjualan) {
         LocalDateTime waktu = LocalDateTime.now();
         String typeOrder = Statics.ORDER_TYPE_PENJUALAN;
         statusCheckout = penjualanRepository.doCheckOut(
                 employeeId, customerId, statusPayment, waktu, typeOrder, keranjang, statusShip, idPenjualan, idWarehouse
+=======
+    public void checkOut(int employeeId, int customerId, String statusPayment, String statusShipment, int idWarehouse) {
+        LocalDateTime waktu = LocalDateTime.now();
+        String typeOrder = Statics.ORDER_TYPE_PENJUALAN;
+        statusCheckout = penjualanRepository.doCheckOut(
+                employeeId, customerId, statusPayment, waktu, typeOrder, keranjang, statusShipment, idWarehouse
+>>>>>>> c2d1a7f2fe1281f9a2e3887f51c1c31528f23318
         );
     }
     public void resetCheckout(){
