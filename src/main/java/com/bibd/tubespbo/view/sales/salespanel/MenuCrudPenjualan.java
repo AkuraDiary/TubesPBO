@@ -39,7 +39,6 @@ public class MenuCrudPenjualan extends javax.swing.JPanel {
         jLabel7 = new javax.swing.JLabel();
         tfAlamat = new javax.swing.JTextField();
         bTambah = new javax.swing.JButton();
-        bHapus = new javax.swing.JButton();
         bUpdate = new javax.swing.JButton();
         bBersihkan = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -86,9 +85,6 @@ public class MenuCrudPenjualan extends javax.swing.JPanel {
 
         bTambah.setBackground(new java.awt.Color(153, 255, 153));
         bTambah.setText("Tambah");
-
-        bHapus.setBackground(new java.awt.Color(255, 255, 153));
-        bHapus.setText("Hapus");
 
         bUpdate.setBackground(new java.awt.Color(153, 255, 255));
         bUpdate.setText("Update");
@@ -189,9 +185,7 @@ public class MenuCrudPenjualan extends javax.swing.JPanel {
                                                 .addGap(18, 18, 18)
                                                 .addComponent(tfIdSales, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(bHapus)
-                            .addComponent(bPilihcustomer))
+                        .addComponent(bPilihcustomer)
                         .addGap(16, 16, 16)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel11)
@@ -262,7 +256,6 @@ public class MenuCrudPenjualan extends javax.swing.JPanel {
                                         .addComponent(jLabel6)
                                         .addGap(11, 11, 11))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                             .addComponent(bUpdate)
                                             .addComponent(bBersihkan))
@@ -270,7 +263,6 @@ public class MenuCrudPenjualan extends javax.swing.JPanel {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel4)
                                     .addComponent(tfTanggalPenjualan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(bHapus)
                                     .addComponent(bTambah))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -302,7 +294,6 @@ public class MenuCrudPenjualan extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bBersihkan;
-    private javax.swing.JButton bHapus;
     private javax.swing.JButton bPilihcustomer;
     private javax.swing.JButton bTambah;
     private javax.swing.JButton bTambahCustomer;

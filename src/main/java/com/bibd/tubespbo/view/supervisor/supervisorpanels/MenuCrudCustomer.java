@@ -88,7 +88,6 @@ public class MenuCrudCustomer extends javax.swing.JPanel {
         tfIdCustomerSearch = new javax.swing.JTextField();
         bCariIdCustomer = new javax.swing.JButton();
         bTambahDataCustomer = new javax.swing.JButton();
-        bHapusDataCustomer = new javax.swing.JButton();
         btnUpdateCust = new javax.swing.JButton();
         jLabel15 = new javax.swing.JLabel();
         bBersihkan = new javax.swing.JButton();
@@ -156,14 +155,6 @@ public class MenuCrudCustomer extends javax.swing.JPanel {
         bTambahDataCustomer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bTambahDataCustomerActionPerformed(evt);
-            }
-        });
-
-        bHapusDataCustomer.setBackground(new java.awt.Color(255, 255, 153));
-        bHapusDataCustomer.setText("Hapus");
-        bHapusDataCustomer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bHapusDataCustomerActionPerformed(evt);
             }
         });
 
@@ -240,10 +231,7 @@ public class MenuCrudCustomer extends javax.swing.JPanel {
                                 .addGap(119, 119, 119)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel15)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(bCariIdCustomer)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(bHapusDataCustomer)))
+                            .addComponent(bCariIdCustomer))
                         .addGap(0, 33, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -260,8 +248,7 @@ public class MenuCrudCustomer extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
                             .addComponent(tfIdCustomerSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(bCariIdCustomer)
-                            .addComponent(bHapusDataCustomer))
+                            .addComponent(bCariIdCustomer))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 429, Short.MAX_VALUE)
                         .addGap(146, 146, 146))
@@ -345,12 +332,6 @@ public class MenuCrudCustomer extends javax.swing.JPanel {
     private void tfIdCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfIdCustomerActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfIdCustomerActionPerformed
-
-    private void bHapusDataCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bHapusDataCustomerActionPerformed
-
-        tfIdCustomerSearch.setText("");        // TODO add your handling code here:
-        populateTableCustomer();
-    }//GEN-LAST:event_bHapusDataCustomerActionPerformed
 
     private void tblCustomerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCustomerMouseClicked
 
@@ -452,7 +433,6 @@ public class MenuCrudCustomer extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bBersihkan;
     private javax.swing.JButton bCariIdCustomer;
-    private javax.swing.JButton bHapusDataCustomer;
     private javax.swing.JButton bTambahDataCustomer;
     private javax.swing.JButton btnUpdateCust;
     private javax.swing.JLabel jLabel1;

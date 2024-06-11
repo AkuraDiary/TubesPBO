@@ -86,8 +86,7 @@
                       <Component id="jTextField1" min="-2" pref="93" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="bCariIDPembelian" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="bHapusIdPembelian" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="90" max="-2" attributes="0"/>
                   </Group>
                   <Component id="jScrollPane1" min="-2" pref="436" max="-2" attributes="0"/>
               </Group>
@@ -107,11 +106,13 @@
               </Group>
               <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabel3" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jLabel7" alignment="1" min="-2" pref="29" max="-2" attributes="0"/>
-                      <Component id="tfTanggalorder" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="tfIdpembelian" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jLabel3" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
+                          <Component id="tfTanggalorder" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="tfIdpembelian" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                   <Component id="bSimpan" min="-2" max="-2" attributes="0"/>
               </Group>
@@ -151,7 +152,6 @@
                           <Component id="jTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel11" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="bCariIDPembelian" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="bHapusIdPembelian" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jScrollPane1" min="-2" pref="210" max="-2" attributes="0"/>
@@ -298,17 +298,6 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Cari"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JButton" name="bHapusIdPembelian">
-      <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="99" green="ff" red="ff" type="rgb"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Hapus"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bHapusIdPembelianActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="bBersihkan">
       <Properties>
