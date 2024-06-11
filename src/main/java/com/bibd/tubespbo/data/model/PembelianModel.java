@@ -28,14 +28,6 @@ public class PembelianModel {
         this.idorder = idorder;
     }
 
-    public int getEmployeeid() {
-        return Employeeid;
-    }
-
-    public void setEmployeeid(int Employeeid) {
-        this.Employeeid = Employeeid;
-    }
-
     public Date getTanggalOrder() {
         return tanggalOrder;
     }
