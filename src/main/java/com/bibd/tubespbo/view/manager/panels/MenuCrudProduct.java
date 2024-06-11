@@ -300,7 +300,7 @@ public class MenuCrudProduct extends javax.swing.JPanel {
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel8))
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(bCreateProduct)
                             .addComponent(bUpdate))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -317,11 +317,80 @@ public class MenuCrudProduct extends javax.swing.JPanel {
     }//GEN-LAST:event_tfNamaActionPerformed
 
     private void bCreateProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCreateProductActionPerformed
-        // TODO add your handling code here:
+        ProductModel pm = new ProductModel();
+
+
+        long hargaBeli = Integer.parseInt(tfHargabeli.getText());
+        long hargaJual = Integer.parseInt(tfHargajual.getText());
+//        int intProduct = Integer.parseInt(tfIdProduct.getText());
+        String namaProduct = tfNama.getText();
+        int stock = Integer.parseInt(tfStok.getText());
+        String productDesc = taProductDesc.getText();
+        int idCategory =((CategoryModel) cbCategory.getSelectedItem()).getIdCategory();
+        int idProdusen = ((ProdusenModel) cbProdusen.getSelectedItem()).getIdProdusen();
+
+        if(!formIsValid()){
+            return;
+        }
+        pm.setProductName(namaProduct);
+        pm.setQuantityInStock(stock);
+        pm.setSellPrice(hargaJual);
+        pm.setBuyPrice(hargaBeli);
+        pm.setDescription(productDesc);
+        pm.setCategoryId(idCategory);
+        pm.setProdusenId(idProdusen);
+
+        Di.manageProductPresenter.addNewProduct(pm);
+
+        int result = Di.manageProductPresenter.stateAddProduct;
+        if (result <= 0) {
+            System.out.println("Error ");
+            return;
+        }
+        JOptionPane.showMessageDialog(null, "Data Berhasil Ditambahkan!");
+        Di.manageProductPresenter.resetResult();
+        resetField();
+        populateTableProduct();
+        
     }//GEN-LAST:event_bCreateProductActionPerformed
 
     private void bUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bUpdateActionPerformed
         // TODO add your handling code here:
+        ProductModel pm = Di.manageProductPresenter.selectedProduct;
+
+
+        long hargaBeli = Integer.parseInt(tfHargabeli.getText());
+        long hargaJual = Integer.parseInt(tfHargajual.getText());
+//        int intProduct = Integer.parseInt(tfIdProduct.getText());
+        String namaProduct = tfNama.getText();
+        int stock = Integer.parseInt(tfStok.getText());
+        String productDesc = taProductDesc.getText();
+        int idCategory =((CategoryModel) cbCategory.getSelectedItem()).getIdCategory();
+        int idProdusen = ((ProdusenModel) cbProdusen.getSelectedItem()).getIdProdusen();
+
+        if(!formIsValid()){
+            return;
+        }
+        pm.setProductName(namaProduct);
+        pm.setQuantityInStock(stock);
+        pm.setSellPrice(hargaJual);
+        pm.setBuyPrice(hargaBeli);
+        pm.setDescription(productDesc);
+        pm.setCategoryId(idCategory);
+        pm.setProdusenId(idProdusen);
+
+        Di.manageProductPresenter.updateDataProduct();
+
+        int result = Di.manageProductPresenter.stateAddProduct;
+        if (result <= 0) {
+            System.out.println("Error ");
+            return;
+        }
+        JOptionPane.showMessageDialog(null, "Data Berhasil Diubah!");
+//        Di.manageProductPresenter.resetResult();
+//        resetField();
+        populateTableProduct();
+
     }//GEN-LAST:event_bUpdateActionPerformed
 
     private void bBersihkanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBersihkanActionPerformed

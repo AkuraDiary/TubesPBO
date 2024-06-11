@@ -54,8 +54,6 @@ public class ProductDataSource {
                 int categoryId = rs.getInt("categoryId");
                 int produsenId = rs.getInt("produsenId");
                 
-                System.out.println("Nama Product : "+productName);
-                
                 String categoryName = rs.getString("category");
                 String produsenName = rs.getString("name");
                 int totalstok = rs.getInt("totalStock");
