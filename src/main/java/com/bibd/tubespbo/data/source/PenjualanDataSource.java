@@ -125,7 +125,8 @@ public class PenjualanDataSource {
         ArrayList<PenjualanModel> pm = new ArrayList<>();
         try {
             db.openConnection();
-            String query = "SELECT  op.idPenjualan, \n"
+            String query = "SELECT \n"
+                    + "    op.idPenjualan, \n"
                     + "    op.shipmentStatus, \n"
                     + "    op.dateShipped, \n"
                     + "    op.orderId, \n"
@@ -138,7 +139,8 @@ public class PenjualanDataSource {
                     + "    c.idCustomer, \n"
                     + "    e.nama AS \"nama_emp\", \n"
                     + "    wh.id AS \"warehouse_id\",\n"
-                    + "    SUM(od.unitPrice * od.quantity) AS \"totalbiaya\"\n"
+                    + "    SUM(od.unitPrice * od.quantity) AS \"totalbiaya\",\n"
+                    + "p.productName,p.sellPrice,od.quantity as \"jumlahOrder\"\n"
                     + "FROM \n"
                     + "    orderpenjualan op\n"
                     + "LEFT JOIN \n"
@@ -151,8 +153,11 @@ public class PenjualanDataSource {
                     + "    orderdetails od ON od.orderId = o.orderId\n"
                     + "LEFT JOIN \n"
                     + "    warehouse wh ON e.idWarehouse = wh.id\n"
-                    + "GROUP BY op.orderId\n"
-                    + "HAVING wh.id = "+idWareHouse;
+                    + "LEFT join product p on p.idProduct = od.idProduct\n"
+                    + "GROUP BY \n"
+                    + "op.idPenjualan\n"
+                    + "HAVING \n"
+                    + "    wh.id =" + idWareHouse;
 
             System.out.println(query);
             ResultSet rs = db.getData(query);
@@ -174,12 +179,20 @@ public class PenjualanDataSource {
                 String customerName = rs.getString("nama_cust");
                 String employeeName = rs.getString("nama_emp");
                 int totalbiaya = rs.getInt("totalbiaya");
+                
+                String productName = rs.getString("productName");
+                long hargaSatuan = rs.getLong("sellPrice");
+                int jumlahOrder = rs.getInt("jumlahOrder");
+
 
                 penjualanModel = new PenjualanModel(idPenjualan, shipmentStatus, dateShipped, orderId,
                         customerId, statusPayment, orderDate, orderType, employeeId);
                 penjualanModel.setCustomerName(customerName);
                 penjualanModel.setEmployeeName(employeeName);
                 penjualanModel.setTotalBiaya(totalbiaya);
+                penjualanModel.setProductName (productName);
+                penjualanModel.setUnitPrice(hargaSatuan);
+                penjualanModel.setQuantity(jumlahOrder);
 
                 pm.add(penjualanModel);
             }

@@ -11,8 +11,15 @@ import java.util.Date;
  * @author rafid
  */
 public class PenjualanModel {
-    private int idPenjualan, idorder;
-    private int customerId, employeeId, totalBiaya;
+
+    private int customerId, employeeId,idPenjualan, idorder;
+    private int  totalBiaya, quantity;
+
+    private long unitPrice;
+    private String shipmentStatus, statusPayment, orderType;
+    private Date tanggalOrder, dateShipped;
+    private ArrayList<OrderDetailsModel> keranjang = new ArrayList<>();
+    private String customerName, employeeName, productName;
 
     public int getTotalBiaya() {
         return totalBiaya;
@@ -29,12 +36,30 @@ public class PenjualanModel {
     public void setEmployeeName(String employeeName) {
         this.employeeName = employeeName;
     }
-    private String shipmentStatus, statusPayment, orderType;
-    private Date tanggalOrder, dateShipped;
-    private ArrayList<OrderDetailsModel> keranjang = new ArrayList<>();
-    private String customerName, employeeName;
-    
-    
+
+    public long getUnitPrice() {
+        return unitPrice;
+    }
+
+    public void setUnitPrice(long unitPrice) {
+        this.unitPrice = unitPrice;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
 
     public PenjualanModel(int idPenjualan1, String shipmentStatus1, Date dateShipped1, int orderId, int customerId1, String statusPayment1, Date orderDate, String orderType1, int employeeId1) {
         this.idPenjualan = idPenjualan1;
@@ -47,7 +72,6 @@ public class PenjualanModel {
         this.orderType = orderType1;
         this.employeeId = employeeId1;
     }
-
 
     public int getIdPenjualan() {
         return idPenjualan;
@@ -128,7 +152,6 @@ public class PenjualanModel {
     public void setKeranjang(ArrayList<OrderDetailsModel> keranjang) {
         this.keranjang = keranjang;
     }
-
 
     public String getCustomerName() {
         return customerName;
