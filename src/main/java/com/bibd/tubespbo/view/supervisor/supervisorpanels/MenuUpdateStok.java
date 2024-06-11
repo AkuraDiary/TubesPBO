@@ -110,17 +110,21 @@ public class MenuUpdateStok extends javax.swing.JPanel {
         taKeteranganUpdateStok.setRows(5);
         jScrollPane2.setViewportView(taKeteranganUpdateStok);
 
-        bTambahItemStok.setBackground(new java.awt.Color(153, 255, 255));
+        bTambahItemStok.setBackground(new java.awt.Color(153, 255, 153));
         bTambahItemStok.setText("TambahItem");
 
-        bUbahStok.setBackground(new java.awt.Color(153, 255, 255));
+        bUbahStok.setBackground(new java.awt.Color(255, 255, 153));
         bUbahStok.setText("Ubah");
 
-        bHapusStok.setBackground(new java.awt.Color(153, 255, 255));
+        bHapusStok.setBackground(new java.awt.Color(102, 255, 204));
         bHapusStok.setText("Hapus");
 
-        jButton1.setBackground(new java.awt.Color(153, 255, 255));
         jButton1.setText("Bersihkan");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         tfCariGudang.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -239,9 +243,9 @@ public class MenuUpdateStok extends javax.swing.JPanel {
                                     .addComponent(bTambahItemStok, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(bUbahStok)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(bHapusStok)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(bHapusStok)
+                                    .addGap(18, 18, 18)
                                     .addComponent(jButton1)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                             .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 486, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -320,6 +324,10 @@ public class MenuUpdateStok extends javax.swing.JPanel {
     private void bCariUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCariUpdateActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_bCariUpdateActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
