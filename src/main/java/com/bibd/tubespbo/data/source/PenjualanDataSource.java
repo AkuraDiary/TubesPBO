@@ -32,7 +32,7 @@ public class PenjualanDataSource {
         ArrayList<OrderDetailsModel> odm = new ArrayList<>();
         try {
             db.openConnection();
-
+            System.out.println("Ayam Penjualan Data Source Open");
             String query = "SELECT od.id, od.unitPrice,od.quantity, od.subTotalPrice, od.idProduct,p.idProduct,p.productName,p.description,p.buyPrice\n"
                     + ",p.sellPrice, p.categoryId,p.produsenId\n"
                     + "FROM orderdetails od \n"
@@ -40,28 +40,28 @@ public class PenjualanDataSource {
                     + "JOIN product p on p.idProduct=od.idProduct\n"
                     + "WHERE o.orderId = " + idorder;
             ResultSet rs = db.getData(query);
+           System.out.println("Ayam Penjualan Data Source getData");
 
-//            OrderDetailsModel orderDetailModel ;
             while (rs.next()) {
 
                 int id = rs.getInt("id");
-                double unitPrice = rs.getDouble("unitPrice");
+                long unitPrice = rs.getLong("unitPrice");
                 int quantity = rs.getInt("quantity");
-                double subTotalPrice = rs.getDouble("subTotalPrice");
+                long subTotalPrice = rs.getLong("subTotalPrice");
                 int idProduct = rs.getInt("idProduct");
                 String productName = rs.getString("productName");
                 String description = rs.getString("description");
-                double buyPrice = rs.getDouble("buyPrice");
-                double sellPrice = rs.getDouble("sellPrice");
+                long buyPrice = rs.getLong("buyPrice");
+                long sellPrice = rs.getLong("sellPrice");
                 int categoryId = rs.getInt("categoryId");
                 int produsenId = rs.getInt("produsenId");
 
-//            OrderDetailsModel orderDetailModel =;
                 OrderDetailsModel orderDetailModel = new OrderDetailsModel(id, unitPrice, quantity, subTotalPrice,
                         idProduct, productName, description, buyPrice, sellPrice, categoryId, produsenId);
                 odm.add(orderDetailModel);
             }
-//            String query = ""
+
+  System.out.println("Ayam Penjualan Data Source Done");
             return odm;
         } catch (Exception e) {
             System.out.println(e.getLocalizedMessage());
@@ -151,9 +151,7 @@ public class PenjualanDataSource {
         } finally {
             db.closeConnection();
         }
-//        return pm;
-//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+  }
 
     public ArrayList<PenjualanModel> getHistoryPenjualanByWarehouse(int idWareHouse) {
         ArrayList<PenjualanModel> pm = new ArrayList<>();
