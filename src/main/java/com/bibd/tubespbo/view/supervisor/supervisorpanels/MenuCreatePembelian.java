@@ -7,12 +7,14 @@ package com.bibd.tubespbo.view.supervisor.supervisorpanels;
 import com.bibd.tubespbo.Di;
 import com.bibd.tubespbo.data.model.CustomerModel;
 import com.bibd.tubespbo.data.model.KeranjangModel;
+import com.bibd.tubespbo.data.model.PembelianModel;
 import com.bibd.tubespbo.data.model.PenjualanModel;
 import com.bibd.tubespbo.data.model.ProductModel;
 import com.bibd.tubespbo.util.Formatter;
 import com.bibd.tubespbo.util.Statics;
 import java.util.ArrayList;
 import java.util.Arrays;
+import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.showMessageDialog;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
@@ -64,11 +66,32 @@ public class MenuCreatePembelian extends javax.swing.JPanel {
         
         idWarehouse = Di.authPresenter.loggedInUser().getIdWarehouse();
         idEmployee = Di.authPresenter.loggedInUser().getId();
-        setupTablePembelian();
+        setupTablepembelian();
         setupTableProduct();
         setupTableKeranjang();
         
+        setupCbStatus();
+        
+        populateTablePembelian();
+        populateTableKeranjang();
+        populateTableProduct();
+        
+       
+        
     }
+    
+    private ArrayList<String> listPembelianstatus = new ArrayList<>(
+            Arrays.asList(
+                    Statics.PEMBELIAN_STATUS_PENDING,
+                    Statics.PEMBELIAN_STATUS_FINNISH
+            )
+    );
+    private void setupCbStatus() {
+        cbStatusUpdate.removeAllItems();
+        for (String payment : listPembelianstatus) {
+            cbStatusUpdate.addItem(payment);
+        }
+}
 
    private void populateTableKeranjang() {
         clearTable(tableKeranjangModel);
@@ -116,7 +139,9 @@ public class MenuCreatePembelian extends javax.swing.JPanel {
    private void setupTablepembelian() {
         tDatapembelian.setModel(tableAllPembelianModel);
         tableAllPembelianModel.addColumn("IdPembelian");
+        tableAllPembelianModel.addColumn("Tanggal");
         tableAllPembelianModel.addColumn("Status");
+        tableAllPembelianModel.addColumn("Total");
         tableAllPembelianModel.addColumn("OrderId");
         tDatapembelian.getTableHeader().setReorderingAllowed(false);
         tDatapembelian.setRowSorter(tablePembelianSorter);
@@ -175,7 +200,7 @@ public class MenuCreatePembelian extends javax.swing.JPanel {
     }
     
     private void resetFields() {
-        cbStatusupdate.setSelectedIndex(0);
+        cbStatusUpdate.setSelectedIndex(0);
     }
     
     long totalKeranjang = 0;
@@ -214,12 +239,12 @@ public class MenuCreatePembelian extends javax.swing.JPanel {
         jScrollPane3 = new javax.swing.JScrollPane();
         tDatapembelian = new javax.swing.JTable();
         jLabel7 = new javax.swing.JLabel();
-        cbStatusupdate = new javax.swing.JComboBox<>();
+        cbStatusUpdate = new javax.swing.JComboBox<>();
         bUpdate = new javax.swing.JButton();
         tfTotalkeranjang = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        tfTanggal = new javax.swing.JTextField();
+        tfTanggalUpdate = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -303,12 +328,22 @@ public class MenuCreatePembelian extends javax.swing.JPanel {
                 "IdPembelian", "Tanggal", "Status", "Total", "OrderId"
             }
         ));
+        tDatapembelian.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tDatapembelianMouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(tDatapembelian);
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel7.setText("Status");
 
         bUpdate.setText("Update");
+        bUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bUpdateActionPerformed(evt);
+            }
+        });
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel8.setText("TotalKeranjang:");
@@ -335,7 +370,7 @@ public class MenuCreatePembelian extends javax.swing.JPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel7)
                                 .addGap(18, 18, 18)
-                                .addComponent(cbStatusupdate, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(cbStatusUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(bUpdate))
                         .addGap(91, 91, 91))
                     .addGroup(layout.createSequentialGroup()
@@ -346,7 +381,7 @@ public class MenuCreatePembelian extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(tfIdpembelian)
-                            .addComponent(tfTanggal, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE))
+                            .addComponent(tfTanggalUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(21, 21, 21)
@@ -386,14 +421,14 @@ public class MenuCreatePembelian extends javax.swing.JPanel {
                         .addGap(142, 142, 142)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
-                            .addComponent(tfTanggal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(tfTanggalUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(tfIdpembelian, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cbStatusupdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbStatusUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel7))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(bUpdate)))
@@ -483,7 +518,69 @@ public class MenuCreatePembelian extends javax.swing.JPanel {
 
     private void bSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSubmitActionPerformed
         // TODO add your handling code here:
+        if(Di.pembelianPresenter.keranjang.isEmpty()){
+            showMessageDialog(null, "Keranjang Kosong");
+            return;
+        }
+        int dialogResult = JOptionPane.showConfirmDialog(null, "Apakah Anda Yakin?", "Warning", JOptionPane.YES_NO_OPTION);
+//        if (dialogResult == JOptionPane.YES_OPTION) {
+            // Saving code here
+            
+
+//            Di.pembelianPresenter.checkOut(
+//                    customerId,
+//                    idEmployee,
+//                    Di.pembelianPresenter.keranjang,
+//                    cbPaymentUpdate.getSelectedItem().toString(),
+//                    Statics.SHIPMENT_STATUS_PENDING,
+//                    idWarehouse
+//            );
+//            if (Di.pembelianPresenter.statusSubmit > 0) {
+//                showMessageDialog(null, "Submit Berhasil !");
+//                Di.penjualanPresenter.resetCheckout();
+//                Di.penjualanPresenter.resetClearKeranjang();
+//                populateTablePembelian();
+//                populateTableProduct();
+//                populateTableKeranjang();
+//                resetFields();
+//                return;
+//            }
+//            showMessageDialog(null, "Terjadi Error");
+//        }                                      
     }//GEN-LAST:event_bSubmitActionPerformed
+
+    private void tDatapembelianMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tDatapembelianMouseClicked
+        // TODO add your handling code here:
+        int row = tDatapembelian.getSelectedRow();
+        int idPembelian = Integer.parseInt(tDatapembelian.getValueAt(row, 0).toString());
+        Di.pembelianPresenter.setSelectedPembelian(idPembelian);
+
+        PembelianModel pm = Di.pembelianPresenter.selectedPembelian;
+//        tfTanggalUpdate.setText(pm.getTanggal());
+        
+//        tfCustPenjualanUpdate.setText(pm.getCustomerName());
+//        tfIdPenjualan.setText(String.valueOf(pm.getIdPenjualan()));
+//        tfTotalPenjualanUpdate.setText(Formatter.formatRupiah(pm.getTotalBiaya()));
+//        cbPaymentUpdate.setSelectedItem(pm.getStatusPayment());
+    }//GEN-LAST:event_tDatapembelianMouseClicked
+
+    private void bUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bUpdateActionPerformed
+        // TODO add your handling code here:
+        Di.pembelianPresenter.updateStatusPembelian(
+                Integer.parseInt(tfIdpembelian.getText()),
+                cbStatusUpdate.getSelectedItem().toString()
+        );
+
+        if(Di.pembelianPresenter.statusUpdatePembelian > 0){
+            showMessageDialog(null, "Update Berhasil !");
+            populateTablePembelian();
+            Di.penjualanPresenter.resetUpdatePayment();
+            populateTableKeranjang();
+            resetFields();
+            return;
+        }
+        showMessageDialog(null, "Terjadi Error");
+    }//GEN-LAST:event_bUpdateActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -491,7 +588,7 @@ public class MenuCreatePembelian extends javax.swing.JPanel {
     private javax.swing.JButton bUpdate;
     private javax.swing.JButton btnAddToKeranjang;
     private javax.swing.JButton btnRemoveFromKeranjang;
-    private javax.swing.JComboBox<String> cbStatusupdate;
+    private javax.swing.JComboBox<String> cbStatusUpdate;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -507,23 +604,7 @@ public class MenuCreatePembelian extends javax.swing.JPanel {
     private javax.swing.JTable tblKeranjang;
     private javax.swing.JTextField tfIdpembelian;
     private javax.swing.JTextField tfQtyItem;
-    private javax.swing.JTextField tfTanggal;
+    private javax.swing.JTextField tfTanggalUpdate;
     private javax.swing.JTextField tfTotalkeranjang;
     // End of variables declaration//GEN-END:variables
-
-    private void setupTableProduct() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    private void setupTableKeranjang() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    private void setupTablePembelian() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    private void clearTable(DefaultTableModel tableKeranjangModel) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 }
