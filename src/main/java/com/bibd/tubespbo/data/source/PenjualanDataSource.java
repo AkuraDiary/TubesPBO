@@ -267,7 +267,7 @@ public class PenjualanDataSource {
         if (getIdOrder > 0) {
             String query = "INSERT INTO orderdetails \n"
                     + "(unitPrice, quantity, subTotalPrice, idProduct, orderId) \n"
-                    + "VALUES (" + itemkeranjang.getProduk().getBuyPrice() + ", " + itemkeranjang.getQuantity() + ", \n"
+                    + "VALUES (" + itemkeranjang.getProduk().getSellPrice() + ", " + itemkeranjang.getQuantity() + ", \n"
                     + totaPrice + ", " + itemkeranjang.getProduk().getIdProduct() + "," + getIdOrder + ")";
             return db.executeStatement(query);
         }

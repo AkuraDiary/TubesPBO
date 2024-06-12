@@ -11,7 +11,7 @@ import com.bibd.tubespbo.data.repository.PenjualanRepository;
 import com.bibd.tubespbo.data.repository.ProductRepository;
 import com.bibd.tubespbo.util.Parser;
 import com.bibd.tubespbo.util.Statics;
-import java.time.LocalDateTime;
+
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -88,28 +88,28 @@ public class PenjualanPresenter {
 
     }
 
-    public void editQuantity(int idproduk, int quantity) {
-//        boolean cek = true;
-//        int idx = 0 ;
-        for (int i = 0; i < keranjang.size(); i++) {
-            if (keranjang.get(i).getProduk().getIdProduct() == idproduk) {
-                int jumlahSekarang = keranjang.get(i).getQuantity();
-                int jumlahupdate = jumlahSekarang += quantity;
-                if (jumlahupdate == 0) {
-                    keranjang.remove(i);
-//                cek = false ;
-//                idx=i;
-                } else {
-                    keranjang.get(i).setQuantity(jumlahupdate);
-                }
-
-            }
-        }
-//        if (cek = false){
-//            keranjang.remove(idx);
+//    public void editQuantity(int idproduk, int quantity) {
+////        boolean cek = true;
+////        int idx = 0 ;
+//        for (int i = 0; i < keranjang.size(); i++) {
+//            if (keranjang.get(i).getProduk().getIdProduct() == idproduk) {
+//                int jumlahSekarang = keranjang.get(i).getQuantity();
+//                int jumlahupdate = jumlahSekarang += quantity;
+//                if (jumlahupdate == 0) {
+//                    keranjang.remove(i);
+////                cek = false ;
+////                idx=i;
+//                } else {
+//                    keranjang.get(i).setQuantity(jumlahupdate);
+//                }
+//
+//            }
 //        }
-
-    }
+////        if (cek = false){
+////            keranjang.remove(idx);
+////        }
+//
+//    }
 
     public void showProduk() {
         this.allproduct = productRepository.getAllProduct();
@@ -166,4 +166,30 @@ public class PenjualanPresenter {
         keranjangModel = null;
     }
 
+    public int statusUpdatePayment=0;
+    public PenjualanModel selectedPenjualan;
+    public void setSelectedPenjualan(int idPenjualan) {
+        PenjualanModel penjualanModel = history.stream()
+                .filter(item -> item.getIdPenjualan() == idPenjualan)
+                .findFirst()
+                .orElse(null);
+        if (penjualanModel != null) {
+            this.selectedPenjualan = penjualanModel;
+        }
+    }
+
+    public void updatePayment(int idPenjualan, String statusPayment){
+        // if status is paid, set status shipment to shipped
+        String statusShipment = Statics.SHIPMENT_STATUS_PENDING;
+        if (statusPayment.equals(Statics.ORDER_PAYMENT_STATUS_PAID)) {
+                statusShipment = Statics.SHIPMENT_STATUS_SHIPPED;
+        }
+        statusUpdatePayment = penjualanRepository.updateStatusShipmentPayment(idPenjualan, statusShipment, statusPayment);
+
+    }
+
+    public void resetUpdatePayment(){
+        statusUpdatePayment=0;
+        selectedPenjualan=null;
+    }
 }
