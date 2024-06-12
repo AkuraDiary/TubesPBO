@@ -40,6 +40,7 @@ public class SalesDashboard extends javax.swing.JFrame {
         pn1 = new javax.swing.JPanel();
         pnCrudpenjualan = new javax.swing.JPanel();
         btnCrudpenjualan = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         pnKanan = new javax.swing.JPanel();
         jPanelGradient1 = new com.bibd.tubespbo.view.manager.jPanelGradient();
         bLogout = new javax.swing.JButton();
@@ -112,6 +113,10 @@ public class SalesDashboard extends javax.swing.JFrame {
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
+        jLabel4.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(153, 153, 153));
+        jLabel4.setText("MENU:");
+
         javax.swing.GroupLayout pnKiriLayout = new javax.swing.GroupLayout(pnKiri);
         pnKiri.setLayout(pnKiriLayout);
         pnKiriLayout.setHorizontalGroup(
@@ -124,9 +129,11 @@ public class SalesDashboard extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel2))
                     .addGroup(pnKiriLayout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addComponent(pn1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(49, Short.MAX_VALUE))
+                        .addGap(23, 23, 23)
+                        .addGroup(pnKiriLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(pn1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
         pnKiriLayout.setVerticalGroup(
             pnKiriLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -138,9 +145,11 @@ public class SalesDashboard extends javax.swing.JFrame {
                     .addGroup(pnKiriLayout.createSequentialGroup()
                         .addGap(19, 19, 19)
                         .addComponent(jLabel1)))
-                .addGap(41, 41, 41)
+                .addGap(29, 29, 29)
+                .addComponent(jLabel4)
+                .addGap(27, 27, 27)
                 .addComponent(pn1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(615, Short.MAX_VALUE))
+                .addContainerGap(581, Short.MAX_VALUE))
         );
 
         getContentPane().add(pnKiri, java.awt.BorderLayout.LINE_START);
@@ -274,6 +283,7 @@ public class SalesDashboard extends javax.swing.JFrame {
     private javax.swing.JLabel btnCrudpenjualan;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private com.bibd.tubespbo.view.manager.jPanelGradient jPanelGradient1;
     private javax.swing.JPanel pn1;
