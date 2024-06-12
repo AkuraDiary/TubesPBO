@@ -31,8 +31,27 @@ public class PembelianDataSource {
     }
 
     public int updateStatusPembelian(int idPembelian, String status) {
-        // TODO
-        return -1;
+        try {
+            db.openConnection();
+
+            // Query untuk mengupdate status pembelian
+            String query = "UPDATE orderpembelian SET status = '" + status + "' WHERE idPembelian = " + idPembelian;
+
+            // Eksekusi query
+            db.executeStatement(query);
+
+            //Jika semua berjalan lancar tanpa pengecualian, metode akan mengembalikan nilai 1 yang fungsinya berhasil dipakai
+            return 1;
+
+            //ika terjadi pengecualian selama eksekusi kode dalam blok try, blok catch akan menangkap pengecualian tersebut.
+// Pesan kesalahan akan dicetak ke output dengan menggunakan System.out.print(), dan mengembalikan nilai -1 untuk menunjukkan bahwa operasi gagal.
+        } catch (Exception e) {
+            System.out.print("erorr update status pembelian: " + e.getLocalizedMessage());
+            return -1;
+
+        } finally {
+            db.closeConnection();
+        }
     }
 
     public ArrayList<PembelianModel> getAllPembelian(int idWarehouse) {
@@ -41,23 +60,23 @@ public class PembelianDataSource {
             db.openConnection();
             String query = "";
             if (idWarehouse == Statics.GET_ALL_PEMBELIAN) {
-                query = "SELECT \n" +
-                        "orderpembelian.idPembelian, employees.idEmployee, orderpembelian.status, orders.orderDate, warehouse.address, orders.orderType, warehouse.id, orders.orderId , SUM(orderdetails.unitPrice * orderdetails.quantity) AS \"totalbiaya\"\n" +
-                        "\n" +
-                        "FROM orderpembelian JOIN orders ON orders.orderId = orderpembelian.idPembelian \n" +
-                        "JOIN employees ON employees.idEmployee = orders.employeeId\n" +
-                        "JOIN warehouse ON warehouse.id = employees.idWarehouse\n" +
-                        "JOIN orderdetails ON orderdetails.orderId = orders.orderId\n" +
-                        "GROUP BY orders.orderId\n" + " ";
+                query = "SELECT \n"
+                        + "orderpembelian.idPembelian, employees.idEmployee, orderpembelian.status, orders.orderDate, warehouse.address, orders.orderType, warehouse.id, orders.orderId , SUM(orderdetails.unitPrice * orderdetails.quantity) AS \"totalbiaya\"\n"
+                        + "\n"
+                        + "FROM orderpembelian JOIN orders ON orders.orderId = orderpembelian.idPembelian \n"
+                        + "JOIN employees ON employees.idEmployee = orders.employeeId\n"
+                        + "JOIN warehouse ON warehouse.id = employees.idWarehouse\n"
+                        + "JOIN orderdetails ON orderdetails.orderId = orders.orderId\n"
+                        + "GROUP BY orders.orderId\n" + " ";
             } else {
-                query = "SELECT \n" +
-                        "orderpembelian.idPembelian, employees.idEmployee, orderpembelian.status, orders.orderDate, warehouse.address, orders.orderType, warehouse.id, orders.orderId , SUM(orderdetails.unitPrice * orderdetails.quantity) AS \"totalbiaya\"\n" +
-                        "\n" +
-                        "FROM orderpembelian JOIN orders ON orders.orderId = orderpembelian.idPembelian \n" +
-                        "JOIN employees ON employees.idEmployee = orders.employeeId\n" +
-                        "JOIN warehouse ON warehouse.id = employees.idWarehouse\n" +
-                        "JOIN orderdetails ON orderdetails.orderId = orders.orderId\n" +
-                        "GROUP BY orders.orderId\n" + " HAVING warehouse.id = " + idWarehouse;
+                query = "SELECT \n"
+                        + "orderpembelian.idPembelian, employees.idEmployee, orderpembelian.status, orders.orderDate, warehouse.address, orders.orderType, warehouse.id, orders.orderId , SUM(orderdetails.unitPrice * orderdetails.quantity) AS \"totalbiaya\"\n"
+                        + "\n"
+                        + "FROM orderpembelian JOIN orders ON orders.orderId = orderpembelian.idPembelian \n"
+                        + "JOIN employees ON employees.idEmployee = orders.employeeId\n"
+                        + "JOIN warehouse ON warehouse.id = employees.idWarehouse\n"
+                        + "JOIN orderdetails ON orderdetails.orderId = orders.orderId\n"
+                        + "GROUP BY orders.orderId\n" + " HAVING warehouse.id = " + idWarehouse;
             }
             ResultSet rs = db.getData(query);
 
@@ -72,7 +91,7 @@ public class PembelianDataSource {
                 Date tanggalorder = rs.getDate("orderDate");
 
                 String warehouse = rs.getString("address");
-                long totalbiaya =(long) rs.getInt("totalbiaya");
+                long totalbiaya = (long) rs.getInt("totalbiaya");
                 int warehouseId = rs.getInt("id");
 
                 PembelianModel pm = new PembelianModel();
@@ -83,13 +102,10 @@ public class PembelianDataSource {
                 pm.setTanggalOrder(tanggalorder);
                 pm.setTypeOrder(typeorder);
 
-
-
                 pm.setWarehouse(warehouse);
                 pm.setWarehouseId(warehouseId);
                 pm.setTotalBiaya(totalbiaya);
                 BeliModel.add(pm);
-         
 
             }
             return BeliModel;
@@ -102,8 +118,6 @@ public class PembelianDataSource {
             db.closeConnection();
         }
     }
-
-
 
     public int submitPembelian(int employeeId, String orderType, LocalDateTime waktu, String statusOrder, ArrayList<KeranjangModel> keranjang) {
         //   throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -129,8 +143,8 @@ public class PembelianDataSource {
 //            }
 //
 //            queryOrderPembelian(statusOrder, orderId);
-                db.openConnection();
-             //Eksekusi INSERT ke Tabel orders:
+            db.openConnection();
+            //Eksekusi INSERT ke Tabel orders:
             String query = "INSERT INTO orders (employeeid, orderType, orderDate) VALUES ("
                     + employeeId + ", '" + orderType + "', '" + waktu + "')";
             db.executeStatement(query);
@@ -140,7 +154,7 @@ public class PembelianDataSource {
                 orderId = rs.getInt("last_id");
                 //Menambahkan Status ke Tabel orderpembelian:
                 String sql = "INSERT INTO orderpembelian (status) VALUES '" + statusOrder + "' WHERE orderId = '" + orderId + "' ";
-                 db.executeStatement(sql);
+                db.executeStatement(sql);
             }
 //           Setiap item dalam keranjang diproses dan dimasukkan ke dalam tabel detail pesanan melalui fungsi queryOrderDetails(km).
             for (KeranjangModel km : keranjang) {
@@ -160,73 +174,70 @@ public class PembelianDataSource {
 
 //
     public ArrayList<OrderDetailsModel> getDetailPembelian(int idorder) {
-    ArrayList<OrderDetailsModel> odm = new ArrayList<>();
-    try {
-        db.openConnection();
+        ArrayList<OrderDetailsModel> odm = new ArrayList<>();
+        try {
+            db.openConnection();
 
-        String query = "SELECT od.id, od.unitPrice, od.quantity, od.subTotalPrice, od.idProduct, " +
-                       "p.idProduct, p.productName, p.description, p.buyPrice, p.sellPrice, " +
-                       "p.categoryId, p.produsenId " +
-                       "FROM orderdetails od " +
-                       "JOIN orders o ON o.orderId = od.orderId " +
-                       "JOIN product p ON p.idProduct = od.idProduct " +
-                       "WHERE o.orderId = " + idorder;
-        
-        ResultSet rs = db.getData(query);
+            String query = "SELECT od.id, od.unitPrice, od.quantity, od.subTotalPrice, od.idProduct, "
+                    + "p.idProduct, p.productName, p.description, p.buyPrice, p.sellPrice, "
+                    + "p.categoryId, p.produsenId "
+                    + "FROM orderdetails od "
+                    + "JOIN orders o ON o.orderId = od.orderId "
+                    + "JOIN product p ON p.idProduct = od.idProduct "
+                    + "WHERE o.orderId = " + idorder;
 
-        while (rs.next()) {
-            int id = rs.getInt("id");
-            long unitPrice = rs.getLong("unitPrice");
-            int quantity = rs.getInt("quantity");
-            long subTotalPrice = rs.getLong("subTotalPrice");
-            int idProduct = rs.getInt("idProduct");
-            String productName = rs.getString("productName");
-            String description = rs.getString("description");
-            long buyPrice = rs.getLong("buyPrice");
-            long sellPrice = rs.getLong("sellPrice");
-            int categoryId = rs.getInt("categoryId");
-            int produsenId = rs.getInt("produsenId");
+            ResultSet rs = db.getData(query);
 
-            // Membuat objek OrderDetailsModel dengan data yang diambil dari ResultSet
-            OrderDetailsModel orderDetailModel = new OrderDetailsModel(id, unitPrice, quantity, subTotalPrice,
-                    idProduct, productName, description, buyPrice, sellPrice, categoryId, produsenId);
-            odm.add(orderDetailModel);
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                long unitPrice = rs.getLong("unitPrice");
+                int quantity = rs.getInt("quantity");
+                long subTotalPrice = rs.getLong("subTotalPrice");
+                int idProduct = rs.getInt("idProduct");
+                String productName = rs.getString("productName");
+                String description = rs.getString("description");
+                long buyPrice = rs.getLong("buyPrice");
+                long sellPrice = rs.getLong("sellPrice");
+                int categoryId = rs.getInt("categoryId");
+                int produsenId = rs.getInt("produsenId");
+
+                // Membuat objek OrderDetailsModel dengan data yang diambil dari ResultSet
+                OrderDetailsModel orderDetailModel = new OrderDetailsModel(id, unitPrice, quantity, subTotalPrice,
+                        idProduct, productName, description, buyPrice, sellPrice, categoryId, produsenId);
+                odm.add(orderDetailModel);
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getLocalizedMessage());
+        } finally {
+            db.closeConnection();
         }
-
-    } catch (Exception e) {
-        System.out.println(e.getLocalizedMessage());
-    } finally {
-        db.closeConnection();
+        return odm;
     }
-    return odm;
-}
 
-
-
-            // Tutup koneksi
-            
+    // Tutup koneksi
     private int queryOrderDetails(KeranjangModel itemkeranjang) throws SQLException {
         String querygetIdOrder = "SELECT o.orderId\n"
                 + "FROM orders o\n"
                 + "ORDER BY o.orderDate DESC\n"
                 + "LIMIT 1 ";
-        ResultSet rs = db.getData(querygetIdOrder);
+        ResultSet rs = db.getData(querygetIdOrder); //result set digunakan untuk menyimpan query dari getIdOrder
 
-        int getIdOrder = -1;
-        while (rs.next()) {
-            getIdOrder = rs.getInt("orderId");
+        int getIdOrder = -1; //membuat get order nilainya menjadi default
+        while (rs.next()) {  // while (rs.next()) memastikan bahwa jika ada hasil, nilai orderId akan diambil dan disimpan dalam variabel getIdOrder.
+            getIdOrder = rs.getInt("orderId"); //jika rs orderId mengembalikan hasil maka akan mngembalikan ke IdOrder
         }
-
+        //item keranjang mengambil produk lalu mengalikan sellprice dengan quantiti yang ada didalam item keranjang
         long totaPrice = itemkeranjang.getProduk().getSellPrice() * itemkeranjang.getQuantity();
 
-        if (getIdOrder > 0) {
+        if (getIdOrder > 0) { //jik get order lebih dari 0 maka artinya valid
             String query = "INSERT INTO orderdetails \n"
                     + "(unitPrice, quantity, subTotalPrice, idProduct, orderId) \n"
                     + "VALUES (" + itemkeranjang.getProduk().getBuyPrice() + ", " + itemkeranjang.getQuantity() + ", \n"
                     + totaPrice + ", " + itemkeranjang.getProduk().getIdProduct() + "," + getIdOrder + ")";
-            return db.executeStatement(query);
+            return db.executeStatement(query); // menggunakan db.excuteStatment unttuk mengeksekusi query
         }
-        return getIdOrder;
+        return getIdOrder; //jika getIdorder kurang dari 0 maka akan mengembalikan nilai getIdorder
     }
 
     private int queryOrderPembelian(String status, int orderId) {
@@ -264,21 +275,21 @@ public class PembelianDataSource {
     }
 
     private int queryStokProduct(int jumlahBeli, LocalDateTime dateLastUpdate, int idProduct, int idWareHouse) {
-        int stoksebelum = 0;
+        int stoksebelum = 0; //menyimpan stok produk sebelum pembaruan makannya dinamakan dengan stok sebelum dan diberi nilai 0
         try {
             String queryGetStok = "SELECT ps.totalStock FROM productstock ps\n"
                     + "WHERE ps.productId= " + idProduct + " AND ps.idWarehouse =" + idWareHouse;
-            ResultSet rs = db.getData(queryGetStok);
+            ResultSet rs = db.getData(queryGetStok); // hasil query akan disimpan di objek Resultset 
 
-            while (rs.next()) {
+            while (rs.next()) { //jika query berhasil maka while akan mengambil nilai total stok dan akan disimpan di stoksebelum
                 stoksebelum = rs.getInt("totalStock");
             }
         } catch (Exception e) {
-            System.out.println(e.getLocalizedMessage());
+            System.out.println(e.getLocalizedMessage()); // Jika terjadi pengecualian selama eksekusi query, pesan kesalahan akan dicetak ke konsol, dan metode akan di kembalikan nilai 0.
             return 0;
         }
 
-        int finishStock = stoksebelum + jumlahBeli;
+        int finishStock = stoksebelum + jumlahBeli; // finish stok akan menambhkan stoksebelum dengan jumlah beli
         String querySubmit = "UPDATE productstock ps\n"
                 + "SET ps.totalStock =" + finishStock + " , ps.lastUpdate =" + dateLastUpdate + "\n"
                 + "WHERE ps.id =" + idProduct + " AND ps.idWarehouse = " + idWareHouse;
