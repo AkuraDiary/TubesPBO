@@ -85,7 +85,7 @@ public class MenuApprovePembelian extends javax.swing.JPanel {
         for (PembelianModel pembelian : Di.approvePembelianPresenter.listPembelian) {
             String[] row = {
                     String.valueOf(pembelian.getIdPembelian()),
-                    pembelian.getWarehouse(),
+                    pembelian.getAddresWarehouse(),
                     pembelian.getTanggalOrder().toString(),
                     Formatter.formatRupiah(pembelian.getTotalBiaya()),
                     pembelian.getStatus()
@@ -327,7 +327,7 @@ public class MenuApprovePembelian extends javax.swing.JPanel {
         );
         PembelianModel selectedPembelian = Di.approvePembelianPresenter.selectedPembelian;
         tfIdPembelian.setText(String.valueOf(selectedPembelian.getIdPembelian()));
-        tfWarehousePembelian.setText(selectedPembelian.getWarehouse());
+        tfWarehousePembelian.setText(selectedPembelian.getAddresWarehouse());
         tfTotalBiaya.setText(Formatter.formatRupiah(selectedPembelian.getTotalBiaya()));
         tfTanggalPembelian.setText(selectedPembelian.getTanggalOrder().toString());
         cbActionPembelian.setSelectedItem(selectedPembelian.getStatus());

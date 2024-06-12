@@ -41,23 +41,29 @@ public class PembelianDataSource {
             db.openConnection();
             String query = "";
             if (idWarehouse == Statics.GET_ALL_PEMBELIAN) {
-                query = "SELECT \n" +
-                        "orderpembelian.idPembelian, employees.idEmployee, orderpembelian.status, orders.orderDate, warehouse.address, orders.orderType, warehouse.id, orders.orderId , SUM(orderdetails.unitPrice * orderdetails.quantity) AS \"totalbiaya\"\n" +
-                        "\n" +
-                        "FROM orderpembelian JOIN orders ON orders.orderId = orderpembelian.idPembelian \n" +
-                        "JOIN employees ON employees.idEmployee = orders.employeeId\n" +
-                        "JOIN warehouse ON warehouse.id = employees.idWarehouse\n" +
-                        "JOIN orderdetails ON orderdetails.orderId = orders.orderId\n" +
-                        "GROUP BY orders.orderId\n" + " ";
+                query = "SELECT \n"
+                        + "orderpembelian.idPembelian, employees.idEmployee, orderpembelian.status, orders.orderDate, warehouse.address, orders.orderType, warehouse.id, orders.orderId , SUM(orderdetails.unitPrice * orderdetails.quantity) AS \"totalbiaya\"\n"
+                        + "\n"
+                        + "FROM orderpembelian JOIN orders ON orders.orderId = orderpembelian.idPembelian \n"
+                        + "JOIN employees ON employees.idEmployee = orders.employeeId\n"
+                        + "JOIN warehouse ON warehouse.id = employees.idWarehouse\n"
+                        + "JOIN orderdetails ON orderdetails.orderId = orders.orderId\n"
+                        + "GROUP BY orders.orderId\n" + " ";
             } else {
-                query = "SELECT \n" +
-                        "orderpembelian.idPembelian, employees.idEmployee, orderpembelian.status, orders.orderDate, warehouse.address, orders.orderType, warehouse.id, orders.orderId , SUM(orderdetails.unitPrice * orderdetails.quantity) AS \"totalbiaya\"\n" +
-                        "\n" +
-                        "FROM orderpembelian JOIN orders ON orders.orderId = orderpembelian.idPembelian \n" +
-                        "JOIN employees ON employees.idEmployee = orders.employeeId\n" +
-                        "JOIN warehouse ON warehouse.id = employees.idWarehouse\n" +
-                        "JOIN orderdetails ON orderdetails.orderId = orders.orderId\n" +
-                        "GROUP BY orders.orderId\n" + " HAVING warehouse.id = " + idWarehouse;
+                query = "SELECT \n"
+                        + "    op.idPembelian, op.status,\n"
+                        + " 	o.orderId, o.orderDate, o.orderType,\n"
+                        + " 	wh.address,\n"
+                        + " 	SUM(od.quantity*od.unitPrice) \"totalbiaya\"\n"
+                        + "FROM \n"
+                        + "    orderpembelian op\n"
+                        + "JOIN orders o on o.orderId = op.orderId\n"
+                        + "JOIN employees e on e.idEmployee = o.employeeId\n"
+                        + "JOIN warehouse wh on wh.id = e.idWarehouse\n"
+                        + "JOIN orderdetails od on od.orderId = o.orderId\n"
+                        + "\n"
+                        + "GROUP by op.idPembelian\n"
+                        + "HAVING wh.id = " + idWarehouse;
             }
             ResultSet rs = db.getData(query);
 
@@ -72,8 +78,9 @@ public class PembelianDataSource {
                 Date tanggalorder = rs.getDate("orderDate");
 
                 String warehouse = rs.getString("address");
-                long totalbiaya =(long) rs.getInt("totalbiaya");
+                long totalbiaya = (long) rs.getInt("totalbiaya");
                 int warehouseId = rs.getInt("id");
+//                String addresWarehouse = rs.getString("address");
 
                 PembelianModel pm = new PembelianModel();
                 pm.setIdPembelian(idPembelian);
@@ -83,13 +90,11 @@ public class PembelianDataSource {
                 pm.setTanggalOrder(tanggalorder);
                 pm.setTypeOrder(typeorder);
 
-
-
-                pm.setWarehouse(warehouse);
+                pm.setAddresWarehouse(warehouse);
+                
                 pm.setWarehouseId(warehouseId);
                 pm.setTotalBiaya(totalbiaya);
                 BeliModel.add(pm);
-         
 
             }
             return BeliModel;
@@ -102,8 +107,6 @@ public class PembelianDataSource {
             db.closeConnection();
         }
     }
-
-
 
     public int submitPembelian(int employeeId, String orderType, LocalDateTime waktu, String statusOrder, ArrayList<KeranjangModel> keranjang) {
         //   throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -129,8 +132,8 @@ public class PembelianDataSource {
 //            }
 //
 //            queryOrderPembelian(statusOrder, orderId);
-                db.openConnection();
-             //Eksekusi INSERT ke Tabel orders:
+            db.openConnection();
+            //Eksekusi INSERT ke Tabel orders:
             String query = "INSERT INTO orders (employeeid, orderType, orderDate) VALUES ("
                     + employeeId + ", '" + orderType + "', '" + waktu + "')";
             db.executeStatement(query);
@@ -140,7 +143,7 @@ public class PembelianDataSource {
                 orderId = rs.getInt("last_id");
                 //Menambahkan Status ke Tabel orderpembelian:
                 String sql = "INSERT INTO orderpembelian (status) VALUES '" + statusOrder + "' WHERE orderId = '" + orderId + "' ";
-                 db.executeStatement(sql);
+                db.executeStatement(sql);
             }
 //           Setiap item dalam keranjang diproses dan dimasukkan ke dalam tabel detail pesanan melalui fungsi queryOrderDetails(km).
             for (KeranjangModel km : keranjang) {
@@ -160,51 +163,48 @@ public class PembelianDataSource {
 
 //
     public ArrayList<OrderDetailsModel> getDetailPembelian(int idorder) {
-    ArrayList<OrderDetailsModel> odm = new ArrayList<>();
-    try {
-        db.openConnection();
+        ArrayList<OrderDetailsModel> odm = new ArrayList<>();
+        try {
+            db.openConnection();
 
-        String query = "SELECT od.id, od.unitPrice, od.quantity, od.subTotalPrice, od.idProduct, " +
-                       "p.idProduct, p.productName, p.description, p.buyPrice, p.sellPrice, " +
-                       "p.categoryId, p.produsenId " +
-                       "FROM orderdetails od " +
-                       "JOIN orders o ON o.orderId = od.orderId " +
-                       "JOIN product p ON p.idProduct = od.idProduct " +
-                       "WHERE o.orderId = " + idorder;
-        
-        ResultSet rs = db.getData(query);
+            String query = "SELECT od.id, od.unitPrice, od.quantity, od.subTotalPrice, od.idProduct, "
+                    + "p.idProduct, p.productName, p.description, p.buyPrice, p.sellPrice, "
+                    + "p.categoryId, p.produsenId "
+                    + "FROM orderdetails od "
+                    + "JOIN orders o ON o.orderId = od.orderId "
+                    + "JOIN product p ON p.idProduct = od.idProduct "
+                    + "WHERE o.orderId = " + idorder;
 
-        while (rs.next()) {
-            int id = rs.getInt("id");
-            long unitPrice = rs.getLong("unitPrice");
-            int quantity = rs.getInt("quantity");
-            long subTotalPrice = rs.getLong("subTotalPrice");
-            int idProduct = rs.getInt("idProduct");
-            String productName = rs.getString("productName");
-            String description = rs.getString("description");
-            long buyPrice = rs.getLong("buyPrice");
-            long sellPrice = rs.getLong("sellPrice");
-            int categoryId = rs.getInt("categoryId");
-            int produsenId = rs.getInt("produsenId");
+            ResultSet rs = db.getData(query);
 
-            // Membuat objek OrderDetailsModel dengan data yang diambil dari ResultSet
-            OrderDetailsModel orderDetailModel = new OrderDetailsModel(id, unitPrice, quantity, subTotalPrice,
-                    idProduct, productName, description, buyPrice, sellPrice, categoryId, produsenId);
-            odm.add(orderDetailModel);
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                long unitPrice = rs.getLong("unitPrice");
+                int quantity = rs.getInt("quantity");
+                long subTotalPrice = rs.getLong("subTotalPrice");
+                int idProduct = rs.getInt("idProduct");
+                String productName = rs.getString("productName");
+                String description = rs.getString("description");
+                long buyPrice = rs.getLong("buyPrice");
+                long sellPrice = rs.getLong("sellPrice");
+                int categoryId = rs.getInt("categoryId");
+                int produsenId = rs.getInt("produsenId");
+
+                // Membuat objek OrderDetailsModel dengan data yang diambil dari ResultSet
+                OrderDetailsModel orderDetailModel = new OrderDetailsModel(id, unitPrice, quantity, subTotalPrice,
+                        idProduct, productName, description, buyPrice, sellPrice, categoryId, produsenId);
+                odm.add(orderDetailModel);
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getLocalizedMessage());
+        } finally {
+            db.closeConnection();
         }
-
-    } catch (Exception e) {
-        System.out.println(e.getLocalizedMessage());
-    } finally {
-        db.closeConnection();
+        return odm;
     }
-    return odm;
-}
 
-
-
-            // Tutup koneksi
-            
+    // Tutup koneksi
     private int queryOrderDetails(KeranjangModel itemkeranjang) throws SQLException {
         String querygetIdOrder = "SELECT o.orderId\n"
                 + "FROM orders o\n"
