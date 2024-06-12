@@ -150,7 +150,7 @@ public class WarehouseDataSource {
                 // Parsing the data
                 int id = rs.getInt("id");
                 String city = rs.getString("city");
-                int idProvince = rs.getInt("idProvince");
+                int idProvince = rs.getInt("idProvinsi");
 
                 // Creating a CityModel object and using setters
                 dataResult.setId(id);
