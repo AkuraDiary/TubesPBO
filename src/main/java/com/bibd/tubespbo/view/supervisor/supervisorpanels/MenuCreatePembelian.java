@@ -126,7 +126,6 @@ public class MenuCreatePembelian extends javax.swing.JPanel {
             
             String[] row = {
                     String.valueOf(pm.getIdPembelian()),
-                    String.valueOf(pm.getIdPembelian()),
                     String.valueOf(pm.getTanggalOrder()), //.getNama()
                     pm.getStatus().toString(),
                     String.valueOf(pm.getTotalBiaya()),
@@ -155,7 +154,7 @@ public class MenuCreatePembelian extends javax.swing.JPanel {
    
    private void populateTableProduct() {
 
-        Di.pembelianPresenter.getAllProductWarehouse(idWarehouse);
+        Di.pembelianPresenter.showAllproduct();
 
         clearTable(tableProductModel);
 

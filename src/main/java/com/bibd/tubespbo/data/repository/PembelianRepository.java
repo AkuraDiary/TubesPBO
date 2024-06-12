@@ -7,6 +7,7 @@ package com.bibd.tubespbo.data.repository;
 import com.bibd.tubespbo.data.model.KeranjangModel;
 import com.bibd.tubespbo.data.model.OrderDetailsModel;
 import com.bibd.tubespbo.data.model.PembelianModel;
+import com.bibd.tubespbo.data.model.ProductModel;
 import com.bibd.tubespbo.data.source.PembelianDataSource;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -45,7 +46,7 @@ public class PembelianRepository {
         }
     }
 
-    public ArrayList<OrderDetailsModel> getAllProduct() {
+    public ArrayList<ProductModel> getAllProduct() {
         return pembelianDataSource.getDetailPantau();
     }
 
