@@ -523,30 +523,29 @@ public class MenuCreatePembelian extends javax.swing.JPanel {
             return;
         }
         int dialogResult = JOptionPane.showConfirmDialog(null, "Apakah Anda Yakin?", "Warning", JOptionPane.YES_NO_OPTION);
-//        if (dialogResult == JOptionPane.YES_OPTION) {
+        if (dialogResult == JOptionPane.YES_OPTION) {
             // Saving code here
-            
 
-//            Di.pembelianPresenter.checkOut(
+            Di.pembelianPresenter.submitPembelian(idEmployee);
 //                    customerId,
-//                    idEmployee,
+//                  idPembelian,
 //                    Di.pembelianPresenter.keranjang,
-//                    cbPaymentUpdate.getSelectedItem().toString(),
+//                    cbStatusUpdate.getSelectedItem().toString(),
 //                    Statics.SHIPMENT_STATUS_PENDING,
 //                    idWarehouse
-//            );
-//            if (Di.pembelianPresenter.statusSubmit > 0) {
-//                showMessageDialog(null, "Submit Berhasil !");
-//                Di.penjualanPresenter.resetCheckout();
-//                Di.penjualanPresenter.resetClearKeranjang();
-//                populateTablePembelian();
-//                populateTableProduct();
-//                populateTableKeranjang();
-//                resetFields();
-//                return;
-//            }
-//            showMessageDialog(null, "Terjadi Error");
-//        }                                      
+//           );
+           if (Di.pembelianPresenter.statusSubmitPembelian > 0) {
+                showMessageDialog(null, "Submit Berhasil !");
+                Di.pembelianPresenter.resetStatusPembelian();
+               Di.pembelianPresenter.resetClearKeranjang();
+                populateTablePembelian();
+                populateTableProduct();
+                populateTableKeranjang();
+               resetFields();
+                return;
+            }
+            showMessageDialog(null, "Terjadi Error");
+        }                                      
     }//GEN-LAST:event_bSubmitActionPerformed
 
     private void tDatapembelianMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tDatapembelianMouseClicked
