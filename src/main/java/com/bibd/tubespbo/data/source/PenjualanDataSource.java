@@ -262,8 +262,13 @@ public class PenjualanDataSource {
 
         if (getIdOrder > 0) {
             String query = "INSERT INTO orderdetails \n"
+<<<<<<< HEAD
+                    + "(unitPrice, quantity, subTotalPrice, idProduct, orderId) \n" 
+                    + "VALUES (" + itemkeranjang.getProduk().getBuyPrice() + ", " + itemkeranjang.getQuantity() + ", \n"
+=======
                     + "(unitPrice, quantity, subTotalPrice, idProduct, orderId) \n"
                     + "VALUES (" + itemkeranjang.getProduk().getSellPrice() + ", " + itemkeranjang.getQuantity() + ", \n"
+>>>>>>> bd13ccae2fbb5b00d9ca6df8bcc2f90d7560b093
                     + totaPrice + ", " + itemkeranjang.getProduk().getIdProduct() + "," + getIdOrder + ")";
             return db.executeStatement(query);
         }
@@ -378,7 +383,7 @@ public class PenjualanDataSource {
             return -1;
         } finally {
             db.closeConnection();
-        }
+        }           
     }
 
 }
