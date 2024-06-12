@@ -108,4 +108,8 @@ public class ProductRepository {
         }
 
     }
+
+    public ArrayList<ProductModel> getAllProductWarehouse(int idWarehouse) {
+          return productDataSource.getAllProductWarehouse(idWarehouse);
+    }
 }

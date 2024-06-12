@@ -309,4 +309,74 @@ public class ProductDataSource {
             db.closeConnection();
         }
     }
+
+    public ArrayList<ProductModel> getAllProductWarehouse(int idWarehouse) {
+
+        try {
+            ArrayList<ProductModel> dataResult = new ArrayList<>();
+            db.openConnection();
+            String query = "SELECT p.idProduct, p.productName, p.description, \n"
+                    + "p.buyPrice, p.sellPrice, p.categoryId, p.produsenId,\n"
+                    + " c.category, prod.name, ps.totalStock, ps.lastUpdate, w.address\n"
+                    + "FROM product p\n"
+                    + "JOIN category c on p.categoryId = c.idCategory\n"
+                    + "JOIN produsen prod on prod.idProdusen = p.produsenId\n"
+                    + "LEFT JOIN productstock ps on ps.productId = p.idProduct\n"
+                    + "LEFT JOIN warehouse w on ps.idWarehouse = w.id\n"
+                    + "WHERE w.id=" + idWarehouse;
+
+            ResultSet rs = db.getData(query);
+
+            // TODO to edit 
+            while (rs.next()) {
+                // Parsing the data
+                
+                int productId = rs.getInt("idProduct");
+                String productName = rs.getString("productName");
+                String description = rs.getString("description");
+                int buyPrice = rs.getInt("buyPrice");
+                int sellPrice = rs.getInt("sellPrice");
+                int categoryId = rs.getInt("categoryId");
+                int produsenId = rs.getInt("produsenId");
+                
+                String categoryName = rs.getString("category");
+                String produsenName = rs.getString("name");
+                int totalstok = rs.getInt("totalStock");
+                Date lastUpdateProduct = rs.getDate("lastUpdate");
+                String warehouseAlamat = rs.getString("address");
+
+                // Creating a ProductModel object
+                ProductModel product = new ProductModel();
+                product.setIdProduct(productId);
+                product.setProductName(productName);
+                product.setDescription(description);
+                product.setBuyPrice((long) buyPrice);
+                product.setSellPrice((long) sellPrice);
+                product.setCategoryId(categoryId);
+                product.setProdusenId(produsenId);
+                
+                //new
+                product.setCategoryName(categoryName);
+                product.setProdusenName(produsenName);
+                product.setQuantityInStock(totalstok);
+                product.setLastUpdate(lastUpdateProduct);
+                product.setWarehouseName(warehouseAlamat);
+                
+                
+
+                // Adding the product to the list
+                dataResult.add(product);
+            }
+
+            return dataResult;
+
+        } catch (Exception e) {
+            System.out.println(e.getLocalizedMessage());
+            return null;
+
+        } finally {
+
+            db.closeConnection();
+        }
+    }
 }

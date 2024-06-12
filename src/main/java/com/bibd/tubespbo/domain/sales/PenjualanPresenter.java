@@ -111,8 +111,8 @@ public class PenjualanPresenter {
 //
 //    }
 
-    public void showProduk() {
-        this.allproduct = productRepository.getAllProduct();
+    public void getAllProductWarehouse(int idWarehouse) {
+        this.allproduct = productRepository.getAllProductWarehouse(idWarehouse);
 
         // filter empty product
         // remove product in allproduct if quantityInStock == 0

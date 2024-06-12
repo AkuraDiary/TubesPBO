@@ -173,7 +173,7 @@ public class MenuCrudPenjualan extends javax.swing.JPanel {
 
     private void populateTableProduct() {
 
-        Di.penjualanPresenter.showProduk();
+        Di.penjualanPresenter.getAllProductWarehouse(idWarehouse);
 
         clearTable(tableProductModel);
 

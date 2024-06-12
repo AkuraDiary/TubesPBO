@@ -264,10 +264,10 @@ public class PenjualanDataSource {
             String query = "INSERT INTO orderdetails \n"
 
                     + "(unitPrice, quantity, subTotalPrice, idProduct, orderId) \n" 
-                    + "VALUES (" + itemkeranjang.getProduk().getBuyPrice() + ", " + itemkeranjang.getQuantity() + ", \n"
-
-                    + "(unitPrice, quantity, subTotalPrice, idProduct, orderId) \n"
                     + "VALUES (" + itemkeranjang.getProduk().getSellPrice() + ", " + itemkeranjang.getQuantity() + ", \n"
+
+//                    + "(unitPrice, quantity, subTotalPrice, idProduct, orderId) \n"
+//                    + "VALUES (" + itemkeranjang.getProduk().getSellPrice() + ", " + itemkeranjang.getQuantity() + ", \n"
 
                     + totaPrice + ", " + itemkeranjang.getProduk().getIdProduct() + "," + getIdOrder + ")";
             return db.executeStatement(query);
@@ -315,11 +315,14 @@ public class PenjualanDataSource {
     private int queryStokProduct(int jumlahBeli, String dateLastUpdate, int idProduct, int idWareHouse) {
 
         int stoksebelum = 0;
+        
         try {
             String queryGetStok = "SELECT ps.totalStock FROM productstock ps\n"
                     + "WHERE ps.productId= " + idProduct + " AND ps.idWarehouse =" + idWareHouse;
             ResultSet rs = db.getData(queryGetStok);
 
+            System.out.println("query get stok");
+            System.out.println(queryGetStok);
             while (rs.next()) {
                 stoksebelum = rs.getInt("totalStock");
             }
@@ -327,18 +330,20 @@ public class PenjualanDataSource {
             System.out.println(e.getLocalizedMessage());
             return 0;
         }
+        
         int finishStock = stoksebelum - jumlahBeli;
         String querySubmit = "UPDATE productstock ps\n"
-                + "SET ps.totalStock =" + finishStock + " , ps.lastUpdate =" + dateLastUpdate + "\n"
-                + "WHERE ps.id =" + idProduct + " AND ps.idWarehouse = " + idWareHouse;
+                + "SET ps.totalStock =" + finishStock + " , ps.lastUpdate ='" + dateLastUpdate + "'\n"
+                + "WHERE ps.productId =" + idProduct + " AND ps.idWarehouse = " + idWareHouse;
+        
+        System.out.println("update stok");
+        System.out.println(querySubmit);
 
         return db.executeStatement(querySubmit);
     }
 
     public int doCheckout(int customerId, int employeeId, ArrayList<KeranjangModel> keranjang, String statusPayment,
                           String typeOrder, String waktu, String statusShip, int idWarehouse) {
-
-
         try {
             db.openConnection();
 //           
@@ -354,7 +359,8 @@ public class PenjualanDataSource {
             for (KeranjangModel i : keranjang) {
                 queryStokProduct(i.getQuantity(), waktu, i.getProduk().getIdProduct(), idWarehouse);
             }
-//            queryStokProduct(keranjang., waktu, employeeId, employeeId);
+          
+//            queryStokProduct(keranjang, waktu, employeeId, employeeId);
 
             return 1;
 //            queryOrderDetails(keranjang);
