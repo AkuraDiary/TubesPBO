@@ -4,28 +4,63 @@
  */
 package com.bibd.tubespbo.data.model;
 
-import java.util.ArrayList;
-import java.util.Date;
-
 /**
  *
  * @author asthiseta
  */
+import java.util.ArrayList;
+import java.util.Date;
+
 public class PembelianModel {
-   private int idPembelian,idorder;
-   private int idSupervisor;
-   private String Status;
-   private ArrayList<OrderDetailsModel> keranjang = new ArrayList<>();
-   private Date tanggalOrder;
-   private String typeOrder;
+    private int idPembelian;
+    private int idOrder;
+    private int idSupervisor;
+    private String status;
+    private ArrayList<OrderDetailsModel> keranjang = new ArrayList<>();
+    private Date tanggalOrder;
+    private String typeOrder;
+    
    
 
-    public int getIdorder() {
-        return idorder;
+    // Getters and Setters
+    public int getIdPembelian() {
+        return idPembelian;
     }
 
-    public void setIdorder(int idorder) {
-        this.idorder = idorder;
+    public void setIdPembelian(int idPembelian) {
+        this.idPembelian = idPembelian;
+    }
+
+    public int getIdOrder() {
+        return idOrder;
+    }
+
+    public void setIdOrder(int idOrder) {
+        this.idOrder = idOrder;
+    }
+
+    public int getIdSupervisor() {
+        return idSupervisor;
+    }
+
+    public void setIdSupervisor(int idSupervisor) {
+        this.idSupervisor = idSupervisor;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public ArrayList<OrderDetailsModel> getKeranjang() {
+        return keranjang;
+    }
+
+    public void setKeranjang(ArrayList<OrderDetailsModel> keranjang) {
+        this.keranjang = keranjang;
     }
 
     public Date getTanggalOrder() {
@@ -43,45 +78,8 @@ public class PembelianModel {
     public void setTypeOrder(String typeOrder) {
         this.typeOrder = typeOrder;
     }
- 
+
+  
+
    
-    public int getIdPembelian() {
-        return idPembelian;
-    }
-
-    public void setIdPembelian(int idPembelian) {
-        this.idPembelian = idPembelian;
-    }
-    
-    public int getIdSupervisor() {
-        return idSupervisor;
-    }
-    
-    public void setIdSupervisor(int idSupervisor) {
-        this.idSupervisor = idSupervisor;
-    }
-    
-    public String getStatus() {
-        return Status;
-    }
-    
-    public void setStatus(String Status) {
-        this.Status = Status;
-    }
-    
-    public ArrayList<OrderDetailsModel> getkeranjang() {
-        return keranjang;
-    }
-    
-  public void setKeranjang(ArrayList<OrderDetailsModel> keranjang) {
-        this.keranjang = keranjang;
-    }
-
-    public void setOrderId(int aInt) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-    
-    
-    
-    
 }

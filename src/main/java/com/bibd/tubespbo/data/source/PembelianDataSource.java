@@ -7,10 +7,11 @@ package com.bibd.tubespbo.data.source;
 import com.bibd.tubespbo.data.DbConnection;
 import com.bibd.tubespbo.data.model.CustomerModel;
 import com.bibd.tubespbo.data.model.KeranjangModel;
+import com.bibd.tubespbo.data.model.OrderDetailsModel;
 import com.bibd.tubespbo.data.model.PembelianModel;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
@@ -35,7 +36,7 @@ public class PembelianDataSource {
 
     public ArrayList<PembelianModel> getAllPembelian(int idWarehouse) {
         try {
-            ArrayList<PembelianModel> dataResult = new ArrayList<>();
+            ArrayList<PembelianModel> BeliModel = new ArrayList<>();
             db.openConnection();
             String query = null;
             if (idWarehouse < 0) {
@@ -59,15 +60,15 @@ public class PembelianDataSource {
                 PembelianModel pm = new PembelianModel();
                 pm.setIdPembelian(idPembelian);
                 pm.setIdSupervisor(idSupervisor);
-                pm.setIdorder(idOrder);
+                pm.setIdOrder(idOrder);
                 pm.setStatus(Status);
                 pm.setTanggalOrder(tanggalorder);
                 pm.setTypeOrder(typeorder);
 
-                dataResult.add(pm);
+                BeliModel.add(pm);
 
             }
-            return dataResult;
+            return BeliModel;
         } catch (Exception e) {
             System.out.println(e.getLocalizedMessage());
             return null;
@@ -79,51 +80,106 @@ public class PembelianDataSource {
     }
 
     public int submitPembelian(int employeeId, String orderType, LocalDateTime waktu, String statusOrder, ArrayList<KeranjangModel> keranjang) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        //   throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        // order,orderdetil,orderpenjualan, stok product
+        int orderId = -1;
+//
+
+        try {
+//            db.openConnection();
+//
+//            String query = "INSERT INTO orders (employeeid, orderType, orderDate, StatusOrder) VALUES ("
+//                    + employeeId + ", '" + orderType + "', '" + waktu + "', '" + statusOrder + "')";
+//            db.executeStatement(query);
+//
+//            ResultSet rs = db.getData("SELECT orderId AS last_id from orders order by orderId desc limit 1");
+//            if (rs.next()) {
+//                orderId = rs.getInt("last_id");
+//            }
+////           untuk mendapatkan ID dari entri yang baru ditambahkan menggunakan LAST_INSERT_ID(). 
+////           ID ini disimpan dalam variabel orderId.
+//            for (KeranjangModel km : keranjang) {
+//                queryOrderDetails(km);
+//            }
+//
+//            queryOrderPembelian(statusOrder, orderId);
+                db.openConnection();
+             //Eksekusi INSERT ke Tabel orders:
+            String query = "INSERT INTO orders (employeeid, orderType, orderDate) VALUES ("
+                    + employeeId + ", '" + orderType + "', '" + waktu + "')";
+            db.executeStatement(query);
+            //Mengambil orderId Terakhir yang Baru Ditambahkan:
+            ResultSet rs = db.getData("SELECT orderId AS last_id from orders order by orderId desc limit 1");
+            if (rs.next()) {
+                orderId = rs.getInt("last_id");
+                //Menambahkan Status ke Tabel orderpembelian:
+                String sql = "INSERT INTO orderpembelian (status) VALUES '" + statusOrder + "' WHERE orderId = '" + orderId + "' ";
+                 db.executeStatement(sql);
+            }
+//           Setiap item dalam keranjang diproses dan dimasukkan ke dalam tabel detail pesanan melalui fungsi queryOrderDetails(km).
+            for (KeranjangModel km : keranjang) {
+                queryOrderDetails(km);
+            }
+
+            queryOrderPembelian(statusOrder, orderId);
+
+        } catch (Exception e) {
+            System.out.println(e.getLocalizedMessage());
+            return -1;
+        } finally {
+            db.closeConnection();
+        }
+        return orderId;
     }
 
-    //cccccccccccspublic PembelianModel getDetailPembelian(int idOrder, int IdPembelian, Date OrderDate, String OrderType, int Quantity) {
+//
+    public ArrayList<OrderDetailsModel> getDetailPembelian(int idorder) {
+    ArrayList<OrderDetailsModel> odm = new ArrayList<>();
+    try {
+        db.openConnection();
 
-    //    try {
-    //        db.openConnection();
-
-    //        String query = "Detail Pembelian "
-    //                + " orderId = '" + idOrder + "', "
-    //                + "idPembelian = '" + IdPembelian + "', "
-    //                + "orderDate = " + OrderDate + ", "
-    //                + "orderType = " + OrderType + ", "
-    //                + "Quantity = " + Quantity + ", "
-    //                + "WHERE idPembelian = " + IdPembelian;
-
-    //        PreparedStatement stmt = db.prepareStatement(query);
-    //        stmt.setInt(1, idOrder);
-    //        stmt.setInt(2, idPembelian);
-    //        stmt.setDate(3, new java.sql.Date(orderDate.getTime()));
-    //        stmt.setString(4, orderType);
-    //        stmt.setInt(5, quantity);
-
-    //        ResultSet rs = stmt.executeQuery();
-
-   //         return pm;
-    //    }else {
-     //       return null; // Data tidak ditemukan
-      //  }
-    //}
-    //catch (Exception e
-
-    
-      //  ) {
-      //  System.out.println(e.getLocalizedMessage());
-       // return null;
-    //}
-
-    
-      //  finally {
-       // db.closeConnection();
-    
+        String query = "SELECT od.id, od.unitPrice, od.quantity, od.subTotalPrice, od.idProduct, " +
+                       "p.idProduct, p.productName, p.description, p.buyPrice, p.sellPrice, " +
+                       "p.categoryId, p.produsenId " +
+                       "FROM orderdetails od " +
+                       "JOIN orders o ON o.orderId = od.orderId " +
+                       "JOIN product p ON p.idProduct = od.idProduct " +
+                       "WHERE o.orderId = " + idorder;
         
-        
-     private int queryOrderDetails(KeranjangModel itemkeranjang) throws SQLException {
+        ResultSet rs = db.getData(query);
+
+        while (rs.next()) {
+            int id = rs.getInt("id");
+            double unitPrice = rs.getDouble("unitPrice");
+            int quantity = rs.getInt("quantity");
+            double subTotalPrice = rs.getDouble("subTotalPrice");
+            int idProduct = rs.getInt("idProduct");
+            String productName = rs.getString("productName");
+            String description = rs.getString("description");
+            double buyPrice = rs.getDouble("buyPrice");
+            double sellPrice = rs.getDouble("sellPrice");
+            int categoryId = rs.getInt("categoryId");
+            int produsenId = rs.getInt("produsenId");
+
+            // Membuat objek OrderDetailsModel dengan data yang diambil dari ResultSet
+            OrderDetailsModel orderDetailModel = new OrderDetailsModel(id, unitPrice, quantity, subTotalPrice,
+                    idProduct, productName, description, buyPrice, sellPrice, categoryId, produsenId);
+            odm.add(orderDetailModel);
+        }
+
+    } catch (Exception e) {
+        System.out.println(e.getLocalizedMessage());
+    } finally {
+        db.closeConnection();
+    }
+    return odm;
+}
+
+
+
+            // Tutup koneksi
+            
+    private int queryOrderDetails(KeranjangModel itemkeranjang) throws SQLException {
         String querygetIdOrder = "SELECT o.orderId\n"
                 + "FROM orders o\n"
                 + "ORDER BY o.orderDate DESC\n"
@@ -140,84 +196,69 @@ public class PembelianDataSource {
         if (getIdOrder > 0) {
             String query = "INSERT INTO orderdetails \n"
                     + "(unitPrice, quantity, subTotalPrice, idProduct, orderId) \n"
-                    
-                    
                     + "VALUES (" + itemkeranjang.getProduk().getBuyPrice() + ", " + itemkeranjang.getQuantity() + ", \n"
                     + totaPrice + ", " + itemkeranjang.getProduk().getIdProduct() + "," + getIdOrder + ")";
             return db.executeStatement(query);
         }
         return getIdOrder;
-    }   
-     
-     
-     
-     
- //     private int queryOrderPembelian(String status, int orderId) {
- //       try {
- //           String querygetIdOrder = "SELECT o.orderId\n"
- //                   + "FROM orders o\n"
- //                   + "ORDER BY o.orderDate DESC\n"
- //                   + "LIMIT 1 ";
- //           ResultSet rs = db.getData(querygetIdOrder);
-//
- //           int getIdOrder = 0;
- //           while (rs.next()) {
- //               getIdOrder = rs.getInt("orderId");
- //           }
-//
- //           if (getIdOrder > 0) {
- //               String query = "INSERT INTO orderpembeli\n"
- //                       + "(status, orderId,) \n"
- //                       + "VALUES ('" + status + ", " + getIdOrder + ")";
- //               return db.executeStatement(query);
- //           }
- //           return getIdOrder;
-
- //       } catch (Exception e) {
- //           System.out.println(e.getLocalizedMessage());
- //           return -1;
- //       }
-
-//    }
-     
-     private int queryOrderPembelian(String status, int orderId) {
-    try {
-        db.openConnection();
-
-        String querygetIdOrder = "SELECT o.orderId FROM orders o ORDER BY o.orderDate DESC LIMIT 1";
-        ResultSet rs = db.getData(querygetIdOrder);
-
-        int getIdOrder = 0;
-        if (rs.next()) {
-            getIdOrder = rs.getInt("orderId");
-        }
-
-        if (getIdOrder > 0) {
-            String query = "INSERT INTO orderpembelian (status, orderId) VALUES (?, ?)";
-            PreparedStatement stmt = db.prepareStatement(query);
-            stmt.setString(1, status);
-            stmt.setInt(2, getIdOrder);
-
-            int rowsInserted = stmt.executeUpdate();
-            return rowsInserted > 0 ? getIdOrder : -1;
-        } else {
-            return -1; // Tidak ada orderId yang valid
-        }
-    } catch (Exception e) {
-        System.out.println(e.getLocalizedMessage());
-        return -1;
-    } finally {
-        db.closeConnection();
     }
-}
-     
-     private int queryOrders(LocalDateTime orderDate, String orderType, int employeeid) {
+
+    private int queryOrderPembelian(String status, int orderId) {
+        try {
+            String querygetIdOrder = "SELECT o.orderId\n"
+                    + "FROM orders o\n"
+                    + "ORDER BY o.orderDate DESC\n"
+                    + "LIMIT 1 ";
+            ResultSet rs = db.getData(querygetIdOrder);
+
+            int getIdOrder = 0;
+            while (rs.next()) {
+                getIdOrder = rs.getInt("orderId");
+            }
+
+            if (getIdOrder > 0) {
+                String query = "INSERT INTO orderpembeli\n"
+                        + "(status, orderId,) \n"
+                        + "VALUES ('" + status + ", " + getIdOrder + ")";
+                return db.executeStatement(query);
+            }
+            return getIdOrder;
+
+        } catch (Exception e) {
+            System.out.println(e.getLocalizedMessage());
+            return -1;
+        }
+
+    }
+
+    private int queryOrder(LocalDateTime orderDate, String orderType, int employeeid) {
         String query = "INSERT INTO orders (orderDate, orderType, employeeId) "
                 + "VALUES ('" + orderDate + "', '" + orderType + "', " + employeeid + ")";
         return db.executeStatement(query);
     }
 
+    private int queryStokProduct(int jumlahBeli, LocalDateTime dateLastUpdate, int idProduct, int idWareHouse) {
+        int stoksebelum = 0;
+        try {
+            String queryGetStok = "SELECT ps.totalStock FROM productstock ps\n"
+                    + "WHERE ps.productId= " + idProduct + " AND ps.idWarehouse =" + idWareHouse;
+            ResultSet rs = db.getData(queryGetStok);
+
+            while (rs.next()) {
+                stoksebelum = rs.getInt("totalStock");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getLocalizedMessage());
+            return 0;
+        }
+
+        int finishStock = stoksebelum + jumlahBeli;
+        String querySubmit = "UPDATE productstock ps\n"
+                + "SET ps.totalStock =" + finishStock + " , ps.lastUpdate =" + dateLastUpdate + "\n"
+                + "WHERE ps.id =" + idProduct + " AND ps.idWarehouse = " + idWareHouse;
+
+        return db.executeStatement(querySubmit);
+
+    }
 
 }
-
-
