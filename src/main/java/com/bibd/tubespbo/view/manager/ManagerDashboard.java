@@ -104,7 +104,7 @@ public class ManagerDashboard extends javax.swing.JFrame {
 
         btnCreate.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         btnCreate.setForeground(new java.awt.Color(102, 102, 102));
-        btnCreate.setText("CRUD EMPLOYEES");
+        btnCreate.setText("MANAGEMENT EMPLOYEES");
         btnCreate.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnCreateMouseClicked(evt);
@@ -125,8 +125,8 @@ public class ManagerDashboard extends javax.swing.JFrame {
                 .addGap(34, 34, 34)
                 .addComponent(pnBeforeimgCreate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addComponent(btnCreate)
+                .addContainerGap(16, Short.MAX_VALUE))
         );
         pMain_CreateLayout.setVerticalGroup(
             pMain_CreateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -217,7 +217,7 @@ public class ManagerDashboard extends javax.swing.JFrame {
 
         btnCRUDProducts.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         btnCRUDProducts.setForeground(new java.awt.Color(102, 102, 102));
-        btnCRUDProducts.setText("CRUD PRODUCTS");
+        btnCRUDProducts.setText("MANAGEMENT PRODUCTS");
         btnCRUDProducts.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnCRUDProductsMouseClicked(evt);
@@ -238,8 +238,8 @@ public class ManagerDashboard extends javax.swing.JFrame {
                 .addGap(33, 33, 33)
                 .addComponent(pnBeforeCRUDProducts, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnCRUDProducts, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addComponent(btnCRUDProducts)
+                .addContainerGap(23, Short.MAX_VALUE))
         );
         pMain_CRUDProductsLayout.setVerticalGroup(
             pMain_CRUDProductsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

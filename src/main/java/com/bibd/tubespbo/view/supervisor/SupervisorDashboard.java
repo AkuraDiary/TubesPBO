@@ -159,7 +159,7 @@ public class SupervisorDashboard extends javax.swing.JFrame {
 
         btn_CrudCustomer.setBackground(new java.awt.Color(255, 255, 255));
         btn_CrudCustomer.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btn_CrudCustomer.setText("CRUD CUSTOMER");
+        btn_CrudCustomer.setText("MANAGEMENT CUSTOMER");
         btn_CrudCustomer.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btn_CrudCustomerMouseClicked(evt);
