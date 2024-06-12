@@ -75,7 +75,7 @@ public class SalesDashboard extends javax.swing.JFrame {
         );
 
         btnCrudpenjualan.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnCrudpenjualan.setText("CRUD PENJUALAN");
+        btnCrudpenjualan.setText("MANAGEMENT PENJUALAN");
         btnCrudpenjualan.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnCrudpenjualanMouseClicked(evt);
