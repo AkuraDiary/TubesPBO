@@ -172,8 +172,8 @@ public class PenjualanDataSource {
                     + "    c.idCustomer, \n"
                     + "    e.nama AS \"nama_emp\", \n"
                     + "    wh.id AS \"warehouse_id\",\n"
-                    + "    SUM(od.unitPrice * od.quantity) AS \"totalbiaya\",\n"
-//                    + "p.productName,p.sellPrice,od.quantity as \"jumlahOrder\"\n"
+                    + "    SUM(od.unitPrice * od.quantity) AS \"totalbiaya\"\n"
+//                    + "p.productName,p.sellPrice,od.quantity as \"jumlahOrder\"\n" // ga perlu kyknya pid
                     + "FROM \n"
                     + "    orderpenjualan op\n"
                     + "LEFT JOIN \n"
@@ -195,7 +195,7 @@ public class PenjualanDataSource {
             System.out.println(query);
             ResultSet rs = db.getData(query);
 
-            PenjualanModel penjualanModel;
+//            PenjualanModel penjualanModel;
 
             while (rs.next()) {
 
@@ -212,16 +212,14 @@ public class PenjualanDataSource {
                 String customerName = rs.getString("nama_cust");
                 String employeeName = rs.getString("nama_emp");
                 int totalbiaya = rs.getInt("totalbiaya");
-                System.out.println(totalbiaya);
-                System.out.println(employeeName);
-                System.out.println(customerName);
+
 
 //                String productName = rs.getString("productName");
 //                long hargaSatuan = rs.getLong("sellPrice");
 //                int jumlahOrder = rs.getInt("jumlahOrder");
 
 
-                penjualanModel = new PenjualanModel(idPenjualan, shipmentStatus, dateShipped, orderId,
+                PenjualanModel penjualanModel = new PenjualanModel(idPenjualan, shipmentStatus, dateShipped, orderId,
                         customerId, statusPayment, orderDate, orderType, employeeId);
                 penjualanModel.setCustomerName(customerName);
                 penjualanModel.setEmployeeName(employeeName);
@@ -229,6 +227,8 @@ public class PenjualanDataSource {
 //                penjualanModel.setProductName (productName);
 //                penjualanModel.setUnitPrice(hargaSatuan);
 //                penjualanModel.setQuantity(jumlahOrder);
+
+                System.out.println("Penjualan Data Source Data : " + penjualanModel.getCustomerName() + " " + penjualanModel.getEmployeeName() + " " + penjualanModel.getTotalBiaya());
 
                 pm.add(penjualanModel);
             }
@@ -240,8 +240,6 @@ public class PenjualanDataSource {
         } finally {
             db.closeConnection();
         }
-//        return pm;
-//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     private int queryOrder(String orderDate, String orderType, int employeeid) {
