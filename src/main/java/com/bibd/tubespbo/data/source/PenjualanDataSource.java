@@ -173,7 +173,8 @@ public class PenjualanDataSource {
                     + "    c.idCustomer, \n"
                     + "    e.nama AS \"nama_emp\", \n"
                     + "    wh.id AS \"warehouse_id\",\n"
-                    + "    SUM(od.unitPrice * od.quantity) AS \"totalbiaya\"\n"
+                    + "    SUM(od.unitPrice * od.quantity) AS \"totalbiaya\",\n"
+//                    + "p.productName,p.sellPrice,od.quantity as \"jumlahOrder\"\n"
                     + "FROM \n"
                     + "    orderpenjualan op\n"
                     + "LEFT JOIN \n"
@@ -186,8 +187,11 @@ public class PenjualanDataSource {
                     + "    orderdetails od ON od.orderId = o.orderId\n"
                     + "LEFT JOIN \n"
                     + "    warehouse wh ON e.idWarehouse = wh.id\n"
+//                    + "LEFT join product p on p.idProduct = od.idProduct\n"
                     + "GROUP BY op.orderId, op.idPenjualan\n"
                     + "HAVING wh.id = "+idWareHouse;
+
+
 
             System.out.println(query);
             ResultSet rs = db.getData(query);
@@ -213,11 +217,19 @@ public class PenjualanDataSource {
                 System.out.println(employeeName);
                 System.out.println(customerName);
 
+//                String productName = rs.getString("productName");
+//                long hargaSatuan = rs.getLong("sellPrice");
+//                int jumlahOrder = rs.getInt("jumlahOrder");
+
+
                 penjualanModel = new PenjualanModel(idPenjualan, shipmentStatus, dateShipped, orderId,
                         customerId, statusPayment, orderDate, orderType, employeeId);
                 penjualanModel.setCustomerName(customerName);
                 penjualanModel.setEmployeeName(employeeName);
                 penjualanModel.setTotalBiaya(totalbiaya);
+//                penjualanModel.setProductName (productName);
+//                penjualanModel.setUnitPrice(hargaSatuan);
+//                penjualanModel.setQuantity(jumlahOrder);
 
                 pm.add(penjualanModel);
             }

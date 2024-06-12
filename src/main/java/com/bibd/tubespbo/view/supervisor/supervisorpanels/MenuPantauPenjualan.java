@@ -26,7 +26,8 @@ public class MenuPantauPenjualan extends javax.swing.JPanel {
         initComponents();
         setupTabelPenjualan();
         setupTabelDetilPenjualan();
-        loadTabel();
+        loadTabelPenjualan();
+        loadTableDetilOrder();
     }
     private DefaultTableModel tablePenjualanModel = new DefaultTableModel() {
         @Override
@@ -163,6 +164,11 @@ public class MenuPantauPenjualan extends javax.swing.JPanel {
 
         jButton1.setBackground(new java.awt.Color(153, 255, 255));
         jButton1.setText("Cari");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -224,7 +230,7 @@ public class MenuPantauPenjualan extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void loadTabel() {
+    private void loadTabelPenjualan() {
         String filterSearch = tfCaripantaupenjualan.getText();
         Di.pantauPenjualanPresenter.getAllPenjualanInWarehouse(idWarehouseEmp, filterSearch);
         //Remove rows one by one from the end of the table
@@ -244,7 +250,7 @@ public class MenuPantauPenjualan extends javax.swing.JPanel {
         }
     }
     private void bCaripantaupenjualanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCaripantaupenjualanActionPerformed
-        loadTabel();
+        loadTabelPenjualan();
     }//GEN-LAST:event_bCaripantaupenjualanActionPerformed
 
     private void clearTable() {
@@ -256,6 +262,11 @@ public class MenuPantauPenjualan extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_tfCaripantaupenjualanActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+       loadTableDetilOrder();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    //make a reset button yah brow -rapid
     private void resetFileds() {
         tfCaripantaupenjualan.setText("");
         tfSearchdatacustomer.setText("");
@@ -275,4 +286,22 @@ public class MenuPantauPenjualan extends javax.swing.JPanel {
     private javax.swing.JTextField tfCaripantaupenjualan;
     private javax.swing.JTextField tfSearchdatacustomer;
     // End of variables declaration//GEN-END:variables
+
+    private void loadTableDetilOrder() {
+        String filterSearch = tfSearchdatacustomer.getText();
+        Di.pantauPenjualanPresenter.getAllPenjualanInWarehouse(idWarehouseEmp, filterSearch);
+        //Remove rows one by one from the end of the table
+
+        clearTable();
+
+        for (PenjualanModel pm : Di.pantauPenjualanPresenter.listPenjualanWarehouse) {
+            String[] row = {
+                pm.getProductName(),
+                String.valueOf(pm.getUnitPrice()),
+                String.valueOf(pm.getQuantity())
+
+            };
+            tablePenjualanModel.addRow(row);
+        }
+    }
 }
