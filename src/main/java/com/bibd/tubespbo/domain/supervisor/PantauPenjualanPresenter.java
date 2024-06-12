@@ -27,8 +27,7 @@ public class PantauPenjualanPresenter {
     public void getAllPenjualanInWarehouse(int idWarehouse, String filterSearch) {
         listPenjualanWarehouse = penjualanRepository.getHistoryPenjualan(idWarehouse);
         System.out.println("listPenjualanWarehouse Presenter: " + listPenjualanWarehouse.size());
-        System.out.println("listPenjualanWarehouse Presenter: " + listPenjualanWarehouse.get(0).getCustomerName());
-
+//        System.out.println("listPenjualanWarehouse Presenter: " + listPenjualanWarehouse.get(0).getCustomerName());
          if(!filterSearch.isBlank()){
             this.listPenjualanWarehouse = (ArrayList<PenjualanModel>) this.listPenjualanWarehouse.stream()
                     .filter(emp -> emp.getCustomerName().toLowerCase().contains(filterSearch) ||
@@ -65,9 +64,6 @@ public class PantauPenjualanPresenter {
             updateStatusPenjualanState = -2;
             return;
         }
-
-        updateStatusPenjualanState = penjualanRepository.updateStatusShipmentPayment(idPenjualan, statusShipment, statusPayment);      
-
         updateStatusPenjualanState = penjualanRepository.updateStatusShipmentPayment(idPenjualan, statusShipment, statusPayment);
 
     }

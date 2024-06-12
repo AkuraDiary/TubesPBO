@@ -59,6 +59,7 @@ public class PembelianDataSource {
             ArrayList<PembelianModel> BeliModel = new ArrayList<>();
             db.openConnection();
             String query = "";
+
             if (idWarehouse == Statics.GET_ALL_PEMBELIAN) {
                 query = "SELECT \n"
                         + "orderpembelian.idPembelian, employees.idEmployee, orderpembelian.status, orders.orderDate, warehouse.address, orders.orderType, warehouse.id, orders.orderId , SUM(orderdetails.unitPrice * orderdetails.quantity) AS \"totalbiaya\"\n"
@@ -72,7 +73,7 @@ public class PembelianDataSource {
                 query = "SELECT \n"
                         + "    op.idPembelian, op.status,\n"
                         + " 	o.orderId, o.orderDate, o.orderType,\n"
-                        + " 	wh.address,\n"
+                        + " 	wh.address,e.idEmployee,\n"
                         + " 	SUM(od.quantity*od.unitPrice) \"totalbiaya\"\n"
                         + "FROM \n"
                         + "    orderpembelian op\n"
@@ -80,10 +81,11 @@ public class PembelianDataSource {
                         + "JOIN employees e on e.idEmployee = o.employeeId\n"
                         + "JOIN warehouse wh on wh.id = e.idWarehouse\n"
                         + "JOIN orderdetails od on od.orderId = o.orderId\n"
-                        + "\n"
-                        + "GROUP by op.idPembelian\n"
-                        + "HAVING wh.id = " + idWarehouse;
+                        + "WHERE wh.id = " + idWarehouse
+                        + " GROUP by op.idPembelian ";
             }
+            System.out.println("tumbas data source");
+            System.out.println(query);
             ResultSet rs = db.getData(query);
 
             //buatkan method jika <0 = "SELECT orderpembelian.idPembelian, employees.idEmployee, orderpembelian.status, orders.orderDate, orders.orderType, orders.orderId  FROM orderpembelian JOIN orders ON orders.orderId = orderpembelian.idPembelian JOIN employees ON employees.idEmployee = orders.employeeId";
@@ -98,8 +100,6 @@ public class PembelianDataSource {
 
                 String warehouse = rs.getString("address");
                 long totalbiaya = (long) rs.getInt("totalbiaya");
-                int warehouseId = rs.getInt("id");
-//                String addresWarehouse = rs.getString("address");
 
                 PembelianModel pm = new PembelianModel();
                 pm.setIdPembelian(idPembelian);
@@ -109,13 +109,20 @@ public class PembelianDataSource {
                 pm.setTanggalOrder(tanggalorder);
                 pm.setTypeOrder(typeorder);
 
-                pm.setAddresWarehouse(warehouse);
-                
-                pm.setWarehouseId(warehouseId);
+                if (idWarehouse == Statics.GET_ALL_PEMBELIAN) {
+                    int warehouseId = rs.getInt("id");
+                    String addresWarehouse = rs.getString("address");
+                    pm.setAddresWarehouse(warehouse);
+
+                    pm.setWarehouseId(warehouseId);
+                }
+
                 pm.setTotalBiaya(totalbiaya);
                 BeliModel.add(pm);
 
             }
+            
+            System.out.println(BeliModel);
             return BeliModel;
         } catch (Exception e) {
             System.out.println(e.getLocalizedMessage());

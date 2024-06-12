@@ -6,10 +6,8 @@ package com.bibd.tubespbo.domain.supervisor;
 
 import com.bibd.tubespbo.data.model.KeranjangModel;
 import com.bibd.tubespbo.data.model.PembelianModel;
-import com.bibd.tubespbo.data.model.PenjualanModel;
 import com.bibd.tubespbo.data.model.ProductModel;
 import com.bibd.tubespbo.data.repository.PembelianRepository;
-import com.bibd.tubespbo.data.repository.PenjualanRepository;
 import com.bibd.tubespbo.data.repository.ProductRepository;
 import com.bibd.tubespbo.util.Statics;
 import java.time.LocalDateTime;
@@ -20,12 +18,12 @@ import java.util.ArrayList;
  * @author asthiseta
  */
 public class PembelianPresenter {
-    
+
     PembelianRepository pembelianRepository;
     ProductRepository productRepository;
 
     public ArrayList<KeranjangModel> keranjang = new ArrayList<>();
-    
+
     public ArrayList<PembelianModel> history = new ArrayList<>();
     public ArrayList<ProductModel> allproduct = new ArrayList<>();
 
@@ -95,28 +93,26 @@ public class PembelianPresenter {
 //            }
 //        }
 //    }
-
     public void showAllproduct() {
         this.allproduct = productRepository.getAllProduct();
     }
-    
-    
-    
+
     public int statusSubmitPembelian = 0; // 0 default ; -1 error; else success
-    
+
     public void submitPembelian(int employeeId) {
         LocalDateTime waktu = LocalDateTime.now();
         String statusOrder = Statics.PEMBELIAN_STATUS_PENDING;
         String orderType = Statics.ORDER_TYPE_PEMBELIAN;
-        
+
         statusSubmitPembelian = pembelianRepository.submitPembelian(
                 employeeId, orderType, waktu, statusOrder, keranjang
         );
 
     }
-    
+
     public KeranjangModel keranjangModel;
     public ProductModel produkModel;
+
     public void setSelectedAllProduct(int idProduk) {
         produkModel = allproduct.stream()
                 .filter(item -> item.getIdProduct() == idProduk)
@@ -131,45 +127,38 @@ public class PembelianPresenter {
                 .orElse(null);
     }
 
-    public void resetClearKeranjang(){
+    public void resetClearKeranjang() {
         keranjang.clear();
         produkModel = null;
         keranjangModel = null;
     }
-    
-    public int statusUpdatePembelian=0;
-    
-     public void updateStatusPembelian(int idPenjualan, String statusPembelian){
-        // if status is paid, set status shipment to shipped
-//        String statusBeli = statusPembelian;
-//        if (statusPembelian.equals(Statics.ORDER_PAYMENT_STATUS_PAID)) {
-//                statusShipment = Statics.SHIPMENT_STATUS_SHIPPED;
-//        }
-//        statusUpdatePembelian = penjualanRepository.updateStatusShipmentPayment(idPenjualan, statusShipment, statusPayment);
-        statusUpdatePembelian= pembelianRepository.updateStatusPembelian(idPenjualan, statusPembelian);
+
+    public int statusUpdatePembelian = 0;
+
+    public void updateStatusPembelian(int idPenjualan, String statusPembelian) {
+        statusUpdatePembelian = pembelianRepository.updateStatusPembelian(idPenjualan, statusPembelian);
     }
-     
-      public PembelianModel selectedPembelian;
-      
-      public void setSelectedPembelian(int idPembelian) {
+
+    public PembelianModel selectedPembelian;
+
+    public void setSelectedPembelian(int idPembelian) {
         PembelianModel pembelianModel = history.stream()
-                .filter(item -> item.getIdPembelian()== idPembelian)
+                .filter(item -> item.getIdPembelian() == idPembelian)
                 .findFirst()
                 .orElse(null);
         if (pembelianModel != null) {
-            this.selectedPembelian= pembelianModel;
+            this.selectedPembelian = pembelianModel;
         }
     }
-      
-     
-     public void resetStatusPembelian(){
+
+    public void resetStatusPembelian() {
         statusUpdatePembelian = 0;
         keranjang.clear();
     }
 
     public void getAllProductWarehouse(int idWarehouse) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+//        pembelianRepository.getAllpembelian(idWarehouse);
+        this.allproduct = productRepository.getAllProduct();
     }
 
-    
 }

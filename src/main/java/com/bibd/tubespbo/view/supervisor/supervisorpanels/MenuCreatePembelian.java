@@ -119,18 +119,20 @@ public class MenuCreatePembelian extends javax.swing.JPanel {
    
    private void populateTablePembelian() {
 
-        Di.penjualanPresenter.historyPenjualan(idWarehouse, idEmployee);
+        Di.pembelianPresenter.getHistoryPembelian(idWarehouse);
 
         clearTable(tableAllPembelianModel);
 
-        for (PenjualanModel penjualanModel : Di.penjualanPresenter.history) {
+        for (PembelianModel pm: Di.pembelianPresenter.history) {
+            
             String[] row = {
-                    String.valueOf(penjualanModel.getIdPenjualan()),
-                    penjualanModel.getShipmentStatus(),
-                    penjualanModel.getCustomerName(), //.getNama(),
-                    penjualanModel.getTanggalOrder().toString(),
-                    penjualanModel.getStatusPayment(),
-                    Formatter.formatRupiah(penjualanModel.getTotalBiaya()),};
+                    String.valueOf(pm.getIdPembelian()),
+                    String.valueOf(pm.getIdPembelian()),
+                    String.valueOf(pm.getTanggalOrder()), //.getNama()
+                    pm.getStatus().toString(),
+                    String.valueOf(pm.getTotalBiaya()),
+                    String.valueOf(pm.getIdOrder()),
+                    Formatter.formatRupiah(pm.getTotalBiaya()),};
             tableAllPembelianModel.addRow(row);
         }
 
