@@ -5,10 +5,8 @@
 package com.bibd.tubespbo.view.supervisor.supervisorpanels;
 
 import com.bibd.tubespbo.Di;
-import com.bibd.tubespbo.data.model.CustomerModel;
 import com.bibd.tubespbo.data.model.KeranjangModel;
 import com.bibd.tubespbo.data.model.PembelianModel;
-import com.bibd.tubespbo.data.model.PenjualanModel;
 import com.bibd.tubespbo.data.model.ProductModel;
 import com.bibd.tubespbo.util.Formatter;
 import com.bibd.tubespbo.util.Statics;
@@ -83,7 +81,8 @@ public class MenuCreatePembelian extends javax.swing.JPanel {
     private ArrayList<String> listPembelianstatus = new ArrayList<>(
             Arrays.asList(
                     Statics.PEMBELIAN_STATUS_PENDING,
-                    Statics.PEMBELIAN_STATUS_FINNISH
+                    Statics.PEMBELIAN_STATUS_FINNISH,
+                    Statics.PEMBELIAN_STATUS_RUNNING
             )
     );
     private void setupCbStatus() {
@@ -95,10 +94,10 @@ public class MenuCreatePembelian extends javax.swing.JPanel {
 
    private void populateTableKeranjang() {
         clearTable(tableKeranjangModel);
-        if (Di.penjualanPresenter.keranjang.isEmpty()) {
+        if (Di.pembelianPresenter.keranjang.isEmpty()) {
             return;
         }
-        for (KeranjangModel keranjangMdl : Di.penjualanPresenter.keranjang) {
+        for (KeranjangModel keranjangMdl : Di.pembelianPresenter.keranjang) {
             String[] row = {
                     String.valueOf(keranjangMdl.getProduk().getIdProduct()),
                     keranjangMdl.getProduk().getProductName(),
@@ -203,13 +202,14 @@ public class MenuCreatePembelian extends javax.swing.JPanel {
     
     private void resetFields() {
         cbStatusUpdate.setSelectedIndex(0);
+        tfQtyItem.setText("1");
     }
     
     long totalKeranjang = 0;
     
     private void calculateTotalKeranjang() {
         totalKeranjang = 0;
-        for (KeranjangModel item : Di.penjualanPresenter.keranjang) {
+        for (KeranjangModel item : Di.pembelianPresenter.keranjang) {
             totalKeranjang += item.getQuantity() * item.getProduk().getSellPrice();
         }
         tfTotalkeranjang.setText(Formatter.formatRupiah(totalKeranjang));
@@ -292,6 +292,8 @@ public class MenuCreatePembelian extends javax.swing.JPanel {
         });
         jScrollPane2.setViewportView(tblKeranjang);
 
+        tfQtyItem.setText("1");
+
         btnAddToKeranjang.setText(">>");
         btnAddToKeranjang.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -308,6 +310,8 @@ public class MenuCreatePembelian extends javax.swing.JPanel {
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel3.setText("IdPembelian:");
+
+        tfIdpembelian.setEnabled(false);
 
         bSubmit.setBackground(new java.awt.Color(153, 255, 153));
         bSubmit.setText("Submit");
@@ -353,6 +357,7 @@ public class MenuCreatePembelian extends javax.swing.JPanel {
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel5.setText("Tanggal:");
 
+        tfTanggalUpdate.setEnabled(false);
         tfTanggalUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfTanggalUpdateActionPerformed(evt);
@@ -482,7 +487,7 @@ public class MenuCreatePembelian extends javax.swing.JPanel {
 
         int idProduct = Integer.parseInt(tblAllProduk.getValueAt(row, 0).toString());
 
-        Di.penjualanPresenter.setSelectedAllProduct(
+        Di.pembelianPresenter.setSelectedAllProduct(
                 idProduct
         );
 
@@ -494,7 +499,7 @@ public class MenuCreatePembelian extends javax.swing.JPanel {
         // TODO add your handling code here:
         try {
             int qty = Integer.parseInt(tfQtyItem.getText());
-            Di.penjualanPresenter.masukKeranjang(Di.penjualanPresenter.produkModel, qty);
+            Di.pembelianPresenter.masukKeranjang(Di.pembelianPresenter.produkModel, qty);
             populateTableKeranjang();
             populateTableProduct();
             
@@ -509,7 +514,7 @@ public class MenuCreatePembelian extends javax.swing.JPanel {
         // TODO add your handling code here:
         try {
             int qty = Integer.parseInt(tfQtyItem.getText());
-            Di.penjualanPresenter.keluarItemKeranjang(Di.pembelianPresenter.keranjangModel.getProduk().getIdProduct(), qty);
+            Di.pembelianPresenter.keluarItemKeranjang(Di.pembelianPresenter.keranjangModel.getProduk().getIdProduct(), qty);
             populateTableKeranjang();
             populateTableProduct();
            
@@ -588,7 +593,7 @@ public class MenuCreatePembelian extends javax.swing.JPanel {
         if(Di.pembelianPresenter.statusUpdatePembelian > 0){
             showMessageDialog(null, "Update Berhasil !");
             populateTablePembelian();
-            Di.penjualanPresenter.resetUpdatePayment();
+            Di.pembelianPresenter.resetStatusPembelian();
             populateTableKeranjang();
             resetFields();
             return;

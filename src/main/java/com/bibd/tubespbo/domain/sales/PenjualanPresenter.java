@@ -39,6 +39,7 @@ public class PenjualanPresenter {
     }
 
     public void masukKeranjang(ProductModel produk, int quantity) {
+        
 
         //cek duplikasi
         for (int i = 0; i < keranjang.size(); i++) {
