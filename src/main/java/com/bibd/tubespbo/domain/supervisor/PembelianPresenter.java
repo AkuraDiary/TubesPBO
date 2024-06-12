@@ -54,44 +54,56 @@ public class PembelianPresenter {
         KeranjangModel newItem = new KeranjangModel();
         newItem.setProduk(produk);
         newItem.setQuantity(quantity);
+
+        // find product in allproduct
+        // minus stock product by quantity
+        for (ProductModel productModel : allproduct) {
+            if (productModel.getIdProduct() == produk.getIdProduct()) {
+                int stock = productModel.getQuantityInStock();
+                productModel.setQuantityInStock(stock - quantity);
+            }
+        }
         keranjang.add(newItem);
     }
 
-    public void keluarItemKeranjang(int idproduk) {
+    public void keluarItemKeranjang(int idproduk, int qty) {
         //mencari barang yang ingin di keluarkan
         for (int i = 0; i < keranjang.size(); i++) {
             if (keranjang.get(i).getProduk().getIdProduct() == idproduk) {
-                keranjang.remove(i);
-            }
-        }
-    }
-
-    public void editQuantity(int idproduk, int quantity) {
-        for (int i = 0; i < keranjang.size(); i++) {
-            if (keranjang.get(i).getProduk().getIdProduct() == idproduk) {
-                int jumlahSekarang = keranjang.get(i).getQuantity();
-                int jumlahupdate = jumlahSekarang += quantity;
-                if (jumlahupdate == 0) {
+                if (keranjang.get(i).getQuantity() == qty) {
                     keranjang.remove(i);
                 } else {
+                    int jumlahSekarang = keranjang.get(i).getQuantity();
+                    int jumlahupdate = jumlahSekarang -= qty;
                     keranjang.get(i).setQuantity(jumlahupdate);
                 }
-
             }
         }
-
     }
+
+//    public void editQuantity(int idproduk, int quantity) {
+//        for (int i = 0; i < keranjang.size(); i++) {
+//            if (keranjang.get(i).getProduk().getIdProduct() == idproduk) {
+//                int jumlahSekarang = keranjang.get(i).getQuantity();
+//                int jumlahupdate = jumlahSekarang += quantity;
+//                if (jumlahupdate == 0) {
+//                    keranjang.remove(i);
+//                } else {
+//                    keranjang.get(i).setQuantity(jumlahupdate);
+//                }
+//
+//            }
+//        }
+//    }
 
     public void showAllproduct() {
         this.allproduct = productRepository.getAllProduct();
     }
     
-    public void resetPembelian(){
-        statusSubmitPembelian = 0;
-        keranjang.clear();
-    }
     
-    int statusSubmitPembelian = 0; // 0 default ; -1 error; else success
+    
+    public int statusSubmitPembelian = 0; // 0 default ; -1 error; else success
+    
     public void submitPembelian(int employeeId) {
         LocalDateTime waktu = LocalDateTime.now();
         String statusOrder = Statics.PEMBELIAN_STATUS_PENDING;
@@ -102,4 +114,58 @@ public class PembelianPresenter {
         );
 
     }
+    
+    public KeranjangModel keranjangModel;
+    public ProductModel produkModel;
+    public void setSelectedAllProduct(int idProduk) {
+        produkModel = allproduct.stream()
+                .filter(item -> item.getIdProduct() == idProduk)
+                .findFirst()
+                .orElse(null);
+    }
+
+    public void setSelectedKeranjang(int idProduk) {
+        keranjangModel = keranjang.stream()
+                .filter(item -> item.getProduk().getIdProduct() == idProduk)
+                .findFirst()
+                .orElse(null);
+    }
+
+    public void resetClearKeranjang(){
+        keranjang.clear();
+        produkModel = null;
+        keranjangModel = null;
+    }
+    
+    public int statusUpdatePembelian=0;
+    
+     public void updateStatusPembelian(int idPenjualan, String statusPembelian){
+        // if status is paid, set status shipment to shipped
+//        String statusBeli = statusPembelian;
+//        if (statusPembelian.equals(Statics.ORDER_PAYMENT_STATUS_PAID)) {
+//                statusShipment = Statics.SHIPMENT_STATUS_SHIPPED;
+//        }
+//        statusUpdatePembelian = penjualanRepository.updateStatusShipmentPayment(idPenjualan, statusShipment, statusPayment);
+        statusUpdatePembelian= pembelianRepository.updateStatusPembelian(idPenjualan, statusPembelian);
+    }
+     
+      public PenjualanModel selectedPenjualan;
+      
+      public void setSelectedPembelian(int idPembelian) {
+        PembelianModel pembelianModel = history.stream()
+                .filter(item -> item.getIdPembelian()== idPembelian)
+                .findFirst()
+                .orElse(null);
+        if (pembelianModel != null) {
+            this.selectedPenjualan= pembelianModel;
+        }
+    }
+      
+     
+     public void resetStatusPembelian(){
+        statusUpdatePembelian = 0;
+        keranjang.clear();
+    }
+
+    
 }

@@ -36,7 +36,6 @@ public class PenjualanPresenter {
 
     public void historyPenjualan(int idWarehouse, int idEmployee) {
         history = penjualanRepository.getHistoryPenjualan(idWarehouse, idEmployee);
-
     }
 
     public void masukKeranjang(ProductModel produk, int quantity) {
@@ -44,11 +43,13 @@ public class PenjualanPresenter {
         //cek duplikasi
         for (int i = 0; i < keranjang.size(); i++) {
             int currentItem = keranjang.get(i).getProduk().getIdProduct();
+            
             if (currentItem == produk.getIdProduct()) {
                 int sebelum = keranjang.get(i).getQuantity();
                 keranjang.get(i).setQuantity(quantity + sebelum);
                 return; //agar langsung keluar dari function
             }
+            
         }
 
         KeranjangModel newItem = new KeranjangModel();
@@ -87,29 +88,6 @@ public class PenjualanPresenter {
         }
 
     }
-
-//    public void editQuantity(int idproduk, int quantity) {
-////        boolean cek = true;
-////        int idx = 0 ;
-//        for (int i = 0; i < keranjang.size(); i++) {
-//            if (keranjang.get(i).getProduk().getIdProduct() == idproduk) {
-//                int jumlahSekarang = keranjang.get(i).getQuantity();
-//                int jumlahupdate = jumlahSekarang += quantity;
-//                if (jumlahupdate == 0) {
-//                    keranjang.remove(i);
-////                cek = false ;
-////                idx=i;
-//                } else {
-//                    keranjang.get(i).setQuantity(jumlahupdate);
-//                }
-//
-//            }
-//        }
-////        if (cek = false){
-////            keranjang.remove(idx);
-////        }
-//
-//    }
 
     public void getAllProductWarehouse(int idWarehouse) {
         this.allproduct = productRepository.getAllProductWarehouse(idWarehouse);
@@ -167,7 +145,9 @@ public class PenjualanPresenter {
     }
 
     public int statusUpdatePayment=0;
+    
     public PenjualanModel selectedPenjualan;
+    
     public void setSelectedPenjualan(int idPenjualan) {
         PenjualanModel penjualanModel = history.stream()
                 .filter(item -> item.getIdPenjualan() == idPenjualan)
