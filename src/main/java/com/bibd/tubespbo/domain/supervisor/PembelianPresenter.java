@@ -149,7 +149,7 @@ public class PembelianPresenter {
         statusUpdatePembelian= pembelianRepository.updateStatusPembelian(idPenjualan, statusPembelian);
     }
      
-      public PembelianModel selectedPenjualan;
+      public PembelianModel selectedPembelian;
       
       public void setSelectedPembelian(int idPembelian) {
         PembelianModel pembelianModel = history.stream()
@@ -157,7 +157,7 @@ public class PembelianPresenter {
                 .findFirst()
                 .orElse(null);
         if (pembelianModel != null) {
-            this.selectedPenjualan= pembelianModel;
+            this.selectedPembelian= pembelianModel;
         }
     }
       
