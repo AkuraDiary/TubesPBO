@@ -9,6 +9,8 @@ import com.bibd.tubespbo.data.model.KeranjangModel;
 import com.bibd.tubespbo.data.model.OrderDetailsModel;
 import com.bibd.tubespbo.data.model.PenjualanModel;
 import com.mysql.cj.protocol.Resultset;
+
+import javax.swing.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
@@ -76,13 +78,41 @@ public class PenjualanDataSource {
         ArrayList<PenjualanModel> pm = new ArrayList<>();
         try {
             db.openConnection();
-            String query = "SELECT op.idPenjualan, op.shipmentStatus, op.dateShipped, op.orderId, op.customerId, op.statuspayment, o.orderId, o.orderDate, o.orderType, o.employeeId, c.nama, c.idCustomer\n"
-                    + "FROM orderpenjualan op \n"
-                    + "JOIN orders o on o.orderId=op.orderId\n"
-                    + "JOIN employees e on e.idEmployee=o.employeeId \n"
-                    + "JOIN warehouse w on e.idWarehouse = w.id\n"
-                    + "JOIN customers c on c.idCustomer = op.customerId\n"
-                    + "WHERE w.id = " + idWareHouse + " AND o.employeeId = " + idEmployee;
+            String query = "SELECT  op.idPenjualan, \n"
+                    + "    op.shipmentStatus, \n"
+                    + "    op.dateShipped, \n"
+                    + "    op.orderId, \n"
+                    + "    op.customerId, \n"
+                    + "    op.statuspayment, \n"
+                    + "    o.orderDate, \n"
+                    + "    o.orderType, \n"
+                    + "    o.employeeId, \n"
+                    + "    c.nama AS \"nama_cust\", \n"
+                    + "    c.idCustomer, \n"
+                    + "    e.nama AS \"nama_emp\", \n"
+                    + "    wh.id AS \"warehouse_id\",\n"
+                    + "    SUM(od.unitPrice * od.quantity) AS \"totalbiaya\"\n"
+                    + "FROM \n"
+                    + "    orderpenjualan op\n"
+                    + "LEFT JOIN \n"
+                    + "    orders o ON o.orderId = op.orderId\n"
+                    + "LEFT JOIN \n"
+                    + "    employees e ON e.idEmployee = o.employeeId\n"
+                    + "LEFT JOIN \n"
+                    + "    customers c ON c.idCustomer = op.customerId\n"
+                    + "LEFT JOIN \n"
+                    + "    orderdetails od ON od.orderId = o.orderId\n"
+                    + "LEFT JOIN \n"
+                    + "    warehouse wh ON e.idWarehouse = wh.id\n"
+                    + "GROUP BY op.orderId, op.idPenjualan\n"
+                    + "HAVING wh.id = "+idWareHouse+ " AND o.employeeId = "+idEmployee;
+//            String query = "SELECT op.idPenjualan, op.shipmentStatus, op.dateShipped, op.orderId, op.customerId, op.statuspayment, o.orderId, o.orderDate, o.orderType, o.employeeId, c.nama, c.idCustomer\n"
+//                    + "FROM orderpenjualan op \n"
+//                    + "JOIN orders o on o.orderId=op.orderId\n"
+//                    + "JOIN employees e on e.idEmployee=o.employeeId \n"
+//                    + "JOIN warehouse w on e.idWarehouse = w.id\n"
+//                    + "JOIN customers c on c.idCustomer = op.customerId\n"
+//                    + "WHERE w.id = " + idWareHouse + " AND o.employeeId = " + idEmployee;
 
             ResultSet rs = db.getData(query);
 
@@ -100,13 +130,18 @@ public class PenjualanDataSource {
                 String orderType = rs.getString("orderType");
                 int employeeId = rs.getInt("employeeId");
 
-                String customerName = rs.getString("nama");
+//                String customerName = rs.getString("nama");
+                String customerName = rs.getString("nama_cust");
+                String employeeName = rs.getString("nama_emp");
+                int totalbiaya = rs.getInt("totalbiaya");
 
                 penjualanModel = new PenjualanModel(idPenjualan, shipmentStatus, dateShipped, orderId,
                         customerId, statusPayment, orderDate, orderType, employeeId);
 
                 penjualanModel.setCustomerName(customerName);
-
+                penjualanModel.setEmployeeName(employeeName);
+                penjualanModel.setTotalBiaya(totalbiaya);
+                System.out.println(penjualanModel.getTotalBiaya());
                 pm.add(penjualanModel);
             }
 
@@ -151,7 +186,7 @@ public class PenjualanDataSource {
                     + "    orderdetails od ON od.orderId = o.orderId\n"
                     + "LEFT JOIN \n"
                     + "    warehouse wh ON e.idWarehouse = wh.id\n"
-                    + "GROUP BY op.orderId\n"
+                    + "GROUP BY op.orderId, op.idPenjualan\n"
                     + "HAVING wh.id = "+idWareHouse;
 
             System.out.println(query);
@@ -174,6 +209,9 @@ public class PenjualanDataSource {
                 String customerName = rs.getString("nama_cust");
                 String employeeName = rs.getString("nama_emp");
                 int totalbiaya = rs.getInt("totalbiaya");
+                System.out.println(totalbiaya);
+                System.out.println(employeeName);
+                System.out.println(customerName);
 
                 penjualanModel = new PenjualanModel(idPenjualan, shipmentStatus, dateShipped, orderId,
                         customerId, statusPayment, orderDate, orderType, employeeId);

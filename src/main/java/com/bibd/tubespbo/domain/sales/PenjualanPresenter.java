@@ -144,4 +144,22 @@ public class PenjualanPresenter {
         keranjang.clear();
         statusCheckout=0;
     }
+    
+    public KeranjangModel keranjangModel;
+    public ProductModel produkModel;
+    public void setSelectedAllProduct(int idProduk) {
+        produkModel = allproduct.stream()
+                .filter(item -> item.getIdProduct() == idProduk)
+                .findFirst()
+                .orElse(null);
+    }
+
+    public void setSelectedKeranjang(int idProduk) {
+        keranjangModel = keranjang.stream()
+                .filter(item -> item.getProduk().getIdProduct() == idProduk)
+                .findFirst()
+                .orElse(null);
+    }
+
+
 }

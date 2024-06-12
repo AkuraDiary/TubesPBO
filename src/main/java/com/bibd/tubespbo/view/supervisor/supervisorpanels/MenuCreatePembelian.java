@@ -84,6 +84,11 @@ public class MenuCreatePembelian extends javax.swing.JPanel {
                 "ID Product", "Nama", "Harga", "Stok"
             }
         ));
+        t1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                t1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(t1);
 
         bSimpan.setBackground(new java.awt.Color(153, 255, 153));
@@ -223,6 +228,12 @@ public class MenuCreatePembelian extends javax.swing.JPanel {
                 .addGap(117, 117, 117))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void t1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_t1MouseClicked
+        // TODO add your handling code here:
+        
+        
+    }//GEN-LAST:event_t1MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
