@@ -61,7 +61,6 @@ public class MenuCrudEmployees extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         tViewdataemployees = new javax.swing.JTable();
         bUpdateDataEmployees = new javax.swing.JButton();
-        btnClearSearch = new javax.swing.JButton();
         bNewEmployee = new javax.swing.JButton();
         bSearchEmployees = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
@@ -149,14 +148,6 @@ public class MenuCrudEmployees extends javax.swing.JPanel {
         bUpdateDataEmployees.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bUpdateDataEmployeesActionPerformed(evt);
-            }
-        });
-
-        btnClearSearch.setBackground(new java.awt.Color(255, 255, 153));
-        btnClearSearch.setText("Delete");
-        btnClearSearch.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnClearSearchActionPerformed(evt);
             }
         });
 
@@ -259,9 +250,7 @@ public class MenuCrudEmployees extends javax.swing.JPanel {
                         .addComponent(tFSearchEmployee, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(bSearchEmployees)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnClearSearch)
-                        .addGap(123, 123, 123))))
+                        .addGap(213, 213, 213))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -278,9 +267,7 @@ public class MenuCrudEmployees extends javax.swing.JPanel {
                             .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnClearSearch)
-                            .addComponent(bSearchEmployees))))
+                        .addComponent(bSearchEmployees)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -448,12 +435,6 @@ public class MenuCrudEmployees extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_tfPasswordEmployeesActionPerformed
 
-    private void btnClearSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearSearchActionPerformed
-        // TODO add your handling code here:
-        tFSearchEmployee.setText("");
-        populateTableEmployee();
-    }//GEN-LAST:event_btnClearSearchActionPerformed
-
     private boolean formIsValid() {
         boolean valid = false;
 
@@ -573,7 +554,7 @@ public class MenuCrudEmployees extends javax.swing.JPanel {
     }//GEN-LAST:event_tFSearchEmployeeActionPerformed
 
     private void tViewdataemployeesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tViewdataemployeesMouseClicked
-        // TODO add your handling code here:
+       
         int row = tViewdataemployees.getSelectedRow();
 
         int idEmployee = Integer.parseInt(tableEmployeeModel.getValueAt(row, 0).toString());
@@ -618,7 +599,6 @@ public class MenuCrudEmployees extends javax.swing.JPanel {
     private javax.swing.JButton bNewEmployee;
     private javax.swing.JButton bSearchEmployees;
     private javax.swing.JButton bUpdateDataEmployees;
-    private javax.swing.JButton btnClearSearch;
     private javax.swing.JButton btnResetField;
     private javax.swing.JComboBox<String> cbEmpRole;
     private javax.swing.JComboBox<String> cbStatusEmploees;

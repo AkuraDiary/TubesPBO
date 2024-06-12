@@ -24,7 +24,7 @@ public class Statics {
     public static String ORDER_TYPE_PEMBELIAN = "pembelian";
     
     public static String SHIPMENT_STATUS_PENDING = "pending";
-    public static String SHIPMENT_STATUS_SHIPPEd = "shipped";
+    public static String SHIPMENT_STATUS_SHIPPED = "shipped";
     
     public static String ORDER_PAYMENT_STATUS_PAID = "paid";
     public static String ORDER_PAYMENT_STATUS_UNPAID = "unpaid";

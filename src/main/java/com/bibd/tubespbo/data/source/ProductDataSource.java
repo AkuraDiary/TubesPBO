@@ -95,13 +95,15 @@ public class ProductDataSource {
         }
     }
 
-    public int updateProductStock(int idProductStock, int idproduct, int jumlahBaru, int idEmployee, int idWarehouse, int perubahan) {
+    public int updateProductStock(int idProductStock, int jumlahBaru, int idEmployee, int perubahan) {
         try {
 
             db.openConnection();
             Date now = new Date();
             String dateLastUpdated = Parser.parseDateToStringSQL(now);
-            String query = "UPDATE productstock SET totalStock='" + jumlahBaru + "', lastUpdate='" + dateLastUpdated + "' "
+            System.out.println("dateLastUpdated: " + dateLastUpdated);
+            System.out.println("jumlahBaru: " + jumlahBaru);
+            String query = "UPDATE productstock SET totalStock=" + jumlahBaru + ", lastUpdate='" + dateLastUpdated + "' "
                     + "WHERE id=" + idProductStock;//productId="+ idproduct + " AND idWarehouse=" + idWarehouse + "";
 
             int updateeProductStokResult = db.executeStatement(query);
@@ -109,7 +111,7 @@ public class ProductDataSource {
             if (updateeProductStokResult != 0) {
 
                 String queryInsertLog = "INSERT INTO logstockproduct (tanggal, idproductstock, idEmployee, perubahan) VALUES"
-                        + "('" + dateLastUpdated + "', " + idProductStock + ", '" + idEmployee + "', '" + perubahan + " )";
+                        + "('" + dateLastUpdated + "', " + idProductStock + ", " + idEmployee + ", " + perubahan + " )";
                 return db.executeStatement(queryInsertLog);
             }
 
@@ -273,12 +275,13 @@ public class ProductDataSource {
 
     }
 
-    public ArrayList<ProductStockModel> getAllStockProduct(int idProduct, int idWarehouse) {
+    public ArrayList<ProductStockModel> getAllStockProduct(int idWarehouse) {
         try {
             ArrayList<ProductStockModel> dataResult = new ArrayList<>();
             db.openConnection();
-            String query = "SELECT id, totalStock, lastUpdate, productId, idWarehouse FROM productstock "
-                    + "WHERE productId = " + idProduct + " AND idWarehouse = " + idWarehouse;
+            String query = "SELECT ps.id, ps.totalStock, ps.lastUpdate, ps.productId, ps.idWarehouse, p.productName\n" +
+                    "FROM productstock ps JOIN product p ON p.idProduct = ps.productId\n" +
+                    "WHERE idWarehouse = " + idWarehouse + " ORDER BY p.productName ASC";
 
             ResultSet rs = db.getData(query);
 
@@ -288,8 +291,10 @@ public class ProductDataSource {
                 Date lastUpdate = rs.getDate("lastUpdate");
                 int productId = rs.getInt("productId");
                 int idWarehouseResult = rs.getInt("idWarehouse");
+                String productName = rs.getString("productName");
 
                 ProductStockModel stock = new ProductStockModel(id, totalStock, lastUpdate, productId, idWarehouseResult);
+                stock.setProductName(productName);
                 dataResult.add(stock);
             }
 

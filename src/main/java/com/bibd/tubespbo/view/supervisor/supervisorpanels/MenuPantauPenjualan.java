@@ -4,19 +4,96 @@
  */
 package com.bibd.tubespbo.view.supervisor.supervisorpanels;
 
+import com.bibd.tubespbo.Di;
+import com.bibd.tubespbo.data.model.PenjualanModel;
+import com.bibd.tubespbo.data.model.PenjualanModel;
+import com.bibd.tubespbo.util.Formatter;
+
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
+
 /**
- *
  * @author HP VICTUS
  */
+//Rapid D.
 public class MenuPantauPenjualan extends javax.swing.JPanel {
 
     /**
      * Creates new form MenuPantauPenjualan
      */
+    int idWarehouseEmp;
+
     public MenuPantauPenjualan() {
+        idWarehouseEmp = Di.authPresenter.loggedInUser().getIdWarehouse();
         initComponents();
+        setupTabelPenjualan();
+        setupTabelDetilPenjualan();
+
+//        loadTableDetilOrder();
+        loadTabelPenjualan();
+    }
+    private DefaultTableModel tablePenjualanModel = new DefaultTableModel() {
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false; //super.isCellEditable(row, column);
+        }
+
+    };
+    private DefaultTableModel tableDetilPenjualanModel = new DefaultTableModel() {
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false; //super.isCellEditable(row, column);
+        }
+
+    };
+    private TableRowSorter<DefaultTableModel> tablePenjualanSorter = new TableRowSorter<>(tablePenjualanModel);
+    private TableRowSorter<DefaultTableModel> tableDetilPenjualanSorter = new TableRowSorter<>(tableDetilPenjualanModel);
+
+    private void setupTabelPenjualan() {
+        tPantaupenjualan.setModel(tablePenjualanModel);
+        tPantaupenjualan.setRowSorter(tablePenjualanSorter);
+        tPantaupenjualan.getTableHeader().setReorderingAllowed(false);
+        tablePenjualanModel.setColumnIdentifiers(new String[]{
+            "Id Transaksi", "Nama Customer", "Nama Sales", "Total Harga", "Status"
+        });
+        for (int i = 0; i < 4; i++) {
+            tablePenjualanSorter.setSortable(i, false);
+        }
     }
 
+    private void setupTabelDetilPenjualan() {
+        tIdnamacustomer.setModel(tableDetilPenjualanModel);
+        tIdnamacustomer.setRowSorter(tableDetilPenjualanSorter);
+        tIdnamacustomer.getTableHeader().setReorderingAllowed(false);
+        tableDetilPenjualanModel.setColumnIdentifiers(new String[]{
+            "Nama Produk", "Harga Satuan", "Jumlah"
+        });
+        for (int i = 0; i < 2; i++) {
+            tablePenjualanSorter.setSortable(i, false);
+        }
+    }
+
+//    private void populateTablePenjualan() {
+//        String filterSearch = tfidProductsearch.getText();
+//        Di.manageProductPresenter.showAllProduct(filterSearch);
+//        //Remove rows one by one from the end of the table
+//
+//        clearTable();
+//
+//        for (ProductModel product : Di.manageProductPresenter.listProduct) {
+//            String[] row = {
+//                String.valueOf(product.getIdProduct()),
+//                product.getProductName(),
+//                product.getCategoryName(),
+//                String.valueOf(product.getQuantityInStock()),
+//                String.valueOf(product.getSellPrice()),
+//                String.valueOf(product.getBuyPrice()),
+//                product.getLastUpdate().toString(),
+//                product.getWarehouseName()
+//            };
+//            tableProductModel.addRow(row);
+//        }
+//    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -57,6 +134,11 @@ public class MenuPantauPenjualan extends javax.swing.JPanel {
                 "IdTransaksi", "NamaCustomer", "NamaSales", "NamaProduk", "Kategori", "Kuantitas", "TotalHarga", "Status"
             }
         ));
+        tPantaupenjualan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tPantaupenjualanMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tPantaupenjualan);
 
         tfCaripantaupenjualan.addActionListener(new java.awt.event.ActionListener() {
@@ -90,6 +172,11 @@ public class MenuPantauPenjualan extends javax.swing.JPanel {
 
         jButton1.setBackground(new java.awt.Color(153, 255, 255));
         jButton1.setText("Cari");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -151,14 +238,52 @@ public class MenuPantauPenjualan extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void loadTabelPenjualan() {
+        String filterSearch = tfCaripantaupenjualan.getText();
+        Di.pantauPenjualanPresenter.getAllPenjualanInWarehouse(idWarehouseEmp, filterSearch);
+        //Remove rows one by one from the end of the table
+        clearTable();
+        System.out.println("After clear table");
+        for (PenjualanModel pm : Di.pantauPenjualanPresenter.listPenjualanWarehouse) {
+            System.out.println("PopulateTablePenjualan : " + pm.getCustomerName());
+            String[] row = {
+                String.valueOf(pm.getIdPenjualan()),
+                pm.getCustomerName(),
+                pm.getEmployeeName(),
+                Formatter.formatRupiah(pm.getTotalBiaya()),
+                pm.getShipmentStatus()
+            };
+            tablePenjualanModel.addRow(row);
+        }
+    }
     private void bCaripantaupenjualanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCaripantaupenjualanActionPerformed
-        // TODO add your handling code here:
+        loadTabelPenjualan();
     }//GEN-LAST:event_bCaripantaupenjualanActionPerformed
 
+    private void clearTable() {
+        for (int i = tPantaupenjualan.getRowCount() - 1; i >= 0; i--) {
+            tablePenjualanModel.removeRow(i);
+        }
+    }
     private void tfCaripantaupenjualanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfCaripantaupenjualanActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfCaripantaupenjualanActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+       loadTableDetilOrder();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void tPantaupenjualanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tPantaupenjualanMouseClicked
+
+// TODO @Rapid, munculkan detailorder penjualan di table bawah ketika item penjualan di klik
+    }//GEN-LAST:event_tPantaupenjualanMouseClicked
+
+    //make a reset button yah brow -rapid
+    private void resetFileds() {
+        tfCaripantaupenjualan.setText("");
+        tfSearchdatacustomer.setText("");
+
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bCaripantaupenjualan;
@@ -173,4 +298,22 @@ public class MenuPantauPenjualan extends javax.swing.JPanel {
     private javax.swing.JTextField tfCaripantaupenjualan;
     private javax.swing.JTextField tfSearchdatacustomer;
     // End of variables declaration//GEN-END:variables
+
+    private void loadTableDetilOrder() {
+        String filterSearch = tfSearchdatacustomer.getText();
+        Di.pantauPenjualanPresenter.getAllPenjualanInWarehouse(idWarehouseEmp, filterSearch);
+        //Remove rows one by one from the end of the table
+
+        clearTable();
+
+        for (PenjualanModel pm : Di.pantauPenjualanPresenter.listPenjualanWarehouse) {
+            String[] row = {
+                pm.getProductName(),
+                String.valueOf(pm.getUnitPrice()),
+                String.valueOf(pm.getQuantity())
+
+            };
+            tablePenjualanModel.addRow(row);
+        }
+    }
 }

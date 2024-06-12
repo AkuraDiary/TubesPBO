@@ -4,6 +4,15 @@
  */
 package com.bibd.tubespbo.view.supervisor.supervisorpanels;
 
+import com.bibd.tubespbo.Di;
+import com.bibd.tubespbo.data.model.ProductModel;
+import com.bibd.tubespbo.data.model.ProductStockModel;
+
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
+
+import static javax.swing.JOptionPane.showMessageDialog;
+
 /**
  *
  * @author HP VICTUS
@@ -13,10 +22,89 @@ public class MenuUpdateStok extends javax.swing.JPanel {
     /**
      * Creates new form MenuUpdateStok
      */
+
+    int idWarehouseEmployee;
+    int idEmployee;
+    private DefaultTableModel tblStockModel = new DefaultTableModel() {
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false; //super.isCellEditable(row, column);
+        }
+
+    };
+    private TableRowSorter<DefaultTableModel> tblStockSorter = new TableRowSorter<>(tblStockModel);
+
     public MenuUpdateStok() {
         initComponents();
+        idWarehouseEmployee = Di.authPresenter.loggedInUser().getIdWarehouse();
+        idEmployee = Di.authPresenter.loggedInUser().getId();
+        setupTableStock();;
+        populateTableStock();
+        populateCbProduct();
     }
 
+    private void populateCbProduct() {
+        Di.manageStockPresenter.showAllProduct();
+        cbProduk.removeAllItems();
+        for (ProductModel pm : Di.manageStockPresenter.listProduct) {
+            cbProduk.addItem(pm);
+        }
+    }
+
+    private void setupTableStock() {
+        tblProductStock.setModel(tblStockModel);
+
+        tblStockModel.addColumn("Id");
+        tblStockModel.addColumn("Nama Produk");
+        tblStockModel.addColumn("Quantity");
+        tblStockModel.addColumn("Tanggal Update");
+
+        tblProductStock.setRowSorter(tblStockSorter);
+        tblProductStock.getTableHeader().setReorderingAllowed(false);
+
+        tblStockSorter.setSortable(0, false);
+        tblStockSorter.setSortable(1, false);
+        tblStockSorter.setSortable(2, false);
+        tblStockSorter.setSortable(3, false);
+    }
+
+    private void populateTableStock() {
+        Di.manageStockPresenter.showStockProduct(idWarehouseEmployee, tfPencarianUpdate.getText());
+
+        clearTable();
+
+        for (ProductStockModel pm : Di.manageStockPresenter.listProductStock) {
+            String[] row = {
+                String.valueOf(pm.getId()),
+                pm.getProductName(),
+                String.valueOf(pm.getTotalStock()),
+                pm.getLastUpdate().toString()
+            };
+            tblStockModel.addRow(row);
+        }
+        
+    }
+
+    private void clearTable() {
+        for (int i = tblStockModel.getRowCount() - 1; i >= 0; i--) {
+            tblStockModel.removeRow(i);
+        }
+    }
+
+    private void resetFields(){
+        tfNamaProduk.setText("");
+        tfLastUpdate.setText("");
+        tfQuantityStok.setText("");
+        tfQuantity.setText("");
+//        cbProduk.setSelectedIndex(0);
+        bTambahStok.setEnabled(true);
+        bUbahStok.setEnabled(false);
+        cbProduk.setEnabled(true);
+        tfQuantity.setEnabled(true);
+
+        Di.manageStockPresenter.resetResult();
+
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -28,16 +116,15 @@ public class MenuUpdateStok extends javax.swing.JPanel {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        tfTanggalUpdateStok = new javax.swing.JTextField();
+        tfNamaProduk = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        tfGudang = new javax.swing.JTextField();
+        tfLastUpdate = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         tfQuantityStok = new javax.swing.JTextField();
         bUbahStok = new javax.swing.JButton();
-        bHapusStok = new javax.swing.JButton();
         bBersihkan = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
-        tViewData = new javax.swing.JTable();
+        tblProductStock = new javax.swing.JTable();
         tfPencarianUpdate = new javax.swing.JTextField();
         bCariUpdate = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
@@ -54,16 +141,19 @@ public class MenuUpdateStok extends javax.swing.JPanel {
         jLabel1.setText("UPDATE STOK");
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel2.setText("Tanggal:");
+        jLabel2.setText("Nama Produk");
 
-        tfTanggalUpdateStok.addActionListener(new java.awt.event.ActionListener() {
+        tfNamaProduk.setEnabled(false);
+        tfNamaProduk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfTanggalUpdateStokActionPerformed(evt);
+                tfNamaProdukActionPerformed(evt);
             }
         });
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel4.setText("LastUpdate:");
+
+        tfLastUpdate.setEnabled(false);
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel6.setText("Quantity:");
@@ -76,9 +166,11 @@ public class MenuUpdateStok extends javax.swing.JPanel {
 
         bUbahStok.setBackground(new java.awt.Color(255, 255, 153));
         bUbahStok.setText("Ubah");
-
-        bHapusStok.setBackground(new java.awt.Color(102, 255, 204));
-        bHapusStok.setText("Hapus");
+        bUbahStok.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bUbahStokActionPerformed(evt);
+            }
+        });
 
         bBersihkan.setText("Bersihkan");
         bBersihkan.addActionListener(new java.awt.event.ActionListener() {
@@ -87,7 +179,7 @@ public class MenuUpdateStok extends javax.swing.JPanel {
             }
         });
 
-        tViewData.setModel(new javax.swing.table.DefaultTableModel(
+        tblProductStock.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -98,7 +190,12 @@ public class MenuUpdateStok extends javax.swing.JPanel {
                 "Tanggal", "IdUpdate", "NamaProduct", "Quantity"
             }
         ));
-        jScrollPane4.setViewportView(tViewData);
+        tblProductStock.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblProductStockMouseClicked(evt);
+            }
+        });
+        jScrollPane4.setViewportView(tblProductStock);
 
         bCariUpdate.setBackground(new java.awt.Color(153, 255, 255));
         bCariUpdate.setText("Cari");
@@ -116,6 +213,11 @@ public class MenuUpdateStok extends javax.swing.JPanel {
 
         bTambahStok.setBackground(new java.awt.Color(153, 255, 153));
         bTambahStok.setText("TambahStok");
+        bTambahStok.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bTambahStokActionPerformed(evt);
+            }
+        });
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel10.setText("Quantity:");
@@ -128,50 +230,47 @@ public class MenuUpdateStok extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(88, 88, 88)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel4)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel9)
-                                        .addComponent(jLabel6)
-                                        .addComponent(jLabel10)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(tfGudang, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(tfTanggalUpdateStok, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(tfQuantityStok, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(bTambahStok)
-                                    .addComponent(cbProduk, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(tfQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(bUbahStok)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(bBersihkan))))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(137, 137, 137)
-                                .addComponent(jLabel3)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 486, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel8)
+                        .addGap(173, 173, 173))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(tfPencarianUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(bCariUpdate)
+                        .addGap(61, 61, 61))))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(88, 88, 88)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel4)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel9)
+                                .addComponent(jLabel6)
+                                .addComponent(jLabel10)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(tfLastUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
+                            .addComponent(tfQuantityStok, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(bTambahStok)
+                            .addComponent(cbProduk, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(tfPencarianUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(bCariUpdate)
+                                .addComponent(bUbahStok)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(bHapusStok))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(220, 220, 220)
-                                .addComponent(jLabel8)
-                                .addGap(131, 131, 131)))))
-                .addContainerGap(43, Short.MAX_VALUE))
+                                .addComponent(bBersihkan))
+                            .addComponent(tfNamaProduk)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(137, 137, 137)
+                        .addComponent(jLabel3)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 486, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -183,18 +282,17 @@ public class MenuUpdateStok extends javax.swing.JPanel {
                 .addGap(45, 45, 45)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfPencarianUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bCariUpdate)
-                    .addComponent(bHapusStok))
+                    .addComponent(bCariUpdate))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(tfTanggalUpdateStok, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(tfNamaProduk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
-                            .addComponent(tfGudang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(tfLastUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
@@ -221,30 +319,88 @@ public class MenuUpdateStok extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tfTanggalUpdateStokActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfTanggalUpdateStokActionPerformed
+    private void tfNamaProdukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfNamaProdukActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_tfTanggalUpdateStokActionPerformed
+    }//GEN-LAST:event_tfNamaProdukActionPerformed
 
     private void tfQuantityStokActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfQuantityStokActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfQuantityStokActionPerformed
 
     private void bCariUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCariUpdateActionPerformed
-        // TODO add your handling code here:
+
+        populateTableStock();
     }//GEN-LAST:event_bCariUpdateActionPerformed
 
     private void bBersihkanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBersihkanActionPerformed
-        // TODO add your handling code here:
+       resetFields();
     }//GEN-LAST:event_bBersihkanActionPerformed
+
+    private void tblProductStockMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProductStockMouseClicked
+
+
+
+        int row = tblProductStock.getSelectedRow();
+
+        int idStockProduct = Integer.parseInt(tblStockModel.getValueAt(row, 0).toString());
+
+        Di.manageStockPresenter.selectDataStock(
+                idStockProduct
+        );
+        ProductStockModel selectedProductStock = Di.manageStockPresenter.selectedDataStock;
+
+//        tfIdCustomer.setText(String.valueOf(idStockProduct));
+        tfNamaProduk.setText(selectedProductStock.getProductName());
+        tfLastUpdate.setText(selectedProductStock.getLastUpdate().toString());
+        tfQuantityStok.setText(String.valueOf(selectedProductStock.getTotalStock()));
+
+        bTambahStok.setEnabled(false);
+        bUbahStok.setEnabled(true);
+
+        cbProduk.setEnabled(false);
+        tfQuantity.setEnabled(false);
+    }//GEN-LAST:event_tblProductStockMouseClicked
+
+    private void bUbahStokActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bUbahStokActionPerformed
+        try{
+            int quantity = Integer.parseInt(tfQuantityStok.getText());
+            int idStock = Integer.parseInt(tblStockModel.getValueAt(tblProductStock.getSelectedRow(), 0).toString());
+            int idProduct = Di.manageStockPresenter.selectedDataStock.getProductId();
+            Di.manageStockPresenter.updateStockProduct(idStock, quantity, idEmployee);
+            populateTableStock();
+            resetFields();
+        }catch (NumberFormatException e){
+            showMessageDialog(null, "Quantity harus berupa angka");
+        }
+    }//GEN-LAST:event_bUbahStokActionPerformed
+
+    private void bTambahStokActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bTambahStokActionPerformed
+        int idProduct = cbProduk.getItemAt(cbProduk.getSelectedIndex()).getIdProduct();
+        try {
+            int quantity = Integer.parseInt(tfQuantity.getText());
+            Di.manageStockPresenter.createNewStockProduct(idProduct, quantity, idEmployee, idWarehouseEmployee);
+
+        }catch (NumberFormatException e){
+            showMessageDialog(null, "Quantity harus berupa angka");
+        }
+
+        if(Di.manageStockPresenter.stateAddstock > 0){
+            populateTableStock();
+            resetFields();
+            populateCbProduct();
+        }
+
+        
+        
+    }//GEN-LAST:event_bTambahStokActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bBersihkan;
     private javax.swing.JButton bCariUpdate;
-    private javax.swing.JButton bHapusStok;
     private javax.swing.JButton bTambahStok;
     private javax.swing.JButton bUbahStok;
-    private javax.swing.JComboBox<String> cbProduk;
+    private javax.swing.JComboBox<ProductModel> cbProduk;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -254,11 +410,11 @@ public class MenuUpdateStok extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTable tViewData;
-    private javax.swing.JTextField tfGudang;
+    private javax.swing.JTable tblProductStock;
+    private javax.swing.JTextField tfLastUpdate;
+    private javax.swing.JTextField tfNamaProduk;
     private javax.swing.JTextField tfPencarianUpdate;
     private javax.swing.JTextField tfQuantity;
     private javax.swing.JTextField tfQuantityStok;
-    private javax.swing.JTextField tfTanggalUpdateStok;
     // End of variables declaration//GEN-END:variables
 }

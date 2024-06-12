@@ -32,9 +32,9 @@ public class ManageEmployeePresenter {
         
         if(!filterSearch.isBlank()){
                 this.listEmployee = (ArrayList<EmployeeModel>) this.listEmployee.stream()
-                   .filter(emp -> emp.getNama().contains(filterSearch)
-//                                  emp.getStatus().toLowerCase().contains(filterSearch) || 
-//                                  emp.getRole().toLowerCase().contains(filterSearch))
+                   .filter(emp -> emp.getNama().toLowerCase().contains(filterSearch) ||
+                                  emp.getStatus().toLowerCase().contains(filterSearch) ||
+                                  emp.getRole().toLowerCase().contains(filterSearch)
                            )
                    .collect(Collectors.toList());
         }

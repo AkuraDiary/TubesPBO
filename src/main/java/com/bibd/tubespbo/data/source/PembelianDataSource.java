@@ -9,6 +9,12 @@ import com.bibd.tubespbo.data.model.CustomerModel;
 import com.bibd.tubespbo.data.model.KeranjangModel;
 import com.bibd.tubespbo.data.model.OrderDetailsModel;
 import com.bibd.tubespbo.data.model.PembelianModel;
+<<<<<<< HEAD
+=======
+import com.bibd.tubespbo.util.Statics;
+
+import java.sql.PreparedStatement;
+>>>>>>> bd13ccae2fbb5b00d9ca6df8bcc2f90d7560b093
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -38,12 +44,25 @@ public class PembelianDataSource {
         try {
             ArrayList<PembelianModel> BeliModel = new ArrayList<>();
             db.openConnection();
-            String query = null;
-            if (idWarehouse < 0) {
-                query = "SELECT orderpembelian.idPembelian, employees.idEmployee, orderpembelian.status, orders.orderDate, orders.orderType, orders.orderId  FROM orderpembelian JOIN orders ON orders.orderId = orderpembelian.idPembelian JOIN employees ON employees.idEmployee = orders.employeeId";
+            String query = "";
+            if (idWarehouse == Statics.GET_ALL_PEMBELIAN) {
+                query = "SELECT \n" +
+                        "orderpembelian.idPembelian, employees.idEmployee, orderpembelian.status, orders.orderDate, warehouse.address, orders.orderType, warehouse.id, orders.orderId , SUM(orderdetails.unitPrice * orderdetails.quantity) AS \"totalbiaya\"\n" +
+                        "\n" +
+                        "FROM orderpembelian JOIN orders ON orders.orderId = orderpembelian.idPembelian \n" +
+                        "JOIN employees ON employees.idEmployee = orders.employeeId\n" +
+                        "JOIN warehouse ON warehouse.id = employees.idWarehouse\n" +
+                        "JOIN orderdetails ON orderdetails.orderId = orders.orderId\n" +
+                        "GROUP BY orders.orderId\n" + " ";
             } else {
-                query = "SELECT orderpembelian.idPembelian, employees.idEmployee, employees.role, orderpembelian.status, orders.orderDate, orders.orderType, orders.orderId, warehouse.id FROM orderpembelian JOIN orders ON orders.orderId = orderpembelian.idPembelian JOIN employees ON employees.idEmployee = orders.employeeId \n"
-                        + "JOIN warehouse on employees.idWarehouse = warehouse.id " + idWarehouse;
+                query = "SELECT \n" +
+                        "orderpembelian.idPembelian, employees.idEmployee, orderpembelian.status, orders.orderDate, warehouse.address, orders.orderType, warehouse.id, orders.orderId , SUM(orderdetails.unitPrice * orderdetails.quantity) AS \"totalbiaya\"\n" +
+                        "\n" +
+                        "FROM orderpembelian JOIN orders ON orders.orderId = orderpembelian.idPembelian \n" +
+                        "JOIN employees ON employees.idEmployee = orders.employeeId\n" +
+                        "JOIN warehouse ON warehouse.id = employees.idWarehouse\n" +
+                        "JOIN orderdetails ON orderdetails.orderId = orders.orderId\n" +
+                        "GROUP BY orders.orderId\n" + " HAVING warehouse.id = " + idWarehouse;
             }
             ResultSet rs = db.getData(query);
 
@@ -57,6 +76,10 @@ public class PembelianDataSource {
                 String typeorder = rs.getString("orderType");
                 Date tanggalorder = rs.getDate("orderDate");
 
+                String warehouse = rs.getString("address");
+                long totalbiaya =(long) rs.getInt("totalbiaya");
+                int warehouseId = rs.getInt("id");
+
                 PembelianModel pm = new PembelianModel();
                 pm.setIdPembelian(idPembelian);
                 pm.setIdSupervisor(idSupervisor);
@@ -65,7 +88,15 @@ public class PembelianDataSource {
                 pm.setTanggalOrder(tanggalorder);
                 pm.setTypeOrder(typeorder);
 
+<<<<<<< HEAD
                 BeliModel.add(pm);
+=======
+                pm.setWarehouse(warehouse);
+                pm.setWarehouseId(warehouseId);
+                pm.setTotalBiaya(totalbiaya);
+
+                dataResult.add(pm);
+>>>>>>> bd13ccae2fbb5b00d9ca6df8bcc2f90d7560b093
 
             }
             return BeliModel;
@@ -78,6 +109,8 @@ public class PembelianDataSource {
             db.closeConnection();
         }
     }
+
+
 
     public int submitPembelian(int employeeId, String orderType, LocalDateTime waktu, String statusOrder, ArrayList<KeranjangModel> keranjang) {
         //   throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody

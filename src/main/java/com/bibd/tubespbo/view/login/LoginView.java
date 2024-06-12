@@ -27,8 +27,8 @@ public class LoginView extends javax.swing.JFrame {
         initComponents();
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         
-        tfEmail.setText("aldo@gmail.com");
-        tfPassword.setText("aldo123");
+        tfEmail.setText("fina@gmail.com");
+        tfPassword.setText("fina555444");
     }
 
     /**
@@ -86,6 +86,15 @@ public class LoginView extends javax.swing.JFrame {
         tfEmail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfEmailActionPerformed(evt);
+            }
+        });
+
+        tfPassword.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                tfPasswordMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                tfPasswordMouseExited(evt);
             }
         });
 
@@ -234,6 +243,16 @@ public class LoginView extends javax.swing.JFrame {
         int y = evt.getYOnScreen();
         this.setLocation(x - xx, y - xy);
     }//GEN-LAST:event_formMouseDragged
+
+    private void tfPasswordMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tfPasswordMouseEntered
+        // preview password when mouse entered. and hide when mouse exited
+        tfPassword.setEchoChar((char) 0);
+
+    }//GEN-LAST:event_tfPasswordMouseEntered
+
+    private void tfPasswordMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tfPasswordMouseExited
+        tfPassword.setEchoChar('*');
+    }//GEN-LAST:event_tfPasswordMouseExited
 
     
     private boolean formIsValid() {

@@ -7,7 +7,7 @@ package com.bibd.tubespbo.data.repository;
 import com.bibd.tubespbo.data.model.KeranjangModel;
 import com.bibd.tubespbo.data.model.PenjualanModel;
 import com.bibd.tubespbo.data.source.PenjualanDataSource;
-import java.time.LocalDateTime;
+
 import java.util.ArrayList;
 
 /**
@@ -22,14 +22,18 @@ public class PenjualanRepository {
         this.penjualanDataSource = penjualanDataSource;
     }
 
-    public ArrayList<PenjualanModel> getHistoryPenjualan(int idWareHouse) {
+    public ArrayList<PenjualanModel> getHistoryPenjualan(int idWareHouse, int idEmployee) {
 
-        return penjualanDataSource.getHistoryPenjualan(idWareHouse);
+        return penjualanDataSource.getHistoryPenjualanSales(idWareHouse, idEmployee);
     }
 
-    public int doCheckOut(int employeeId, int customerId, String statusPayment, LocalDateTime waktu, String typeOrder, ArrayList<KeranjangModel> keranjang, String shipStatus,int idWarehouse, int idPenjualan) {
+    public ArrayList<PenjualanModel> getHistoryPenjualan(int idWareHouse) {
+
+        return penjualanDataSource.getHistoryPenjualanByWarehouse(idWareHouse);
+    }
+    public int doCheckOut(int employeeId, int customerId, String statusPayment, String waktu, String typeOrder, ArrayList<KeranjangModel> keranjang, String shipStatus, int idWarehouse) {
         try {
-            return penjualanDataSource.doCheckout(customerId, employeeId, keranjang, statusPayment, typeOrder, waktu,shipStatus,idWarehouse, idPenjualan);
+            return penjualanDataSource.doCheckout(customerId, employeeId, keranjang, statusPayment, typeOrder, waktu,shipStatus,idWarehouse);
           
         } catch (Exception e) {
             System.out.println("Penjualan Repo " + e.getLocalizedMessage());

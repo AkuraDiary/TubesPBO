@@ -68,7 +68,6 @@ public class MenuCrudProduct extends javax.swing.JPanel {
         jLabel10 = new javax.swing.JLabel();
         tfidProductsearch = new javax.swing.JTextField();
         btnSearchProduct = new javax.swing.JButton();
-        btnClearSearch = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         bUpdate = new javax.swing.JButton();
         bBersihkan = new javax.swing.JButton();
@@ -157,14 +156,6 @@ public class MenuCrudProduct extends javax.swing.JPanel {
             }
         });
 
-        btnClearSearch.setBackground(new java.awt.Color(255, 255, 153));
-        btnClearSearch.setText("Delete");
-        btnClearSearch.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnClearSearchActionPerformed(evt);
-            }
-        });
-
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel1.setText("MENU > CRUD Product");
@@ -236,9 +227,7 @@ public class MenuCrudProduct extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(tfidProductsearch, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnSearchProduct)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnClearSearch))
+                                .addComponent(btnSearchProduct))
                             .addGroup(layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel11)
@@ -298,8 +287,7 @@ public class MenuCrudProduct extends javax.swing.JPanel {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabel10)
                                 .addComponent(tfidProductsearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(btnSearchProduct)
-                                .addComponent(btnClearSearch))))
+                                .addComponent(btnSearchProduct))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(23, 23, 23)
                         .addComponent(bCreateProduct)
@@ -405,11 +393,6 @@ public class MenuCrudProduct extends javax.swing.JPanel {
     private void tfidProductsearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfidProductsearchActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfidProductsearchActionPerformed
-
-    private void btnClearSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearSearchActionPerformed
-        tfidProductsearch.setText("");
-        populateTableProduct();
-    }//GEN-LAST:event_btnClearSearchActionPerformed
 
     private void tViewdataproductMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tViewdataproductMouseClicked
         // TODO add your handling code here:
@@ -564,7 +547,6 @@ public class MenuCrudProduct extends javax.swing.JPanel {
     private javax.swing.JButton bBersihkan;
     private javax.swing.JButton bCreateProduct;
     private javax.swing.JButton bUpdate;
-    private javax.swing.JButton btnClearSearch;
     private javax.swing.JButton btnSearchProduct;
     private javax.swing.JComboBox<CategoryModel> cbCategory;
     private javax.swing.JComboBox<ProdusenModel> cbProdusen;
