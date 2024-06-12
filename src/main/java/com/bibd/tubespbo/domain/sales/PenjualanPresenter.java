@@ -9,9 +9,11 @@ import com.bibd.tubespbo.data.model.PenjualanModel;
 import com.bibd.tubespbo.data.model.ProductModel;
 import com.bibd.tubespbo.data.repository.PenjualanRepository;
 import com.bibd.tubespbo.data.repository.ProductRepository;
+import com.bibd.tubespbo.util.Parser;
 import com.bibd.tubespbo.util.Statics;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
@@ -111,17 +113,30 @@ public class PenjualanPresenter {
 
     public void showProduk() {
         this.allproduct = productRepository.getAllProduct();
+
+        // filter empty product
+        // remove product in allproduct if quantityInStock == 0
+        for (int i = 0; i < allproduct.size(); i++) {
+            if (allproduct.get(i).getQuantityInStock() == 0) {
+                allproduct.remove(i);
+            }
+        }
     }
 
-    int statusCheckout = 0; 
+    public int statusCheckout = 0;
 
     public void checkOut(int customerId, int employeeId, ArrayList<KeranjangModel> keranjang, String statusPayment,
-             String statusShip, int idWarehouse, int idPenjualan) {
-        LocalDateTime waktu = LocalDateTime.now();
+             String statusShip, int idWarehouse) {
+        Date waktu = new Date();
+
+        // make sure date format is correct
+        // yyyy-MM-dd
+//        waktu = java.sql.Timestamp.valueOf(LocalDateTime.now());
+
         String typeOrder = Statics.ORDER_TYPE_PENJUALAN;
         statusCheckout = penjualanRepository.doCheckOut(
-                employeeId, customerId, statusPayment, waktu, typeOrder, 
-                keranjang, statusShip, idPenjualan, idWarehouse
+                employeeId, customerId, statusPayment, Parser.parseDateToStringSQL(waktu), typeOrder,
+                keranjang, statusShip, idWarehouse
         );
     }
     public void resetCheckout(){

@@ -8,12 +8,10 @@ import com.bibd.tubespbo.data.DbConnection;
 import com.bibd.tubespbo.data.model.KeranjangModel;
 import com.bibd.tubespbo.data.model.OrderDetailsModel;
 import com.bibd.tubespbo.data.model.PenjualanModel;
-import com.mysql.cj.protocol.Resultset;
+import com.bibd.tubespbo.util.Statics;
 
-import javax.swing.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -116,6 +114,7 @@ public class PenjualanDataSource {
 
             ResultSet rs = db.getData(query);
 
+//            System.out.println(query);
             PenjualanModel penjualanModel;
 
             while (rs.next()) {
@@ -141,7 +140,7 @@ public class PenjualanDataSource {
                 penjualanModel.setCustomerName(customerName);
                 penjualanModel.setEmployeeName(employeeName);
                 penjualanModel.setTotalBiaya(totalbiaya);
-                System.out.println(penjualanModel.getTotalBiaya());
+//                System.out.println(penjualanModel.getTotalBiaya());
                 pm.add(penjualanModel);
             }
 
@@ -245,7 +244,7 @@ public class PenjualanDataSource {
 //        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    private int queryOrder(LocalDateTime orderDate, String orderType, int employeeid) {
+    private int queryOrder(String orderDate, String orderType, int employeeid) {
         String query = "INSERT INTO orders (orderDate, orderType, employeeId) "
                 + "VALUES ('" + orderDate + "', '" + orderType + "', " + employeeid + ")";
         return db.executeStatement(query);
@@ -275,8 +274,8 @@ public class PenjualanDataSource {
         return getIdOrder;
     }
 
-    private int queryOrderPenjualan(String shipmentStatus, LocalDateTime dateShipped, int customerId,
-            String statusPayment) {
+    private int queryOrderPenjualan(String shipmentStatus, String dateShipped, int customerId,
+                                    String statusPayment) {
         try {
             String querygetIdOrder = "SELECT o.orderId\n"
                     + "FROM orders o\n"
@@ -288,11 +287,19 @@ public class PenjualanDataSource {
             while (rs.next()) {
                 getIdOrder = rs.getInt("orderId");
             }
-
+            String query = "";
             if (getIdOrder > 0) {
-                String query = "INSERT INTO orderpenjualan\n"
-                        + "(shipmentStatus, dateShipped, orderId, customerId, statuspayment) \n"
-                        + "VALUES ('" + shipmentStatus + "', " + dateShipped + ", " + getIdOrder + ", " + customerId + ", " + statusPayment + ")";
+                if(statusPayment.equalsIgnoreCase(Statics.ORDER_PAYMENT_STATUS_UNPAID)){
+                    dateShipped = "NULL";
+                     query = "INSERT INTO orderpenjualan\n"
+                            + "(shipmentStatus, dateShipped, orderId, customerId, statuspayment) \n"
+                            + "VALUES ('" + shipmentStatus + "', " + dateShipped + ", " + getIdOrder + ", " + customerId + ", '" + statusPayment + "')";
+                }else{
+                     query = "INSERT INTO orderpenjualan\n"
+                            + "(shipmentStatus, dateShipped, orderId, customerId, statuspayment) \n"
+                            + "VALUES ('" + shipmentStatus + "', '" + dateShipped + "', " + getIdOrder + ", " + customerId + ", '" + statusPayment + "')";
+                }
+
                 return db.executeStatement(query);
             }
             return getIdOrder;
@@ -304,7 +311,7 @@ public class PenjualanDataSource {
 
     }
 
-    private int queryStokProduct(int jumlahBeli, LocalDateTime dateLastUpdate, int idProduct, int idWareHouse) {
+    private int queryStokProduct(int jumlahBeli, String dateLastUpdate, int idProduct, int idWareHouse) {
 
         int stoksebelum = 0;
         try {
@@ -328,9 +335,8 @@ public class PenjualanDataSource {
     }
 
     public int doCheckout(int customerId, int employeeId, ArrayList<KeranjangModel> keranjang, String statusPayment,
-            String typeOrder, LocalDateTime waktu, String statusShip, int idWarehouse, int idPenjualan) {
-//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-//          order,orderdetil,orderpenjualan, stok product
+                          String typeOrder, String waktu, String statusShip, int idWarehouse) {
+
 
         try {
             db.openConnection();
