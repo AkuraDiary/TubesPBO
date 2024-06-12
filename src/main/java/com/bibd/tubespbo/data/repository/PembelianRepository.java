@@ -10,6 +10,7 @@ import com.bibd.tubespbo.data.model.PembelianModel;
 import com.bibd.tubespbo.data.source.PembelianDataSource;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
@@ -36,7 +37,7 @@ public class PembelianRepository {
         }
     }
 
-    public int submitPembelian(int employeeId, String orderType, LocalDateTime waktu, String statusOrder, ArrayList<KeranjangModel> keranjang) {
+    public int submitPembelian(int employeeId, String orderType, Date waktu, String statusOrder, ArrayList<KeranjangModel> keranjang) {
         try {
             return pembelianDataSource.submitPembelian(employeeId, orderType, waktu, statusOrder, keranjang);
         } catch (Exception e) {

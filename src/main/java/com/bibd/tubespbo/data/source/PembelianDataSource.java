@@ -9,6 +9,7 @@ import com.bibd.tubespbo.data.model.CustomerModel;
 import com.bibd.tubespbo.data.model.KeranjangModel;
 import com.bibd.tubespbo.data.model.OrderDetailsModel;
 import com.bibd.tubespbo.data.model.PembelianModel;
+import com.bibd.tubespbo.util.Parser;
 import com.bibd.tubespbo.util.Statics;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -134,7 +135,7 @@ public class PembelianDataSource {
         }
     }
 
-    public int submitPembelian(int employeeId, String orderType, LocalDateTime waktu, String statusOrder, ArrayList<KeranjangModel> keranjang) {
+    public int submitPembelian(int employeeId, String orderType, Date waktu, String statusOrder, ArrayList<KeranjangModel> keranjang) {
         //   throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
         // order,orderdetil,orderpenjualan, stok product
         int orderId = -1;
@@ -157,12 +158,18 @@ public class PembelianDataSource {
 //                queryOrderDetails(km);
 //            }
 //
-//            queryOrderPembelian(statusOrder, orderId);
+            System.out.println("Pembelian Data Source");
+            queryOrderPembelian(statusOrder, orderId);
+            
             db.openConnection();
+            
+            String waktuString = Parser.parseDateToStringSQL(waktu);
+            
             //Eksekusi INSERT ke Tabel orders:
             String query = "INSERT INTO orders (employeeid, orderType, orderDate) VALUES ("
-                    + employeeId + ", '" + orderType + "', '" + waktu + "')";
+                    + employeeId + ", '" + orderType + "', '" + waktuString + "')";
             db.executeStatement(query);
+            
             //Mengambil orderId Terakhir yang Baru Ditambahkan:
             ResultSet rs = db.getData("SELECT orderId AS last_id from orders order by orderId desc limit 1");
             if (rs.next()) {

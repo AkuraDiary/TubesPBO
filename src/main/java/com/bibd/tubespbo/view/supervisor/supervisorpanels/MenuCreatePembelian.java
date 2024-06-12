@@ -163,7 +163,7 @@ public class MenuCreatePembelian extends javax.swing.JPanel {
             String[] row = {
                     String.valueOf(productModel.getIdProduct()),
                     productModel.getProductName(),
-                    String.valueOf(productModel.getSellPrice()),
+                    String.valueOf(productModel.getBuyPrice()),
                     String.valueOf(productModel.getQuantityInStock())
             };
             tableProductModel.addRow(row);
@@ -210,7 +210,7 @@ public class MenuCreatePembelian extends javax.swing.JPanel {
     private void calculateTotalKeranjang() {
         totalKeranjang = 0;
         for (KeranjangModel item : Di.pembelianPresenter.keranjang) {
-            totalKeranjang += item.getQuantity() * item.getProduk().getSellPrice();
+            totalKeranjang += item.getQuantity() * item.getProduk().getBuyPrice();
         }
         tfTotalkeranjang.setText(Formatter.formatRupiah(totalKeranjang));
     }
@@ -237,7 +237,7 @@ public class MenuCreatePembelian extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         tfIdpembelian = new javax.swing.JTextField();
         bSubmit = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnClean = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         tDatapembelian = new javax.swing.JTable();
         jLabel7 = new javax.swing.JLabel();
@@ -321,7 +321,12 @@ public class MenuCreatePembelian extends javax.swing.JPanel {
             }
         });
 
-        jButton4.setText("Bersihkan");
+        btnClean.setText("Bersihkan");
+        btnClean.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCleanActionPerformed(evt);
+            }
+        });
 
         tDatapembelian.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -401,7 +406,7 @@ public class MenuCreatePembelian extends javax.swing.JPanel {
                         .addGap(0, 0, Short.MAX_VALUE))))
             .addGroup(layout.createSequentialGroup()
                 .addGap(352, 352, 352)
-                .addComponent(jButton4)
+                .addComponent(btnClean)
                 .addGap(65, 65, 65)
                 .addComponent(bSubmit)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -456,7 +461,7 @@ public class MenuCreatePembelian extends javax.swing.JPanel {
                         .addComponent(bUpdate)))
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton4)
+                    .addComponent(btnClean)
                     .addComponent(bSubmit))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -605,14 +610,28 @@ public class MenuCreatePembelian extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_tfTanggalUpdateActionPerformed
 
+    private void btnCleanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCleanActionPerformed
+  // confirmation dialog
+        int dialogResult = JOptionPane.showConfirmDialog(null, "Ini akan menghapus semua item di keranjang", "Warning", JOptionPane.YES_NO_OPTION);
+        if (dialogResult == JOptionPane.NO_OPTION) {
+            return;
+        }
+        Di.pembelianPresenter.resetClearKeranjang();
+        populateTableKeranjang();
+        populateTableProduct();
+        calculateTotalKeranjang();
+        resetFields();
+        Di.pembelianPresenter.resetStatusPembelian();// TODO add your handling code here:
+    }//GEN-LAST:event_btnCleanActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bSubmit;
     private javax.swing.JButton bUpdate;
     private javax.swing.JButton btnAddToKeranjang;
+    private javax.swing.JButton btnClean;
     private javax.swing.JButton btnRemoveFromKeranjang;
     private javax.swing.JComboBox<String> cbStatusUpdate;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

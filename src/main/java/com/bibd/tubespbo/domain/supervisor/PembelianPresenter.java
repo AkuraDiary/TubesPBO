@@ -12,6 +12,7 @@ import com.bibd.tubespbo.data.repository.ProductRepository;
 import com.bibd.tubespbo.util.Statics;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
@@ -100,10 +101,9 @@ public class PembelianPresenter {
     public int statusSubmitPembelian = 0; // 0 default ; -1 error; else success
 
     public void submitPembelian(int employeeId) {
-        LocalDateTime waktu = LocalDateTime.now();
+        Date waktu = new Date();
         String statusOrder = Statics.PEMBELIAN_STATUS_PENDING;
         String orderType = Statics.ORDER_TYPE_PEMBELIAN;
-
         statusSubmitPembelian = pembelianRepository.submitPembelian(
                 employeeId, orderType, waktu, statusOrder, keranjang
         );
