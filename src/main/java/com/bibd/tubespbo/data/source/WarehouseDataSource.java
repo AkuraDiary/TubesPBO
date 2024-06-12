@@ -105,7 +105,7 @@ public class WarehouseDataSource {
         try {
             ArrayList<CityModel> dataResult = new ArrayList<>();
             db.openConnection();
-            String query = "SELECT id, city, idProvince FROM ciry WHERE idProvince=" + provinceId;
+            String query = "SELECT id, city, idProvinsi FROM city WHERE idProvinsi=" + provinceId;
 
             ResultSet rs = db.getData(query);
 
@@ -113,7 +113,7 @@ public class WarehouseDataSource {
                 // Parsing the data
                 int id = rs.getInt("id");
                 String city = rs.getString("city");
-                int idProvince = rs.getInt("idProvince");
+                int idProvince = rs.getInt("idProvinsi");
 
                 // Creating a CityModel object and using setters
                 CityModel cityModel = new CityModel();

@@ -10,11 +10,15 @@ import com.bibd.tubespbo.data.model.KeranjangModel;
 import com.bibd.tubespbo.data.model.PenjualanModel;
 import com.bibd.tubespbo.data.model.ProductModel;
 import com.bibd.tubespbo.util.Formatter;
+import com.bibd.tubespbo.util.Statics;
 import com.bibd.tubespbo.util.Validator;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import static javax.swing.JOptionPane.showMessageDialog;
 
@@ -56,6 +60,7 @@ public class MenuCrudPenjualan extends javax.swing.JPanel {
     };
     private TableRowSorter<DefaultTableModel> tableKeranjangsSorter = new TableRowSorter<>(tableKeranjangModel);
 
+
     public MenuCrudPenjualan() {
         initComponents();
 
@@ -65,11 +70,34 @@ public class MenuCrudPenjualan extends javax.swing.JPanel {
         setupTableProduct();
         setupTableKeranjang();
 
+        setupCbPayment();
+        setupCbPaymentUpdate();
+
         populateTablePenjualan();
         populateTableProduct();
         populateTableKeranjang();
         populateCbCustomer();
 
+    }
+
+    private ArrayList<String> listPaymentsStats = new ArrayList<>(
+            Arrays.asList(
+                    Statics.ORDER_PAYMENT_STATUS_UNPAID,
+                    Statics.ORDER_PAYMENT_STATUS_PAID
+            )
+    );
+    private void setupCbPayment() {
+        cbPayment.removeAllItems();
+        for (String payment : listPaymentsStats) {
+            cbPayment.addItem(payment);
+        }
+    }
+
+    private void setupCbPaymentUpdate() {
+        cbPaymentUpdate.removeAllItems();
+        for (String payment : listPaymentsStats) {
+            cbPaymentUpdate.addItem(payment);
+        }
     }
 
     private void populateCbCustomer() {
@@ -90,10 +118,10 @@ public class MenuCrudPenjualan extends javax.swing.JPanel {
         }
         for (KeranjangModel keranjangMdl : Di.penjualanPresenter.keranjang) {
             String[] row = {
-                String.valueOf(keranjangMdl.getProduk().getIdProduct()),
-                keranjangMdl.getProduk().getProductName(),
-                String.valueOf(keranjangMdl.getProduk().getSellPrice()),
-                String.valueOf(keranjangMdl.getQuantity())
+                    String.valueOf(keranjangMdl.getProduk().getIdProduct()),
+                    keranjangMdl.getProduk().getProductName(),
+                    String.valueOf(keranjangMdl.getProduk().getSellPrice()),
+                    String.valueOf(keranjangMdl.getQuantity())
             };
             tableKeranjangModel.addRow(row);
         }
@@ -115,12 +143,12 @@ public class MenuCrudPenjualan extends javax.swing.JPanel {
 
         for (PenjualanModel penjualanModel : Di.penjualanPresenter.history) {
             String[] row = {
-                String.valueOf(penjualanModel.getIdPenjualan()),
-                penjualanModel.getShipmentStatus(),
-                penjualanModel.getCustomerName(), //.getNama(),
-                penjualanModel.getTanggalOrder().toString(),
-                penjualanModel.getStatusPayment(),
-                Formatter.formatRupiah(penjualanModel.getTotalBiaya()),};
+                    String.valueOf(penjualanModel.getIdPenjualan()),
+                    penjualanModel.getShipmentStatus(),
+                    penjualanModel.getCustomerName(), //.getNama(),
+                    penjualanModel.getTanggalOrder().toString(),
+                    penjualanModel.getStatusPayment(),
+                    Formatter.formatRupiah(penjualanModel.getTotalBiaya()),};
             tableAllPenjualanModel.addRow(row);
         }
 
@@ -151,10 +179,10 @@ public class MenuCrudPenjualan extends javax.swing.JPanel {
 
         for (ProductModel productModel : Di.penjualanPresenter.allproduct) {
             String[] row = {
-                String.valueOf(productModel.getIdProduct()),
-                productModel.getProductName(),
-                String.valueOf(productModel.getSellPrice()),
-                String.valueOf(productModel.getQuantityInStock())
+                    String.valueOf(productModel.getIdProduct()),
+                    productModel.getProductName(),
+                    String.valueOf(productModel.getSellPrice()),
+                    String.valueOf(productModel.getQuantityInStock())
             };
             tableProductModel.addRow(row);
         }
@@ -200,12 +228,13 @@ public class MenuCrudPenjualan extends javax.swing.JPanel {
     private void resetFields() {
         tfCreateidpenjualan.setText("");
         tfIdPenjualan.setText("");
-        tfCustPenjualan.setText("");
-        tfTotal.setText("");
+        tfCustPenjualanUpdate.setText("");
+        tfTotalPenjualanUpdate.setText("");
         tfQtyItem.setText("1");
+        cbCustomer.setSelectedIndex(0);
+        cbPaymentUpdate.setSelectedIndex(0);
         btnAddToKeranjang.setEnabled(false);
         btnRemoveFromKeranjang.setEnabled(false);
-        calculateTotalKeranjang();
     }
 
     long totalKeranjang = 0;
@@ -213,7 +242,7 @@ public class MenuCrudPenjualan extends javax.swing.JPanel {
     private void calculateTotalKeranjang() {
         totalKeranjang = 0;
         for (KeranjangModel item : Di.penjualanPresenter.keranjang) {
-            totalKeranjang = item.getQuantity() * item.getProduk().getSellPrice();
+            totalKeranjang += item.getQuantity() * item.getProduk().getSellPrice();
         }
         tfTotalKeranjang.setText(Formatter.formatRupiah(totalKeranjang));
     }
@@ -253,19 +282,21 @@ public class MenuCrudPenjualan extends javax.swing.JPanel {
         bTambahCustomer = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         tOrderpenjualan = new javax.swing.JTable();
-        cbPayment = new javax.swing.JComboBox<>();
+        cbPaymentUpdate = new javax.swing.JComboBox<>();
         tfCustomerPenjualan = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         tfIdPenjualan = new javax.swing.JTextField();
-        tfCustPenjualan = new javax.swing.JTextField();
+        tfCustPenjualanUpdate = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
-        tfTotal = new javax.swing.JTextField();
+        tfTotalPenjualanUpdate = new javax.swing.JTextField();
         tfCustomerPenjualan1 = new javax.swing.JLabel();
         btnRemoveFromKeranjang = new javax.swing.JButton();
         tfQtyItem = new javax.swing.JTextField();
         btnSearchCustomer = new javax.swing.JButton();
         tfTotalKeranjang = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
+        cbPayment = new javax.swing.JComboBox<>();
+        jLabel14 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -290,7 +321,12 @@ public class MenuCrudPenjualan extends javax.swing.JPanel {
         jLabel7.setText("Alamat:");
 
         bTambah.setBackground(new java.awt.Color(153, 255, 153));
-        bTambah.setText("Tambah");
+        bTambah.setText("Checkout");
+        bTambah.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bTambahActionPerformed(evt);
+            }
+        });
 
         bUpdate.setBackground(new java.awt.Color(153, 255, 255));
         bUpdate.setText("Update");
@@ -367,7 +403,7 @@ public class MenuCrudPenjualan extends javax.swing.JPanel {
             }
         });
 
-        bTambahCustomer.setBackground(new java.awt.Color(255, 255, 102));
+        bTambahCustomer.setBackground(new java.awt.Color(204, 204, 204));
         bTambahCustomer.setText("Daftarkan");
         bTambahCustomer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -399,11 +435,11 @@ public class MenuCrudPenjualan extends javax.swing.JPanel {
             }
         });
 
-        tfCustPenjualan.setEnabled(false);
+        tfCustPenjualanUpdate.setEnabled(false);
 
         jLabel13.setText("Payment");
 
-        tfTotal.setEnabled(false);
+        tfTotalPenjualanUpdate.setEnabled(false);
 
         tfCustomerPenjualan1.setText("Total");
 
@@ -429,6 +465,9 @@ public class MenuCrudPenjualan extends javax.swing.JPanel {
 
         jLabel4.setText("Total Keranjang");
 
+        jLabel14.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel14.setText("Payment");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -445,17 +484,20 @@ public class MenuCrudPenjualan extends javax.swing.JPanel {
                         .addGap(86, 86, 86)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
+                                .addComponent(bBersihkan)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(bTambah)
+                                .addGap(3, 3, 3))
+                            .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel3)
-                                    .addComponent(jLabel9))
+                                    .addComponent(jLabel9)
+                                    .addComponent(jLabel14))
                                 .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(tfCreateidpenjualan)
-                                    .addComponent(cbCustomer, 0, 138, Short.MAX_VALUE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(bBersihkan)
-                                .addGap(9, 9, 9)
-                                .addComponent(bTambah)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(cbPayment, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(tfCreateidpenjualan, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(cbCustomer, javax.swing.GroupLayout.Alignment.TRAILING, 0, 138, Short.MAX_VALUE))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(tfCustomerSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -482,7 +524,7 @@ public class MenuCrudPenjualan extends javax.swing.JPanel {
                 .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 656, Short.MAX_VALUE)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 658, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -492,28 +534,37 @@ public class MenuCrudPenjualan extends javax.swing.JPanel {
                             .addComponent(tfCustomerPenjualan1))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfTotalPenjualanUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(tfCustPenjualan, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(tfCustPenjualanUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(tfIdPenjualan, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(bUpdate)
-                                .addComponent(cbPayment, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(cbPaymentUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addGap(36, 36, 36)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfNamaCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfAlamat, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(tfNohpcustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(tfEmailCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(bTambahCustomer)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(108, 108, 108)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel10)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(6, 6, 6)
+                                        .addComponent(jLabel11)))
+                                .addGap(36, 36, 36)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(tfNohpcustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(tfEmailCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(bTambahCustomer)))
+                            .addComponent(jLabel5)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(64, 64, 64)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(tfNamaCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel7)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(tfAlamat, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                         .addGap(1, 1, 1)))
                 .addGap(31, 31, 31))
         );
@@ -525,7 +576,7 @@ public class MenuCrudPenjualan extends javax.swing.JPanel {
                         .addGap(40, 40, 40)
                         .addComponent(jLabel2))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(49, Short.MAX_VALUE)
+                        .addContainerGap(38, Short.MAX_VALUE)
                         .addComponent(jLabel1)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -541,33 +592,18 @@ public class MenuCrudPenjualan extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(tfCustomerPenjualan)
-                                    .addComponent(tfCustPenjualan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(tfCustPenjualanUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(tfTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(tfTotalPenjualanUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(tfCustomerPenjualan1))
                                 .addGap(14, 14, 14)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(cbPayment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cbPaymentUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel13))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(bUpdate)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(31, 31, 31)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel3)
-                                    .addComponent(tfCreateidpenjualan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(cbCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel9)
-                                    .addComponent(tfCustomerSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnSearchCustomer))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(bBersihkan)
-                                    .addComponent(bTambah)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -586,8 +622,28 @@ public class MenuCrudPenjualan extends javax.swing.JPanel {
                                     .addComponent(tfNohpcustomer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel11))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(bTambahCustomer)))
-                        .addGap(0, 44, Short.MAX_VALUE))
+                                .addComponent(bTambahCustomer)
+                                .addGap(0, 33, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(31, 31, 31)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel3)
+                                    .addComponent(tfCreateidpenjualan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(cbCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel9)
+                                    .addComponent(tfCustomerSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnSearchCustomer))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(cbPayment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel14))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(bTambah)
+                                    .addComponent(bBersihkan))
+                                .addGap(45, 45, 45))))
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -600,7 +656,7 @@ public class MenuCrudPenjualan extends javax.swing.JPanel {
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 42, Short.MAX_VALUE)
+                        .addGap(0, 27, Short.MAX_VALUE)
                         .addComponent(btnAddToKeranjang)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(tfQtyItem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -628,7 +684,8 @@ public class MenuCrudPenjualan extends javax.swing.JPanel {
             Di.penjualanPresenter.masukKeranjang(Di.penjualanPresenter.produkModel, qty);
             populateTableKeranjang();
             populateTableProduct();
-            resetFields();
+            
+            calculateTotalKeranjang();
         } catch (Exception e) {
             showMessageDialog(this, "Error: " + e.getMessage());
         }
@@ -642,7 +699,8 @@ public class MenuCrudPenjualan extends javax.swing.JPanel {
             Di.penjualanPresenter.keluarItemKeranjang(Di.penjualanPresenter.keranjangModel.getProduk().getIdProduct(), qty);
             populateTableKeranjang();
             populateTableProduct();
-            resetFields();
+           
+            calculateTotalKeranjang();
         } catch (Exception e) {
             showMessageDialog(this, "Error: " + e.getMessage());
         }
@@ -697,6 +755,8 @@ public class MenuCrudPenjualan extends javax.swing.JPanel {
                 populateCbCustomer();
                 Di.manageCustomerPresenter.resetManageCustomer();
                 resetFieldsCustomer();
+                populateTablePenjualan();
+                populateTableProduct();
                 return;
             }
             showMessageDialog(null, "Terjadi Error");
@@ -710,9 +770,52 @@ public class MenuCrudPenjualan extends javax.swing.JPanel {
     }//GEN-LAST:event_btnSearchCustomerActionPerformed
 
     private void bBersihkanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBersihkanActionPerformed
+        // confirmation dialog
+        int dialogResult = JOptionPane.showConfirmDialog(null, "Ini akan menghapus semua item di keranjang", "Warning", JOptionPane.YES_NO_OPTION);
+        if (dialogResult == JOptionPane.NO_OPTION) {
+            return;
+        }
+        Di.penjualanPresenter.resetClearKeranjang();
+        populateTableKeranjang();
+        populateTableProduct();
+        calculateTotalKeranjang();
         resetFields();
         Di.penjualanPresenter.resetCheckout();
+        
     }//GEN-LAST:event_bBersihkanActionPerformed
+
+    private void bTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bTambahActionPerformed
+        // show confirmation dialog
+        if(Di.penjualanPresenter.keranjang.isEmpty()){
+            showMessageDialog(null, "Keranjang Kosong");
+            return;
+        }
+        int dialogResult = JOptionPane.showConfirmDialog(null, "Apakah Anda Yakin?", "Warning", JOptionPane.YES_NO_OPTION);
+        if (dialogResult == JOptionPane.YES_OPTION) {
+            // Saving code here
+            int customerId = ((CustomerModel) cbCustomer.getSelectedItem()).getIdCustomer();
+
+            Di.penjualanPresenter.checkOut(
+                    customerId,
+                    idEmployee,
+                    Di.penjualanPresenter.keranjang,
+                    cbPaymentUpdate.getSelectedItem().toString(),
+                    Statics.SHIPMENT_STATUS_PENDING,
+                    idWarehouse
+            );
+            if (Di.penjualanPresenter.statusCheckout > 0) {
+                showMessageDialog(null, "Checkout Berhasil !");
+                Di.penjualanPresenter.resetCheckout();
+                Di.penjualanPresenter.resetClearKeranjang();
+                populateTablePenjualan();
+                populateTableProduct();
+                populateTableKeranjang();
+                resetFields();
+                return;
+            }
+            showMessageDialog(null, "Terjadi Error");
+        }
+    }//GEN-LAST:event_bTambahActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -725,11 +828,13 @@ public class MenuCrudPenjualan extends javax.swing.JPanel {
     private javax.swing.JButton btnSearchCustomer;
     private javax.swing.JComboBox<CustomerModel> cbCustomer;
     private javax.swing.JComboBox<String> cbPayment;
+    private javax.swing.JComboBox<String> cbPaymentUpdate;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -744,7 +849,7 @@ public class MenuCrudPenjualan extends javax.swing.JPanel {
     private javax.swing.JTable tblKeranjang;
     private javax.swing.JTextField tfAlamat;
     private javax.swing.JTextField tfCreateidpenjualan;
-    private javax.swing.JTextField tfCustPenjualan;
+    private javax.swing.JTextField tfCustPenjualanUpdate;
     private javax.swing.JLabel tfCustomerPenjualan;
     private javax.swing.JLabel tfCustomerPenjualan1;
     private javax.swing.JTextField tfCustomerSearch;
@@ -753,8 +858,8 @@ public class MenuCrudPenjualan extends javax.swing.JPanel {
     private javax.swing.JTextField tfNamaCustomer;
     private javax.swing.JTextField tfNohpcustomer;
     private javax.swing.JTextField tfQtyItem;
-    private javax.swing.JTextField tfTotal;
     private javax.swing.JTextField tfTotalKeranjang;
+    private javax.swing.JTextField tfTotalPenjualanUpdate;
     // End of variables declaration//GEN-END:variables
 
     private boolean formCustomerIsValid() {

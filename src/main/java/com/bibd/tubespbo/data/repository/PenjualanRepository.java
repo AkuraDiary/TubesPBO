@@ -7,7 +7,7 @@ package com.bibd.tubespbo.data.repository;
 import com.bibd.tubespbo.data.model.KeranjangModel;
 import com.bibd.tubespbo.data.model.PenjualanModel;
 import com.bibd.tubespbo.data.source.PenjualanDataSource;
-import java.time.LocalDateTime;
+
 import java.util.ArrayList;
 
 /**
@@ -31,9 +31,9 @@ public class PenjualanRepository {
 
         return penjualanDataSource.getHistoryPenjualanByWarehouse(idWareHouse);
     }
-    public int doCheckOut(int employeeId, int customerId, String statusPayment, LocalDateTime waktu, String typeOrder, ArrayList<KeranjangModel> keranjang, String shipStatus,int idWarehouse, int idPenjualan) {
+    public int doCheckOut(int employeeId, int customerId, String statusPayment, String waktu, String typeOrder, ArrayList<KeranjangModel> keranjang, String shipStatus, int idWarehouse) {
         try {
-            return penjualanDataSource.doCheckout(customerId, employeeId, keranjang, statusPayment, typeOrder, waktu,shipStatus,idWarehouse, idPenjualan);
+            return penjualanDataSource.doCheckout(customerId, employeeId, keranjang, statusPayment, typeOrder, waktu,shipStatus,idWarehouse);
           
         } catch (Exception e) {
             System.out.println("Penjualan Repo " + e.getLocalizedMessage());
