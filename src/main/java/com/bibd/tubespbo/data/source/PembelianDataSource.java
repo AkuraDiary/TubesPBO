@@ -121,7 +121,7 @@ public class PembelianDataSource {
                 BeliModel.add(pm);
 
             }
-            
+
             System.out.println(BeliModel);
             return BeliModel;
         } catch (Exception e) {
@@ -200,6 +200,63 @@ public class PembelianDataSource {
                     + "JOIN orders o ON o.orderId = od.orderId "
                     + "JOIN product p ON p.idProduct = od.idProduct "
                     + "WHERE o.orderId = " + idorder;
+
+            ResultSet rs = db.getData(query);
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                long unitPrice = rs.getLong("unitPrice");
+                int quantity = rs.getInt("quantity");
+                long subTotalPrice = rs.getLong("subTotalPrice");
+                int idProduct = rs.getInt("idProduct");
+                String productName = rs.getString("productName");
+                String description = rs.getString("description");
+                long buyPrice = rs.getLong("buyPrice");
+                long sellPrice = rs.getLong("sellPrice");
+                int categoryId = rs.getInt("categoryId");
+                int produsenId = rs.getInt("produsenId");
+
+                // Membuat objek OrderDetailsModel dengan data yang diambil dari ResultSet
+                OrderDetailsModel orderDetailModel = new OrderDetailsModel(id, unitPrice, quantity, subTotalPrice,
+                        idProduct, productName, description, buyPrice, sellPrice, categoryId, produsenId);
+                odm.add(orderDetailModel);
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getLocalizedMessage());
+        } finally {
+            db.closeConnection();
+        }
+        return odm;
+    }
+
+    public ArrayList<OrderDetailsModel> getDetailPantau() {
+        ArrayList<OrderDetailsModel> odm = new ArrayList<>();
+        try {
+            db.openConnection();
+
+            String query = "SELECT \n"
+                    + "    od.id, \n"
+                    + "    od.unitPrice, \n"
+                    + "    od.quantity, \n"
+                    + "    od.subTotalPrice, \n"
+                    + "    od.idProduct, \n"
+                    + "    p.idProduct, \n"
+                    + "    p.productName, \n"
+                    + "    p.description, \n"
+                    + "    p.buyPrice, \n"
+                    + "    p.sellPrice, \n"
+                    + "    p.categoryId, \n"
+                    + "    p.produsenId\n"
+                    + " 	\n"
+                    + "FROM \n"
+                    + "    orderdetails od\n"
+                    + "JOIN \n"
+                    + "    orders o ON o.orderId = od.orderId\n"
+                    + "JOIN \n"
+                    + "    product p ON p.idProduct = od.idProduct\n"
+                    + "JOIN produsen prod on prod.idProdusen=p.produsenId\n"
+                    + "WHERE prod.status = 'active'" ;
 
             ResultSet rs = db.getData(query);
 
