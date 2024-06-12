@@ -9,6 +9,7 @@ import com.bibd.tubespbo.data.model.CustomerModel;
 import com.bibd.tubespbo.data.model.KeranjangModel;
 import com.bibd.tubespbo.data.model.OrderDetailsModel;
 import com.bibd.tubespbo.data.model.PembelianModel;
+import com.bibd.tubespbo.data.model.ProductModel;
 import com.bibd.tubespbo.util.Parser;
 import com.bibd.tubespbo.util.Statics;
 import java.sql.ResultSet;
@@ -160,16 +161,16 @@ public class PembelianDataSource {
 //
             System.out.println("Pembelian Data Source");
             queryOrderPembelian(statusOrder, orderId);
-            
+
             db.openConnection();
-            
+
             String waktuString = Parser.parseDateToStringSQL(waktu);
-            
+
             //Eksekusi INSERT ke Tabel orders:
             String query = "INSERT INTO orders (employeeid, orderType, orderDate) VALUES ("
                     + employeeId + ", '" + orderType + "', '" + waktuString + "')";
             db.executeStatement(query);
-            
+
             //Mengambil orderId Terakhir yang Baru Ditambahkan:
             ResultSet rs = db.getData("SELECT orderId AS last_id from orders order by orderId desc limit 1");
             if (rs.next()) {
@@ -237,61 +238,90 @@ public class PembelianDataSource {
         return odm;
     }
 
-    public ArrayList<OrderDetailsModel> getDetailPantau() {
-        ArrayList<OrderDetailsModel> odm = new ArrayList<>();
+    //nambah dikit Rapid D,
+    public ArrayList<ProductModel> getDetailPantau() {
         try {
+            ArrayList<ProductModel> dataResult = new ArrayList<>();
             db.openConnection();
-
             String query = "SELECT \n"
-                    + "    od.id, \n"
-                    + "    od.unitPrice, \n"
-                    + "    od.quantity, \n"
-                    + "    od.subTotalPrice, \n"
-                    + "    od.idProduct, \n"
                     + "    p.idProduct, \n"
                     + "    p.productName, \n"
                     + "    p.description, \n"
                     + "    p.buyPrice, \n"
                     + "    p.sellPrice, \n"
                     + "    p.categoryId, \n"
-                    + "    p.produsenId\n"
-                    + " 	\n"
+                    + "    p.produsenId,\n"
+                    + "    c.category, \n"
+                    + "    prod.name, \n"
+                    + "    ps.totalStock, \n"
+                    + "    ps.lastUpdate, \n"
+                    + "    w.address\n"
                     + "FROM \n"
-                    + "    orderdetails od\n"
+                    + "    product p\n"
                     + "JOIN \n"
-                    + "    orders o ON o.orderId = od.orderId\n"
+                    + "    category c ON p.categoryId = c.idCategory\n"
                     + "JOIN \n"
-                    + "    product p ON p.idProduct = od.idProduct\n"
-                    + "JOIN produsen prod on prod.idProdusen=p.produsenId\n"
-                    + "WHERE prod.status = 'active'" ;
+                    + "    produsen prod ON prod.idProdusen = p.produsenId\n"
+                    + "LEFT JOIN \n"
+                    + "    productstock ps ON ps.productId = p.idProduct\n"
+                    + "LEFT JOIN \n"
+                    + "    warehouse w ON ps.idWarehouse = w.id\n"
+                    + "WHERE prod.status='active' ";
 
+            System.out.println("Product Active");
+            System.out.println(query);
             ResultSet rs = db.getData(query);
 
+            // TODO to edit
             while (rs.next()) {
-                int id = rs.getInt("id");
-                long unitPrice = rs.getLong("unitPrice");
-                int quantity = rs.getInt("quantity");
-                long subTotalPrice = rs.getLong("subTotalPrice");
-                int idProduct = rs.getInt("idProduct");
+                // Parsing the data
+
+                int productId = rs.getInt("idProduct");
                 String productName = rs.getString("productName");
                 String description = rs.getString("description");
-                long buyPrice = rs.getLong("buyPrice");
-                long sellPrice = rs.getLong("sellPrice");
+                int buyPrice = rs.getInt("buyPrice");
+                int sellPrice = rs.getInt("sellPrice");
                 int categoryId = rs.getInt("categoryId");
                 int produsenId = rs.getInt("produsenId");
 
-                // Membuat objek OrderDetailsModel dengan data yang diambil dari ResultSet
-                OrderDetailsModel orderDetailModel = new OrderDetailsModel(id, unitPrice, quantity, subTotalPrice,
-                        idProduct, productName, description, buyPrice, sellPrice, categoryId, produsenId);
-                odm.add(orderDetailModel);
+                String categoryName = rs.getString("category");
+                String produsenName = rs.getString("name");
+                int totalstok = rs.getInt("totalStock");
+                Date lastUpdateProduct = rs.getDate("lastUpdate");
+                String warehouseAlamat = rs.getString("address");
+
+                // Creating a ProductModel object
+                ProductModel product = new ProductModel();
+                product.setIdProduct(productId);
+                product.setProductName(productName);
+                product.setDescription(description);
+                product.setBuyPrice((long) buyPrice);
+                product.setSellPrice((long) sellPrice);
+                product.setCategoryId(categoryId);
+                product.setProdusenId(produsenId);
+
+                //new
+                product.setCategoryName(categoryName);
+                product.setProdusenName(produsenName);
+                product.setQuantityInStock(totalstok);
+                product.setLastUpdate(lastUpdateProduct);
+                product.setWarehouseName(warehouseAlamat);
+
+                // Adding the product to the list
+                dataResult.add(product);
             }
+
+            System.out.println(query);
+            return dataResult;
 
         } catch (Exception e) {
             System.out.println(e.getLocalizedMessage());
+            return null;
+
         } finally {
+
             db.closeConnection();
         }
-        return odm;
     }
 
     // Tutup koneksi
