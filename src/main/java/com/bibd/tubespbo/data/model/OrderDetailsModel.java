@@ -9,14 +9,42 @@ package com.bibd.tubespbo.data.model;
  * @author rafid
  */
 public class OrderDetailsModel {
-    private int idOrderDetails, unitPrice, jumlah, totalPrice, idProduct;
+    private long idOrderDetails, unitPrice, jumlah, totalPrice, idProduct;
     private ProductModel productModel ;
+    private String productName ;
 
-    public OrderDetailsModel(int id, double unitPrice, int quantity, double subTotalPrice, int idProduct, String productName, String description, double buyPrice, double sellPrice, int categoryId, int produsenId) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public String getProductName() {
+        return productName;
     }
 
-    public int getIdOrderDetails() {
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
+    public OrderDetailsModel(
+            int id, long unitPrice, 
+            int quantity, long subTotalPrice, 
+            int idProduct, String productName, 
+            String description, long buyPrice, 
+            long sellPrice, int categoryId, 
+            int produsenId) {
+        this.idOrderDetails = id;
+        this.productName = productName;
+        this.totalPrice = subTotalPrice;
+        this.jumlah = quantity;
+                
+        this.productModel = new ProductModel();
+        this.idProduct = idProduct;
+        this.productModel.setIdProduct(idProduct);
+        this.productModel.setProdusenId(produsenId);
+        this.productModel.setBuyPrice(buyPrice);
+//        this.productModel.
+        
+             
+        
+    }
+
+    public long getIdOrderDetails() {
         return idOrderDetails;
     }
 
@@ -24,7 +52,7 @@ public class OrderDetailsModel {
         this.idOrderDetails = idOrderDetails;
     }
 
-    public int getUnitPrice() {
+    public long getUnitPrice() {
         return unitPrice;
     }
 
@@ -32,7 +60,7 @@ public class OrderDetailsModel {
         this.unitPrice = unitPrice;
     }
 
-    public int getJumlah() {
+    public long getJumlah() {
         return jumlah;
     }
 
@@ -40,7 +68,7 @@ public class OrderDetailsModel {
         this.jumlah = jumlah;
     }
 
-    public int getTotalPrice() {
+    public long getTotalPrice() {
         return totalPrice;
     }
 
@@ -48,7 +76,7 @@ public class OrderDetailsModel {
         this.totalPrice = totalPrice;
     }
 
-    public int getIdProduct() {
+    public long getIdProduct() {
         return idProduct;
     }
 
@@ -63,6 +91,8 @@ public class OrderDetailsModel {
     public void setProductModel(ProductModel productModel) {
         this.productModel = productModel;
     }
+
+    
     
     
 }

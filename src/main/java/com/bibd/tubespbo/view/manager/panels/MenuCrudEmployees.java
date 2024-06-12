@@ -311,7 +311,7 @@ public class MenuCrudEmployees extends javax.swing.JPanel {
                             .addComponent(bNewEmployee))
                         .addGap(18, 18, 18)
                         .addComponent(btnResetField)))
-                .addContainerGap(123, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

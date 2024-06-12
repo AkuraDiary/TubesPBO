@@ -5,6 +5,7 @@
 package com.bibd.tubespbo.data.repository;
 
 import com.bibd.tubespbo.data.model.KeranjangModel;
+import com.bibd.tubespbo.data.model.OrderDetailsModel;
 import com.bibd.tubespbo.data.model.PenjualanModel;
 import com.bibd.tubespbo.data.source.PenjualanDataSource;
 
@@ -26,6 +27,12 @@ public class PenjualanRepository {
 
         return penjualanDataSource.getHistoryPenjualanSales(idWareHouse, idEmployee);
     }
+    public ArrayList<OrderDetailsModel> getDetilPenjualan( int idOrder) {
+        return penjualanDataSource.getAllDetilOrder(idOrder);    
+        
+    }
+    
+    
 
     public ArrayList<PenjualanModel> getHistoryPenjualan(int idWareHouse) {
 

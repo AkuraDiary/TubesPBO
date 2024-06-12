@@ -9,12 +9,7 @@ import com.bibd.tubespbo.data.model.CustomerModel;
 import com.bibd.tubespbo.data.model.KeranjangModel;
 import com.bibd.tubespbo.data.model.OrderDetailsModel;
 import com.bibd.tubespbo.data.model.PembelianModel;
-<<<<<<< HEAD
-=======
 import com.bibd.tubespbo.util.Statics;
-
-import java.sql.PreparedStatement;
->>>>>>> bd13ccae2fbb5b00d9ca6df8bcc2f90d7560b093
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -88,15 +83,13 @@ public class PembelianDataSource {
                 pm.setTanggalOrder(tanggalorder);
                 pm.setTypeOrder(typeorder);
 
-<<<<<<< HEAD
-                BeliModel.add(pm);
-=======
+
+
                 pm.setWarehouse(warehouse);
                 pm.setWarehouseId(warehouseId);
                 pm.setTotalBiaya(totalbiaya);
-
-                dataResult.add(pm);
->>>>>>> bd13ccae2fbb5b00d9ca6df8bcc2f90d7560b093
+                BeliModel.add(pm);
+         
 
             }
             return BeliModel;
@@ -183,14 +176,14 @@ public class PembelianDataSource {
 
         while (rs.next()) {
             int id = rs.getInt("id");
-            double unitPrice = rs.getDouble("unitPrice");
+            long unitPrice = rs.getLong("unitPrice");
             int quantity = rs.getInt("quantity");
-            double subTotalPrice = rs.getDouble("subTotalPrice");
+            long subTotalPrice = rs.getLong("subTotalPrice");
             int idProduct = rs.getInt("idProduct");
             String productName = rs.getString("productName");
             String description = rs.getString("description");
-            double buyPrice = rs.getDouble("buyPrice");
-            double sellPrice = rs.getDouble("sellPrice");
+            long buyPrice = rs.getLong("buyPrice");
+            long sellPrice = rs.getLong("sellPrice");
             int categoryId = rs.getInt("categoryId");
             int produsenId = rs.getInt("produsenId");
 

@@ -4,6 +4,7 @@
  */
 package com.bibd.tubespbo.domain.supervisor;
 
+import com.bibd.tubespbo.data.model.OrderDetailsModel;
 import com.bibd.tubespbo.data.model.PenjualanModel;
 import com.bibd.tubespbo.data.repository.PenjualanRepository;
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 public class PantauPenjualanPresenter {
 
     PenjualanRepository penjualanRepository;
+    public ArrayList<OrderDetailsModel> selectedOrderDetails = new ArrayList<>();
 
     public PantauPenjualanPresenter(PenjualanRepository penjualanRepository) {
         this.penjualanRepository = penjualanRepository;
@@ -37,7 +39,7 @@ public class PantauPenjualanPresenter {
         }
     }
 
-    PenjualanModel selectedPenjualan;
+    public PenjualanModel selectedPenjualan;
 
     public void setSelectedPenjualan(int idPenjualan) {
         selectedPenjualan = listPenjualanWarehouse.stream()
@@ -68,6 +70,11 @@ public class PantauPenjualanPresenter {
 
         updateStatusPenjualanState = penjualanRepository.updateStatusShipmentPayment(idPenjualan, statusShipment, statusPayment);
 
+    }
+
+    public void getOrderDetailsPenjualan(int idPenjualan, String filterSearch) {
+
+       this.selectedOrderDetails =  penjualanRepository.getDetilPenjualan(idPenjualan);
     }
 }
 

@@ -5,6 +5,7 @@
 package com.bibd.tubespbo.view.supervisor.supervisorpanels;
 
 import com.bibd.tubespbo.Di;
+import com.bibd.tubespbo.data.model.OrderDetailsModel;
 import com.bibd.tubespbo.data.model.PenjualanModel;
 import com.bibd.tubespbo.data.model.PenjualanModel;
 import com.bibd.tubespbo.util.Formatter;
@@ -18,6 +19,7 @@ import javax.swing.table.TableRowSorter;
 //Rapid D.
 public class MenuPantauPenjualan extends javax.swing.JPanel {
 
+    public OrderDetailsModel selectDetailPenjualan;
     /**
      * Creates new form MenuPantauPenjualan
      */
@@ -166,6 +168,11 @@ public class MenuPantauPenjualan extends javax.swing.JPanel {
                 "NamaProduk", "Harga", "quantity"
             }
         ));
+        tIdnamacustomer.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                tIdnamacustomerComponentShown(evt);
+            }
+        });
         jScrollPane2.setViewportView(tIdnamacustomer);
 
         jLabel2.setText("IdTransaksi");
@@ -242,7 +249,7 @@ public class MenuPantauPenjualan extends javax.swing.JPanel {
         String filterSearch = tfCaripantaupenjualan.getText();
         Di.pantauPenjualanPresenter.getAllPenjualanInWarehouse(idWarehouseEmp, filterSearch);
         //Remove rows one by one from the end of the table
-        clearTable();
+        clearTable(tablePenjualanModel);
         System.out.println("After clear table");
         for (PenjualanModel pm : Di.pantauPenjualanPresenter.listPenjualanWarehouse) {
             System.out.println("PopulateTablePenjualan : " + pm.getCustomerName());
@@ -260,9 +267,9 @@ public class MenuPantauPenjualan extends javax.swing.JPanel {
         loadTabelPenjualan();
     }//GEN-LAST:event_bCaripantaupenjualanActionPerformed
 
-    private void clearTable() {
-        for (int i = tPantaupenjualan.getRowCount() - 1; i >= 0; i--) {
-            tablePenjualanModel.removeRow(i);
+    private void clearTable(DefaultTableModel tbl) {
+        for (int i = tbl.getRowCount() - 1; i >= 0; i--) {
+            tbl.removeRow(i);
         }
     }
     private void tfCaripantaupenjualanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfCaripantaupenjualanActionPerformed
@@ -270,13 +277,29 @@ public class MenuPantauPenjualan extends javax.swing.JPanel {
     }//GEN-LAST:event_tfCaripantaupenjualanActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       loadTableDetilOrder();
+        int row = tPantaupenjualan.getSelectedRow();
+        int idPenjualan = Integer.parseInt(tablePenjualanModel.getValueAt(row, 0).toString());
+        loadTableDetilOrder(idPenjualan);
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void tPantaupenjualanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tPantaupenjualanMouseClicked
 
+        int row = tPantaupenjualan.getSelectedRow();
+        int idPenjualan = Integer.parseInt(tablePenjualanModel.getValueAt(row, 0).toString());
+        
+        Di.pantauPenjualanPresenter.setSelectedPenjualan(idPenjualan);
+       
+        int idOrder = Di.pantauPenjualanPresenter.selectedPenjualan.getIdorder();
+         System.out.println(idOrder);
+        loadTableDetilOrder(idOrder);
+
 // TODO @Rapid, munculkan detailorder penjualan di table bawah ketika item penjualan di klik
     }//GEN-LAST:event_tPantaupenjualanMouseClicked
+
+    private void tIdnamacustomerComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_tIdnamacustomerComponentShown
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tIdnamacustomerComponentShown
 
     //make a reset button yah brow -rapid
     private void resetFileds() {
@@ -299,21 +322,22 @@ public class MenuPantauPenjualan extends javax.swing.JPanel {
     private javax.swing.JTextField tfSearchdatacustomer;
     // End of variables declaration//GEN-END:variables
 
-    private void loadTableDetilOrder() {
+    private void loadTableDetilOrder(int idPenjualan) {
         String filterSearch = tfSearchdatacustomer.getText();
-        Di.pantauPenjualanPresenter.getAllPenjualanInWarehouse(idWarehouseEmp, filterSearch);
+
+        Di.pantauPenjualanPresenter.getOrderDetailsPenjualan(idPenjualan, filterSearch);
         //Remove rows one by one from the end of the table
 
-        clearTable();
+        clearTable(tableDetilPenjualanModel);
 
-        for (PenjualanModel pm : Di.pantauPenjualanPresenter.listPenjualanWarehouse) {
+        for (OrderDetailsModel odm : Di.pantauPenjualanPresenter.selectedOrderDetails) {
             String[] row = {
-                pm.getProductName(),
-                String.valueOf(pm.getUnitPrice()),
-                String.valueOf(pm.getQuantity())
+                odm.getProductName(),
+                String.valueOf(odm.getUnitPrice()),
+                String.valueOf(odm.getJumlah())
 
             };
-            tablePenjualanModel.addRow(row);
+            tableDetilPenjualanModel.addRow(row);
         }
     }
 }
