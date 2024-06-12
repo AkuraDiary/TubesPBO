@@ -84,22 +84,6 @@ public class PenjualanPresenter {
             }
         }
 
-//        for (int i = 0; i < keranjang.size(); i++) {
-//            if (keranjang.get(i).getProduk().getIdProduct() == idproduk) {
-//
-//                // if quantity in keranjang == qty in all product
-//                keranjang.remove(i);
-//                // find product in allproduct
-//                // plus stock product by quantity
-//                for (ProductModel productModel : allproduct) {
-//                    if (productModel.getIdProduct() == idproduk) {
-//                        int stock = productModel.getQuantityInStock();
-//                        productModel.setQuantityInStock(stock + keranjang.get(i).getQuantity());
-//                    }
-//                }
-//
-//            }
-//        }
     }
 
     public void editQuantity(int idproduk, int quantity) {
@@ -161,5 +145,10 @@ public class PenjualanPresenter {
                 .orElse(null);
     }
 
+    public void resetClearKeranjang(){
+        keranjang.clear();
+        produkModel = null;
+        keranjangModel = null;
+    }
 
 }

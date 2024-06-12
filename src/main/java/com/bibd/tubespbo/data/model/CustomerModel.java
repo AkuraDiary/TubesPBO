@@ -63,6 +63,9 @@ public class CustomerModel {
     public void setAlamat(String alamat) {
         this.alamat = alamat;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return nama + " (" + noHp + ")";
+    }
 }
