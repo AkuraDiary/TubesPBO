@@ -40,7 +40,7 @@ public class PenjualanDataSource {
                     + "JOIN product p on p.idProduct=od.idProduct\n"
                     + "WHERE o.orderId = " + idorder;
             ResultSet rs = db.getData(query);
-           System.out.println("Ayam Penjualan Data Source getData");
+            System.out.println("Ayam Penjualan Data Source getData");
 
             while (rs.next()) {
 
@@ -61,7 +61,7 @@ public class PenjualanDataSource {
                 odm.add(orderDetailModel);
             }
 
-  System.out.println("Ayam Penjualan Data Source Done");
+            System.out.println("Ayam Penjualan Data Source Done");
             return odm;
         } catch (Exception e) {
             System.out.println(e.getLocalizedMessage());
@@ -103,7 +103,7 @@ public class PenjualanDataSource {
                     + "LEFT JOIN \n"
                     + "    warehouse wh ON e.idWarehouse = wh.id\n"
                     + "GROUP BY op.orderId, op.idPenjualan\n"
-                    + "HAVING wh.id = "+idWareHouse+ " AND o.employeeId = "+idEmployee;
+                    + "HAVING wh.id = " + idWareHouse + " AND o.employeeId = " + idEmployee;
 //            String query = "SELECT op.idPenjualan, op.shipmentStatus, op.dateShipped, op.orderId, op.customerId, op.statuspayment, o.orderId, o.orderDate, o.orderType, o.employeeId, c.nama, c.idCustomer\n"
 //                    + "FROM orderpenjualan op \n"
 //                    + "JOIN orders o on o.orderId=op.orderId\n"
@@ -151,7 +151,7 @@ public class PenjualanDataSource {
         } finally {
             db.closeConnection();
         }
-  }
+    }
 
     public ArrayList<PenjualanModel> getHistoryPenjualanByWarehouse(int idWareHouse) {
         ArrayList<PenjualanModel> pm = new ArrayList<>();
@@ -171,7 +171,7 @@ public class PenjualanDataSource {
                     + "    e.nama AS \"nama_emp\", \n"
                     + "    wh.id AS \"warehouse_id\",\n"
                     + "    SUM(od.unitPrice * od.quantity) AS \"totalbiaya\"\n"
-//                    + "p.productName,p.sellPrice,od.quantity as \"jumlahOrder\"\n" // ga perlu kyknya pid
+                    //                    + "p.productName,p.sellPrice,od.quantity as \"jumlahOrder\"\n" // ga perlu kyknya pid
                     + "FROM \n"
                     + "    orderpenjualan op\n"
                     + "LEFT JOIN \n"
@@ -184,17 +184,14 @@ public class PenjualanDataSource {
                     + "    orderdetails od ON od.orderId = o.orderId\n"
                     + "LEFT JOIN \n"
                     + "    warehouse wh ON e.idWarehouse = wh.id\n"
-//                    + "LEFT join product p on p.idProduct = od.idProduct\n"
+                    //                    + "LEFT join product p on p.idProduct = od.idProduct\n"
                     + "GROUP BY op.orderId, op.idPenjualan\n"
-                    + "HAVING wh.id = "+idWareHouse;
+                    + "HAVING wh.id = " + idWareHouse;
 
-
-
-            System.out.println(query);
+//            System.out.println(query);
             ResultSet rs = db.getData(query);
 
 //            PenjualanModel penjualanModel;
-
             while (rs.next()) {
 
                 int idPenjualan = rs.getInt("idPenjualan");
@@ -211,12 +208,9 @@ public class PenjualanDataSource {
                 String employeeName = rs.getString("nama_emp");
                 int totalbiaya = rs.getInt("totalbiaya");
 
-
 //                String productName = rs.getString("productName");
 //                long hargaSatuan = rs.getLong("sellPrice");
 //                int jumlahOrder = rs.getInt("jumlahOrder");
-
-
                 PenjualanModel penjualanModel = new PenjualanModel(idPenjualan, shipmentStatus, dateShipped, orderId,
                         customerId, statusPayment, orderDate, orderType, employeeId);
                 penjualanModel.setCustomerName(customerName);
@@ -249,7 +243,7 @@ public class PenjualanDataSource {
     private int queryOrderDetails(KeranjangModel itemkeranjang) throws SQLException {
         String querygetIdOrder = "SELECT o.orderId\n"
                 + "FROM orders o\n"
-                + "ORDER BY o.orderDate DESC\n"
+                + "ORDER BY o.orderId DESC\n"
                 + "LIMIT 1 ";
         ResultSet rs = db.getData(querygetIdOrder);
 
@@ -262,12 +256,10 @@ public class PenjualanDataSource {
 
         if (getIdOrder > 0) {
             String query = "INSERT INTO orderdetails \n"
-
-                    + "(unitPrice, quantity, subTotalPrice, idProduct, orderId) \n" 
+                    + "(unitPrice, quantity, subTotalPrice, idProduct, orderId) \n"
                     + "VALUES (" + itemkeranjang.getProduk().getSellPrice() + ", " + itemkeranjang.getQuantity() + ", \n"
-
-//                    + "(unitPrice, quantity, subTotalPrice, idProduct, orderId) \n"
-//                    + "VALUES (" + itemkeranjang.getProduk().getSellPrice() + ", " + itemkeranjang.getQuantity() + ", \n"
+                    //                    + "(unitPrice, quantity, subTotalPrice, idProduct, orderId) \n"
+                    //                    + "VALUES (" + itemkeranjang.getProduk().getSellPrice() + ", " + itemkeranjang.getQuantity() + ", \n"
 
                     + totaPrice + ", " + itemkeranjang.getProduk().getIdProduct() + "," + getIdOrder + ")";
             return db.executeStatement(query);
@@ -276,7 +268,7 @@ public class PenjualanDataSource {
     }
 
     private int queryOrderPenjualan(String shipmentStatus, String dateShipped, int customerId,
-                                    String statusPayment) {
+            String statusPayment) {
         try {
             String querygetIdOrder = "SELECT o.orderId\n"
                     + "FROM orders o\n"
@@ -290,13 +282,13 @@ public class PenjualanDataSource {
             }
             String query = "";
             if (getIdOrder > 0) {
-                if(statusPayment.equalsIgnoreCase(Statics.ORDER_PAYMENT_STATUS_UNPAID)){
+                if (statusPayment.equalsIgnoreCase(Statics.ORDER_PAYMENT_STATUS_UNPAID)) {
                     dateShipped = "NULL";
-                     query = "INSERT INTO orderpenjualan\n"
+                    query = "INSERT INTO orderpenjualan\n"
                             + "(shipmentStatus, dateShipped, orderId, customerId, statuspayment) \n"
                             + "VALUES ('" + shipmentStatus + "', " + dateShipped + ", " + getIdOrder + ", " + customerId + ", '" + statusPayment + "')";
-                }else{
-                     query = "INSERT INTO orderpenjualan\n"
+                } else {
+                    query = "INSERT INTO orderpenjualan\n"
                             + "(shipmentStatus, dateShipped, orderId, customerId, statuspayment) \n"
                             + "VALUES ('" + shipmentStatus + "', '" + dateShipped + "', " + getIdOrder + ", " + customerId + ", '" + statusPayment + "')";
                 }
@@ -315,7 +307,7 @@ public class PenjualanDataSource {
     private int queryStokProduct(int jumlahBeli, String dateLastUpdate, int idProduct, int idWareHouse) {
 
         int stoksebelum = 0;
-        
+
         try {
             String queryGetStok = "SELECT ps.totalStock FROM productstock ps\n"
                     + "WHERE ps.productId= " + idProduct + " AND ps.idWarehouse =" + idWareHouse;
@@ -330,25 +322,25 @@ public class PenjualanDataSource {
             System.out.println(e.getLocalizedMessage());
             return 0;
         }
-        
+
         int finishStock = stoksebelum - jumlahBeli;
         String querySubmit = "UPDATE productstock ps\n"
                 + "SET ps.totalStock =" + finishStock + " , ps.lastUpdate ='" + dateLastUpdate + "'\n"
                 + "WHERE ps.productId =" + idProduct + " AND ps.idWarehouse = " + idWareHouse;
-        
+
         System.out.println("update stok");
-        System.out.println(querySubmit);
+//        System.out.println(querySubmit);
 
         return db.executeStatement(querySubmit);
     }
 
     public int doCheckout(int customerId, int employeeId, ArrayList<KeranjangModel> keranjang, String statusPayment,
-                          String typeOrder, String waktu, String statusShip, int idWarehouse) {
+            String typeOrder, String waktu, String statusShip, int idWarehouse) {
         try {
             db.openConnection();
 //           
 
-            queryOrder(waktu, typeOrder, employeeId);
+            int result = queryOrder(waktu, typeOrder, employeeId);
 
             for (KeranjangModel i : keranjang) {
                 queryOrderDetails(i);
@@ -359,12 +351,11 @@ public class PenjualanDataSource {
             for (KeranjangModel i : keranjang) {
                 queryStokProduct(i.getQuantity(), waktu, i.getProduk().getIdProduct(), idWarehouse);
             }
-          
+
 //            queryStokProduct(keranjang, waktu, employeeId, employeeId);
-
-            return 1;
+//            return 1;
 //            queryOrderDetails(keranjang);
-
+            return result;
         } catch (Exception e) {
             System.out.println(e.getLocalizedMessage());
             return -1;
@@ -389,7 +380,7 @@ public class PenjualanDataSource {
             return -1;
         } finally {
             db.closeConnection();
-        }           
+        }
     }
 
 }

@@ -38,9 +38,9 @@ public class PembelianRepository {
         }
     }
 
-    public int submitPembelian(int employeeId, String orderType, Date waktu, String statusOrder, ArrayList<KeranjangModel> keranjang) {
+    public int submitPembelian(int employeeId, String orderType, Date waktu, String statusOrder, ArrayList<KeranjangModel> keranjang,  int idWarehouse) {
         try {
-            return pembelianDataSource.submitPembelian(employeeId, orderType, waktu, statusOrder, keranjang);
+            return pembelianDataSource.submitPembelian(employeeId, orderType, waktu, statusOrder, keranjang,  idWarehouse);
         } catch (Exception e) {
             System.out.println("Pembelian Repo " + e.getLocalizedMessage());
             return -1;

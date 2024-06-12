@@ -136,55 +136,51 @@ public class PembelianDataSource {
         }
     }
 
-    public int submitPembelian(int employeeId, String orderType, Date waktu, String statusOrder, ArrayList<KeranjangModel> keranjang) {
-        //   throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-        // order,orderdetil,orderpenjualan, stok product
+    public int submitPembelian(int employeeId, String orderType, Date waktu, String statusOrder, ArrayList<KeranjangModel> keranjang, int wareHouseId) {
+
         int orderId = -1;
-//
 
         try {
-//            db.openConnection();
-//
-//            String query = "INSERT INTO orders (employeeid, orderType, orderDate, StatusOrder) VALUES ("
-//                    + employeeId + ", '" + orderType + "', '" + waktu + "', '" + statusOrder + "')";
-//            db.executeStatement(query);
-//
-//            ResultSet rs = db.getData("SELECT orderId AS last_id from orders order by orderId desc limit 1");
-//            if (rs.next()) {
-//                orderId = rs.getInt("last_id");
-//            }
-////           untuk mendapatkan ID dari entri yang baru ditambahkan menggunakan LAST_INSERT_ID(). 
-////           ID ini disimpan dalam variabel orderId.
-//            for (KeranjangModel km : keranjang) {
-//                queryOrderDetails(km);
-//            }
-//
-            System.out.println("Pembelian Data Source");
-            queryOrderPembelian(statusOrder, orderId);
-
             db.openConnection();
-
+            System.out.println("Pembelian Data Source");
             String waktuString = Parser.parseDateToStringSQL(waktu);
+            //order pembelian 
+//            orders
+//            order details
+//            product stok 
 
             //Eksekusi INSERT ke Tabel orders:
             String query = "INSERT INTO orders (employeeid, orderType, orderDate) VALUES ("
                     + employeeId + ", '" + orderType + "', '" + waktuString + "')";
             db.executeStatement(query);
 
-            //Mengambil orderId Terakhir yang Baru Ditambahkan:
-            ResultSet rs = db.getData("SELECT orderId AS last_id from orders order by orderId desc limit 1");
-            if (rs.next()) {
-                orderId = rs.getInt("last_id");
-                //Menambahkan Status ke Tabel orderpembelian:
-                String sql = "INSERT INTO orderpembelian (status) VALUES '" + statusOrder + "' WHERE orderId = '" + orderId + "' ";
-                db.executeStatement(sql);
-            }
+            System.out.println("Pembelian Data Source");
+            System.out.println(query);
+            //Mengambil orderId Terakhir yang Baru Ditambahkan: lalu langsung add orderpembelian
+//            ResultSet rs = db.getData("SELECT orderId AS last_id from orders order by orderId desc limit 1");
+//            String sql = "iki order pembelian rek";
+//            while (rs.next()) {
+//                orderId = rs.getInt("last_id");
+//                //Menambahkan Status ke Tabel orderpembelian:
+//            }
+//            if (orderId != -1) {
+//                sql = "INSERT INTO orderpembelian  (status, orderId) VALUES ('" + statusOrder + "'," + orderId + " ) ";
+//
+//                db.executeStatement(sql);
+//            }
+            //orderpembelian
+            queryOrderPembelian(statusOrder);
+
 //           Setiap item dalam keranjang diproses dan dimasukkan ke dalam tabel detail pesanan melalui fungsi queryOrderDetails(km).
             for (KeranjangModel km : keranjang) {
                 queryOrderDetails(km);
             }
 
-            queryOrderPembelian(statusOrder, orderId);
+            //
+            for (KeranjangModel km : keranjang) {
+                int productId = km.getProduk().getIdProduct();
+                queryStokProduct(km.getQuantity(), waktu, productId, wareHouseId);
+            }
 
         } catch (Exception e) {
             System.out.println(e.getLocalizedMessage());
@@ -192,7 +188,7 @@ public class PembelianDataSource {
         } finally {
             db.closeConnection();
         }
-        return orderId;
+        return 1;
     }
 
 //
@@ -328,7 +324,7 @@ public class PembelianDataSource {
     private int queryOrderDetails(KeranjangModel itemkeranjang) throws SQLException {
         String querygetIdOrder = "SELECT o.orderId\n"
                 + "FROM orders o\n"
-                + "ORDER BY o.orderDate DESC\n"
+                + "ORDER BY o.orderId DESC\n"
                 + "LIMIT 1 ";
         ResultSet rs = db.getData(querygetIdOrder); //result set digunakan untuk menyimpan query dari getIdOrder
 
@@ -337,7 +333,7 @@ public class PembelianDataSource {
             getIdOrder = rs.getInt("orderId"); //jika rs orderId mengembalikan hasil maka akan mngembalikan ke IdOrder
         }
         //item keranjang mengambil produk lalu mengalikan sellprice dengan quantiti yang ada didalam item keranjang
-        long totaPrice = itemkeranjang.getProduk().getSellPrice() * itemkeranjang.getQuantity();
+        long totaPrice = itemkeranjang.getProduk().getBuyPrice() * itemkeranjang.getQuantity();
 
         if (getIdOrder > 0) { //jik get order lebih dari 0 maka artinya valid
             String query = "INSERT INTO orderdetails \n"
@@ -349,11 +345,11 @@ public class PembelianDataSource {
         return getIdOrder; //jika getIdorder kurang dari 0 maka akan mengembalikan nilai getIdorder
     }
 
-    private int queryOrderPembelian(String status, int orderId) {
+    private int queryOrderPembelian(String status) {
         try {
             String querygetIdOrder = "SELECT o.orderId\n"
                     + "FROM orders o\n"
-                    + "ORDER BY o.orderDate DESC\n"
+                    + "ORDER BY o.orderId DESC\n"
                     + "LIMIT 1 ";
             ResultSet rs = db.getData(querygetIdOrder);
 
@@ -363,9 +359,9 @@ public class PembelianDataSource {
             }
 
             if (getIdOrder > 0) {
-                String query = "INSERT INTO orderpembeli\n"
-                        + "(status, orderId,) \n"
-                        + "VALUES ('" + status + ", " + getIdOrder + ")";
+                String query = "INSERT INTO orderpembelian\n"
+                        + "(status, orderId) \n"
+                        + "VALUES ('" + status + "', " + getIdOrder + ")";
                 return db.executeStatement(query);
             }
             return getIdOrder;
@@ -383,7 +379,8 @@ public class PembelianDataSource {
         return db.executeStatement(query);
     }
 
-    private int queryStokProduct(int jumlahBeli, LocalDateTime dateLastUpdate, int idProduct, int idWareHouse) {
+    private int queryStokProduct(int jumlahBeli, Date dateLastUpdate, int idProduct, int idWareHouse) {
+        String waktuString = Parser.parseDateToStringSQL(dateLastUpdate);
         int stoksebelum = 0; //menyimpan stok produk sebelum pembaruan makannya dinamakan dengan stok sebelum dan diberi nilai 0
         try {
             String queryGetStok = "SELECT ps.totalStock FROM productstock ps\n"
@@ -399,11 +396,27 @@ public class PembelianDataSource {
         }
 
         int finishStock = stoksebelum + jumlahBeli; // finish stok akan menambhkan stoksebelum dengan jumlah beli
+
         String querySubmit = "UPDATE productstock ps\n"
-                + "SET ps.totalStock =" + finishStock + " , ps.lastUpdate =" + dateLastUpdate + "\n"
+                + "SET ps.totalStock =" + finishStock + " , ps.lastUpdate ='" + waktuString + "'\n"
                 + "WHERE ps.id =" + idProduct + " AND ps.idWarehouse = " + idWareHouse;
 
-        return db.executeStatement(querySubmit);
+        int result = db.executeStatement(querySubmit);
+
+        // if result is 0, then do create a new product stock
+        //else return result
+        if (result > 0) {
+            return result;
+        }
+
+        String queryNewStock = "INSERT INTO \n"
+                + "productstock (productId, totalStock, idWarehouse, lastUpdate) \n"
+                + "VALUES(\n"
+                + "    "+idProduct+", 0, "+idWareHouse+", '"+waktuString+"'\n"
+                + ")";
+        
+        int resultCreateProductStock = db.executeStatement(queryNewStock);
+        return resultCreateProductStock;
 
     }
 

@@ -102,12 +102,13 @@ public class PembelianPresenter {
 
     public int statusSubmitPembelian = 0; // 0 default ; -1 error; else success
 
-    public void submitPembelian(int employeeId) {
+    public void submitPembelian(int employeeId, int idWarehouse) {
         Date waktu = new Date();
         String statusOrder = Statics.PEMBELIAN_STATUS_PENDING;
         String orderType = Statics.ORDER_TYPE_PEMBELIAN;
         statusSubmitPembelian = pembelianRepository.submitPembelian(
-                employeeId, orderType, waktu, statusOrder, keranjang
+                employeeId, orderType, waktu, statusOrder, keranjang,
+                idWarehouse
         );
 
     }
