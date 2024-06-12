@@ -13,14 +13,13 @@ import java.util.Date;
 
 public class PembelianModel {
 
-   private int idPembelian,idOrder;
-   private int idSupervisor;
+   private int idPembelian,idOrder, idSupervisor;
    private String status;
    private ArrayList<OrderDetailsModel> keranjang = new ArrayList<>();
    private Date tanggalOrder;
    private String typeOrder;
     private long totalBiaya;
-    private String warehouse;
+    private String addresWarehouse;
     private int warehouseId;
 
 
@@ -96,12 +95,12 @@ public class PembelianModel {
         return totalBiaya;
     }
 
-    public void setWarehouse(String warehouse) {
-        this.warehouse = warehouse;
+    public void setAddresWarehouse(String warehouse) {
+        this.addresWarehouse = warehouse;
     }
 
-    public String getWarehouse() {
-        return warehouse;
+    public String getAddresWarehouse() {
+        return addresWarehouse;
     }
 
     public void setWarehouseId(int warehouseId) {

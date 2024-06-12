@@ -209,7 +209,7 @@ public class MenuCreatePembelian extends javax.swing.JPanel {
         btnRemoveFromKeranjang = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         tfIdpembelian = new javax.swing.JTextField();
-        jButton3 = new javax.swing.JButton();
+        bSubmit = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         tDatapembelian = new javax.swing.JTable();
@@ -282,20 +282,25 @@ public class MenuCreatePembelian extends javax.swing.JPanel {
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel3.setText("IdPembelian:");
 
-        jButton3.setBackground(new java.awt.Color(153, 255, 153));
-        jButton3.setText("Tambah");
+        bSubmit.setBackground(new java.awt.Color(153, 255, 153));
+        bSubmit.setText("Submit");
+        bSubmit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bSubmitActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("Bersihkan");
 
         tDatapembelian.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "IdPembelian", "Status", "OrderId"
+                "IdPembelian", "Tanggal", "Status", "Total", "OrderId"
             }
         ));
         jScrollPane3.setViewportView(tDatapembelian);
@@ -363,7 +368,7 @@ public class MenuCreatePembelian extends javax.swing.JPanel {
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jButton4)
                 .addGap(70, 70, 70)
-                .addComponent(jButton3)
+                .addComponent(bSubmit)
                 .addGap(355, 355, 355))
         );
         layout.setVerticalGroup(
@@ -394,7 +399,7 @@ public class MenuCreatePembelian extends javax.swing.JPanel {
                         .addComponent(bUpdate)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3)
+                    .addComponent(bSubmit)
                     .addComponent(jButton4))
                 .addGap(45, 45, 45)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -468,7 +473,7 @@ public class MenuCreatePembelian extends javax.swing.JPanel {
 
         int idProduct = Integer.parseInt(tblKeranjang.getValueAt(row, 0).toString());
 
-        Di.pPresenter.setSelectedKeranjang(
+        Di.pembelianPresenter.setSelectedKeranjang(
                 idProduct
         );
 
@@ -476,13 +481,17 @@ public class MenuCreatePembelian extends javax.swing.JPanel {
         btnAddToKeranjang.setEnabled(false);
     }//GEN-LAST:event_tblKeranjangMouseClicked
 
+    private void bSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSubmitActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bSubmitActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bSubmit;
     private javax.swing.JButton bUpdate;
     private javax.swing.JButton btnAddToKeranjang;
     private javax.swing.JButton btnRemoveFromKeranjang;
     private javax.swing.JComboBox<String> cbStatusupdate;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

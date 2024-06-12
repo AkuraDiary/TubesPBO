@@ -70,6 +70,7 @@ public class PembelianDataSource {
                         + "GROUP BY orders.orderId\n" + " ";
             } else {
                 query = "SELECT \n"
+<<<<<<< HEAD
                         + "orderpembelian.idPembelian, employees.idEmployee, orderpembelian.status, orders.orderDate, warehouse.address, orders.orderType, warehouse.id, orders.orderId , SUM(orderdetails.unitPrice * orderdetails.quantity) AS \"totalbiaya\"\n"
                         + "\n"
                         + "FROM orderpembelian JOIN orders ON orders.orderId = orderpembelian.idPembelian \n"
@@ -77,6 +78,21 @@ public class PembelianDataSource {
                         + "JOIN warehouse ON warehouse.id = employees.idWarehouse\n"
                         + "JOIN orderdetails ON orderdetails.orderId = orders.orderId\n"
                         + "GROUP BY orders.orderId\n" + " HAVING warehouse.id = " + idWarehouse;
+=======
+                        + "    op.idPembelian, op.status,\n"
+                        + " 	o.orderId, o.orderDate, o.orderType,\n"
+                        + " 	wh.address,\n"
+                        + " 	SUM(od.quantity*od.unitPrice) \"totalbiaya\"\n"
+                        + "FROM \n"
+                        + "    orderpembelian op\n"
+                        + "JOIN orders o on o.orderId = op.orderId\n"
+                        + "JOIN employees e on e.idEmployee = o.employeeId\n"
+                        + "JOIN warehouse wh on wh.id = e.idWarehouse\n"
+                        + "JOIN orderdetails od on od.orderId = o.orderId\n"
+                        + "\n"
+                        + "GROUP by op.idPembelian\n"
+                        + "HAVING wh.id = " + idWarehouse;
+>>>>>>> 479c1cb96f6f9b5c5c702d8c7f2ac0de2f2121ff
             }
             ResultSet rs = db.getData(query);
 
@@ -93,6 +109,7 @@ public class PembelianDataSource {
                 String warehouse = rs.getString("address");
                 long totalbiaya = (long) rs.getInt("totalbiaya");
                 int warehouseId = rs.getInt("id");
+//                String addresWarehouse = rs.getString("address");
 
                 PembelianModel pm = new PembelianModel();
                 pm.setIdPembelian(idPembelian);
@@ -102,7 +119,12 @@ public class PembelianDataSource {
                 pm.setTanggalOrder(tanggalorder);
                 pm.setTypeOrder(typeorder);
 
+<<<<<<< HEAD
                 pm.setWarehouse(warehouse);
+=======
+                pm.setAddresWarehouse(warehouse);
+                
+>>>>>>> 479c1cb96f6f9b5c5c702d8c7f2ac0de2f2121ff
                 pm.setWarehouseId(warehouseId);
                 pm.setTotalBiaya(totalbiaya);
                 BeliModel.add(pm);

@@ -24,10 +24,10 @@ public class PembelianPresenter {
     PembelianRepository pembelianRepository;
     ProductRepository productRepository;
 
-    ArrayList<KeranjangModel> keranjang = new ArrayList<>();
+    public ArrayList<KeranjangModel> keranjang = new ArrayList<>();
     
-    ArrayList<PembelianModel> history = new ArrayList<>();
-    ArrayList<ProductModel> allproduct = new ArrayList<>();
+    public ArrayList<PembelianModel> history = new ArrayList<>();
+    public ArrayList<ProductModel> allproduct = new ArrayList<>();
 
     public PembelianPresenter(PembelianRepository pembelianRepository, ProductRepository productRepository) {
         this.pembelianRepository = pembelianRepository;
@@ -165,6 +165,10 @@ public class PembelianPresenter {
      public void resetStatusPembelian(){
         statusUpdatePembelian = 0;
         keranjang.clear();
+    }
+
+    public void getAllProductWarehouse(int idWarehouse) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     
