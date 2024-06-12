@@ -573,12 +573,9 @@ public class MenuCreatePembelian extends javax.swing.JPanel {
         Di.pembelianPresenter.setSelectedPembelian(idPembelian);
 
         PembelianModel pm = Di.pembelianPresenter.selectedPembelian;
-//        tfTanggalUpdate.setText(pm.getTanggal());
-        
-//        tfCustPenjualanUpdate.setText(pm.getCustomerName());
-//        tfIdPenjualan.setText(String.valueOf(pm.getIdPenjualan()));
-//        tfTotalPenjualanUpdate.setText(Formatter.formatRupiah(pm.getTotalBiaya()));
-//        cbPaymentUpdate.setSelectedItem(pm.getStatusPayment());
+        tfIdpembelian.setText(String.valueOf(pm.getIdPembelian()));
+        tfTanggalUpdate.setText(String.valueOf(pm.getTanggalOrder()));
+        cbStatusUpdate.setSelectedItem(pm.getStatus());
     }//GEN-LAST:event_tDatapembelianMouseClicked
 
     private void bUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bUpdateActionPerformed
