@@ -83,7 +83,8 @@ public class MenuCrudPenjualan extends javax.swing.JPanel {
     private ArrayList<String> listPaymentsStats = new ArrayList<>(
             Arrays.asList(
                     Statics.ORDER_PAYMENT_STATUS_UNPAID,
-                    Statics.ORDER_PAYMENT_STATUS_PAID
+                    Statics.ORDER_PAYMENT_STATUS_PAID,
+                    Statics.ORDER_PAYMENT_STATUS_CANCELLED
             )
     );
     private void setupCbPayment() {
