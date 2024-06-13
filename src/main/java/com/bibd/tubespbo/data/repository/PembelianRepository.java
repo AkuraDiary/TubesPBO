@@ -51,4 +51,8 @@ public class PembelianRepository {
         return pembelianDataSource.getDetailPantau();
     }
 
+    public ArrayList<OrderDetailsModel> getDetailPembelian(int idPembelian) {
+        return pembelianDataSource.getDetailPembelian(idPembelian);
+    }
+
 }

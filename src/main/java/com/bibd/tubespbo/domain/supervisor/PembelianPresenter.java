@@ -5,6 +5,7 @@
 package com.bibd.tubespbo.domain.supervisor;
 
 import com.bibd.tubespbo.data.model.KeranjangModel;
+import com.bibd.tubespbo.data.model.OrderDetailsModel;
 import com.bibd.tubespbo.data.model.PembelianModel;
 import com.bibd.tubespbo.data.model.ProductModel;
 import com.bibd.tubespbo.data.repository.PembelianRepository;
@@ -28,6 +29,8 @@ public class PembelianPresenter {
     public ArrayList<PembelianModel> history = new ArrayList<>();
     
     public ArrayList<ProductModel> allproduct = new ArrayList<>();
+
+    public ArrayList<OrderDetailsModel> detailPembelian = new ArrayList<>();
 
     public PembelianPresenter(PembelianRepository pembelianRepository, ProductRepository productRepository) {
         this.pembelianRepository = pembelianRepository;
@@ -151,6 +154,7 @@ public class PembelianPresenter {
                 .orElse(null);
         if (pembelianModel != null) {
             this.selectedPembelian = pembelianModel;
+            this.detailPembelian = pembelianRepository.getDetailPembelian(idPembelian);
         }
     }
 
