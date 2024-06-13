@@ -5,10 +5,7 @@
 package com.bibd.tubespbo.view.sales.salespanel;
 
 import com.bibd.tubespbo.Di;
-import com.bibd.tubespbo.data.model.CustomerModel;
-import com.bibd.tubespbo.data.model.KeranjangModel;
-import com.bibd.tubespbo.data.model.PenjualanModel;
-import com.bibd.tubespbo.data.model.ProductModel;
+import com.bibd.tubespbo.data.model.*;
 import com.bibd.tubespbo.util.Formatter;
 import com.bibd.tubespbo.util.Statics;
 import com.bibd.tubespbo.util.Validator;
@@ -60,7 +57,6 @@ public class MenuCrudPenjualan extends javax.swing.JPanel {
     };
     private TableRowSorter<DefaultTableModel> tableKeranjangsSorter = new TableRowSorter<>(tableKeranjangModel);
 
-
     public MenuCrudPenjualan() {
         initComponents();
 
@@ -87,6 +83,7 @@ public class MenuCrudPenjualan extends javax.swing.JPanel {
                     Statics.ORDER_PAYMENT_STATUS_CANCELLED
             )
     );
+
     private void setupCbPayment() {
         cbPayment.removeAllItems();
         for (String payment : listPaymentsStats) {
@@ -119,10 +116,10 @@ public class MenuCrudPenjualan extends javax.swing.JPanel {
         }
         for (KeranjangModel keranjangMdl : Di.penjualanPresenter.keranjang) {
             String[] row = {
-                    String.valueOf(keranjangMdl.getProduk().getIdProduct()),
-                    keranjangMdl.getProduk().getProductName(),
-                    String.valueOf(keranjangMdl.getProduk().getSellPrice()),
-                    String.valueOf(keranjangMdl.getQuantity())
+                String.valueOf(keranjangMdl.getProduk().getIdProduct()),
+                keranjangMdl.getProduk().getProductName(),
+                String.valueOf(keranjangMdl.getProduk().getSellPrice()),
+                String.valueOf(keranjangMdl.getQuantity())
             };
             tableKeranjangModel.addRow(row);
         }
@@ -144,12 +141,12 @@ public class MenuCrudPenjualan extends javax.swing.JPanel {
 
         for (PenjualanModel penjualanModel : Di.penjualanPresenter.history) {
             String[] row = {
-                    String.valueOf(penjualanModel.getIdPenjualan()),
-                    penjualanModel.getShipmentStatus(),
-                    penjualanModel.getCustomerName(), //.getNama(),
-                    penjualanModel.getTanggalOrder().toString(),
-                    penjualanModel.getStatusPayment(),
-                    Formatter.formatRupiah(penjualanModel.getTotalBiaya()),};
+                String.valueOf(penjualanModel.getIdPenjualan()),
+                penjualanModel.getShipmentStatus(),
+                penjualanModel.getCustomerName(), //.getNama(),
+                penjualanModel.getTanggalOrder().toString(),
+                penjualanModel.getStatusPayment(),
+                Formatter.formatRupiah(penjualanModel.getTotalBiaya()),};
             tableAllPenjualanModel.addRow(row);
         }
 
@@ -179,13 +176,18 @@ public class MenuCrudPenjualan extends javax.swing.JPanel {
         clearTable(tableProductModel);
 
         for (ProductModel productModel : Di.penjualanPresenter.allproduct) {
-            String[] row = {
+
+            System.out.println("Populate product model : " + productModel.getProductName() + " " + productModel.getQuantityInStock());
+            if (productModel.getQuantityInStock() > 0) {
+                String[] row = {
                     String.valueOf(productModel.getIdProduct()),
                     productModel.getProductName(),
                     String.valueOf(productModel.getSellPrice()),
                     String.valueOf(productModel.getQuantityInStock())
-            };
-            tableProductModel.addRow(row);
+                };
+                tableProductModel.addRow(row);
+            }
+
         }
     }
 
@@ -296,6 +298,10 @@ public class MenuCrudPenjualan extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         cbPayment = new javax.swing.JComboBox<>();
         jLabel14 = new javax.swing.JLabel();
+        lblDetaulSelectedPembelian = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        textAreaDetailPemb = new javax.swing.JTextArea();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -471,6 +477,15 @@ public class MenuCrudPenjualan extends javax.swing.JPanel {
         jLabel14.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel14.setText("Payment");
 
+        lblDetaulSelectedPembelian.setText("Detail Penjualan");
+
+        jLabel6.setText("Product Name - Qty - Total");
+
+        textAreaDetailPemb.setColumns(20);
+        textAreaDetailPemb.setRows(5);
+        textAreaDetailPemb.setEnabled(false);
+        jScrollPane4.setViewportView(textAreaDetailPemb);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -525,13 +540,17 @@ public class MenuCrudPenjualan extends javax.swing.JPanel {
                 .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 656, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 445, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel12)
-                                .addComponent(tfCustomerPenjualan)
-                                .addComponent(jLabel13))
+                            .addComponent(jLabel6)
+                            .addComponent(lblDetaulSelectedPembelian, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel12)
+                            .addComponent(tfCustomerPenjualan)
+                            .addComponent(jLabel13)
                             .addComponent(tfCustomerPenjualan1))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -543,7 +562,6 @@ public class MenuCrudPenjualan extends javax.swing.JPanel {
                                 .addComponent(bUpdate)
                                 .addComponent(cbPaymentUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(108, 108, 108)
@@ -583,10 +601,7 @@ public class MenuCrudPenjualan extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(31, 31, 31)
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(52, 52, 52)
+                                .addGap(33, 33, 33)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel12)
                                     .addComponent(tfIdPenjualan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -603,7 +618,17 @@ public class MenuCrudPenjualan extends javax.swing.JPanel {
                                     .addComponent(cbPaymentUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel13))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(bUpdate)))
+                                .addComponent(bUpdate))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(31, 31, 31)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(lblDetaulSelectedPembelian)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel6)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
@@ -681,7 +706,7 @@ public class MenuCrudPenjualan extends javax.swing.JPanel {
             Di.penjualanPresenter.masukKeranjang(Di.penjualanPresenter.produkModel, qty);
             populateTableKeranjang();
             populateTableProduct();
-            
+
             calculateTotalKeranjang();
         } catch (Exception e) {
             showMessageDialog(this, "Error: " + e.getMessage());
@@ -696,7 +721,7 @@ public class MenuCrudPenjualan extends javax.swing.JPanel {
             Di.penjualanPresenter.keluarItemKeranjang(Di.penjualanPresenter.keranjangModel.getProduk().getIdProduct(), qty);
             populateTableKeranjang();
             populateTableProduct();
-           
+
             calculateTotalKeranjang();
         } catch (Exception e) {
             showMessageDialog(this, "Error: " + e.getMessage());
@@ -778,12 +803,12 @@ public class MenuCrudPenjualan extends javax.swing.JPanel {
         calculateTotalKeranjang();
         resetFields();
         Di.penjualanPresenter.resetCheckout();
-        
+
     }//GEN-LAST:event_bBersihkanActionPerformed
 
     private void bTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bTambahActionPerformed
         // show confirmation dialog
-        if(Di.penjualanPresenter.keranjang.isEmpty()){
+        if (Di.penjualanPresenter.keranjang.isEmpty()) {
             showMessageDialog(null, "Keranjang Kosong");
             return;
         }
@@ -824,20 +849,35 @@ public class MenuCrudPenjualan extends javax.swing.JPanel {
         tfIdPenjualan.setText(String.valueOf(pm.getIdPenjualan()));
         tfTotalPenjualanUpdate.setText(Formatter.formatRupiah(pm.getTotalBiaya()));
         cbPaymentUpdate.setSelectedItem(pm.getStatusPayment());
-        
-        if(!pm.getStatusPayment().equals(Statics.ORDER_PAYMENT_STATUS_UNPAID)){
-            cbPaymentUpdate.setEnabled(false);
+
+        cbPaymentUpdate.setEnabled(pm.getStatusPayment().equals(Statics.ORDER_PAYMENT_STATUS_UNPAID));
+
+        textAreaDetailPemb.setText("");
+        for (OrderDetailsModel itemDetail : Di.penjualanPresenter.selectedPenjualanDetail) {
+            System.out.println("Selected Detail : " + itemDetail.getProductName());
+            // show the detail of selected pembelian
+            // product name, price, and qty
+            // show all the data in one label, separated by new line
+            textAreaDetailPemb.setText(
+                    textAreaDetailPemb.getText() + itemDetail.getProductName() + " - " + itemDetail.getJumlah() + " - " + itemDetail.getTotalPrice() + "\n"
+            );
         }
-        
+
     }//GEN-LAST:event_tOrderpenjualanMouseClicked
 
     private void bUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bUpdateActionPerformed
+
+        if (Di.penjualanPresenter.selectedPenjualan == null) {
+            showMessageDialog(null, "Pilih Penjualan Terlebih Dahulu");
+            return;
+        }
+
         Di.penjualanPresenter.updatePayment(
                 Integer.parseInt(tfIdPenjualan.getText()),
                 cbPaymentUpdate.getSelectedItem().toString()
         );
 
-        if(Di.penjualanPresenter.statusUpdatePayment > 0){
+        if (Di.penjualanPresenter.statusUpdatePayment > 0) {
             showMessageDialog(null, "Update Berhasil !");
             populateTablePenjualan();
             Di.penjualanPresenter.resetUpdatePayment();
@@ -870,14 +910,18 @@ public class MenuCrudPenjualan extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JLabel lblDetaulSelectedPembelian;
     private javax.swing.JTable tOrderpenjualan;
     private javax.swing.JTable tblAllProduk;
     private javax.swing.JTable tblKeranjang;
+    private javax.swing.JTextArea textAreaDetailPemb;
     private javax.swing.JTextField tfAlamat;
     private javax.swing.JTextField tfCustPenjualanUpdate;
     private javax.swing.JLabel tfCustomerPenjualan;

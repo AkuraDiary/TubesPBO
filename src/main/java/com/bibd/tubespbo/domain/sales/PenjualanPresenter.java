@@ -97,10 +97,10 @@ public class PenjualanPresenter {
         // filter empty product
         // remove product in allproduct if quantityInStock <= 0
         for (int i = 0; i < allproduct.size(); i++) {
+             System.out.println("get All Product Wh   " + allproduct.get(i).getProductName() + " " + allproduct.get(i).getQuantityInStock());
             if (allproduct.get(i).getQuantityInStock() <= 0) {
                 
                 //TODO Lanjut seta
-                System.out.println("get All Product Wh   " + allproduct.get(i).getProductName());
                 allproduct.remove(i);
             }
         }
@@ -152,7 +152,7 @@ public class PenjualanPresenter {
     public int statusUpdatePayment=0;
     
     public PenjualanModel selectedPenjualan;
-    public ArrayList<OrderDetailsModel> selectedPenjualanDetail;
+    public ArrayList<OrderDetailsModel> selectedPenjualanDetail = new ArrayList<>();
     
     public void setSelectedPenjualan(int idPenjualan) {
         PenjualanModel penjualanModel = history.stream()
@@ -161,6 +161,7 @@ public class PenjualanPresenter {
                 .orElse(null);
         if (penjualanModel != null) {
             this.selectedPenjualan = penjualanModel;
+            System.out.println("Selected penjualan id Order"  + selectedPenjualan.getIdorder());
             selectedPenjualanDetail = penjualanRepository.getDetilPenjualan(selectedPenjualan.getIdorder());
         }
     }

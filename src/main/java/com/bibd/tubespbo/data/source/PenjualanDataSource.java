@@ -77,7 +77,7 @@ public class PenjualanDataSource {
         ArrayList<PenjualanModel> pm = new ArrayList<>();
         try {
             db.openConnection();
-            String query = "SELECT  op.idPenjualan, \n"
+            String query = "SELECT op.idPenjualan, \n"
                     + "    op.shipmentStatus, \n"
                     + "    op.dateShipped, \n"
                     + "    op.orderId, \n"
@@ -115,7 +115,7 @@ public class PenjualanDataSource {
 
             ResultSet rs = db.getData(query);
 
-//            System.out.println(query);
+            System.out.println(query);
             PenjualanModel penjualanModel;
 
             while (rs.next()) {
@@ -124,6 +124,8 @@ public class PenjualanDataSource {
                 String shipmentStatus = rs.getString("shipmentStatus");
                 Date dateShipped = rs.getDate("dateShipped");
                 int orderId = rs.getInt("orderId");
+                
+                System.out.println("Penjualan Data Source IdOrder : " + orderId);
                 int customerId = rs.getInt("customerId");
                 String statusPayment = rs.getString("statuspayment");
                 Date orderDate = rs.getDate("orderDate");
@@ -156,6 +158,7 @@ public class PenjualanDataSource {
 
     public ArrayList<PenjualanModel> getHistoryPenjualanByWarehouse(int idWareHouse) {
         ArrayList<PenjualanModel> pm = new ArrayList<>();
+        // TODO @Rapid Bug Query
         try {
             db.openConnection();
             String query = "SELECT  op.idPenjualan, \n"
@@ -253,6 +256,8 @@ public class PenjualanDataSource {
             getIdOrder = rs.getInt("orderId");
         }
 
+        System.out.println("queryOrderDetail ");
+        System.out.println(getIdOrder);
         long totaPrice = itemkeranjang.getProduk().getSellPrice() * itemkeranjang.getQuantity();
 
         if (getIdOrder > 0) {
