@@ -5,6 +5,7 @@
 package com.bibd.tubespbo.domain.manager;
 
 import com.bibd.tubespbo.data.model.EmployeeModel;
+import com.bibd.tubespbo.data.model.OrderDetailsModel;
 import com.bibd.tubespbo.data.model.PembelianModel;
 import com.bibd.tubespbo.data.repository.PembelianRepository;
 import com.bibd.tubespbo.util.Statics;
@@ -31,6 +32,7 @@ public class ApprovePembelianPresenter {
     public void resetSelected() {
         selectedPembelian = null;
         statusUpdatePembelian = 0;
+        detailPembelian.clear();
     }
 
     public void getListPembelian(String filterSearch) {
@@ -61,11 +63,16 @@ public class ApprovePembelianPresenter {
         );
     }
 
+    public ArrayList<OrderDetailsModel> detailPembelian = new ArrayList<>();
     public void selectDataPembelian(int idPembelian) {
         selectedPembelian = listPembelian.stream()
                 .filter(item -> item.getIdPembelian() == idPembelian)
                 .findFirst()
                 .orElse(null);
+        if (selectedPembelian != null) {
+//            this.selectedPembelian = pembelianModel;
+            this.detailPembelian = pembelianRepository.getDetailPembelian(idPembelian);
+        }
     }
 
 }

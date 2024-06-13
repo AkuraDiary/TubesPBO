@@ -5,10 +5,7 @@
 package com.bibd.tubespbo.view.manager.panels;
 
 import com.bibd.tubespbo.Di;
-import com.bibd.tubespbo.data.model.CategoryModel;
-import com.bibd.tubespbo.data.model.PembelianModel;
-import com.bibd.tubespbo.data.model.ProductModel;
-import com.bibd.tubespbo.data.model.ProdusenModel;
+import com.bibd.tubespbo.data.model.*;
 import com.bibd.tubespbo.util.Formatter;
 import com.bibd.tubespbo.util.Statics;
 
@@ -141,6 +138,10 @@ public class MenuApprovePembelian extends javax.swing.JPanel {
         jLabel9 = new javax.swing.JLabel();
         tfWarehousePembelian = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
+        lblDetaulSelectedPembelian = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        textAreaDetailPemb = new javax.swing.JTextArea();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -224,6 +225,15 @@ public class MenuApprovePembelian extends javax.swing.JPanel {
         jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel10.setText("Warehouse");
 
+        lblDetaulSelectedPembelian.setText("Detail Pembelian ");
+
+        jLabel11.setText("Product Name - Qty - Total");
+
+        textAreaDetailPemb.setColumns(20);
+        textAreaDetailPemb.setRows(5);
+        textAreaDetailPemb.setEnabled(false);
+        jScrollPane4.setViewportView(textAreaDetailPemb);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -233,7 +243,7 @@ public class MenuApprovePembelian extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 217, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel7)
                         .addGap(103, 103, 103))
                     .addGroup(layout.createSequentialGroup()
@@ -242,10 +252,16 @@ public class MenuApprovePembelian extends javax.swing.JPanel {
                         .addComponent(tfSearchPembelian, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(26, 26, 26)
                         .addComponent(bCariIdPembelian, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 422, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 542, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 542, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel11)
+                                    .addComponent(lblDetaulSelectedPembelian, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(layout.createSequentialGroup()
@@ -272,7 +288,7 @@ public class MenuApprovePembelian extends javax.swing.JPanel {
                                         .addComponent(jLabel10)
                                         .addGap(18, 18, 18)
                                         .addComponent(tfWarehousePembelian, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(87, 87, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -287,7 +303,14 @@ public class MenuApprovePembelian extends javax.swing.JPanel {
                     .addComponent(tfSearchPembelian, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bCariIdPembelian, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblDetaulSelectedPembelian)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel11)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane4)))
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
@@ -331,6 +354,17 @@ public class MenuApprovePembelian extends javax.swing.JPanel {
         tfTotalBiaya.setText(Formatter.formatRupiah(selectedPembelian.getTotalBiaya()));
         tfTanggalPembelian.setText(selectedPembelian.getTanggalOrder().toString());
         cbActionPembelian.setSelectedItem(selectedPembelian.getStatus());
+
+        textAreaDetailPemb.setText("");
+        for(OrderDetailsModel itemDetail : Di.approvePembelianPresenter.detailPembelian){
+            // show the detail of selected pembelian
+            // product name, price, and qty
+            // show all the data in one label, separated by new line
+            textAreaDetailPemb.setText(
+//                    "("+itemDetail.getIdProduct()+") - "+
+                            textAreaDetailPemb.getText() + itemDetail.getProductName() + " - " +  itemDetail.getJumlah()+ " - " +itemDetail.getTotalPrice() + "\n"
+            );
+        }
         
     }//GEN-LAST:event_tDataPembelianMouseClicked
 
@@ -363,6 +397,7 @@ public class MenuApprovePembelian extends javax.swing.JPanel {
     private javax.swing.JButton btnClearField;
     private javax.swing.JComboBox<String> cbActionPembelian;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -371,7 +406,10 @@ public class MenuApprovePembelian extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JLabel lblDetaulSelectedPembelian;
     private javax.swing.JTable tDataPembelian;
+    private javax.swing.JTextArea textAreaDetailPemb;
     private javax.swing.JTextField tfIdPembelian;
     private javax.swing.JTextField tfSearchPembelian;
     private javax.swing.JTextField tfTanggalPembelian;

@@ -637,6 +637,7 @@ public class MenuCreatePembelian extends javax.swing.JPanel {
 //        textAreaDetailPemb.setText(
 //                "Product Name - Price - Qty\n"
 //        );
+        textAreaDetailPemb.setText("");
         for(OrderDetailsModel itemDetail : Di.pembelianPresenter.detailPembelian){
             // show the detail of selected pembelian
             // product name, price, and qty
