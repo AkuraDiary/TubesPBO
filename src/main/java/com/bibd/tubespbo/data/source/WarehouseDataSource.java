@@ -175,7 +175,7 @@ public class WarehouseDataSource {
         try {
             ProvinceModel dataResult = new ProvinceModel();
             db.openConnection();
-            String query = "SELECT id, province FROM ciry WHERE id=" + provinceId;
+            String query = "SELECT id, province FROM province WHERE id=" + provinceId;
 
             ResultSet rs = db.getData(query);
 

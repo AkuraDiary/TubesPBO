@@ -398,7 +398,9 @@ public class PembelianDataSource {
         int finishStock = stoksebelum + jumlahBeli; // finish stok akan menambhkan stoksebelum dengan jumlah beli
 
         String querySubmit = "UPDATE productstock ps\n"
-                + "SET ps.totalStock =" + finishStock + " , ps.lastUpdate ='" + waktuString + "'\n"
+                + "SET "
+//                + "ps.totalStock =" + finishStock + " , "
+                + "ps.lastUpdate ='" + waktuString + "'\n"
                 + "WHERE ps.id =" + idProduct + " AND ps.idWarehouse = " + idWareHouse;
 
         int result = db.executeStatement(querySubmit);
