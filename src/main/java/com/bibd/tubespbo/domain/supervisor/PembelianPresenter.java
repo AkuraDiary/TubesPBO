@@ -12,6 +12,7 @@ import com.bibd.tubespbo.data.repository.ProductRepository;
 import com.bibd.tubespbo.util.Statics;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
@@ -25,6 +26,7 @@ public class PembelianPresenter {
     public ArrayList<KeranjangModel> keranjang = new ArrayList<>();
 
     public ArrayList<PembelianModel> history = new ArrayList<>();
+    
     public ArrayList<ProductModel> allproduct = new ArrayList<>();
 
     public PembelianPresenter(PembelianRepository pembelianRepository, ProductRepository productRepository) {
@@ -94,18 +96,19 @@ public class PembelianPresenter {
 //        }
 //    }
     public void showAllproduct() {
-        this.allproduct = productRepository.getAllProduct();
+        System.out.println("showAllProduct Presenter");
+        this.allproduct = pembelianRepository.getAllProduct();
     }
 
     public int statusSubmitPembelian = 0; // 0 default ; -1 error; else success
 
-    public void submitPembelian(int employeeId) {
-        LocalDateTime waktu = LocalDateTime.now();
+    public void submitPembelian(int employeeId, int idWarehouse) {
+        Date waktu = new Date();
         String statusOrder = Statics.PEMBELIAN_STATUS_PENDING;
         String orderType = Statics.ORDER_TYPE_PEMBELIAN;
-
         statusSubmitPembelian = pembelianRepository.submitPembelian(
-                employeeId, orderType, waktu, statusOrder, keranjang
+                employeeId, orderType, waktu, statusOrder, keranjang,
+                idWarehouse
         );
 
     }
@@ -156,9 +159,9 @@ public class PembelianPresenter {
         keranjang.clear();
     }
 
-    public void getAllProductWarehouse(int idWarehouse) {
-//        pembelianRepository.getAllpembelian(idWarehouse);
-        this.allproduct = productRepository.getAllProduct();
-    }
+//    public void getAllProductWarehouse(int idWarehouse) {
+////        pembelianRepository.getAllpembelian(idWarehouse);
+//        this.allproduct = productRepository.getAllProduct();
+//    }
 
 }

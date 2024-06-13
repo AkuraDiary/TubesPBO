@@ -5,10 +5,13 @@
 package com.bibd.tubespbo.data.repository;
 
 import com.bibd.tubespbo.data.model.KeranjangModel;
+import com.bibd.tubespbo.data.model.OrderDetailsModel;
 import com.bibd.tubespbo.data.model.PembelianModel;
+import com.bibd.tubespbo.data.model.ProductModel;
 import com.bibd.tubespbo.data.source.PembelianDataSource;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
@@ -22,7 +25,6 @@ public class PembelianRepository {
         this.pembelianDataSource = pembelianremotedatasource;
     }
 
-   
     public ArrayList<PembelianModel> getAllpembelian(int idWarehouse) {
         return pembelianDataSource.getAllPembelian(idWarehouse);
     }
@@ -36,13 +38,17 @@ public class PembelianRepository {
         }
     }
 
-    public int submitPembelian(int employeeId, String orderType, LocalDateTime waktu, String statusOrder, ArrayList<KeranjangModel> keranjang) {
-         try {
-            return pembelianDataSource.submitPembelian(employeeId, orderType, waktu, statusOrder, keranjang);
+    public int submitPembelian(int employeeId, String orderType, Date waktu, String statusOrder, ArrayList<KeranjangModel> keranjang,  int idWarehouse) {
+        try {
+            return pembelianDataSource.submitPembelian(employeeId, orderType, waktu, statusOrder, keranjang,  idWarehouse);
         } catch (Exception e) {
             System.out.println("Pembelian Repo " + e.getLocalizedMessage());
             return -1;
         }
+    }
+
+    public ArrayList<ProductModel> getAllProduct() {
+        return pembelianDataSource.getDetailPantau();
     }
 
 }

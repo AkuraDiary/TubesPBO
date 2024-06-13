@@ -22,14 +22,13 @@ import javax.swing.table.TableRowSorter;
  * @author HP VICTUS
  */
 public class MenuCreatePembelian extends javax.swing.JPanel {
-    
+
     int idWarehouse;
     int idEmployee;
-    
+
     /**
      * Creates new form MenuCreatePembelian
      */
-    
     private DefaultTableModel tableAllPembelianModel = new DefaultTableModel() {
         @Override
         public boolean isCellEditable(int row, int column) {
@@ -37,7 +36,7 @@ public class MenuCreatePembelian extends javax.swing.JPanel {
         }
 
     };
-    
+
     private TableRowSorter<DefaultTableModel> tablePembelianSorter = new TableRowSorter<>(tableAllPembelianModel);
 
     private DefaultTableModel tableProductModel = new DefaultTableModel() {
@@ -47,7 +46,7 @@ public class MenuCreatePembelian extends javax.swing.JPanel {
         }
 
     };
-    
+
     private TableRowSorter<DefaultTableModel> tableProductSorter = new TableRowSorter<>(tableProductModel);
 
     private DefaultTableModel tableKeranjangModel = new DefaultTableModel() {
@@ -58,26 +57,24 @@ public class MenuCreatePembelian extends javax.swing.JPanel {
 
     };
     private TableRowSorter<DefaultTableModel> tableKeranjangsSorter = new TableRowSorter<>(tableKeranjangModel);
-    
+
     public MenuCreatePembelian() {
         initComponents();
-        
+
         idWarehouse = Di.authPresenter.loggedInUser().getIdWarehouse();
         idEmployee = Di.authPresenter.loggedInUser().getId();
         setupTablepembelian();
         setupTableProduct();
         setupTableKeranjang();
-        
+
         setupCbStatus();
-        
+
         populateTablePembelian();
         populateTableKeranjang();
         populateTableProduct();
-        
-       
-        
+
     }
-    
+
     private ArrayList<String> listPembelianstatus = new ArrayList<>(
             Arrays.asList(
                     Statics.PEMBELIAN_STATUS_PENDING,
@@ -85,59 +82,64 @@ public class MenuCreatePembelian extends javax.swing.JPanel {
                     Statics.PEMBELIAN_STATUS_RUNNING
             )
     );
+
     private void setupCbStatus() {
         cbStatusUpdate.removeAllItems();
         for (String payment : listPembelianstatus) {
             cbStatusUpdate.addItem(payment);
         }
-}
+    }
 
-   private void populateTableKeranjang() {
+    private void populateTableKeranjang() {
         clearTable(tableKeranjangModel);
-        if (Di.pembelianPresenter.keranjang.isEmpty()) {
-            return;
-        }
+//        if (Di.pembelianPresenter.keranjang.isEmpty()) {
+//            return;
+//        }
         for (KeranjangModel keranjangMdl : Di.pembelianPresenter.keranjang) {
             String[] row = {
-                    String.valueOf(keranjangMdl.getProduk().getIdProduct()),
-                    keranjangMdl.getProduk().getProductName(),
-                    String.valueOf(keranjangMdl.getProduk().getSellPrice()),
-                    String.valueOf(keranjangMdl.getQuantity())
+                String.valueOf(keranjangMdl.getProduk().getIdProduct()),
+                keranjangMdl.getProduk().getProductName(),
+                String.valueOf(keranjangMdl.getProduk().getBuyPrice()),
+                String.valueOf(keranjangMdl.getQuantity())
             };
             tableKeranjangModel.addRow(row);
         }
+        //showMessageDialog(null, " tes table keranjang");
+        
 
     }
-   
-   private void clearTable(DefaultTableModel tblModel) {
+
+    private void clearTable(DefaultTableModel tblModel) {
         for (int i = tblModel.getRowCount() - 1; i >= 0; i--) {
             tblModel.removeRow(i);
         }
 
     }
-   
-   private void populateTablePembelian() {
+
+    private void populateTablePembelian() {
 
         Di.pembelianPresenter.getHistoryPembelian(idWarehouse);
 
         clearTable(tableAllPembelianModel);
-
-        for (PembelianModel pm: Di.pembelianPresenter.history) {
-            
+//ada salah
+        for (PembelianModel pm : Di.pembelianPresenter.history) {
             String[] row = {
-                    String.valueOf(pm.getIdPembelian()),
-                    String.valueOf(pm.getIdPembelian()),
-                    String.valueOf(pm.getTanggalOrder()), //.getNama()
-                    pm.getStatus().toString(),
-                    String.valueOf(pm.getTotalBiaya()),
-                    String.valueOf(pm.getIdOrder()),
-                    Formatter.formatRupiah(pm.getTotalBiaya()),};
+                String.valueOf(pm.getIdPembelian()),
+                String.valueOf(pm.getTanggalOrder()), //.getNama()
+                pm.getStatus().toString(),
+//                String.valueOf(pm.getTotalBiaya()),
+                Formatter.formatRupiah(pm.getTotalBiaya()),
+                String.valueOf(pm.getIdOrder())
+                
+            };
+           
             tableAllPembelianModel.addRow(row);
         }
+//        showMessageDialog(null, " tes beli tab");
 
     }
-   
-   private void setupTablepembelian() {
+
+    private void setupTablepembelian() {
         tDatapembelian.setModel(tableAllPembelianModel);
         tableAllPembelianModel.addColumn("IdPembelian");
         tableAllPembelianModel.addColumn("Tanggal");
@@ -152,24 +154,24 @@ public class MenuCreatePembelian extends javax.swing.JPanel {
         tablePembelianSorter.setSortable(2, false);
         tablePembelianSorter.setSortable(3, false);
     }
-   
-   private void populateTableProduct() {
 
-        Di.pembelianPresenter.getAllProductWarehouse(idWarehouse);
+    private void populateTableProduct() {
+
+        Di.pembelianPresenter.showAllproduct();
 
         clearTable(tableProductModel);
 
         for (ProductModel productModel : Di.pembelianPresenter.allproduct) {
             String[] row = {
-                    String.valueOf(productModel.getIdProduct()),
-                    productModel.getProductName(),
-                    String.valueOf(productModel.getSellPrice()),
-                    String.valueOf(productModel.getQuantityInStock())
+                String.valueOf(productModel.getIdProduct()),
+                productModel.getProductName(),
+                String.valueOf(productModel.getBuyPrice()),
+                String.valueOf(productModel.getQuantityInStock())
             };
             tableProductModel.addRow(row);
-        }
+        }//showMessageDialog(null, " tes tab produj");
     }
-   
+
     private void setupTableProduct() {
         tblAllProduk.setModel(tableProductModel);
         tableProductModel.addColumn("Id produk");
@@ -184,7 +186,7 @@ public class MenuCreatePembelian extends javax.swing.JPanel {
         tableProductSorter.setSortable(2, false);
         tableProductSorter.setSortable(3, false);
     }
-    
+
     private void setupTableKeranjang() {
         tblKeranjang.setModel(tableKeranjangModel);
         tableKeranjangModel.addColumn("Id produk");
@@ -199,23 +201,23 @@ public class MenuCreatePembelian extends javax.swing.JPanel {
         tableKeranjangsSorter.setSortable(2, false);
         tableKeranjangsSorter.setSortable(3, false);
     }
-    
+
     private void resetFields() {
         cbStatusUpdate.setSelectedIndex(0);
         tfQtyItem.setText("1");
+        calculateTotalKeranjang();
     }
-    
+
     long totalKeranjang = 0;
-    
+
     private void calculateTotalKeranjang() {
         totalKeranjang = 0;
         for (KeranjangModel item : Di.pembelianPresenter.keranjang) {
-            totalKeranjang += item.getQuantity() * item.getProduk().getSellPrice();
+            totalKeranjang += item.getQuantity() * item.getProduk().getBuyPrice();
         }
         tfTotalkeranjang.setText(Formatter.formatRupiah(totalKeranjang));
     }
-   
-   
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -237,7 +239,7 @@ public class MenuCreatePembelian extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         tfIdpembelian = new javax.swing.JTextField();
         bSubmit = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnClean = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         tDatapembelian = new javax.swing.JTable();
         jLabel7 = new javax.swing.JLabel();
@@ -321,7 +323,12 @@ public class MenuCreatePembelian extends javax.swing.JPanel {
             }
         });
 
-        jButton4.setText("Bersihkan");
+        btnClean.setText("Bersihkan");
+        btnClean.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCleanActionPerformed(evt);
+            }
+        });
 
         tDatapembelian.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -400,10 +407,28 @@ public class MenuCreatePembelian extends javax.swing.JPanel {
                         .addComponent(jLabel2)
                         .addGap(0, 0, Short.MAX_VALUE))))
             .addGroup(layout.createSequentialGroup()
+
+                .addGap(352, 352, 352)
+                .addComponent(btnClean)
+                .addGap(65, 65, 65)
+                .addComponent(bSubmit)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnRemoveFromKeranjang, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(16, 16, 16))
+                    .addComponent(tfQtyItem, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(btnAddToKeranjang, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)))
+
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(352, 352, 352)
-                        .addComponent(jButton4)
                         .addGap(65, 65, 65)
                         .addComponent(bSubmit))
                     .addGroup(layout.createSequentialGroup()
@@ -455,7 +480,7 @@ public class MenuCreatePembelian extends javax.swing.JPanel {
                         .addComponent(bUpdate)))
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton4)
+                    .addComponent(btnClean)
                     .addComponent(bSubmit))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -501,7 +526,7 @@ public class MenuCreatePembelian extends javax.swing.JPanel {
             Di.pembelianPresenter.masukKeranjang(Di.pembelianPresenter.produkModel, qty);
             populateTableKeranjang();
             populateTableProduct();
-            
+
             calculateTotalKeranjang();
         } catch (Exception e) {
             showMessageDialog(this, "Error: " + e.getMessage());
@@ -516,7 +541,7 @@ public class MenuCreatePembelian extends javax.swing.JPanel {
             Di.pembelianPresenter.keluarItemKeranjang(Di.pembelianPresenter.keranjangModel.getProduk().getIdProduct(), qty);
             populateTableKeranjang();
             populateTableProduct();
-           
+
             calculateTotalKeranjang();
         } catch (Exception e) {
             showMessageDialog(this, "Error: " + e.getMessage());
@@ -540,7 +565,7 @@ public class MenuCreatePembelian extends javax.swing.JPanel {
 
     private void bSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSubmitActionPerformed
         // TODO add your handling code here:
-        if(Di.pembelianPresenter.keranjang.isEmpty()){
+        if (Di.pembelianPresenter.keranjang.isEmpty()) {
             showMessageDialog(null, "Keranjang Kosong");
             return;
         }
@@ -548,7 +573,7 @@ public class MenuCreatePembelian extends javax.swing.JPanel {
         if (dialogResult == JOptionPane.YES_OPTION) {
             // Saving code here
 
-            Di.pembelianPresenter.submitPembelian(idEmployee);
+            Di.pembelianPresenter.submitPembelian(idEmployee, idWarehouse);
 //                    customerId,
 //                  idPembelian,
 //                    Di.pembelianPresenter.keranjang,
@@ -556,18 +581,24 @@ public class MenuCreatePembelian extends javax.swing.JPanel {
 //                    Statics.SHIPMENT_STATUS_PENDING,
 //                    idWarehouse
 //           );
-           if (Di.pembelianPresenter.statusSubmitPembelian > 0) {
+            if (Di.pembelianPresenter.statusSubmitPembelian > 0) {
                 showMessageDialog(null, "Submit Berhasil !");
                 Di.pembelianPresenter.resetStatusPembelian();
-               Di.pembelianPresenter.resetClearKeranjang();
+//                showMessageDialog(null, "reset status Berhasil");
+                Di.pembelianPresenter.resetClearKeranjang();
+//                showMessageDialog(null, "reset keranjang Berhasil");
                 populateTablePembelian();
+//                showMessageDialog(null, " tabel beli Berhasil");
                 populateTableProduct();
+//                showMessageDialog(null, " tabel produk Berhasil");
                 populateTableKeranjang();
-               resetFields();
+//                showMessageDialog(null, " tabel keranjang Berhasil");
+                resetFields();
+//                showMessageDialog(null, " reset fiekd Berhasil");
                 return;
             }
             showMessageDialog(null, "Terjadi Error");
-        }                                      
+        }
     }//GEN-LAST:event_bSubmitActionPerformed
 
     private void tDatapembelianMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tDatapembelianMouseClicked
@@ -589,7 +620,7 @@ public class MenuCreatePembelian extends javax.swing.JPanel {
                 cbStatusUpdate.getSelectedItem().toString()
         );
 
-        if(Di.pembelianPresenter.statusUpdatePembelian > 0){
+        if (Di.pembelianPresenter.statusUpdatePembelian > 0) {
             showMessageDialog(null, "Update Berhasil !");
             populateTablePembelian();
             Di.pembelianPresenter.resetStatusPembelian();
@@ -604,14 +635,28 @@ public class MenuCreatePembelian extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_tfTanggalUpdateActionPerformed
 
+    private void btnCleanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCleanActionPerformed
+        // confirmation dialog
+        int dialogResult = JOptionPane.showConfirmDialog(null, "Ini akan menghapus semua item di keranjang", "Warning", JOptionPane.YES_NO_OPTION);
+        if (dialogResult == JOptionPane.NO_OPTION) {
+            return;
+        }
+        Di.pembelianPresenter.resetClearKeranjang();
+        populateTableKeranjang();
+        populateTableProduct();
+        calculateTotalKeranjang();
+        resetFields();
+        Di.pembelianPresenter.resetStatusPembelian();// TODO add your handling code here:
+    }//GEN-LAST:event_btnCleanActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bSubmit;
     private javax.swing.JButton bUpdate;
     private javax.swing.JButton btnAddToKeranjang;
+    private javax.swing.JButton btnClean;
     private javax.swing.JButton btnRemoveFromKeranjang;
     private javax.swing.JComboBox<String> cbStatusUpdate;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
