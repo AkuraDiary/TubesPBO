@@ -8,6 +8,7 @@ import com.bibd.tubespbo.data.DbConnection;
 import com.bibd.tubespbo.data.model.KeranjangModel;
 import com.bibd.tubespbo.data.model.OrderDetailsModel;
 import com.bibd.tubespbo.data.model.PenjualanModel;
+import com.bibd.tubespbo.util.Parser;
 import com.bibd.tubespbo.util.Statics;
 
 import java.sql.ResultSet;
@@ -333,6 +334,27 @@ public class PenjualanDataSource {
 
         return db.executeStatement(querySubmit);
     }
+    
+    public int updateStockPaid(int idPenjualan, String statusShipment, String statusPayment, ArrayList<OrderDetailsModel> listProduk, int idWarehouse){
+        try{
+            
+           int resultStatus = updateStatusShipPay(idPenjualan, statusShipment, statusPayment);
+           
+           String lastUpdate = Parser.parseDateToStringSQL(new Date());
+                   
+           
+           int resultStock=0;
+           if(resultStatus > 0){
+               for(OrderDetailsModel item : listProduk){
+                   resultStock += queryStokProduct((int)item.getJumlah(), lastUpdate, (int)item.getIdProduct(), idWarehouse);
+               }
+           }
+            return resultStock;
+        }catch(Exception e){
+          System.out.println(e.getLocalizedMessage());
+            return -1;   
+        }
+    }
 
     public int doCheckout(int customerId, int employeeId, ArrayList<KeranjangModel> keranjang, String statusPayment,
             String typeOrder, String waktu, String statusShip, int idWarehouse) {
@@ -346,10 +368,14 @@ public class PenjualanDataSource {
                 queryOrderDetails(i);
             }
 
+            
             queryOrderPenjualan(statusShip, waktu, customerId, statusPayment);
 
+            //if status = paid ini di panggil
+            if(statusPayment.equals(Statics.ORDER_PAYMENT_STATUS_PAID)){
             for (KeranjangModel i : keranjang) {
                 queryStokProduct(i.getQuantity(), waktu, i.getProduk().getIdProduct(), idWarehouse);
+            }
             }
 
 //            queryStokProduct(keranjang, waktu, employeeId, employeeId);

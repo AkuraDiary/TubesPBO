@@ -5,6 +5,7 @@
 package com.bibd.tubespbo.domain.sales;
 
 import com.bibd.tubespbo.data.model.KeranjangModel;
+import com.bibd.tubespbo.data.model.OrderDetailsModel;
 import com.bibd.tubespbo.data.model.PenjualanModel;
 import com.bibd.tubespbo.data.model.ProductModel;
 import com.bibd.tubespbo.data.repository.PenjualanRepository;
@@ -94,9 +95,12 @@ public class PenjualanPresenter {
         this.allproduct = productRepository.getAllProductWarehouse(idWarehouse);
 
         // filter empty product
-        // remove product in allproduct if quantityInStock == 0
+        // remove product in allproduct if quantityInStock <= 0
         for (int i = 0; i < allproduct.size(); i++) {
-            if (allproduct.get(i).getQuantityInStock() == 0) {
+            if (allproduct.get(i).getQuantityInStock() <= 0) {
+                
+                //TODO Lanjut seta
+                System.out.println("get All Product Wh   " + allproduct.get(i).getProductName());
                 allproduct.remove(i);
             }
         }
@@ -148,6 +152,7 @@ public class PenjualanPresenter {
     public int statusUpdatePayment=0;
     
     public PenjualanModel selectedPenjualan;
+    public ArrayList<OrderDetailsModel> selectedPenjualanDetail;
     
     public void setSelectedPenjualan(int idPenjualan) {
         PenjualanModel penjualanModel = history.stream()
@@ -156,6 +161,7 @@ public class PenjualanPresenter {
                 .orElse(null);
         if (penjualanModel != null) {
             this.selectedPenjualan = penjualanModel;
+            selectedPenjualanDetail = penjualanRepository.getDetilPenjualan(selectedPenjualan.getIdorder());
         }
     }
 
@@ -164,7 +170,11 @@ public class PenjualanPresenter {
         String statusShipment = Statics.SHIPMENT_STATUS_PENDING;
         if (statusPayment.equals(Statics.ORDER_PAYMENT_STATUS_PAID)) {
                 statusShipment = Statics.SHIPMENT_STATUS_SHIPPED;
+                // edit stock product
+                statusUpdatePayment = penjualanRepository.updateStockPaid(idPenjualan, statusShipment, statusPayment, selectedPenjualanDetail, selectedPenjualan.getIdorder());
+                return;
         }
+        
         statusUpdatePayment = penjualanRepository.updateStatusShipmentPayment(idPenjualan, statusShipment, statusPayment);
 
     }

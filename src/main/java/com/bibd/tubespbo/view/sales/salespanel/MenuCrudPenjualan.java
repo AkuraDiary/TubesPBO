@@ -825,6 +825,10 @@ public class MenuCrudPenjualan extends javax.swing.JPanel {
         tfTotalPenjualanUpdate.setText(Formatter.formatRupiah(pm.getTotalBiaya()));
         cbPaymentUpdate.setSelectedItem(pm.getStatusPayment());
         
+        if(!pm.getStatusPayment().equals(Statics.ORDER_PAYMENT_STATUS_UNPAID)){
+            cbPaymentUpdate.setEnabled(false);
+        }
+        
     }//GEN-LAST:event_tOrderpenjualanMouseClicked
 
     private void bUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bUpdateActionPerformed

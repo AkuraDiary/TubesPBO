@@ -57,5 +57,14 @@ public class PenjualanRepository {
             return -1;
         }
     }
+    
+    public int updateStockPaid(int idPenjualan, String statusShipment, String statusPayment, ArrayList<OrderDetailsModel> listProduk, int idWarehouse){
+        try {
+            return penjualanDataSource.updateStockPaid(idPenjualan, statusShipment, statusPayment, listProduk, idWarehouse);
+        } catch (Exception e) {
+            System.out.println("Penjualan Repo " + e.getLocalizedMessage());
+            return -1;
+        }
+    }
 
 }
