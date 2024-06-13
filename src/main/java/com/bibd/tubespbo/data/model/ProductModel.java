@@ -49,7 +49,7 @@ public class ProductModel {
     
 
     public Date getLastUpdate() {
-        return lastUpdate;
+        return this.lastUpdate;
     }
 
     public void setLastUpdate(Date lastUpdate) {

@@ -522,7 +522,7 @@ public class MenuCrudProduct extends javax.swing.JPanel {
                 String.valueOf(product.getQuantityInStock()),
                 String.valueOf(product.getSellPrice()),
                 String.valueOf(product.getBuyPrice()),
-                product.getLastUpdate().toString(),
+                String.valueOf(product.getLastUpdate()),//.toString(),
                 product.getWarehouseName()
             };
             tableProductModel.addRow(row);

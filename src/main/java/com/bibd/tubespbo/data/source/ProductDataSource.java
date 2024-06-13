@@ -70,6 +70,7 @@ public class ProductDataSource {
                 product.setCategoryId(categoryId);
                 product.setProdusenId(produsenId);
                 
+                
                 //new
                 product.setCategoryName(categoryName);
                 product.setProdusenName(produsenName);
