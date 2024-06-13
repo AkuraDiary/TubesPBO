@@ -166,7 +166,7 @@ public class MenuCreatePembelian extends javax.swing.JPanel {
                 String.valueOf(productModel.getIdProduct()),
                 productModel.getProductName(),
                 String.valueOf(productModel.getBuyPrice()),
-                String.valueOf(productModel.getQuantityInStock())
+//                String.valueOf(productModel.getQuantityInStock())
             };
             tableProductModel.addRow(row);
         }//showMessageDialog(null, " tes tab produj");
@@ -177,14 +177,14 @@ public class MenuCreatePembelian extends javax.swing.JPanel {
         tableProductModel.addColumn("Id produk");
         tableProductModel.addColumn("Nama");
         tableProductModel.addColumn("Harga");
-        tableProductModel.addColumn("Stok");
+//        tableProductModel.addColumn("Stok");
         tblAllProduk.getTableHeader().setReorderingAllowed(false);
         tblAllProduk.setRowSorter(tableProductSorter);
 
         tableProductSorter.setSortable(0, false);
         tableProductSorter.setSortable(1, false);
         tableProductSorter.setSortable(2, false);
-        tableProductSorter.setSortable(3, false);
+//        tableProductSorter.setSortable(3, false);
     }
 
     private void setupTableKeranjang() {
@@ -206,6 +206,13 @@ public class MenuCreatePembelian extends javax.swing.JPanel {
         cbStatusUpdate.setSelectedIndex(0);
         tfQtyItem.setText("1");
         calculateTotalKeranjang();
+    }
+    
+    private void resetFieldsUpdate(){
+        cbStatusUpdate.setSelectedIndex(0);
+        tfIdpembelian.setText("");
+        tfTanggalUpdate.setText("");
+
     }
 
     long totalKeranjang = 0;
@@ -612,6 +619,7 @@ public class MenuCreatePembelian extends javax.swing.JPanel {
             Di.pembelianPresenter.resetStatusPembelian();
             populateTableKeranjang();
             resetFields();
+            resetFieldsUpdate();
             return;
         }
         showMessageDialog(null, "Terjadi Error");

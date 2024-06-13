@@ -249,7 +249,7 @@ public class PembelianDataSource {
                     + "    p.produsenId,\n"
                     + "    c.category, \n"
                     + "    prod.name, \n"
-                    + "    ps.totalStock, \n"
+//                    + "    ps.totalStock, \n"
                     + "    ps.lastUpdate, \n"
                     + "    w.address\n"
                     + "FROM \n"
@@ -282,7 +282,7 @@ public class PembelianDataSource {
 
                 String categoryName = rs.getString("category");
                 String produsenName = rs.getString("name");
-                int totalstok = rs.getInt("totalStock");
+//                int totalstok = rs.getInt("totalStock");
                 Date lastUpdateProduct = rs.getDate("lastUpdate");
                 String warehouseAlamat = rs.getString("address");
 
@@ -299,7 +299,8 @@ public class PembelianDataSource {
                 //new
                 product.setCategoryName(categoryName);
                 product.setProdusenName(produsenName);
-                product.setQuantityInStock(totalstok);
+//                product.setQuantityInStock(totalstok);
+//                product.setQuantityInStock();
                 product.setLastUpdate(lastUpdateProduct);
                 product.setWarehouseName(warehouseAlamat);
 
