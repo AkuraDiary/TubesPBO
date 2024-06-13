@@ -27,8 +27,8 @@ public class LoginView extends javax.swing.JFrame {
         initComponents();
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         
-        tfEmail.setText("fina@gmail.com");
-        tfPassword.setText("fina555444");
+//        tfEmail.setText("fina@gmail.com");
+//        tfPassword.setText("fina555444");
     }
 
     /**
