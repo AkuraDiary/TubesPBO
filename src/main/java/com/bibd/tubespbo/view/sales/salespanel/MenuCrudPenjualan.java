@@ -704,6 +704,10 @@ public class MenuCrudPenjualan extends javax.swing.JPanel {
         try {
             int qty = Integer.parseInt(tfQtyItem.getText());
             Di.penjualanPresenter.masukKeranjang(Di.penjualanPresenter.produkModel, qty);
+            if(!Di.penjualanPresenter.stockAvailable){
+                showMessageDialog(this, "Stock tidak mencukupi");
+                return;
+            }
             populateTableKeranjang();
             populateTableProduct();
 

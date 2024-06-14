@@ -39,16 +39,26 @@ public class PenjualanPresenter {
         history = penjualanRepository.getHistoryPenjualan(idWarehouse, idEmployee);
     }
 
+    public boolean stockAvailable = true;
     public void masukKeranjang(ProductModel produk, int quantity) {
-        
-
         //cek duplikasi
+        stockAvailable = true;
         for (int i = 0; i < keranjang.size(); i++) {
             int currentItem = keranjang.get(i).getProduk().getIdProduct();
             
             if (currentItem == produk.getIdProduct()) {
+                // cek stok produk, 
+                // jika stok produk kurang dari quantity yang diinginkan
+                // maka tidak bisa masuk keranjang
+
                 int sebelum = keranjang.get(i).getQuantity();
-                keranjang.get(i).setQuantity(quantity + sebelum);
+                int stockSesudah = produk.getQuantityInStock() + sebelum;
+                if(stockSesudah < quantity){
+                    stockAvailable = false;
+                    return;
+                }
+                keranjang.get(i).setQuantity(stockSesudah);
+
                 return; //agar langsung keluar dari function
             }
             
