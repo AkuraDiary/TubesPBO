@@ -158,7 +158,7 @@ public class PenjualanDataSource {
 
     public ArrayList<PenjualanModel> getHistoryPenjualanByWarehouse(int idWareHouse) {
         ArrayList<PenjualanModel> pm = new ArrayList<>();
-        // TODO @Rapid Bug Query
+        // TODO @Rapid Bug Query id order always 1g
         try {
             db.openConnection();
             String query = "SELECT  op.idPenjualan, \n"

@@ -24,7 +24,7 @@ public class WarehouseDataSource {
         this.db = conn;
     }
 
-    //TODO RAPID
+    //DONE RAPID
     public ArrayList<WarehouseModel> getAllWarehouse() {
         try {
             ArrayList<WarehouseModel> dataResult = new ArrayList<>();
