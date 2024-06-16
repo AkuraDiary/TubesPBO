@@ -362,7 +362,7 @@ public class MenuApprovePembelian extends javax.swing.JPanel {
             // show all the data in one label, separated by new line
             textAreaDetailPemb.setText(
 //                    "("+itemDetail.getIdProduct()+") - "+
-                            textAreaDetailPemb.getText() + itemDetail.getProductName() + " - " +  itemDetail.getJumlah()+ " - " +itemDetail.getTotalPrice() + "\n"
+                            textAreaDetailPemb.getText() + itemDetail.getProductName() + " - " +  itemDetail.getQuantity()+ " - " +itemDetail.getTotalPrice() + "\n"
             );
         }
         

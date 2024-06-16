@@ -9,7 +9,8 @@ package com.bibd.tubespbo.data.model;
  * @author rafid
  */
 public class OrderDetailsModel {
-    private long idOrderDetails, unitPrice, jumlah, totalPrice, idProduct;
+    private int idOrderDetails, quantity, idProduct;
+    private long unitPrice, totalPrice;
     private ProductModel productModel ;
     private String productName ;
 
@@ -22,16 +23,16 @@ public class OrderDetailsModel {
     }
 
     public OrderDetailsModel(
-            int id, long unitPrice, 
+            int id, long unitPrice,
             int quantity, long subTotalPrice, 
-            int idProduct, String productName, 
-            String description, long buyPrice, 
+            int idProduct, String productName,
+            String description, long buyPrice,
             long sellPrice, int categoryId, 
             int produsenId) {
         this.idOrderDetails = id;
         this.productName = productName;
         this.totalPrice = subTotalPrice;
-        this.jumlah = quantity;
+        this.quantity = quantity;
                 
         this.productModel = new ProductModel();
         this.idProduct = idProduct;
@@ -60,12 +61,12 @@ public class OrderDetailsModel {
         this.unitPrice = unitPrice;
     }
 
-    public long getJumlah() {
-        return jumlah;
+    public long getQuantity() {
+        return quantity;
     }
 
-    public void setJumlah(int jumlah) {
-        this.jumlah = jumlah;
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     public long getTotalPrice() {

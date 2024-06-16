@@ -7,7 +7,6 @@ package com.bibd.tubespbo.view.supervisor.supervisorpanels;
 import com.bibd.tubespbo.Di;
 import com.bibd.tubespbo.data.model.OrderDetailsModel;
 import com.bibd.tubespbo.data.model.PenjualanModel;
-import com.bibd.tubespbo.data.model.PenjualanModel;
 import com.bibd.tubespbo.util.Formatter;
 
 import javax.swing.table.DefaultTableModel;
@@ -334,7 +333,7 @@ public class MenuPantauPenjualan extends javax.swing.JPanel {
             String[] row = {
                 odm.getProductName(),
                 String.valueOf(odm.getUnitPrice()),
-                String.valueOf(odm.getJumlah())
+                String.valueOf(odm.getQuantity())
 
             };
             tableDetilPenjualanModel.addRow(row);

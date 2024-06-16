@@ -643,7 +643,7 @@ public class MenuCreatePembelian extends javax.swing.JPanel {
             // product name, price, and qty
             // show all the data in one label, separated by new line
             textAreaDetailPemb.setText(
-                    textAreaDetailPemb.getText() + itemDetail.getProductName() + " - " +  itemDetail.getJumlah()+ " - " +itemDetail.getTotalPrice() + "\n"
+                    textAreaDetailPemb.getText() + itemDetail.getProductName() + " - " +  itemDetail.getQuantity()+ " - " +itemDetail.getTotalPrice() + "\n"
             );
         }
     }//GEN-LAST:event_tDatapembelianMouseClicked

@@ -28,6 +28,7 @@ public class PenjualanPresenter {
     public ArrayList<KeranjangModel> keranjang = new ArrayList<>();
     public ArrayList<PenjualanModel> history = new ArrayList<>();
     public ArrayList<ProductModel> allproduct = new ArrayList<>();
+    public ArrayList<OrderDetailsModel> allItemInHistoryPenjualan = new ArrayList<>();
 
     public PenjualanPresenter(PenjualanRepository penjualanRepository, ProductRepository productRepository) {
         this.penjualanRepository = penjualanRepository;
@@ -39,6 +40,15 @@ public class PenjualanPresenter {
     }
 
     public boolean stockAvailable = true;
+
+    private void getAllItemInHistoryPenjualan(String paymentStatus) {
+        allItemInHistoryPenjualan.clear();
+        for (PenjualanModel penjualanModel : history) {
+            if (penjualanModel.getStatusPayment().equals(paymentStatus)) {
+                allItemInHistoryPenjualan.addAll(penjualanRepository.getDetilPenjualan(penjualanModel.getIdorder()));
+            }
+        }
+    }
 
     public void masukKeranjang(ProductModel produk, int quantity) {
         //cek duplikasi
@@ -98,14 +108,26 @@ public class PenjualanPresenter {
     public void getAllProductWarehouse(int idWarehouse) {
         this.allproduct = productRepository.getAllProductWarehouse(idWarehouse);
 
+        // filter the quantity from pordered product
+        for (OrderDetailsModel item : allItemInHistoryPenjualan) {
+            ProductModel productModel = allproduct.stream()
+                    .filter(product -> product.getIdProduct() == item.getIdProduct())
+                    .findFirst()
+                    .orElse(null);
+            if (productModel != null) {
+                int stock = productModel.getQuantityInStock();
+                int quantity = Math.toIntExact(item.getQuantity());
+                productModel.setQuantityInStock(stock - quantity);
+            }
+
+        }
+
 
         // filter empty product
         // remove product in allproduct if quantityInStock <= 0
         for (int i = 0; i < allproduct.size(); i++) {
             System.out.println("get All Product Wh   " + allproduct.get(i).getProductName() + " " + allproduct.get(i).getQuantityInStock());
             if (allproduct.get(i).getQuantityInStock() <= 0) {
-
-                //TODO Lanjut seta
                 allproduct.remove(i);
             }
         }
@@ -126,13 +148,15 @@ public class PenjualanPresenter {
             System.out.println("Quantity in Keranjang : " + quantityInKeranjang);
             if (productModel != null && productModel.getIdProduct() == productInKeranjang.getProduk().getIdProduct()) {
                 int stock = productModel.getQuantityInStock();
-                int perubahan = Math.abs(quantityInKeranjang-stock);
-                
+                int perubahan = Math.abs(quantityInKeranjang - stock);
+
                 System.out.println("stock : " + stock);
                 System.out.println("perubahan: " + perubahan);
                 productModel.setQuantityInStock(perubahan);
             }
         }
+
+
     }
 
     public int statusCheckout = 0;

@@ -351,7 +351,7 @@ public class PenjualanDataSource {
            int resultStock=0;
            if(resultStatus > 0){
                for(OrderDetailsModel item : listProduk){
-                   resultStock += queryStokProduct((int)item.getJumlah(), lastUpdate, (int)item.getIdProduct(), idWarehouse);
+                   resultStock += queryStokProduct((int)item.getQuantity(), lastUpdate, (int)item.getIdProduct(), idWarehouse);
                }
            }
             return resultStock;
