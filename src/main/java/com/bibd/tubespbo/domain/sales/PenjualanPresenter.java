@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.Date;
 
 /**
- *
  * @author asthiseta
  */
 //Rapid D.
@@ -40,42 +39,37 @@ public class PenjualanPresenter {
     }
 
     public boolean stockAvailable = true;
+
     public void masukKeranjang(ProductModel produk, int quantity) {
         //cek duplikasi
         stockAvailable = true;
+
+        // cek stok produk, 
+        // jika stok produk kurang dari quantity yang diinginkan
+        // maka tidak bisa masuk keranjang
+        int sebelum = produk.getQuantityInStock();
+        int stockSesudah = produk.getQuantityInStock() + sebelum;
+
+        if (stockSesudah < quantity || sebelum < quantity) {
+            System.out.println("stock is available : " + stockAvailable);
+            stockAvailable = false;
+            return;
+        }
+
         for (int i = 0; i < keranjang.size(); i++) {
             int currentItem = keranjang.get(i).getProduk().getIdProduct();
-            
+
             if (currentItem == produk.getIdProduct()) {
-                // cek stok produk, 
-                // jika stok produk kurang dari quantity yang diinginkan
-                // maka tidak bisa masuk keranjang
-
-                int sebelum = keranjang.get(i).getQuantity();
-                int stockSesudah = produk.getQuantityInStock() + sebelum;
-                if(stockSesudah < quantity){
-                    stockAvailable = false;
-                    return;
-                }
                 keranjang.get(i).setQuantity(stockSesudah);
-
                 return; //agar langsung keluar dari function
             }
-            
+
         }
 
         KeranjangModel newItem = new KeranjangModel();
         newItem.setProduk(produk);
         newItem.setQuantity(quantity);
 
-        // find product in allproduct
-        // minus stock product by quantity
-        for (ProductModel productModel : allproduct) {
-            if (productModel.getIdProduct() == produk.getIdProduct()) {
-                int stock = productModel.getQuantityInStock();
-                productModel.setQuantityInStock(stock - quantity);
-            }
-        }
         keranjang.add(newItem);
     }
 
@@ -104,14 +98,39 @@ public class PenjualanPresenter {
     public void getAllProductWarehouse(int idWarehouse) {
         this.allproduct = productRepository.getAllProductWarehouse(idWarehouse);
 
+
         // filter empty product
         // remove product in allproduct if quantityInStock <= 0
         for (int i = 0; i < allproduct.size(); i++) {
-             System.out.println("get All Product Wh   " + allproduct.get(i).getProductName() + " " + allproduct.get(i).getQuantityInStock());
+            System.out.println("get All Product Wh   " + allproduct.get(i).getProductName() + " " + allproduct.get(i).getQuantityInStock());
             if (allproduct.get(i).getQuantityInStock() <= 0) {
-                
+
                 //TODO Lanjut seta
                 allproduct.remove(i);
+            }
+        }
+
+
+        // find product in allproduct
+        // minus stock product in keranjang by quantity
+        for (int i = 0; i < keranjang.size(); i++) {
+            int index = i;
+            // find only produk in keranjang that available in allproduct
+            KeranjangModel productInKeranjang = keranjang.get(index);
+            ProductModel productModel = allproduct.stream()
+                    .filter(item -> item.getIdProduct() == productInKeranjang.getProduk().getIdProduct())
+                    .findFirst()
+                    .orElse(null);
+            int quantityInKeranjang = productInKeranjang.getQuantity();
+
+            System.out.println("Quantity in Keranjang : " + quantityInKeranjang);
+            if (productModel != null && productModel.getIdProduct() == productInKeranjang.getProduk().getIdProduct()) {
+                int stock = productModel.getQuantityInStock();
+                int perubahan = Math.abs(quantityInKeranjang-stock);
+                
+                System.out.println("stock : " + stock);
+                System.out.println("perubahan: " + perubahan);
+                productModel.setQuantityInStock(perubahan);
             }
         }
     }
@@ -119,26 +138,27 @@ public class PenjualanPresenter {
     public int statusCheckout = 0;
 
     public void checkOut(int customerId, int employeeId, ArrayList<KeranjangModel> keranjang, String statusPayment,
-             String statusShip, int idWarehouse) {
+                         String statusShip, int idWarehouse) {
         Date waktu = new Date();
 
         // make sure date format is correct
         // yyyy-MM-dd
 //        waktu = java.sql.Timestamp.valueOf(LocalDateTime.now());
-
         String typeOrder = Statics.ORDER_TYPE_PENJUALAN;
         statusCheckout = penjualanRepository.doCheckOut(
                 employeeId, customerId, statusPayment, Parser.parseDateToStringSQL(waktu), typeOrder,
                 keranjang, statusShip, idWarehouse
         );
     }
-    public void resetCheckout(){
+
+    public void resetCheckout() {
         keranjang.clear();
-        statusCheckout=0;
+        statusCheckout = 0;
     }
-    
+
     public KeranjangModel keranjangModel;
     public ProductModel produkModel;
+
     public void setSelectedAllProduct(int idProduk) {
         produkModel = allproduct.stream()
                 .filter(item -> item.getIdProduct() == idProduk)
@@ -153,17 +173,17 @@ public class PenjualanPresenter {
                 .orElse(null);
     }
 
-    public void resetClearKeranjang(){
+    public void resetClearKeranjang() {
         keranjang.clear();
         produkModel = null;
         keranjangModel = null;
     }
 
-    public int statusUpdatePayment=0;
-    
+    public int statusUpdatePayment = 0;
+
     public PenjualanModel selectedPenjualan;
     public ArrayList<OrderDetailsModel> selectedPenjualanDetail = new ArrayList<>();
-    
+
     public void setSelectedPenjualan(int idPenjualan) {
         PenjualanModel penjualanModel = history.stream()
                 .filter(item -> item.getIdPenjualan() == idPenjualan)
@@ -171,27 +191,27 @@ public class PenjualanPresenter {
                 .orElse(null);
         if (penjualanModel != null) {
             this.selectedPenjualan = penjualanModel;
-            System.out.println("Selected penjualan id Order"  + selectedPenjualan.getIdorder());
+            System.out.println("Selected penjualan id Order" + selectedPenjualan.getIdorder());
             selectedPenjualanDetail = penjualanRepository.getDetilPenjualan(selectedPenjualan.getIdorder());
         }
     }
 
-    public void updatePayment(int idPenjualan, String statusPayment){
+    public void updatePayment(int idPenjualan, String statusPayment) {
         // if status is paid, set status shipment to shipped
         String statusShipment = Statics.SHIPMENT_STATUS_PENDING;
         if (statusPayment.equals(Statics.ORDER_PAYMENT_STATUS_PAID)) {
-                statusShipment = Statics.SHIPMENT_STATUS_SHIPPED;
-                // edit stock product
-                statusUpdatePayment = penjualanRepository.updateStockPaid(idPenjualan, statusShipment, statusPayment, selectedPenjualanDetail, selectedPenjualan.getIdorder());
-                return;
+            statusShipment = Statics.SHIPMENT_STATUS_SHIPPED;
+            // edit stock product
+            statusUpdatePayment = penjualanRepository.updateStockPaid(idPenjualan, statusShipment, statusPayment, selectedPenjualanDetail, selectedPenjualan.getIdorder());
+            return;
         }
-        
+
         statusUpdatePayment = penjualanRepository.updateStatusShipmentPayment(idPenjualan, statusShipment, statusPayment);
 
     }
 
-    public void resetUpdatePayment(){
-        statusUpdatePayment=0;
-        selectedPenjualan=null;
+    public void resetUpdatePayment() {
+        statusUpdatePayment = 0;
+        selectedPenjualan = null;
     }
 }
