@@ -325,7 +325,7 @@ public class PenjualanDataSource {
             while (rs.next()) {
                 stoksebelum = rs.getInt("totalStock");
             }
-        } catch (Exception e) {
+            } catch (Exception e) {
             System.out.println(e.getLocalizedMessage());
             return 0;
         }

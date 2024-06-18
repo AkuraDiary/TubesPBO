@@ -880,14 +880,17 @@ public class MenuCrudPenjualan extends javax.swing.JPanel {
                 Integer.parseInt(tfIdPenjualan.getText()),
                 cbPaymentUpdate.getSelectedItem().toString()
         );
+        if (Di.penjualanPresenter.statusUpdatePayment > 0) {
 
-        showMessageDialog(null, "Update Berhasil !");
-        populateTablePenjualan();
-        Di.penjualanPresenter.resetUpdatePayment();
-        populateTableKeranjang();
-        populateTableProduct();
-        resetFields();
-        return;
+            showMessageDialog(null, "Update Berhasil !");
+            populateTablePenjualan();
+            Di.penjualanPresenter.resetUpdatePayment();
+            populateTableKeranjang();
+            populateTableProduct();
+            resetFields();
+            return;
+        }
+        showMessageDialog(null, "Terjadi Error");
 
     }//GEN-LAST:event_bUpdateActionPerformed
 
