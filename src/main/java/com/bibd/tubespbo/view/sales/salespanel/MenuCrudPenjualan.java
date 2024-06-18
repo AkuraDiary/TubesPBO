@@ -885,6 +885,7 @@ public class MenuCrudPenjualan extends javax.swing.JPanel {
         populateTablePenjualan();
         Di.penjualanPresenter.resetUpdatePayment();
         populateTableKeranjang();
+        populateTableProduct();
         resetFields();
         return;
 

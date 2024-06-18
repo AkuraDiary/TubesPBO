@@ -134,7 +134,8 @@ public class PenjualanPresenter {
 
 
         // find product in allproduct
-        // minus stock product in keranjang by quantity
+        // minus stock product in keranjang by quantity 
+
         for (int i = 0; i < keranjang.size(); i++) {
             int index = i;
             // find only produk in keranjang that available in allproduct
@@ -143,6 +144,7 @@ public class PenjualanPresenter {
                     .filter(item -> item.getIdProduct() == productInKeranjang.getProduk().getIdProduct())
                     .findFirst()
                     .orElse(null);
+
             int quantityInKeranjang = productInKeranjang.getQuantity();
 
             System.out.println("Quantity in Keranjang : " + quantityInKeranjang);
