@@ -349,8 +349,14 @@ public class PenjualanDataSource {
             String lastUpdate = Parser.parseDateToStringSQL(new Date());
 
             int resultStock = 0;
+            System.out.println("updateStockPaid");
+            System.out.println(resultStatus);
+
+            db.openConnection();
             if (resultStatus > 0) {
                 for (OrderDetailsModel item : listProduk) {
+                    System.out.println("updateStockPaid");
+                    System.out.println("updating item : " +item.getProductName());
                     resultStock += queryStokProduct((int) item.getQuantity(), lastUpdate, (int) item.getIdProduct(), idWarehouse);
                 }
             }
