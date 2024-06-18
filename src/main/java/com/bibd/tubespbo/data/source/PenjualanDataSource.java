@@ -124,7 +124,7 @@ public class PenjualanDataSource {
                 String shipmentStatus = rs.getString("shipmentStatus");
                 Date dateShipped = rs.getDate("dateShipped");
                 int orderId = rs.getInt("orderId");
-                
+
                 System.out.println("Penjualan Data Source IdOrder : " + orderId);
                 int customerId = rs.getInt("customerId");
                 String statusPayment = rs.getString("statuspayment");
@@ -161,7 +161,8 @@ public class PenjualanDataSource {
         // TODO @Rapid Bug Query id order always 1g
         try {
             db.openConnection();
-            String query = "SELECT  op.idPenjualan, \n"
+            String query = "SELECT \n"
+                    + "    op.idPenjualan, \n"
                     + "    op.shipmentStatus, \n"
                     + "    op.dateShipped, \n"
                     + "    op.orderId, \n"
@@ -175,7 +176,6 @@ public class PenjualanDataSource {
                     + "    e.nama AS \"nama_emp\", \n"
                     + "    wh.id AS \"warehouse_id\",\n"
                     + "    SUM(od.unitPrice * od.quantity) AS \"totalbiaya\"\n"
-                    //                    + "p.productName,p.sellPrice,od.quantity as \"jumlahOrder\"\n" // ga perlu kyknya pid
                     + "FROM \n"
                     + "    orderpenjualan op\n"
                     + "LEFT JOIN \n"
@@ -188,9 +188,10 @@ public class PenjualanDataSource {
                     + "    orderdetails od ON od.orderId = o.orderId\n"
                     + "LEFT JOIN \n"
                     + "    warehouse wh ON e.idWarehouse = wh.id\n"
-                    //                    + "LEFT join product p on p.idProduct = od.idProduct\n"
-                    + "GROUP BY op.orderId, op.idPenjualan\n"
-                    + "HAVING wh.id = " + idWareHouse;
+                    + "GROUP BY \n"
+                    + "    op.orderId, op.idPenjualan\n"
+                    + "HAVING \n"
+                    + "    wh.id = " + idWareHouse;
 
 //            System.out.println(query);
             ResultSet rs = db.getData(query);
@@ -320,7 +321,7 @@ public class PenjualanDataSource {
             ResultSet rs = db.getData(queryGetStok);
 
             System.out.println("query get stok");
-            System.out.println(queryGetStok);
+//            System.out.println(queryGetStok);
             while (rs.next()) {
                 stoksebelum = rs.getInt("totalStock");
             }
@@ -339,25 +340,24 @@ public class PenjualanDataSource {
 
         return db.executeStatement(querySubmit);
     }
-    
-    public int updateStockPaid(int idPenjualan, String statusShipment, String statusPayment, ArrayList<OrderDetailsModel> listProduk, int idWarehouse){
-        try{
-            
-           int resultStatus = updateStatusShipPay(idPenjualan, statusShipment, statusPayment);
-           
-           String lastUpdate = Parser.parseDateToStringSQL(new Date());
-                   
-           
-           int resultStock=0;
-           if(resultStatus > 0){
-               for(OrderDetailsModel item : listProduk){
-                   resultStock += queryStokProduct((int)item.getQuantity(), lastUpdate, (int)item.getIdProduct(), idWarehouse);
-               }
-           }
+
+    public int updateStockPaid(int idPenjualan, String statusShipment, String statusPayment, ArrayList<OrderDetailsModel> listProduk, int idWarehouse) {
+        try {
+
+            int resultStatus = updateStatusShipPay(idPenjualan, statusShipment, statusPayment);
+
+            String lastUpdate = Parser.parseDateToStringSQL(new Date());
+
+            int resultStock = 0;
+            if (resultStatus > 0) {
+                for (OrderDetailsModel item : listProduk) {
+                    resultStock += queryStokProduct((int) item.getQuantity(), lastUpdate, (int) item.getIdProduct(), idWarehouse);
+                }
+            }
             return resultStock;
-        }catch(Exception e){
-          System.out.println(e.getLocalizedMessage());
-            return -1;   
+        } catch (Exception e) {
+            System.out.println(e.getLocalizedMessage());
+            return -1;
         }
     }
 
@@ -373,14 +373,13 @@ public class PenjualanDataSource {
                 queryOrderDetails(i);
             }
 
-            
             queryOrderPenjualan(statusShip, waktu, customerId, statusPayment);
 
             //if status = paid ini di panggil
-            if(statusPayment.equals(Statics.ORDER_PAYMENT_STATUS_PAID)){
-            for (KeranjangModel i : keranjang) {
-                queryStokProduct(i.getQuantity(), waktu, i.getProduk().getIdProduct(), idWarehouse);
-            }
+            if (statusPayment.equals(Statics.ORDER_PAYMENT_STATUS_PAID)) {
+                for (KeranjangModel i : keranjang) {
+                    queryStokProduct(i.getQuantity(), waktu, i.getProduk().getIdProduct(), idWarehouse);
+                }
             }
 
 //            queryStokProduct(keranjang, waktu, employeeId, employeeId);
